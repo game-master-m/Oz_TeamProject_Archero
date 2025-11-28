@@ -2,12 +2,12 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!43 &4300000
 Mesh:
-  serializedVersion: 11
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mesh_BowWing_Original
+  serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -17,7 +17,7 @@ Mesh:
     firstVertex: 0
     vertexCount: 720
     localAABB:
-      m_Center: {x: 0, y: -0.04014619, z: 2.9802322E-08}
+      m_Center: {x: 0, y: -0.04014619, z: 0.000000029802322}
       m_Extent: {x: 0.07816236, y: 0.09554586, z: 0.29759994}
   - serializedVersion: 2
     firstByte: 4464
@@ -27,7 +27,7 @@ Mesh:
     firstVertex: 720
     vertexCount: 1114
     localAABB:
-      m_Center: {x: 1.8626451E-09, y: 0.037204795, z: 0}
+      m_Center: {x: 0.0000000018626451, y: 0.037204795, z: 0}
       m_Extent: {x: 0.059385173, y: 0.18379945, z: 0.7336965}
   - serializedVersion: 2
     firstByte: 12624
@@ -37,7 +37,7 @@ Mesh:
     firstVertex: 1834
     vertexCount: 368
     localAABB:
-      m_Center: {x: 5.9604645E-08, y: 0.08140236, z: -1.4901161E-08}
+      m_Center: {x: 0.000000059604645, y: 0.08140236, z: -0.000000014901161}
       m_Extent: {x: 0.44247937, y: 0.12179406, z: 0.14147207}
   m_Shapes:
     vertices: []
@@ -45,96 +45,96 @@ Mesh:
     channels: []
     fullWeights: []
   m_BindPose:
-  - e00: 2.048775E-07
+  - e00: 0.0000002048775
     e01: -0.27807337
     e02: 0.96055984
     e03: 0.22543246
-    e10: 3.2398432E-07
+    e10: 0.00000032398432
     e11: 0.96055984
     e12: 0.27807337
     e13: 0.13216409
     e20: 1
-    e21: -2.5423537E-07
-    e22: -2.868885E-07
-    e23: 3.6159327E-09
+    e21: -0.00000025423537
+    e22: -0.0000002868885
+    e23: 0.0000000036159327
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 2.094079E-07
+  - e00: 0.0000002094079
     e01: -0.803178
     e02: 0.59573936
     e03: 0.2995389
-    e10: 3.8188045E-07
+    e10: 0.00000038188045
     e11: 0.59573936
     e12: 0.803178
     e13: 0.39422163
     e20: 1
-    e21: -5.9309382E-08
-    e22: -4.314704E-07
-    e23: -3.5146908E-08
+    e21: -0.000000059309382
+    e22: -0.0000004314704
+    e23: -0.000000035146908
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 6.123234E-17
+  - e00: 6.123234e-17
     e01: 1
-    e02: -6.123234E-17
+    e02: -6.123234e-17
     e03: 0.047115713
-    e10: -6.626763E-07
-    e11: -6.1232296E-17
+    e10: -0.0000006626763
+    e11: -6.1232296e-17
     e12: -1
     e13: 0
     e20: -1
-    e21: 6.123238E-17
-    e22: 6.626763E-07
-    e23: 6.671422E-16
+    e21: 6.123238e-17
+    e22: 0.0000006626763
+    e23: 6.671422e-16
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -5.913659E-07
+  - e00: -0.0000005913659
     e01: -0.27807283
     e02: -0.96055996
     e03: 0.23263982
-    e10: 2.2393967E-07
+    e10: 0.00000022393967
     e11: 0.96055996
     e12: -0.27807283
     e13: 0.13461494
     e20: 1
-    e21: -3.795503E-07
-    e22: -5.057709E-07
-    e23: -5.137957E-08
+    e21: -0.0000003795503
+    e22: -0.0000005057709
+    e23: -0.00000005137957
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: -3.6346097E-07
+  - e00: -0.00000036346097
     e01: -0.80317765
     e02: -0.5957398
     e03: 0.30378816
-    e10: -1.8011063E-07
+    e10: -0.00000018011063
     e11: 0.5957398
     e12: -0.80317765
     e13: 0.40053797
     e20: 1
-    e21: -1.8462461E-07
-    e22: -3.611889E-07
-    e23: -9.1173696E-08
+    e21: -0.00000018462461
+    e22: -0.0000003611889
+    e23: -0.000000091173696
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  - e00: 6.123234E-17
+  - e00: 6.123234e-17
     e01: -1
-    e02: 6.123234E-17
+    e02: 6.123234e-17
     e03: 0.19330119
     e10: 1
-    e11: 6.123234E-17
-    e12: 6.123234E-17
-    e13: -6.8428294E-09
-    e20: -6.123234E-17
-    e21: 6.123234E-17
+    e11: 6.123234e-17
+    e12: 6.123234e-17
+    e13: -0.0000000068428294
+    e20: -6.123234e-17
+    e21: 6.123234e-17
     e22: 1
     e23: -0.02768755
     e30: 0
@@ -205,7 +205,7 @@ Mesh:
     e31: 0
     e32: 0
     e33: 1
-  m_BoneNameHashes: e55c83+62c926b1fca497174c93d8d58528254)6d0f9e05f43e44a453600e4-19bf13e4e2f23d5+8
+  m_BoneNameHashes: e55c83b62c926b1fca497174c93d8d5852825496d0f9e05f43e44a453600e4d19bf13e4e2f23d5b8
   m_RootBoneNameHash: 1953581514
   m_BonesAABB:
   - m_Min: {x: -0.33807373, y: -0.077572346, z: -0.058115676}
@@ -229,13 +229,13 @@ Mesh:
   - m_Min: {x: -0.36618105, y: -0.13037357, z: -0.0560501}
     m_Max: {x: 0.0013702922, y: 0.14126879, z: 0.062223047}
   m_VariableBoneCountWeights:
-    m_Data:
+    m_Data: 
   m_MeshCompression: 2
   m_IsReadable: 0
   m_KeepVertices: 0
   m_KeepIndices: 0
   m_IndexFormat: 0
-  m_IndexBuffer:
+  m_IndexBuffer: 
   m_VertexData:
     serializedVersion: 3
     m_VertexCount: 0
@@ -297,7 +297,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 0
-    _typelessdata:
+    _typelessdata: 
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 6606
@@ -321,7 +321,7 @@ Mesh:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data:
+      m_Data: 
       m_BitSize: 0
     m_Weights:
       m_NumItems: 2644
@@ -333,13 +333,13 @@ Mesh:
       m_BitSize: 1
     m_TangentSigns:
       m_NumItems: 0
-      m_Data:
+      m_Data: 
       m_BitSize: 0
     m_FloatColors:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data:
+      m_Data: 
       m_BitSize: 0
     m_BoneIndices:
       m_NumItems: 2644
@@ -351,12 +351,12 @@ Mesh:
       m_BitSize: 12
     m_UVInfo: 5
   m_LocalAABB:
-    m_Center: {x: 5.9604645E-08, y: 0.037204795, z: 0}
+    m_Center: {x: 0.000000059604645, y: 0.037204795, z: 0}
     m_Extent: {x: 0.44250175, y: 0.18382184, z: 0.73371893}
   m_MeshUsageFlags: 1
   m_CookingOptions: 30
-  m_BakedConvexCollisionMesh:
-  m_BakedTriangleCollisionMesh:
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
   m_MeshMetrics[0]: 0.38160676
   m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: -1
@@ -364,4 +364,4 @@ Mesh:
     serializedVersion: 2
     offset: 0
     size: 0
-    path:
+    path: 
