@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: wenli_00470_UV_2
+  m_Shader: {fileID: 4800000, guid: 9b5434e66cd277446b983f06d6e0ea65, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties:
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+      _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 6, y: 2}
+        m_Offset: {x: 0, y: 0}
+      _MaskTex:
+        m_Texture: {fileID: 2800000, guid: 021eb2c4fa452c9459b3a3aace1f1c71, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: {}
+    m_Floats:
+      _InvFade: 1
+      _ScrollTimeX: 0
+      _ScrollTimeY: -3
+    m_Colors:
+      _TintColor: {r: 0.2784314, g: 0.4117647, b: 1, a: 0.5019608}
+  m_BuildTextureStacks: []
