@@ -3,9 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private readonly string stageSceneName = "Stage_Temp";
-    private readonly string lobbySceneName = "Lobby_Temp";
-
     [Header("데이터 참조")]
 
     [Header("이벤트 구독")]
@@ -37,7 +34,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadStageScene()
     {
-        SceneManager.LoadScene(stageSceneName);
+        SceneManager.LoadScene(Define.Scene_Stage);
     }
     public void LoadLobbyScene()
     {

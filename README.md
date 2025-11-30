@@ -16,7 +16,7 @@
 
 - **Hit & Run:** 이동 시 공격 중지, 정지 시 자동 공격 (모바일 최적화 조작)
 - **Infinite Synergy:** 멀티샷 × 도탄 × 화염 등 전략적 스킬 조합
-- **Room Based:** RoomManager 중심의 방/웨이브/문 시스템
+- **Stage Based:** StageManager 중심의 방/웨이브/문 시스템
 - **Permanent Growth:** StatDataSO & LevelDataSO 기반 성장 구조
 
 ---
@@ -82,74 +82,103 @@ ScriptableObject(SO)의 데이터를 기반으로 실제 전략 객체 생성
 모든 인터페이스를 `PublicInterface.cs`에 통합 → 순환 의존성 제거
 
 ### Managers
-- **RoomManager:** 웨이브 관리  
+- **StageManager:** 웨이브 관리  
 - **GameManager:** 게임 흐름 제어  
 - **PoolManager:** 투사체 및 이펙트 최적화  
 
 ---
 
-# 📂 3. Project Structure (최종 아키텍처 v3.6)
+# 📂 3. Project Structure (아키텍처 v3.6)
 
 ```
 Assets/
 ├── 01_Scenes/
-│   ├── 0_Final/            # 최종 빌드용 씬
-│   ├── Lobby_Temp.unity    # 로비 테스트 씬
-│   ├── Stage_Temp.unity    # 인게임 테스트 씬
-│   └── (Dev_Folders)/      # 팀원별 개인 작업 폴더
+│   ├── 0_Final/            # 최종 빌드에 포함될 완성된 씬 폴더
+│   ├── Lobby_Temp.unity    # 로비 기능 테스트용 임시 씬
+│   ├── Stage_Temp.unity    # 인게임 전투 테스트용 임시 씬
+│   └── (Dev_Folders)/      # 팀원별 개인 샌드박스 폴더 (CBY, JJH...)
 │
 ├── 02_Scripts/
-│   ├── LivingEntity.cs     # [Core] 생명체 베이스 (HP, 사망 처리)
-│   │
 │   ├── 00_Public/
-│   │   ├── Managers/
-│   │   │   ├── GameManager.cs
-│   │   │   ├── PoolManager.cs  # [Pooling] 오브젝트 풀링
-│   │   │   ├── RoomManager.cs  # [Loop] 방/웨이브/문 관리
-│   │   │   └── Managers.cs     # 싱글톤 접근자
+│   │   ├── Core/               # [Foundation] 프로젝트의 핵심 뼈대 (모든 곳에서 참조 가능)
+│   │   │   ├── Defines.cs      # [Const] 태그, 레이어, 씬 이름, Enum 상수 정의
+│   │   │   ├── LivingEntity.cs # [Base] HP를 가지는 모든 생명체의 최상위 부모 클래스
+│   │   │   ├── ObjectPool.cs   # [Logic] 제네릭 기반 오브젝트 풀링 알고리즘
+│   │   │   ├── StateMachine.cs # [Logic] HFSM 상태 머신 베이스 클래스
+│   │   │   └── Utils.cs        # [Tool] 디버그 로그 및 헬퍼 함수 모음
 │   │   │
-│   │   ├── SO/
-│   │   │   ├── EventChannelSO/ # [Observer]
-│   │   │   ├── SkillDataSO/    # [Factory] 스킬 데이터
-│   │   │   ├── StatDataSO/     # [Data] 스탯 초기값 (Player/Enemy)
-│   │   │   ├── LevelDataSO/    # [Data] 경험치 테이블
-│   │   │   └── ItemDataSO/
+│   │   ├── Managers/           # [Singleton] 게임 전반을 관리하는 매니저들
+│   │   │   ├── GameManager.cs  # 게임 상태(전투, 일시정지, 종료) 관리
+│   │   │   ├── PoolManager.cs  # ObjectPool을 실제로 생성하고 관리하는 매니저
+│   │   │   ├── StageManager.cs  # 방 입장, 웨이브 스폰, 문 개방 로직 담당
+│   │   │   └── Managers.cs     # 다른 매니저들에 접근하기 위한 진입점 (EntryPoint)
 │   │   │
-│   │   ├── PublicEnums.cs      # [Enum] 열거형 통합
-│   │   ├── PublicInterface.cs  # [Interface] IDamageable, IStrategy 통합 (★)
-│   │   ├── StateMachine.cs     # [HFSM] 상태 머신 코어
-│   │   └── Utils.cs
-│   │
-│   ├── 01_Player/
-│   │   ├── PlayerController.cs # [Input] 이동 및 메인 컨트롤러
-│   │   ├── PlayerStat.cs       # [Data] StatDataSO 참조 및 런타임 스탯
-│   │   ├── PlayerLevel.cs      # [Data] LevelDataSO 참조 및 경험치 로직
-│   │   └── State/              # [HFSM] 플레이어 상태 (Idle, Move, Stop)
-│   │
-│   ├── 02_Enemy/
-│   │   ├── EnemyBase.cs        # [AI] NavMesh 및 적 공통
-│   │   ├── Enemys/             # 개별 적 구현 (Melee, Range, Boss)
-│   │   └── State/              # [HFSM] 적 상태
-│   │
-│   ├── 03_Skill/               # [Strategy] 스킬 전략 코어
-│   │   ├── Active/             # 투사체 및 발사형 스킬
-│   │   │   ├── Projectile.cs           # [Context] 투사체 본체
-│   │   │   └── Strategies/             # 구현체 (Ricochet, Multishot...)
+│   │   ├── SO/                 # [ScriptableObject] 데이터 클래스 정의 (설계도)
+│   │   │   ├── EventChannelSO/ # 옵저버 패턴용 이벤트 채널 정의
+│   │   │   ├── SkillDataSO/    # 스킬 속성 정의 및 전략 객체 생성(Factory) 로직
+│   │   │   ├── StatDataSO/     # 캐릭터/적의 기본 능력치 데이터 정의
+│   │   │   ├── LevelDataSO/    # 레벨별 요구 경험치 테이블 정의
+│   │   │   └── ItemDataSO/     # 아이템 드랍 및 속성 정의
 │   │   │
-│   │   └── Passive/            # 버프 및 자동형 스킬
-│   │       └── Strategies/             # 구현체 (StatBoost, RotatingShield...)
+│   │   └── PublicInterface.cs  # [Interface] IDamageable, IProjectileStrategy 등 인터페이스 통합 관리
 │   │
-│   └── 04_UI/
+│   ├── 01_Player/              # 플레이어 관련 로직
+│   │   ├── PlayerController.cs # 입력 처리(Input System) 및 이동(CharacterController)
+│   │   ├── PlayerStat.cs       # StatDataSO를 참조하여 런타임 능력치 관리
+│   │   ├── PlayerLevel.cs      # LevelDataSO를 참조하여 경험치 및 레벨업 관리
+│   │   └── State/              # 플레이어 상태 클래스 (Idle, Move, StopState)
+│   │
+│   ├── 02_Enemy/               # 적 AI 관련 로직
+│   │   ├── EnemyBase.cs        # NavMeshAgent 기반 적 공통 로직 (LivingEntity 상속)
+│   │   ├── Enemys/             # 개별 몬스터 구현 (근거리, 원거리, 보스)
+│   │   └── State/              # 적 FSM 상태 클래스
+│   │
+│   ├── 03_Skill/               # [Strategy Pattern] 스킬 시스템 코어
+│   │   ├── Active/             # 능동 스킬 (투사체 등)
+│   │   │   ├── Projectile.cs           # 전략을 수행하는 투사체 컨텍스트
+│   │   │   └── Strategies/             # 실제 구현체 (Ricochet, Multishot, Fire...)
+│   │   │
+│   │   └── Passive/            # 패시브 스킬 (버프, 소환 등)
+│   │       └── Strategies/             # 실제 구현체 (StatBoost, RotatingShield...)
+│   │
+│   └── 04_UI/                  # UI 스크립트
+│       ├── LobbyScene/         # 로비 전용 UI
+│       └── StageScene/         # 인게임 HUD, Pause, 결과창 UI
 │
-├── 03_Prefabs/
-│   ├── 01_SO/              # ScriptableObject 데이터 원본 저장소
-│   ├── 02_Managers/
-│   ├── 03_Player/
-│   ├── 04_Enemy/
-│   └── 05_Skill/
+├── 03_Prefabs/                 # 인게임에서 생성되는 실제 오브젝트 및 데이터 에셋
+│   ├── 01_SO/                  # [Data] ScriptableObject 실제 데이터 파일 (.asset)
+│   │   ├── EventChannel/       # 각종 이벤트 채널 에셋
+│   │   ├── SkillData/          # 스킬 설정값 (도탄_Lv1, 멀티샷_Lv1 등)
+│   │   ├── StatData/           # 스탯 테이블
+│   │   │   ├── Player/         # PlayerStatData.asset (기본 스탯)
+│   │   │   └── Enemy/          # EnemyStatData.asset (몬스터별 스탯)
+│   │   └── LevelData/          # LevelTable.asset (경험치 테이블)
+│   │
+│   ├── 02_Managers/            # DDOL 매니저 프리팹
+│   │   ├── GameManager.prefab
+│   │   └── PoolManager.prefab
+│   │
+│   ├── 03_Player/              # 플레이어 관련 프리팹
+│   │
+│   ├── 04_Enemy/               # 적 관련 프리팹
+│   │
+│   ├── 05_Skill/               # 스킬 관련 오브젝트 프리팹
+│   │   ├── Projectiles/        # 화살, 마법구 등 투사체
+│   │   └── Effects/            # 피격 이펙트, 폭발 이펙트 등
+│   │
+│   ├── 06_UI/                  # UI 프리팹(아래 예시)
+│   │   ├── HUD_Canvas.prefab   # 조이스틱, HP바, 경험치바
+│   │   ├── Popup_Pause.prefab
+│   │   ├── Popup_SkillSelect.prefab # 레벨업 시 뜰 스킬 선택창
+│   │   └── DamageText.prefab   # 데미지 플로팅 텍스트
+│   │
+│   └── 07_Environment/         # [New] 맵 구성 요소(아래 예시)
+│       ├── Map_Room_01.prefab
+│       ├── Prop_Obstacle.prefab
+│       └── Door_Gate.prefab
 │
-├── 04_Materials/
-└── 05_Animation/
+├── 04_Materials/               # 머티리얼 및 텍스처
+└── 05_Animation/               # 애니메이션 클립 및 컨트롤러
 ```
 
 ---
@@ -167,7 +196,7 @@ Assets/
 - SkillDataSO 팩토리 완성  
 - Projectile 전략 패턴 (도탄, 멀티샷 등)  
 - LevelUp UI + 경험치 시스템  
-- RoomManager로 웨이브/문 제어  
+- StageManager로 문 제어  
 - PoolManager로 최적화
 
 ## 🔴 3주차: Content & Polish (콘텐츠 및 마감)
@@ -180,18 +209,93 @@ Assets/
 
 # ⚠️ Conventions & Rules (개발 규칙)
 
-- `new MonoBehaviour()` 절대 사용 금지  
-- 인터페이스는 **00_Public/PublicInterface.cs**에만 작성  
-- 스탯/밸런스 숫자 하드코딩 금지 → 반드시 SO 참조  
-- **Physics 규칙**
-  - Player: CharacterController  
-  - Enemy: NavMeshAgent  
-  - Projectile: Rigidbody(Trigger)
+팀원 간의 코드 일관성과 원활한 협업을 위해 아래 규칙을 **반드시 준수**해 주세요.
+
+## 📜 1. Coding Standards (코딩 컨벤션)
+
+### 🔹 Naming & Syntax (명명 규칙)
+
+1. **Private 멤버 변수**: `m` + `PascalCase` (대문자로 시작)
+  - ✅ `private float mCurrentHp;`
+  - ❌ `private float currentHp;`/`private float _currentHp;`
+
+2. **Interface**: 이름 앞에 `I` 접두사 필수
+  - ✅ `IProjectileStrategy`, `IDamageable`
+
+3. **Enum**: 이름 앞에 `E` 접두사 필수
+  - ✅ `EEnemyState`, `ESkillType`
+
+### 🔹 Safety & Optimization (안전성 및 최적화)
+
+4. **String 리터럴 사용 금지**: 모든 문자열(Tag, Scene 등)은 무조건 `Defines.cs` 의 `const` 변수 사용
+  - ✅ `CompareTag(Define.Tag_Player)`
+  - ❌ `CompareTag("Player")`
+
+5. **Animator String 금지**: 애니메이션 파라미터는 반드시 `AnimHash` 클래스의 `int` 값만 사용
+  - ✅ animator.SetTrigger(AnimHash.Attack);
+  - ❌ animator.SetTrigger("Attack");    
+
+6. **LayerMask 인스펙터 참조 지양**: `Layers` 헬퍼 클래스 사용
+  - ✅ `int mask = Layers.GetMask(ELayerName.Enemy);`
+
+7. **이벤트 통신**
+  - 직접 참조가 명확하면 `C# Action/Event` 사용
+  - 결합도 낮추거나 1:N 방송이 필요하면 `EventChannelSO` 사용
+
+### 🔹 Unity Basic Rules (기본 규칙)
+
+- **`new MonoBehaviour()` 절대 금지** : `AddComponent` 또는 `Instantiate`만 사용
+- **인터페이스 위치** : 모든 인터페이스는 `00_Public/PublicInterface.cs`에서 통합 관리
+- **밸런스 데이터** : 스탯/데미지 수치 하드코딩 금지 → `StatDataSO` 등 **ScriptableObject 참조**
+- **Physics 컴포넌트 표준**
+	- Player : `CharacterController`
+	- Enemy : `NavMeshAgent`
+	- Projectile : `Rigidbody` (IsTrigger On, Use Gravity Off)
+
+## 🐙 2. Git & GitHub Workflow (협업 규칙)
+
+충돌 최소화를 위해 "순차적 머지(Sequential Merge)" 방식 사용
+
+### 🔹 Branch Strategy
+1. **`main` 브랜치 : 직접 커밋 금지 (Protected)**
+2. **작업 브랜치 :** 항상 `dev` → `feat/이니셜` 브랜치에서만 
+- (예: `feat/KYB`, `feat/JSH`)
+
+### 🔹 Commit & PR Process
+1. `dev` 브랜치로 체크아웃 및 `Pull` (최신화)
+2. 개인 브랜치 생성(`feat/이니셜`) 후 작업 진행
+3. 작업 완료 또는 정해진 시간 → `dev`로 **Pull Request(PR)** 작성
+4. ⛔ **작업 중지 :** PR을 올린 후에는 **머지가 완료될 때까지 작업을 멈추고 대기**합니다. (추가 커밋 금지)
+5. 머지 성공(Approved) 확인 후 :
+	- **소스트리/Git에서 기존 개인 브랜치 삭제.** (매우 중요: 충돌 방지)
+    - 다시 `dev` 체크아웃 -> `Pull` -> 새로운 `feat/이니셜` 생성 -> 작업 반복.
+
+### 🔹 Commit Message 규칙
+```csharp
+feat/이니셜 : 핵심 변경 사항 요약
+- 상세 내용 1
+- 상세 내용 2
+```
+- 예시: `feat/KYB : 플레이어 이동 및 점프 구현`
+
+
+### ⏰ 정기 PR 시간표 (Traffic Control)
+
+| 순서 | 팀원   | PR 마감 시간 | 비고                     |
+|------|--------|--------------|--------------------------|
+| 1    | 팀원 A | 18:30        | 가장 먼저 PR 후 머지 대기 |
+| 2    | 팀원 B | 19:00        | A 머지 완료 후 PR        |
+| 3    | 팀원 C | 19:30        | B 머지 완료 후 PR        |
+
+### 🚨 긴급 상황 (Merge Conflict)
+- 충돌 발생 시 팀장이 즉시 전체 공지
+- 뒷 순번은 공지 올 때까지 PR 대기
+
+### 💡 수시 PR
+- 다른 팀원과 연동되는 핵심 기능 완성 시 → 시간 무관 즉시 PR + 팀 채팅 공지
 
 ---
 
 # 👨‍💻 Contributors (Oz_Team24)
 **Role:** Unity Client Developer  
 **Engine:** Unity 2022.3 LTS
-
----
