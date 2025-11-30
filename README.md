@@ -211,76 +211,75 @@ Assets/
 
 팀원 간의 코드 일관성과 원활한 협업을 위해 아래 규칙을 **반드시 준수**해 주세요.
 
-## 1. Coding Standards (코딩 컨벤션)
+## 📜 1. Coding Standards (코딩 컨벤션)
 
-### Naming & Syntax (명명 규칙)
+### 🔹 Naming & Syntax (명명 규칙)
 
-- Private 멤버 변수: m + PascalCase (대문자로 시작)
-  private float mCurrentHp;           // Good
-  private float currentHp;            // Bad
-  private float _currentHp;           // Bad
+1. **Private 멤버 변수**: `m` + `PascalCase` (대문자로 시작)
+  - ✅ `private float mCurrentHp;`
+  - ❌ `private float currentHp;`/`private float _currentHp;`
 
-- Interface: 이름 앞에 I 접두사 필수
-  IProjectileStrategy, IDamageable
+2. **Interface**: 이름 앞에 `I` 접두사 필수
+  - ✅ `IProjectileStrategy`, `IDamageable`
 
-- Enum: 이름 앞에 E 접두사 필수
-  EEnemyState, ESkillType
+3. **Enum**: 이름 앞에 `E` 접두사 필수
+  - ✅ `EEnemyState`, `ESkillType`
 
-### Safety & Optimization (안전성 및 최적화)
+### 🔹 Safety & Optimization (안전성 및 최적화)
 
-- String 리터럴 사용 금지: Tag, Scene 등은 무조건 Defines.cs의 const 사용
-  CompareTag(Define.Tag_Player)      // Good
-  CompareTag("Player")               // Bad
+4. **String 리터럴 사용 금지**: 모든 문자열(Tag, Scene 등)은 무조건 `Defines.cs` 의 `const` 변수 사용
+  - ✅ `CompareTag(Define.Tag_Player)`
+  - ❌ `CompareTag("Player")`
 
-- Animator String 금지: AnimHash 클래스의 int 값만 사용
-  animator.SetTrigger(AnimHash.Attack);    // Good
-  animator.SetTrigger("Attack");           // Bad
+5. **Animator String 금지**: 애니메이션 파라미터는 반드시 `AnimHash` 클래스의 `int` 값만 사용
+  - ✅ animator.SetTrigger(AnimHash.Attack);
+  - ❌ animator.SetTrigger("Attack");    
 
-- LayerMask는 Layers 헬퍼 클래스 사용
-  int mask = Layers.GetMask(ELayerName.Enemy);
+6. **LayerMask 인스펙터 참조 지양**: `Layers` 헬퍼 클래스 사용
+  - ✅ `int mask = Layers.GetMask(ELayerName.Enemy);`
 
-- 이벤트 통신
-  → 직접 참조가 명확하면 C# Action/Event
-  → 결합도 낮추거나 1:N 필요하면 EventChannelSO 권장
+7. **이벤트 통신**
+  - 직접 참조가 명확하면 `C# Action/Event` 사용
+  - 결합도 낮추거나 1:N 방송이 필요하면 `EventChannelSO` 사용
 
-### Unity Basic Rules (기본 규칙)
+### 🔹 Unity Basic Rules (기본 규칙)
 
-- new MonoBehaviour() 절대 금지 → AddComponent 또는 Instantiate만 사용
-- 모든 인터페이스는 00_Public/PublicInterface.cs에 통합 관리
-- 밸런스 수치 하드코딩 금지 → StatDataSO 등 ScriptableObject 참조
-- Physics 컴포넌트 표준
-  Player      → CharacterController
-  Enemy       → NavMeshAgent
-  Projectile  → Rigidbody (IsTrigger On, Use Gravity Off)
+- **`new MonoBehaviour()` 절대 금지** : `AddComponent` 또는 `Instantiate`만 사용
+- **인터페이스 위치** : 모든 인터페이스는 `00_Public/PublicInterface.cs`에서 통합 관리
+- **밸런스 데이터** : 스탯/데미지 수치 하드코딩 금지 → `StatDataSO` 등 **ScriptableObject 참조**
+- **Physics 컴포넌트 표준**
+	- Player : `CharacterController`
+	- Enemy : `NavMeshAgent`
+	- Projectile : `Rigidbody` (IsTrigger On, Use Gravity Off)
 
-## 2. Git & GitHub Workflow (협업 규칙)
+## 🐙 2. Git & GitHub Workflow (협업 규칙)
 
 충돌 최소화를 위해 "순차적 머지(Sequential Merge)" 방식 사용
 
-### Branch Strategy
-- main 브랜치: 직접 커밋 금지 (Protected)
-- 작업은 항상 dev → feat/이니셜 브랜치에서만 (예: feat/KYB, feat/JSH)
+### 🔹 Branch Strategy
+1. **`main` 브랜치 : 직접 커밋 금지 (Protected)**
+2. **작업 브랜치 :** 항상 `dev` → `feat/이니셜` 브랜치에서만 
+- (예: `feat/KYB`, `feat/JSH`)
 
-### Commit & PR Process
-1. dev 최신화 (checkout dev → pull)
-2. 개인 브랜치 생성 후 작업
-3. 작업 완료 또는 정해진 시간 → dev로 PR
-4. PR 올린 후 즉시 작업 멈춤 (추가 커밋 금지!!)
-5. 머지 완료 후 → 기존 개인 브랜치 반드시 삭제
-6. 다시 dev pull → 새 브랜치 생성 → 반복
+### 🔹 Commit & PR Process
+1. `dev` 브랜치로 체크아웃 및 `Pull` (최신화)
+2. 개인 브랜치 생성(`feat/이니셜`) 후 작업 진행
+3. 작업 완료 또는 정해진 시간 → `dev`로 **Pull Request(PR)** 작성
+4. ⛔ **작업 중지 :** PR을 올린 후에는 **머지가 완료될 때까지 작업을 멈추고 대기**합니다. (추가 커밋 금지)
+5. 머지 성공(Approved) 확인 후 :
+	- **소스트리/Git에서 기존 개인 브랜치 삭제.** (매우 중요: 충돌 방지)
+    - 다시 `dev` 체크아웃 -> `Pull` -> 새로운 `feat/이니셜` 생성 -> 작업 반복.
 
-### Commit Message 규칙
+### 🔹 Commit Message 규칙
+```csharp
 feat/이니셜 : 핵심 변경 사항 요약
 - 상세 내용 1
 - 상세 내용 2
+```
+- 예시: `feat/KYB : 플레이어 이동 및 점프 구현`
 
-예시:
-feat/KYB : 플레이어 이동 및 점프 구현
-- CharacterController 이동 로직 추가
-- 점프 및 이중점프 처리
-- 착지 사운드 재생
 
-### 정기 PR 시간표 (Traffic Control)
+### ⏰ 정기 PR 시간표 (Traffic Control)
 
 | 순서 | 팀원   | PR 마감 시간 | 비고                     |
 |------|--------|--------------|--------------------------|
@@ -288,11 +287,11 @@ feat/KYB : 플레이어 이동 및 점프 구현
 | 2    | 팀원 B | 19:00        | A 머지 완료 후 PR        |
 | 3    | 팀원 C | 19:30        | B 머지 완료 후 PR        |
 
-### 긴급 상황 (Merge Conflict)
+### 🚨 긴급 상황 (Merge Conflict)
 - 충돌 발생 시 팀장이 즉시 전체 공지
 - 뒷 순번은 공지 올 때까지 PR 대기
 
-### 수시 PR
+### 💡 수시 PR
 - 다른 팀원과 연동되는 핵심 기능 완성 시 → 시간 무관 즉시 PR + 팀 채팅 공지
 
 ---
