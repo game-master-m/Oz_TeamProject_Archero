@@ -88,7 +88,7 @@ ScriptableObject(SO)의 데이터를 기반으로 실제 전략 객체 생성
 
 ---
 
-# 📂 3. Project Structure (최종 아키텍처 v3.6)
+# 📂 3. Project Structure (아키텍처 v3.6)
 
 ```
 Assets/
