@@ -6,11 +6,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Inspector
-    [SerializeField] private float moveSpeed = 5.0f;
-    [SerializeField] private float rotateSpeed = 8.0f;
     #endregion
 
     #region component
+    private PlayerStat mStat;
     private Animator mAnim;
     private CharacterController mCharacterController;
     #endregion
@@ -43,6 +42,7 @@ public class PlayerController : MonoBehaviour
         //ƒ≥ΩÃ
         mAnim = GetComponent<Animator>();
         mCharacterController = GetComponent<CharacterController>();
+        mStat = GetComponent<PlayerStat>();
         attackDelay = new WaitForSeconds(mAttackDelay);
 
         //States
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         //øπ) HurtªÛ≈¬¿œ µøæ» CanMove = false, HurtState.Exit()ø°º≠ true∑Œ πŸ≤„¡‹
         if (!CanMove) return;
 
-        mCharacterController.Move(moveDir * moveSpeed * Time.deltaTime);
+        mCharacterController.Move(moveDir * mStat.MoveSpeed * Time.deltaTime);
         mCurrentSpeedSqr = mCharacterController.velocity.sqrMagnitude;
         RotateToMoveDir(moveDir);
     }
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
     {
         if (moveDir == Vector3.zero) return;
         Quaternion lookRot = Quaternion.LookRotation(moveDir, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * rotateSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * mStat.RotateSpeed);
     }
     #endregion
 

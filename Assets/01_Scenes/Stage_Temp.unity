@@ -393,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc4390de55c7dd4da6e5af32c6b30c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stat: {fileID: 11400000, guid: 07c252fa336c8754b92cdec852f1d4b5, type: 2}
 --- !u!114 &725790706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,8 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3eed97e5e80d04984e63297aa8a473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotateSpeed: 8
 --- !u!143 &725790707
 CharacterController:
   m_ObjectHideFlags: 0
