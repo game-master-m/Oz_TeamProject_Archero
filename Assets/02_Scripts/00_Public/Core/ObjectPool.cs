@@ -8,35 +8,35 @@ public interface IPoolTypeCheckable
 }
 public class ObjectPool<T> : IPoolTypeCheckable where T : MonoBehaviour
 {
-    private T prefab;
-    private Queue<T> poolQueue = new Queue<T>();
-    public Transform Root;
+    private T mPrefab;
+    private Queue<T> mPoolQueue = new Queue<T>();
+    public Transform root;
 
     public ObjectPool(T prefab, int initCount, Transform parent = null)
     {
-        this.prefab = prefab;
+        this.mPrefab = prefab;
         string name = prefab.name;
-        Root = new GameObject($"{name}_pool").transform;
-        if (parent != null) Root.SetParent(parent, false);
+        root = new GameObject($"{name}_pool").transform;
+        if (parent != null) root.SetParent(parent, false);
 
         for (int i = 0; i < initCount; i++)
         {
-            T inst = GameObject.Instantiate(prefab, Root);
+            T inst = GameObject.Instantiate(prefab, root);
             inst.name = prefab.name;
             inst.gameObject.SetActive(false);
-            poolQueue.Enqueue(inst);
+            mPoolQueue.Enqueue(inst);
         }
     }
 
     public T Dequeue()
     {
-        if (poolQueue.Count == 0)
+        if (mPoolQueue.Count == 0)
         {
-            T instance = GameObject.Instantiate(prefab, Root);
-            instance.name = prefab.name;
+            T instance = GameObject.Instantiate(mPrefab, root);
+            instance.name = mPrefab.name;
             return instance;
         }
-        T inst = poolQueue.Dequeue();
+        T inst = mPoolQueue.Dequeue();
         inst.gameObject.SetActive(true);
         return inst;
     }
@@ -45,7 +45,7 @@ public class ObjectPool<T> : IPoolTypeCheckable where T : MonoBehaviour
     {
         if (prefab == null) return;
         prefab.gameObject.SetActive(false);
-        poolQueue.Enqueue(prefab);
+        mPoolQueue.Enqueue(prefab);
     }
 
     public void EnqueueAfterTypeCheck(MonoBehaviour obj)
@@ -58,6 +58,6 @@ public class ObjectPool<T> : IPoolTypeCheckable where T : MonoBehaviour
 
     public int GetCurrentPoolSize()
     {
-        return poolQueue.Count;
+        return mPoolQueue.Count;
     }
 }

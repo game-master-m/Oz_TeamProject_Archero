@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 mMoveDir;
 
     //코루틴 딜레이 관련
-    private WaitForSeconds attackDelay;
+    private WaitForSeconds mAttackDelayWait;
     private readonly float mAttackDelay = 0.3f;
     #endregion
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         mAnim = GetComponent<Animator>();
         mCharacterController = GetComponent<CharacterController>();
         mStat = GetComponent<PlayerStat>();
-        attackDelay = new WaitForSeconds(mAttackDelay);
+        mAttackDelayWait = new WaitForSeconds(mAttackDelay);
 
         //States
         mStateMachine = new StateMachine();
@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
     private void InitTransitions()
     {
         //Any
+        //본인 State에서 본인 State로 계속 넘어가기 때문에 변수추가
+        //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
 
         //Stop
         mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);

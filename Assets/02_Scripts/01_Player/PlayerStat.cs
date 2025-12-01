@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerStat : LivingEntity
 {
     [Header("Data Source")]
-    [SerializeField] private PlayerStatDataSO stat;
+    [SerializeField] private PlayerStatDataSO mStat;
 
     public float AttackDamage { get; private set; }
     public float MoveSpeed { get; private set; }
@@ -21,12 +21,12 @@ public class PlayerStat : LivingEntity
     public void InitStats()
     {
         //Hp√ ±‚»≠
-        base.Init(stat.MaxHp);
+        base.Init(mStat.MaxHp);
 
-        AttackDamage = stat.AttackDamage;
-        MoveSpeed = stat.MoveSpeed;
-        AttackSpeed = stat.AttackSpeed;
-        RotateSpeed = stat.RotateSpeed;
+        AttackDamage = mStat.AttackDamage;
+        MoveSpeed = mStat.MoveSpeed;
+        AttackSpeed = mStat.AttackSpeed;
+        RotateSpeed = mStat.RotateSpeed;
         //
     }
 

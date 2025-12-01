@@ -4,21 +4,21 @@ using UnityEngine;
 public class PlayerStatDataSO : ScriptableObject
 {
     [Header("Base Stats")]
-    [SerializeField] private float maxHp = 100f;
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float attackDamage = 10f;
-    [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private float rotateSpeed = 8.0f;
+    [SerializeField] private float mMaxHp = 100f;
+    [SerializeField] private float mMoveSpeed = 5f;
+    [SerializeField] private float mAttackDamage = 10f;
+    [SerializeField] private float mAttackSpeed = 1f;
+    [SerializeField] private float mRotateSpeed = 8.0f;
 
     [Header("Growth Stats")]
-    [SerializeField] private float hpPerLevel = 10f;
-    [SerializeField] private float damagePerLevel = 2f;
+    [SerializeField] private float mHpPerLevel = 10f;
+    [SerializeField] private float mDamagePerLevel = 2f;
 
-    public float MaxHp => maxHp;
-    public float MoveSpeed => moveSpeed;
-    public float AttackDamage => attackDamage;
-    public float AttackSpeed => attackSpeed;
-    public float RotateSpeed => rotateSpeed;
-    public float HPPerLevel => hpPerLevel;
-    public float DamagePerLevel => damagePerLevel;
+    public float MaxHp => mMaxHp;
+    public float MoveSpeed => mMoveSpeed;
+    public float AttackDamage => mAttackDamage;
+    public float AttackSpeed => mAttackSpeed;
+    public float RotateSpeed => mRotateSpeed;
+    public float HPPerLevel => mHpPerLevel;
+    public float DamagePerLevel => mDamagePerLevel;
 }
