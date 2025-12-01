@@ -7,10 +7,17 @@ public class StopState : PlayerState
     }
     public override void Enter()
     {
+        //유니티 에디터에서만 로그찍기
         Utils.Log("Stop Enter");
-        player.Anim.CrossFade(AnimHash.idle, 0.1f);
+        //애니메이션 전환( CrossFade(clip name, 전환시간) , Play(clip name) )
+        mPlayer.Anim.CrossFade(AnimHash.idle, 0.1f);
+
     }
-    public override void Update() { }
+    public override void Update()
+    {
+
+
+    }
     public override void FixedUpdate() { }
     public override void Exit() { }
 

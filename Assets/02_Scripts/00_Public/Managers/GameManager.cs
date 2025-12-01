@@ -9,11 +9,11 @@ public class GameManager : MonoBehaviour
 
 
     [Header("이벤트 발행")]
-    [SerializeField] VoidEventChannelSO onGamePause;        //PauseUI 구독
-    [SerializeField] VoidEventChannelSO onGameResume;       //PuaseUI 구독
+    [SerializeField] private IntEventChannelSO mOnGamePause;        //PauseUI 구독
+    [SerializeField] private IntEventChannelSO mOnGameResume;       //PuaseUI 구독
 
-    private bool isPause = false;
-    private bool isGameOver = false;
+    private bool bIsPause = false;
+    private bool bIsGameOver = false;
     private void Start()
     {
         //LoadLobbyScene();
@@ -43,22 +43,22 @@ public class GameManager : MonoBehaviour
     public void TogglePause()
     {
         //편의 상 게임오버에서 esc키를 누르면 stage 재로드
-        if (isGameOver)
+        if (bIsGameOver)
         {
             LoadStageScene();
             return;
         }
         //게임오버가 아닐 때,
-        isPause = !isPause;
-        if (isPause)
+        bIsPause = !bIsPause;
+        if (bIsPause)
         {
             Time.timeScale = 0.0f;
-            onGamePause.Raised();
+            mOnGamePause.Raised();
         }
         else
         {
             Time.timeScale = 1.0f;
-            onGameResume.Raised();
+            mOnGameResume.Raised();
         }
     }
     public void HandleGameOver()

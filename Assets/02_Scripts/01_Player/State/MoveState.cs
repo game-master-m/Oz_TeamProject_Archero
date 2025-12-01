@@ -10,8 +10,9 @@ public class MoveState : PlayerState
 
     public override void Enter()
     {
+        //로그찍는 함수
         Utils.Log("Move Enter");
-        player.Anim.CrossFade(AnimHash.move, 0.1f);
+        mPlayer.Anim.CrossFade(AnimHash.move, 0.1f);
     }
     public override void Update() { }
     public override void FixedUpdate() { }

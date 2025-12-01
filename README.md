@@ -215,15 +215,21 @@ Assets/
 
 ### 🔹 Naming & Syntax (명명 규칙)
 
-1. **Private 멤버 변수**: `m` + `PascalCase` (대문자로 시작)
+1. **Private(Protected) 멤버 변수**: `m` + `PascalCase` (대문자로 시작)
   - ✅ `private float mCurrentHp;`
   - ❌ `private float currentHp;`/`private float _currentHp;`
-
+  - `bool`은 예외 **4.**을 따름
 2. **Interface**: 이름 앞에 `I` 접두사 필수
   - ✅ `IProjectileStrategy`, `IDamageable`
 
 3. **Enum**: 이름 앞에 `E` 접두사 필수
   - ✅ `EEnemyState`, `ESkillType`
+
+4. **private bool**: `b` + `PascalCase` (대문자로 시작)
+  - ✅ `bIsGround`, `bCanMove`
+
+5. **Property** : 전부 `PascalCase` (대문자로 시작)
+  - ✅ `public bool IsGround => bIsGround`
 
 ### 🔹 Safety & Optimization (안전성 및 최적화)
 

@@ -18,6 +18,7 @@ public class AnimHash
 {
     public static readonly int idle = Animator.StringToHash("Idle");
     public static readonly int move = Animator.StringToHash("Move");
+
 }
 
 //·¹ÀÌ¾î
@@ -34,5 +35,7 @@ public enum ELayerName
 {
     Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle
 }
+
+
 
 
