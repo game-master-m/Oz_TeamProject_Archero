@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   mMaxHP: 100
-  mMoveSpeed: 5
+  mMoveSpeed: 4
   mAttackDamage: 10
-  mAttackRange: 10
+  mAttackRange: 1
   mAttackSpeed: 1
   mRotateSpeed: 8
