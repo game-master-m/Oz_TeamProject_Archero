@@ -119,23 +119,37 @@ public class StageManager : MonoBehaviour
     {
         if (info.spawnDelay > 0) yield return new WaitForSeconds(info.spawnDelay);
 
-        // PoolManager 몬스터 생성 요청
         if (info.enemyPrefab == null)
         {
             yield break;
         }
+        //NavMesh 로딩대기 1프레임
+        yield return null;
+
+        // PoolManager 몬스터 생성 요청
         EnemyBase enemyPrefab = info.enemyPrefab.GetComponent<EnemyBase>();
         EnemyBase enemy = Managers.Pool.GetFromPool(enemyPrefab);
 
         if (enemy != null)
         {
+            //NavMesh 로딩대기 1프레임(혹시 몰라 한번 더 대기)
+            yield return null;
+            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+
             // 위치 설정
             int index = info.spawnPointIndex % mSpawnPoints.Count;
-            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+            enemy.transform.position = mSpawnPoints[index].position;
+            //필요 시 Rotation도 설정 가능
 
             if (agent != null)
             {
-                agent.Warp(mSpawnPoints[index].position);
+                agent.enabled = true;
+                //agent.Warp(mSpawnPoints[index].position);
+
+                if (agent.isOnNavMesh)
+                {
+                    agent.isStopped = false;
+                }
             }
             else
             {

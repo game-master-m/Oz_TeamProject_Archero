@@ -1,62 +1,97 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class EnemyBase : LivingEntity
 {
     [SerializeField] protected EnemyStatDataSO mStatData;
-
     protected Animator mAnimator;
     protected NavMeshAgent mAgent;
+    protected CapsuleCollider mCapsuleCollider;
+
+    protected StateMachine mStateMachine;
+
+    protected float mAttackDamage;
+    protected float mAttackRange;
+    protected float mAttackSpeed;
+    protected float mRotateSpeed;
+
+    public float AttackRange => mAttackRange;
+    public float RotateSpeed => mRotateSpeed;
+    public float AttackSpeed => mAttackSpeed;
+    public float AttackDamage => mAttackDamage;
 
     //플레이어 추적용 타겟
     protected Transform mTarget;
 
     public event Action<EnemyBase> onEnemyDie;
+    public Animator Anim => mAnimator;
 
     protected virtual void Awake()
     {
-
-        mAnimator = GetComponent<Animator>();
         mAgent = GetComponent<NavMeshAgent>();
+        mAnimator = GetComponent<Animator>();
+        mCapsuleCollider = GetComponent<CapsuleCollider>();
 
         // NavMeshAgent 세팅 (속도, 회전 등)
         mAgent.updateRotation = false;
+
+        mStateMachine = new StateMachine();
     }
 
     protected override void OnEnable()
     {
         base.OnEnable(); // 부모의 체력 초기화 실행
 
-        if (mAgent != null)
-        {
-            mAgent.enabled = true;
-            mAgent.isStopped = false;
-        }
-
         //컬라이더 키기
 
         // 적이 다시 살아날 때(풀링) 필요한 초기화
+    }
+    protected virtual void OnDisable()
+    {
+        ResetAgentSetting();
+    }
+    protected virtual void OnDestroy()
+    {
+        ResetAgentSetting();
+    }
+    protected virtual void Update()
+    {
+        mStateMachine?.Update();
+    }
+    protected virtual void FixedUpdate()
+    {
+        mStateMachine?.FixedUpdate();
+    }
+
+    private void ResetAgentSetting()
+    {
+        mTarget = null;
+        if (mAgent != null)
+        {
+            if (mAgent.isOnNavMesh)
+            {
+                mAgent.velocity = Vector3.zero;
+                mAgent.isStopped = true;
+                mAgent.enabled = false;
+            }
+        }
     }
     public virtual void InitStats(EnemyStatDataSO data)
     {
         base.Init(data.MaxHP);
         mAgent.speed = data.MoveSpeed;
+        mAttackDamage = data.AttackDamage;
+        mAttackRange = data.AttackRange;
+        mAttackSpeed = data.AttackSpeed;
+        mRotateSpeed = data.RotateSpeed;
     }
     public void SetTarget(Transform target)
     {
         mTarget = target;
-    }
-
-    protected virtual void Update()
-    {
-        //테스트용 타겟 추척
-        if (mTarget != null)
-        {
-            mAgent.SetDestination(mTarget.position);
-        }
     }
 
     public override void Die()
@@ -66,11 +101,14 @@ public class EnemyBase : LivingEntity
         onEnemyDie?.Invoke(this);
 
         // 1. 움직임 멈춤
-        mAgent.isStopped = true;
+        if (mAgent.isOnNavMesh)
+        {
+            mAgent.isStopped = true;
+        }
         mAgent.enabled = false;
 
         // 2. 콜라이더 끄기 (시체에 공격 안 막히게)
-        GetComponent<Collider>().enabled = false;
+        mCapsuleCollider.enabled = false;
 
         // 3. StageManager에게 알리기 (이벤트나 매니저 호출)
 
