@@ -7,11 +7,13 @@ public class Managers : MonoBehaviour
     //[SerializeField] private GameObject dataManagerPrefab;
     [SerializeField] private GameObject poolManagerPrefab;
     [SerializeField] private GameObject gameManagerPrefab;
+    [SerializeField] private GameObject stageManagerPrefab;
     //[SerializeField] private GameObject playerStatsManagerPrefab;
 
     //public static DataManager Data { get; private set; }
     public static PoolManager Pool { get; private set; }
     public static GameManager Game { get; private set; }
+    public static StageManager Stage { get; private set; }
     private void Awake()
     {
         if (Instance == null)
@@ -41,6 +43,11 @@ public class Managers : MonoBehaviour
         {
             GameObject gameGo = Instantiate(gameManagerPrefab, transform);
             Game = gameGo.GetComponent<GameManager>();
+        }
+        if (stageManagerPrefab != null)
+        {
+            GameObject stageGo = Instantiate(stageManagerPrefab, transform);
+            Stage = stageGo.GetComponent<StageManager>();
         }
         //if (playerStatsManagerPrefab != null)
         //{
