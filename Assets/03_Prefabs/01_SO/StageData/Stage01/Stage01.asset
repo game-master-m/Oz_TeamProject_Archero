@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cba166fa5b7c84190bb45d7c9cf6dd, type: 3}
+  m_Name: Stage01
+  m_EditorClassIdentifier: 
+  stageName: Temp
+  chapterID: 1
+  roomDataList:
+  - {fileID: 11400000, guid: 17e196d606f7d484ba70835720ea065f, type: 2}
