@@ -38,7 +38,7 @@ public class MeleeEnemy : EnemyBase
         //Å×½ºÆ®¿ë Å¸°Ù ÃßÃ´
         if (mTarget != null)
         {
-            mAgent.SetDestination(mTarget.position);
+            //mAgent.SetDestination(mTarget.position);
         }
     }
     protected override void FixedUpdate()

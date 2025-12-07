@@ -5,27 +5,55 @@ using UnityEngine.AI;
 
 public class StageManager : MonoBehaviour
 {
+    [Header("이벤트 발송")]
+    [SerializeField] private VoidEventChannelSO mOnRoomClear;   //몬스터경험치 프리팹이 구독
+    [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer; //레벨업 UI가 구독
+
     // 런타임 참조 변수 (Initializer에게서 받음)
     private StageDataSO mStageData;
     private PlayerController mPlayer;
     private List<Transform> mSpawnPoints;
     private GameObject mDoorObject;
 
-    // [상태 변수]
+    // 상태 변수
     private int mCurrentRoomIndex = 0;
     private int mAliveEnemyCount = 0;
     private bool bIsBattleActive = false;
     private StageMap mCurrentMapInstance;
 
+    // 천사슬라임 여부
+    private bool bIsAngelSlimeTurn = false;
+    private bool bIsAngelSlimeEnded = false;
+
+    // 코루틴 참조 변수
+    private WaitForSeconds mWaitOneSec;
+    private WaitForSeconds mWaitTwoSec;
+    private float mOneSec = 1.0f;
+    private float mTwoSec = 2.0f;
+    private Coroutine mWaitNextRoomCo;
+    private void Awake()
+    {
+        mWaitOneSec = new WaitForSeconds(mOneSec);
+        mWaitTwoSec = new WaitForSeconds(mTwoSec);
+    }
+
+
+    public void LevelUp()
+    {
+        mOnLevelUpPlayer.Raised(mPlayer.Attack);
+    }
+
     // 1. 스테이지 초기화 (Initializer가 호출)
     public void SetupStage(StageDataSO data, PlayerController player, List<Transform> points, GameObject door)
     {
+
         mStageData = data;
         mPlayer = player;
         mSpawnPoints = points;
         mDoorObject = door;
 
         // 변수 리셋
+        if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
         mCurrentRoomIndex = 0;
         mAliveEnemyCount = 0;
         bIsBattleActive = false;
@@ -99,7 +127,7 @@ public class StageManager : MonoBehaviour
 
             // 다음 웨이브 전 1초 휴식
             if (i < currentRoom.WaveDataList.Count - 1)
-                yield return new WaitForSeconds(1.0f);
+                yield return mWaitOneSec;
         }
 
         // 모든 웨이브 종료 -> 방 클리어
@@ -111,6 +139,7 @@ public class StageManager : MonoBehaviour
     {
         foreach (var info in wave.spawnInfoList)
         {
+            mAliveEnemyCount++;
             StartCoroutine(SpawnEnemyWithDelay(info));
         }
     }
@@ -132,20 +161,21 @@ public class StageManager : MonoBehaviour
 
         if (enemy != null)
         {
+            // 위치 설정
+            int index = info.spawnPointIndex % mSpawnPoints.Count;
+            enemy.transform.position = mSpawnPoints[index].position;
+
+            Physics.SyncTransforms(); // 물리 갱신
+
             //NavMesh 로딩대기 1프레임(혹시 몰라 한번 더 대기)
             yield return null;
             NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
 
-            // 위치 설정
-            int index = info.spawnPointIndex % mSpawnPoints.Count;
-            enemy.transform.position = mSpawnPoints[index].position;
             //필요 시 Rotation도 설정 가능
 
             if (agent != null)
             {
                 agent.enabled = true;
-                //agent.Warp(mSpawnPoints[index].position);
-
                 if (agent.isOnNavMesh)
                 {
                     agent.isStopped = false;
@@ -157,7 +187,7 @@ public class StageManager : MonoBehaviour
             }
 
             // 몬스터 세팅
-            mAliveEnemyCount++;
+
             enemy.onEnemyDie -= HandleEnemyDeath; // 중복 제거
             enemy.onEnemyDie += HandleEnemyDeath; // 사망 구독
 
@@ -170,6 +200,7 @@ public class StageManager : MonoBehaviour
     private void HandleEnemyDeath(EnemyBase enemy)
     {
         mAliveEnemyCount--;
+        Utils.Log($"Enemy Died: {enemy.name}, Alive Count: {mAliveEnemyCount}");
         if (mAliveEnemyCount < 0) mAliveEnemyCount = 0;
 
         // UI 갱신 등 추가 로직 가능
@@ -178,8 +209,30 @@ public class StageManager : MonoBehaviour
     // 6. 방 클리어
     private void RoomClear()
     {
+        Utils.Log($"Room {mCurrentRoomIndex} Clear!");
         bIsBattleActive = false;
+
+        //룸 클리어 이벤트 발송 -> 몬스터에서 떨어진 경험치 획득로직
+        mOnRoomClear.Raised();
+
         if (mDoorObject != null) mDoorObject.SetActive(false); // 문 열기
         mCurrentRoomIndex++; // 다음 방 인덱스로 증가
+
+        //다음 방으로 이동 대기 코루틴 시작
+        if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
+        mWaitNextRoomCo = StartCoroutine(WaitNextRoomCo());
+    }
+
+    // 7. 다음 방으로 이동 코루틴
+    private IEnumerator WaitNextRoomCo()
+    {
+        yield return mWaitTwoSec;
+
+        if (bIsAngelSlimeTurn)
+        {
+            yield return new WaitUntil(() => bIsAngelSlimeEnded);
+        }
+
+        StartRoom();
     }
 }

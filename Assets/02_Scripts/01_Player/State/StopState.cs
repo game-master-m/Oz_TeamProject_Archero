@@ -2,6 +2,8 @@
 using UnityEngine;
 public class StopState : PlayerState
 {
+
+
     public StopState(PlayerController player, IState parent = null) : base(player, parent)
     {
     }
@@ -12,6 +14,11 @@ public class StopState : PlayerState
         //애니메이션 전환( CrossFade(clip name, 전환시간) , Play(clip name) )
         mPlayer.Anim.CrossFade(AnimHash.idle, 0.1f);
 
+        //테스트 쏘기
+        if (!mPlayer.Attack.IsAutoTurret)
+        {
+            mPlayer.Attack.MakeProjectile();
+        }
     }
     public override void Update()
     {
@@ -20,5 +27,7 @@ public class StopState : PlayerState
     }
     public override void FixedUpdate() { }
     public override void Exit() { }
+
+
 
 }

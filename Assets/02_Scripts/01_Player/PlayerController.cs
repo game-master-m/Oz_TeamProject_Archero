@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private PlayerStat mStat;
     private Animator mAnim;
     private CharacterController mCharacterController;
+    private PlayerAttack mAttack;
     #endregion
 
     #region States
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     #region Properties
     public Animator Anim => mAnim;
+    public PlayerAttack Attack => mAttack;
     public bool CanMove { get; set; } = true;
     #endregion
     private void Awake()
@@ -43,6 +45,7 @@ public class PlayerController : MonoBehaviour
         mAnim = GetComponent<Animator>();
         mCharacterController = GetComponent<CharacterController>();
         mStat = GetComponent<PlayerStat>();
+        mAttack = GetComponent<PlayerAttack>();
         mAttackDelayWait = new WaitForSeconds(mAttackDelay);
 
         //States
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        mAttack.InitStat(mStat);
         mStateMachine.ChangeState(mStopState);
     }
 
@@ -100,7 +104,15 @@ public class PlayerController : MonoBehaviour
         //피격이나 움직이지 못 하는 경우, CanMove를 false로 바꿔준다.
         //예) Hurt상태일 동안 CanMove = false, HurtState.Exit()에서 true로 바꿔줌
         if (!CanMove) return;
-
+        if (transform.position.y > 0.1f)
+        {
+            moveDir += Vector3.down * 9.8f;
+            transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
+        }
+        else
+        {
+            moveDir.y = 0.0f;
+        }
         mCharacterController.Move(moveDir * mStat.MoveSpeed * Time.deltaTime);
         mCurrentSpeedSqr = mCharacterController.velocity.sqrMagnitude;
         RotateToMoveDir(moveDir);

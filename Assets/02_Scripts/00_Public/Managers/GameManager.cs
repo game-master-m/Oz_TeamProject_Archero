@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 
 
     [Header("이벤트 발행")]
-    [SerializeField] private IntEventChannelSO mOnGamePause;        //PauseUI 구독
-    [SerializeField] private IntEventChannelSO mOnGameResume;       //PuaseUI 구독
+    [SerializeField] private VoidEventChannelSO mOnGamePause;        //PauseUI 구독
+    [SerializeField] private VoidEventChannelSO mOnGameResume;       //PuaseUI 구독
 
     private bool bIsPause = false;
     private bool bIsGameOver = false;
@@ -30,10 +30,12 @@ public class GameManager : MonoBehaviour
     }
     public void HandleOnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-
     }
     public void LoadStageScene()
     {
+        Time.timeScale = 1.0f;
+        bIsPause = false;
+        Managers.Pool.ReturnAllObjects();
         SceneManager.LoadScene(Define.Scene_Stage);
     }
     public void LoadLobbyScene()

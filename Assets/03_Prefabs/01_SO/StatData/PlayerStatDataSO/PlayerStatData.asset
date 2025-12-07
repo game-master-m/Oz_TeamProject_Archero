@@ -16,7 +16,7 @@ MonoBehaviour:
   mMoveSpeed: 8
   mAttackDamage: 10
   mAttackRange: 10
-  mAttackSpeed: 1
+  mAttackSpeed: 2
   mRotateSpeed: 8
   mHpPerLevel: 10
   mDamagePerLevel: 2
