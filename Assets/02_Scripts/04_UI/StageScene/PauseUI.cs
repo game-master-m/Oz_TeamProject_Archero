@@ -3,8 +3,8 @@ using UnityEngine;
 public class PauseUI : MonoBehaviour
 {
     [Header("이벤트 구독")]
-    [SerializeField] private IntEventChannelSO mOnGameResume;   //GameManager 발행
-    [SerializeField] private IntEventChannelSO mOnGamePause;    //GameManager 발행
+    [SerializeField] private VoidEventChannelSO mOnGameResume;   //GameManager 발행
+    [SerializeField] private VoidEventChannelSO mOnGamePause;    //GameManager 발행
 
     [Header("참조")]
     [SerializeField] private GameObject mPausePannel;

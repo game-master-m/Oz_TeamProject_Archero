@@ -34,4 +34,12 @@ public class PoolManager : MonoBehaviour
 
         mPools[instance.name].EnqueueAfterTypeCheck(instance);
     }
+
+    public void ReturnAllObjects()
+    {
+        foreach (var pool in mPools.Values)
+        {
+            pool.ReturnAll();
+        }
+    }
 }

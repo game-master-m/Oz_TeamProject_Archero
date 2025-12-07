@@ -8,14 +8,14 @@ public interface IDamageable
 
 public interface IProjectileStrategy
 {
-    void OnShoot(GameObject projectile);
-    void OnHit(GameObject projectile, IDamageable target);
+    void OnShoot(Projectile projectile);
+    void OnHit(Projectile projectile, IDamageable target);
 }
 
 public interface IPassiveStrategy
 {
-    void OnEquip(GameObject player);
-    void OnUpdate(GameObject player);
-    void OnUnequip(GameObject player);
+    void OnEquip(PlayerAttack attack);
+    void OnUpdate(PlayerAttack attack);
+    void OnUnequip(PlayerAttack attack);
 }
 

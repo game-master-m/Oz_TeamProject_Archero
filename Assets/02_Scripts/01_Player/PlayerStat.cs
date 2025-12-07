@@ -10,6 +10,7 @@ public class PlayerStat : LivingEntity
     public float MoveSpeed { get; private set; }
     public float AttackSpeed { get; private set; }
     public float RotateSpeed { get; private set; }
+    public float AttackRange { get; private set; }
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class PlayerStat : LivingEntity
         MoveSpeed = mStat.MoveSpeed;
         AttackSpeed = mStat.AttackSpeed;
         RotateSpeed = mStat.RotateSpeed;
+        AttackRange = mStat.AttackRange;
         //
     }
 

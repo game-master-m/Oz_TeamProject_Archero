@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10d2af67ec90d04d9e59ee9dcd7aabd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mOnRoomClear: {fileID: 11400000, guid: f963f027679763248b75649d9f30ae06, type: 2}
+  mOnLevelUpPlayer: {fileID: 11400000, guid: 2c06f072d672f824a99527fa99ada666, type: 2}

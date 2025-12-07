@@ -163,6 +163,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 683520a58e216774fb9ba2dcab50184d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5534913440848541683, guid: 683520a58e216774fb9ba2dcab50184d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -308,7 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 9faee256f4f5d57499e377821e030102, type: 2}
-  mAnimator: {fileID: 7477353419070350979}
+  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
+    type: 3}
 --- !u!95 &7477353419070350979
 Animator:
   serializedVersion: 5

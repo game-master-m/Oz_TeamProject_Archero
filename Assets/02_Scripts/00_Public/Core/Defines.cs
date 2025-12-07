@@ -33,7 +33,7 @@ public class Layers
 //Enums
 public enum ELayerName
 {
-    Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle
+    Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle, Projectile, Exp
 }
 public enum EEnemyName
 {

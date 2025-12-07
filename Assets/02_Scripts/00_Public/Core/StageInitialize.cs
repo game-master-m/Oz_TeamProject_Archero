@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageInitialize : MonoBehaviour
 {
@@ -26,9 +27,16 @@ public class StageInitialize : MonoBehaviour
 
         // StageManager(싱글톤매니저)에게 현재 씬의 모든 정보를 넘겨주고 초기화를 요청합니다.
         Managers.Stage.SetupStage(mStageData, mPlayer, mSpawnPoints, mDoorObject);
-
-
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Managers.Game.LoadStageScene();
+        }
+    }
+
     private void CreateMapPools()
     {
         HashSet<string> registeredMaps = new HashSet<string>();
@@ -60,10 +68,11 @@ public class StageInitialize : MonoBehaviour
                 {
                     GameObject prefabGo = info.enemyPrefab;
                     EnemyBase prefab = prefabGo != null ? prefabGo.GetComponent<EnemyBase>() : null;
+
                     if (prefab != null && !registeredNames.Contains(prefab.name))
                     {
                         // 풀 매니저에게 생성 요청 (기본 5)
-                        Managers.Pool.CreatePool(prefab, 5, Managers.Pool.transform);
+                        Managers.Pool.CreatePool(prefab, 6, Managers.Pool.transform);
 
                         // 등록 명단에 추가
                         registeredNames.Add(prefab.name);
