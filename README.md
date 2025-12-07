@@ -310,6 +310,6 @@ feat/이니셜 : 핵심 변경 사항 요약
 
 ---
 
-# 👨‍💻 Contributors (Oz_Team24)
+# 👨‍💻 Contributors (Team_52Hours)
 **Role:** Unity Client Developer  
-**Engine:** Unity 2022.3 LTS
+**Engine:** Unity 2022.3.18f1

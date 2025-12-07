@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc4390de55c7dd4da6e5af32c6b30c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stat: {fileID: 11400000, guid: 07c252fa336c8754b92cdec852f1d4b5, type: 2}
+  mStat: {fileID: 0}
 --- !u!114 &725790706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,9 +840,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374ed008e996e20409f17d4647f5826e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onGameResume: {fileID: 11400000, guid: c09c4aeaf124e844bbdcf20f6dd6e32f, type: 2}
-  onGamePause: {fileID: 11400000, guid: 0d7d28268687d8c4888fb3f3f7eb2355, type: 2}
-  pausePannel: {fileID: 1560071701}
+  mOnGameResume: {fileID: 0}
+  mOnGamePause: {fileID: 0}
+  mPausePannel: {fileID: 0}
 --- !u!1 &1938586668
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +997,7 @@ MonoBehaviour:
     type: 3}
   gameManagerPrefab: {fileID: 6798939758725418860, guid: a63248f2a1390844cb33730783d51ebe,
     type: 3}
+  stageManagerPrefab: {fileID: 0}
 --- !u!1 &1975568102
 GameObject:
   m_ObjectHideFlags: 0
