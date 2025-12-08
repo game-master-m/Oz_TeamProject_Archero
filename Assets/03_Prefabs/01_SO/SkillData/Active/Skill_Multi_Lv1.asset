@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Skill_Multi_Lv1
   m_EditorClassIdentifier: 
   skillName: MultiShot
-  description: Additional Arrow +4
+  description: Additional Arrow +2
   icon: {fileID: 21300000, guid: a8aa05d219dc43b48a13b2fb5ddafe5d, type: 2}
-  mShotCount: 5
-  mDamageMultiplier: 0.5
+  skillGrade: 4
+  mShotCount: 3
+  mDamageMultiplier: 0.7

@@ -5,6 +5,7 @@ public abstract class SkillDataSO : ScriptableObject
     public string skillName;
     public string description;
     public Sprite icon;
+    public ESkillGrade skillGrade;
 
     public virtual IProjectileStrategy CreateProjectileStrategy()
     {

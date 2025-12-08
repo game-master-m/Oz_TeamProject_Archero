@@ -39,6 +39,10 @@ public enum EEnemyName
 {
     None, Slime
 }
+public enum ESkillGrade
+{
+    None, Normal, Expert, Epic, Legend
+}
 
 
 

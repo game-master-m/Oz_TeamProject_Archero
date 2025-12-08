@@ -15,4 +15,5 @@ MonoBehaviour:
   skillName: AutoTurret
   description: Can Attack with Move, but AttackSpeed*0.5
   icon: {fileID: 21300000, guid: 96985d220b265784f9a6b9f574a7e182, type: 2}
-  mAttackSpeedMultiplier: 0.5
+  skillGrade: 3
+  mAttackSpeedMultiplier: 0.6

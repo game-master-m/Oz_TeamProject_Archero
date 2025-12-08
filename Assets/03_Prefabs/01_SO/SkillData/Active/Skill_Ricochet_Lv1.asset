@@ -15,6 +15,7 @@ MonoBehaviour:
   skillName: Richochet
   description: 3bounce, damage*0.7
   icon: {fileID: 21300000, guid: 6288d66e3950b5645994b06a70fa95c9, type: 2}
-  mMaxBounceCount: 3
+  skillGrade: 2
+  mMaxBounceCount: 1
   mBounceRange: 10
-  mDamageMultiplier: 0.7
+  mDamageMultiplier: 0.6

@@ -146,8 +146,10 @@ Assets/
 │   │   │
 │   │   └── Passive/            # 패시브 스킬 (버프, 소환 등)
 │   │       └── Strategies/     # 실제 구현체 (StatBoost, RotatingShield, AutoTurret 등)
+│   │   
+│   ├── 04_SummonPrefab/        # 각 소환체 구현 Scripts
 │   │
-│   └── 04_UI/                  # UI 스크립트
+│   └── 05_UI/                  # UI 스크립트
 │       ├── LobbyScene/         # 로비 전용 UI
 │       └── StageScene/         # LevelUpController, 인게임 HUD, Pause, 결과창 UI, LevelUp UI 등
 │
@@ -167,6 +169,7 @@ Assets/
 │   │   └── PoolManager.prefab
 │   │
 │   ├── 03_Player/              # 플레이어 관련 프리팹
+│   │   └── SummonPrefabs/      # 스킬에의해 생성되는 소환수 프리팹
 │   │
 │   ├── 04_Enemy/               # 적 관련 프리팹
 │   │
