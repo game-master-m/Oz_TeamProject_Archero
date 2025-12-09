@@ -3,7 +3,7 @@ using UnityEngine;
 public class StopState : PlayerState
 {
 
-
+    private float mTimer = 0.0f;
     public StopState(PlayerController player, IState parent = null) : base(player, parent)
     {
     }

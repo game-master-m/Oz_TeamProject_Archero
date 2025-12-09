@@ -1,6 +1,6 @@
 using System.Collections;
 
-public class FanShotStrategy : IProjectileStrategy
+public class FanShotStrategy : IProjectileStrategy, ISkillStackable<IProjectileStrategy>
 {
     private int mShotCount;
     private float mShotAngle = 10.0f;
@@ -14,11 +14,16 @@ public class FanShotStrategy : IProjectileStrategy
 
     public void OnHit(Projectile projectile, IDamageable target) { }
 
-    //스킬선택 시, 이미 FanShot을 보여하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 발사체 수 추가,데미지 감소.
-    public void ApplyStack(FanShotStrategy newFanShot)
+    //스킬선택 시, 이미 FanShot을 보유하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 ApplyStack만 호출
+    public bool TryStack(IProjectileStrategy newFanShot)
     {
-        mShotCount += 2;
-        mDamageMultiplier *= mDamageMultiplier;
+        if (newFanShot is FanShotStrategy fanShot)
+        {
+            mShotCount += 2;
+            mDamageMultiplier *= mDamageMultiplier;
+            return true;
+        }
+        return false;
     }
     public void OnShoot(Projectile projectile)
     {
