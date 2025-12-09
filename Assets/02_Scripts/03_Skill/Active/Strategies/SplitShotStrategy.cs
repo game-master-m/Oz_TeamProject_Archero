@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SplitShotStrategy : IProjectileStrategy
@@ -32,22 +31,15 @@ public class SplitShotStrategy : IProjectileStrategy
         {
             for (int i = -(mSplitCount) / 2; i <= (mSplitCount) / 2; i++)
             {
-                if (i != 0)
-                {
-                    SpawnSubArrow(projectile, i, targetID);
-                }
-                continue;
+                if (i == 0) continue;
+                SpawnSubArrow(projectile, i, targetID);
             }
         }
         else
         {
             for (int i = -(mSplitCount - 1) / 2; i <= (mSplitCount - 1) / 2; i++)
             {
-                if (i != 0)
-                {
-                    SpawnSubArrow(projectile, i, targetID);
-                }
-                continue;
+                SpawnSubArrow(projectile, i, targetID);
             }
         }
     }
@@ -62,7 +54,8 @@ public class SplitShotStrategy : IProjectileStrategy
         }
         subArrow.CopyWithOutOnShoot(projectile);
 
-        //필요 시, Split전략 제거 가능
+        //한번 분리 후 Split전략 제거, 안 해도 되지만 몬스터가 많으면 무한증식 가능,
+        //추후 이펙트 입히고 뺄지 말지 다시 고려
         subArrow.RemoveStrategy<SplitShotStrategy>();
 
         subArrow.MultipleDamage(mDamageMultiplier);

@@ -40,6 +40,7 @@ public class Projectile : MonoBehaviour
         mIgnoreColliderIDs.Clear();
     }
 
+
     //MutiShot , SplitShot 등에서 사용, 원본 Projectile의 전략과 데미지 복사
     public void CopyWithOutOnShoot(Projectile giver)
     {
@@ -166,7 +167,10 @@ public class Projectile : MonoBehaviour
         var target = other.GetComponent<IDamageable>();
         if (target != null)
         {
+            //현재 리코쳇 때문에 한번 맞은 적들을 계속 기억하지 않음
+            //나중에 맞은 적들을 기억해야 할 경우 수정 필요, 기억 안 해도 될 경우는 HashSet말고 int로 처리 할 예정
             mIgnoreColliderIDs.Clear();
+
             AddIgnoreTarget(otherID);
 
             bShouldReturnPool = true;   //밑의 전략에서 false로 바꿀 수 있음
