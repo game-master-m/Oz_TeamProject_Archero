@@ -40,16 +40,23 @@ public class PlayerAttack : MonoBehaviour
         var proj = data.CreateProjectileStrategy();
         if (proj != null)
         {
-            mArrowStrategies.Add(proj);
+            //true -> Add , false -> Stack
+            AddOrStack(mArrowStrategies, proj);
+            //mArrowStrategies.Add(proj);
         }
 
         var passive = data.CreatePassiveStrategy();
         if (passive != null)
         {
+            //true -> Add , false -> Stack
             passive.OnEquip(this);
-            mPassiveStrategies.Add(passive);
+            AddOrStack(mPassiveStrategies, passive);
+
+            //passive.OnEquip(this);
+            //mPassiveStrategies.Add(passive);
         }
     }
+
 
     public void MakeProjectile()
     {
@@ -59,5 +66,28 @@ public class PlayerAttack : MonoBehaviour
             projectile.transform.position = transform.position + mProjectileOffeset;
             projectile.Setup(mArrowStrategies, AttackDamage);
         }
+    }
+
+    //true -> Add , false -> Stack
+    private bool AddOrStack<T>(List<T> list, T newStrategy) where T : class
+    {
+        // 리스트를 순회하며 "나랑 합칠 수 있는 녀석"을 찾습니다.
+        foreach (T existing in list)
+        {
+            // 1. 기존 전략이 IStackable<T>를 구현했는지 확인
+            if (existing is ISkillStackable<T> stackable)
+            {
+                // 2. 구현했다면 합치기 시도 (TryStack 내부에서 타입 체크 수행) (타입이 안 맞으면 if문 false)
+                if (stackable.TryStack(newStrategy))
+                {
+                    // 합치기 성공! 리스트에 추가 안 함.
+                    return false;
+                }
+            }
+        }
+
+        // 합칠 상대를 못 찾았으면 리스트에 새롭게 추가
+        list.Add(newStrategy);
+        return true;
     }
 }
