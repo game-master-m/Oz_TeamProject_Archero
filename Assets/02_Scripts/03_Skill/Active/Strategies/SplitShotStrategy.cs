@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SplitShotStrategy : IProjectileStrategy
+public class SplitShotStrategy : IProjectileStrategy, ISkillStackable<IProjectileStrategy>
 {
     private int mSplitCount;
     private float mDamageMultiplier;
@@ -14,11 +14,16 @@ public class SplitShotStrategy : IProjectileStrategy
     }
 
     //스킬선택 시, 이미 SplitShot을 보유하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 ApplyStack만 호출
-    public void ApplyStack(SplitShotStrategy newSplitShot)
+    public bool TryStack(IProjectileStrategy newSplitShot)
     {
-        //갈라짐 + 1
-        mSplitCount += 1;
-        //데미지 감소 없음
+        if (newSplitShot is SplitShotStrategy split)
+        {
+            //갈라짐 + 1
+            mSplitCount += 1;
+            //데미지 감소 없음
+            return true;
+        }
+        return false;
     }
     public void OnShoot(Projectile projectile) { }
 

@@ -63,8 +63,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         mAttack.InitStat(mStat);
-        //mStateMachine.ChangeState(mStopState);
-        mStateMachine.ChangeState(mThrowState);
+        mStateMachine.ChangeState(mStopState);
+        //mStateMachine.ChangeState(mThrowState);
     }
 
     void Update()
@@ -86,15 +86,15 @@ public class PlayerController : MonoBehaviour
         //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
 
         //Stop
-        //mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
 
         //Move
-        //mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
+        mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
 
         //attack
-        mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        //mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
         //move2
-        mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
+        //mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
 
 
     }
