@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skill_Ricochet_Lv", menuName = "Archero/SkillData/Active/RicochetSkillDataSO")]
+[CreateAssetMenu(fileName = "Ricochet_Lv", menuName = "Archero/SkillData/Active/RicochetSkillDataSO")]
 public class RicochetSkillDataSO : SkillDataSO
 {
     [Header("Ricochet ´É·ÂÄ¡")]

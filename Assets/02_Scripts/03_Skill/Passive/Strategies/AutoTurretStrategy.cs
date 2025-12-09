@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoTurretStrategy : IPassiveStrategy
 {
-    private float mAttackSpeedMultiplier;
+    private float mDamageMultiplier;
     private float mTimer;
 
-    public AutoTurretStrategy(float attackSpeedMultiplier)
+    public AutoTurretStrategy(float damageMultiplier)
     {
-        mAttackSpeedMultiplier = attackSpeedMultiplier;
+        mDamageMultiplier = damageMultiplier;
     }
 
     public void OnEquip(PlayerAttack attack)
     {
         mTimer = 0;
         attack.IsAutoTurret = true;
-        attack.AttackSpeed *= mAttackSpeedMultiplier;
+        attack.AttackSpeed *= mDamageMultiplier;
     }
 
     public void OnUpdate(PlayerAttack attack)

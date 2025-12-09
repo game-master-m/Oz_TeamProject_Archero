@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skill_Split_Lv", menuName = "Archero/SkillData/Active/SplitShotSkillDataSO")]
+[CreateAssetMenu(fileName = "Split_Lv", menuName = "Archero/SkillData/Active/SplitShotSkillDataSO")]
 public class SplitShotSkillDataSO : SkillDataSO
 {
+    [Header("SplitShot ´É·ÂÄ¡")]
     [SerializeField] int mSplitCount = 3;
     [SerializeField] float mDamageMultiplier = 0.4f;
 
