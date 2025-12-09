@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private StopState mStopState;
     private MoveState mMoveState;
+    private ThrowState mThrowState;
 
     #endregion
 
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
         mStopState = new StopState(this);
         mMoveState = new MoveState(this);
+        mThrowState = new ThrowState(this);
 
         //상태전환 조건들
         InitTransitions();
@@ -61,7 +63,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         mAttack.InitStat(mStat);
-        mStateMachine.ChangeState(mStopState);
+        //mStateMachine.ChangeState(mStopState);
+        mStateMachine.ChangeState(mThrowState);
     }
 
     void Update()
@@ -83,10 +86,17 @@ public class PlayerController : MonoBehaviour
         //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
 
         //Stop
-        mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        //mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
 
         //Move
-        mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
+        //mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
+
+        //attack
+        mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        //move2
+        mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
+
+
     }
     #endregion
 

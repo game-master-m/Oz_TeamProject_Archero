@@ -18,6 +18,7 @@ public class AnimHash
 {
     public static readonly int idle = Animator.StringToHash("Idle");
     public static readonly int move = Animator.StringToHash("Move");
+    public static readonly int _throw = Animator.StringToHash("Throw");
 
 }
 
