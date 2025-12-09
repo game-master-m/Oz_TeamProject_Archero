@@ -13,11 +13,14 @@ public class SplitShotStrategy : IProjectileStrategy
         mDamageMultiplier = damageMultiplier;
     }
 
-
-    public void OnShoot(Projectile projectile)
+    //스킬선택 시, 이미 SplitShot을 보유하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 ApplyStack만 호출
+    public void ApplyStack(SplitShotStrategy newSplitShot)
     {
-
+        //갈라짐 + 1
+        mSplitCount += 1;
+        //데미지 감소 없음
     }
+    public void OnShoot(Projectile projectile) { }
 
     public void OnHit(Projectile projectile, IDamageable target)
     {

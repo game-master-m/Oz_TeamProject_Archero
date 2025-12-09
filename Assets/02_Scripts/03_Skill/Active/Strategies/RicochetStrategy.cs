@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RicochetStrategy : IProjectileStrategy
+public class RicochetStrategy : IProjectileStrategy, ISkillStackable<IProjectileStrategy>
 {
     private int mMaxBounceCount;
     private float mBounceRange; //리코쳇 범위
@@ -13,6 +13,19 @@ public class RicochetStrategy : IProjectileStrategy
         mMaxBounceCount = maxBounceCount;
         mBounceRange = bounceRange;
         mDamageMultiplier = damageMultiplier;
+    }
+
+    //스킬선택 시, 이미 보유하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 ApplyStack만 호출
+    public bool TryStack(IProjectileStrategy newRicochet)
+    {
+        if (newRicochet is RicochetStrategy ricochet)
+        {
+            //튕김 + 1
+            mMaxBounceCount += 1;
+            //데미지 감소 없음
+            return true;
+        }
+        return false;
     }
     public void OnShoot(Projectile projectile)
     {
