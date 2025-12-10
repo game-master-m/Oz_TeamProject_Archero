@@ -3,7 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AutoTurret", menuName = "Archero/SkillData/Passive/AutoTurretSkillDataSO")]
 public class AutoTurretSkillDataSO : SkillDataSO
 {
-    [SerializeField] private float mAttackSpeedMultiplier = 0.5f;
+    [Header("오토터렛 능력치")]
+    [SerializeField] private float mAttackDamageMultiplier = 0.6f;
 
     public override IProjectileStrategy CreateProjectileStrategy()
     {
@@ -12,6 +13,6 @@ public class AutoTurretSkillDataSO : SkillDataSO
 
     public override IPassiveStrategy CreatePassiveStrategy()
     {
-        return new AutoTurretStrategy(mAttackSpeedMultiplier);
+        return new AutoTurretStrategy(mAttackDamageMultiplier);
     }
 }

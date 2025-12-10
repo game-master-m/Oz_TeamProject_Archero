@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
 
     public float AttackDamage { get; private set; }
     public float AttackRange { get; private set; }
-    public float AttackSpeed { get; set; }  //초당 공격 횟수
+    public float AttackSpeed { get; private set; }  //초당 공격 횟수
     public bool IsAutoTurret { get; set; } = false;
 
     private void Start()
@@ -68,7 +68,22 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    //true -> Add , false -> Stack
+    #region 스탯변경 메서드
+    public void AddDamage(float add)
+    {
+        AttackDamage += add;
+    }
+    public void MultipleDamage(float multiplier)
+    {
+        AttackDamage *= multiplier;
+    }
+    public void MultipleAttackSpeed(float multiplier)
+    {
+        AttackSpeed *= multiplier;
+    }
+    #endregion 
+
+    //리턴이 true면 Add가 된 것이고 , false이면 Stack이 쌓임
     private bool AddOrStack<T>(List<T> list, T newStrategy) where T : class
     {
         // 리스트를 순회하며 "나랑 합칠 수 있는 녀석"을 찾습니다.
