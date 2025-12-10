@@ -14,7 +14,7 @@ public class AutoTurretStrategy : IPassiveStrategy
     {
         mTimer = 0;
         attack.IsAutoTurret = true;
-        attack.AttackSpeed *= mDamageMultiplier;
+        attack.MultipleDamage(mDamageMultiplier);
     }
 
     public void OnUpdate(PlayerAttack attack)
