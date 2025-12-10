@@ -4,6 +4,7 @@ public abstract class SkillDataSO : ScriptableObject
 {
     [Header("UI 표시 정보")]
     public string skillName;
+    [TextArea]
     public string description;
     public Sprite icon;
     public ESkillGrade skillGrade;

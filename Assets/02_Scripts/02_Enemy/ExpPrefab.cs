@@ -6,6 +6,7 @@ public class ExpPrefab : MonoBehaviour
 {
     [SerializeField] private float mMoveSpeed = 15f;
     [SerializeField] private int mExpAmount = 50;
+    [SerializeField] private Vector3 offset = new Vector3(0f, 1.0f, 0f);
 
     [Header("이벤트 발송")]
     [SerializeField] private IntEventChannelSO mOnGetExpRequest;    //LevelUpController가 구독
@@ -54,12 +55,12 @@ public class ExpPrefab : MonoBehaviour
     public void SetTarget(Transform target)
     {
         mTarget = target;
-        Utils.Log($"ExpPrefab Set Target: {mTarget.name}");
+        //Utils.Log($"ExpPrefab Set Target: {mTarget.name}");
     }
     private void FixedUpdate()
     {
         if (!bIsRoomClear) return;
-        mMoveDirection = (mTarget.position - transform.position).normalized;
+        mMoveDirection = (mTarget.position + offset - transform.position).normalized;
         mRigidbody.velocity = mMoveDirection * mMoveSpeed;
     }
 
