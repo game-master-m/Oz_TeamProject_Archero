@@ -2,38 +2,42 @@ using UnityEngine;
 
 public class MeleeEnemy : EnemyBase
 {
-    // ±ÙÁ¢°ø°İ ¿¡³Ê¹ÌÀÇ ±â´ÉÀ» ¿©±â¿¡ Ãß°¡ÇÏ¼¼¿ä.
+    // ê·¼ì ‘ê³µê²© ì—ë„ˆë¯¸ì˜ ê¸°ëŠ¥ì„ ì—¬ê¸°ì— ì¶”ê°€í•˜ì„¸ìš”.
 
-    //EnemyBase¸¦ »ó¼Ó¹Ş¾Æ ÇÊ¿äÇÑ ±â´ÉÀ» ±¸ÇöÇÕ´Ï´Ù.
-    //EnemyBase¿¡´Â NavMeshAgent, Animator, CapsuleCollider,StateMachine, EnemyStat µîÀÌ ÀÌ¹Ì Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.
+    //EnemyBaseë¥¼ ìƒì†ë°›ì•„ í•„ìš”í•œ ê¸°ëŠ¥ì„ êµ¬í˜„í•©ë‹ˆë‹¤.
+    //EnemyBaseì—ëŠ” NavMeshAgent, Animator, CapsuleCollider,StateMachine, EnemyStat ë“±ì´ ì´ë¯¸ í¬í•¨ë˜ì–´ ìˆìŠµë‹ˆë‹¤.
 
 
     #region States
-    // ¿©±â¿¡ ±ÙÁ¢°ø°İ ¿¡³Ê¹ÌÀÇ »óÅÂµéÀ» Á¤ÀÇÇÏ¼¼¿ä.
+    // ì—¬ê¸°ì— ê·¼ì ‘ê³µê²© ì—ë„ˆë¯¸ì˜ ìƒíƒœë“¤ì„ ì •ì˜í•˜ì„¸ìš”.
     MeleeIdleState mIdleState;
+    MeleeMoveState mMoveState;
+
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
-        // ±ÙÁ¢°ø°İ ¿¡³Ê¹ÌÀÇ ÃÊ±âÈ­ ·ÎÁ÷À» ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
+        // ê·¼ì ‘ê³µê²© ì—ë„ˆë¯¸ì˜ ì´ˆê¸°í™” ë¡œì§ì„ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
         InitStats(mStatData);
 
 
-        // »óÅÂµé »ı¼º
+        // ìƒíƒœë“¤ ìƒì„±
         mIdleState = new MeleeIdleState(this);
-        //ÀüÈ¯Á¶°Ç ¼³Á¤
+        mMoveState = new MeleeMoveState(this);
+
+        //ì „í™˜ì¡°ê±´ ì„¤ì •
         InitTransitions();
     }
     private void Start()
     {
-        // ÃÊ±â »óÅÂ ¼³Á¤
+        // ì´ˆê¸° ìƒíƒœ ì„¤ì •
         mStateMachine.ChangeState(mIdleState);
     }
     protected override void Update()
     {
         base.Update();
-        //Å×½ºÆ®¿ë Å¸°Ù ÃßÃ´
+        //í…ŒìŠ¤íŠ¸ìš© íƒ€ê²Ÿ ì¶”ì²™
         if (mTarget != null)
         {
             //mAgent.SetDestination(mTarget.position);
@@ -42,39 +46,41 @@ public class MeleeEnemy : EnemyBase
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        // Ãß°¡ÀûÀÎ °íÁ¤ ¾÷µ¥ÀÌÆ® ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
+        // ì¶”ê°€ì ì¸ ê³ ì • ì—…ë°ì´íŠ¸ ë¡œì§ì´ í•„ìš”í•˜ë©´ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
     }
     protected override void OnEnable()
     {
         base.OnEnable();
-        // Ãß°¡ÀûÀÎ È°¼ºÈ­ ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
+        // ì¶”ê°€ì ì¸ í™œì„±í™” ë¡œì§ì´ í•„ìš”í•˜ë©´ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
     }
     protected override void OnDisable()
     {
         base.OnDisable();
-        // Ãß°¡ÀûÀÎ ºñÈ°¼ºÈ­ ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
+        // ì¶”ê°€ì ì¸ ë¹„í™œì„±í™” ë¡œì§ì´ í•„ìš”í•˜ë©´ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
     }
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        // Ãß°¡ÀûÀÎ ÆÄ±« ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
+        // ì¶”ê°€ì ì¸ íŒŒê´´ ë¡œì§ì´ í•„ìš”í•˜ë©´ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
     }
     public override void InitStats(EnemyStatDataSO data)
     {
         base.InitStats(data);
-        // ±ÙÁ¢°ø°İ ¿¡³Ê¹ÌÀÇ ½ºÅÈ ÃÊ±âÈ­ ·ÎÁ÷À» ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
+        // ê·¼ì ‘ê³µê²© ì—ë„ˆë¯¸ì˜ ìŠ¤íƒ¯ ì´ˆê¸°í™” ë¡œì§ì„ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
 
     }
 
     private void InitTransitions()
     {
-        // »óÅÂ ÀüÈ¯ ·ÎÁ÷À» ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-        //mStateMachine.AddTransition(mIdleState, mMoveState, () => 0.1f); // ¿¹½Ã
-
-
+        // ìƒíƒœ ì „í™˜ ë¡œì§ì„ ì—¬ê¸°ì— ì‘ì„±í•˜ì„¸ìš”.
+        //mStateMachine.AddTransition(mIdleState, mMoveState, () => true); // ì˜ˆì‹œ
+        mStateMachine.AddTransition(mIdleState, mMoveState, () => mTarget != null && Vector3.Distance(transform.position, mTarget.position) <= 10f);
+        //í˜„ì¬ìƒíƒœê°€ Idleì¼ë•Œ moveìƒíƒœë¡œ ì „í™˜í•˜ëŠ” ì¡°ê±´: íƒ€ê²Ÿì´ ì¡´ì¬í•˜ê³ , íƒ€ê²Ÿê³¼ì˜ ê±°ë¦¬ê°€ ì´í•˜ì¼ë•Œ
+        mStateMachine.AddTransition(mMoveState, mIdleState, () => mTarget == null || Vector3.Distance(transform.position, mTarget.position) > 100f);
+        //í˜„ì¬ìƒíƒœê°€ Moveì¼ë•Œ Idleìƒíƒœë¡œ ì „í™˜í•˜ëŠ” ì¡°ê±´: íƒ€ê²Ÿì´ ì—†ê±°ë‚˜, íƒ€ê²Ÿê³¼ì˜ ê±°ë¦¬ê°€ fë¥¼ ë„˜ì„ë•Œ
     }
 
-    //TakeDamage(float amount) ÇÊ¿ä ½Ã ¿À¹ö¶óÀÌµå
+    //TakeDamage(float amount) í•„ìš” ì‹œ ì˜¤ë²„ë¼ì´ë“œ
 
-    //Die() ÇÊ¿ä ½Ã ¿À¹ö¶óÀÌµå
+    //Die() í•„ìš” ì‹œ ì˜¤ë²„ë¼ì´ë“œ
 }
