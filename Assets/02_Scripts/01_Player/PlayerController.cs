@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDir.y = 0.0f;
         }
-        mCharacterController.Move(moveDir * Attack.MoveSpeed * Time.deltaTime);
+        mCharacterController.Move(moveDir * Stat.MoveSpeed * Time.deltaTime);
         mCurrentSpeedSqr = mCharacterController.velocity.sqrMagnitude;
         RotateToMoveDir(moveDir);
     }
