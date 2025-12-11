@@ -2,113 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireSprite : MonoBehaviour
+public class FireSprite : SpriteBase
 {
-    [SerializeField] private Projectile mProjectilePrefab;
-    [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, 1.0f, 0);
+    //이미 충돌한 충돌체 ID 목록
+    private HashSet<int> mIgnoreColliderIDs = new HashSet<int>();
 
-    private List<IProjectileStrategy> mArrowStrategies = new List<IProjectileStrategy>();
+    private List<EnemyBase> mTargetEnemies = new List<EnemyBase>();
+    private List<float> mEffectTimes = new List<float>();
+    private float mEffectTime = 3;
 
-    [SerializeField] private float mTargetRange = 30.0f;
-    [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 0, 0);
+    private Coroutine fireCoroutine;
+    private WaitForSeconds mFireTick = new WaitForSeconds(0.2f);
 
-    [SerializeField] private Vector3 mPositionOffset = new Vector3(1.5f, 1.0f, 0);
-
-    private float mAttackDamage;
-    private float mAttackSpeed;
-    private WaitForSeconds mWaitAttack;
-
+    //스타트는 테스트 환경에서 작동을 확인용
     private void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag(Define.Tag_Player);
-
-        SetUp(player.GetComponent<PlayerAttack>(), 1);
+        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
+        SetUp(mPlayer, mSpriteNumber);
     }
 
-    public void SetUp(PlayerAttack attack, int spriteCount) 
+    public override void ApplyElement(EnemyBase target, float damage)
     {
-        //위치 설정
-        this.gameObject.transform.position = attack.gameObject.transform.position + mPositionOffset;
-        this.gameObject.transform.RotateAround(transform.position, Vector3.up, mTargetRange * spriteCount);
+        Utils.Log("ApplyElement");
+        //화염 데미지 = 데미지 * 0.2(기존 데미지 20%), 3초동안 15틱
+        float fireDamage = damage * 0.2f;
+        int targetID = target.gameObject.GetInstanceID();
 
-        //스텟 받아오기
-        mAttackSpeed = attack.gameObject.GetComponent<PlayerStat>().AttackSpeed;
-        mAttackDamage = attack.gameObject.GetComponent<PlayerStat>().AttackDamage * 0.4f;
-        mWaitAttack = new WaitForSeconds(mAttackSpeed);
-
-        //공격 시작
-        StartCoroutine(AttackCo());
-    }
-
-    //Projectile과 거의 같음
-    public bool LookTarget()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, mTargetRange, Layers.GetLayerMask(ELayerName.Enemy));
-
-        if (hitColliders.Length == 0)
+        //맞았던 오브젝트가 아니면 리스트에 추가
+        if (!mIgnoreColliderIDs.Contains(targetID))
         {
-            Utils.Log("주변에 적이 없습니다.");
-            return false;
+            mIgnoreColliderIDs.Add(targetID);
+            mTargetEnemies.Add(target);
+            mEffectTimes.Add(mEffectTime);
         }
-
-        Transform closestEnemy = null;
-        float closestDistance = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-
-        Collider nearCol = null;
-
-        foreach (Collider hitCollider in hitColliders)
+        else 
         {
-            //비활성화된 적은 패스
-            if (!hitCollider.enabled || !hitCollider.gameObject.activeInHierarchy) continue;
-
-            Vector3 targetDir = hitCollider.transform.position - currentPosition;
-            float distanceToTarget = targetDir.sqrMagnitude;
-
-            //적이 겹쳐있어 거리가 매우 가까울 때 벡터연산 오류 방지
-            if (distanceToTarget < 0.001f) continue;
-
-            if (distanceToTarget < closestDistance)
+            //맞았던 오브젝트면 효과시간 초기화
+            for (int i = 0; i < mTargetEnemies.Count; i++) 
             {
-                closestDistance = distanceToTarget;
-                closestEnemy = hitCollider.transform;
-                nearCol = hitCollider;
+                if (mTargetEnemies[i].gameObject.GetInstanceID() == targetID) 
+                {
+                    mEffectTimes[i] = mEffectTime;
+                }
             }
         }
 
-        if (nearCol == null)
+        if (fireCoroutine == null)
         {
-            Utils.Log("맞은 적 외 주변에 적이 없습니다.");
-            return false;
-        }
-
-        transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
-      
-        return true;
+            fireCoroutine = StartCoroutine(ApplyFireCo(fireDamage));
+        }   
     }
 
-    //발사체 생성
-    public void MakeProjectile()
+    IEnumerator ApplyFireCo(float damage)
     {
-        Projectile projectile = Managers.Pool.GetFromPool(mProjectilePrefab);
-        if (projectile != null)
+        while (mTargetEnemies.Count > 0) 
         {
-            projectile.transform.position = transform.position + mProjectileOffeset;
-            projectile.Setup(mArrowStrategies, mAttackDamage);
-        }
-    }
-
-    //공격 코루틴
-    IEnumerator AttackCo() 
-    {
-        while (true) 
-        {
-            if (LookTarget())
+            for (int i = mTargetEnemies.Count - 1; i >= 0; i--) 
             {
-                MakeProjectile();
+                if (mEffectTimes[i] <= 0 || !mTargetEnemies[i].gameObject.activeInHierarchy)
+                {
+                    int id = mTargetEnemies[i].gameObject.GetInstanceID();
+                    mEffectTimes.RemoveAt(i);
+                    mTargetEnemies.RemoveAt(i);
+                    mIgnoreColliderIDs.Remove(id);
+                }
+                else 
+                {
+                    mEffectTimes[i] -= 0.2f;
+                    //mTargetEnemies[i].TakeDamage(fireDamage);                   
+                }
             }
-
-            yield return mWaitAttack;
+            Utils.Log($"{mTargetEnemies.Count}개 대상에게{damage}데미지");
+            yield return mFireTick;
         }
+
+        fireCoroutine = null;
     }
 }
