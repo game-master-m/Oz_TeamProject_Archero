@@ -82,8 +82,8 @@ public class Projectile : MonoBehaviour
         //각각 전략들의 초기화 로직
         foreach (var strategy in mStrategies)
         {
+            //쏠 때 각 전략들 초기화
             strategy.OnShoot(this);
-            //예) 리코쳇 : 발사 시 RemainingBounceCount 설정
         }
 
     }

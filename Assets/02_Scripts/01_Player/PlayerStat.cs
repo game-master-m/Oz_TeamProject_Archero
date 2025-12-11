@@ -59,6 +59,25 @@ public class PlayerStat : LivingEntity
     {
         AttackSpeed *= amount;
     }
+    public void AddHP(float amount)
+    {
+        mCurrentHP += amount;
+    }
+    public void MultipleHP(float amount)
+    {
+        mCurrentHP *= amount;
+        if (mCurrentHP > MaxHP) mCurrentHP = MaxHP;
+    }
+    public void AddMaxHP(float amount)
+    {
+        mMaxHP += amount;
+        mCurrentHP += amount;
+    }
+    public void MultipleMaxHP(float amount)
+    {
+        mMaxHP *= amount;
+        mCurrentHP *= amount;
+    }
     #endregion
 
     public override void Die()
