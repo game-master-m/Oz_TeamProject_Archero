@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DMG_UP_Normal
   m_EditorClassIdentifier: 
   skillName: "\uC804\uC0AC\uC758 \uC228\uACB0"
-  description: "\uD50C\uB808\uC774\uC5B4 \n\uACF5\uACA9\uB825 \uC99D\uAC00 10%"
+  description: "\uD50C\uB808\uC774\uC5B4 \n\uACF5\uACA9\uB825 +10%"
   icon: {fileID: 21300000, guid: 446dfffbd9ac66c4fad73e621ed4d3d2, type: 2}
   skillGrade: 1
   mAttackDamageMultiplier: 1.1

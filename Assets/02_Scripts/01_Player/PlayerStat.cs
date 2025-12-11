@@ -62,6 +62,7 @@ public class PlayerStat : LivingEntity
     public void AddHP(float amount)
     {
         mCurrentHP += amount;
+        if (mCurrentHP > MaxHP) mCurrentHP = MaxHP;
     }
     public void MultipleHP(float amount)
     {

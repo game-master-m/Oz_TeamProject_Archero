@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AtkSpeed_UP_Normal
   m_EditorClassIdentifier: 
   skillName: "\uC694\uC815\uC758 \uC228\uACB0"
-  description: "\uD50C\uB808\uC774\uC5B4\n\uACF5\uC18D \uC99D\uAC00 10%"
+  description: "\uD50C\uB808\uC774\uC5B4\n\uACF5\uACA9\uC18D\uB3C4 +10%"
   icon: {fileID: 21300000, guid: 8760f455c247e2043b34b3104d512e88, type: 2}
   skillGrade: 1
   mAtkSpeedMultiplier: 1.1
