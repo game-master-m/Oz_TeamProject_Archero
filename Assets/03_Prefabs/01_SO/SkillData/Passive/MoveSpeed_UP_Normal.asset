@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MoveSpeed_UP_Normal
   m_EditorClassIdentifier: 
   skillName: "\uBC14\uB78C\uC758 \uC228\uACB0"
-  description: "\uD50C\uB808\uC774\uC5B4\n\uC774\uC18D \uC99D\uAC00 10%"
+  description: "\uD50C\uB808\uC774\uC5B4\n\uC774\uB3D9\uC18D\uB3C4 +10%"
   icon: {fileID: 21300000, guid: ad865aa320d119642b29479e2b1ace8f, type: 2}
   skillGrade: 1
   mMoveSpeedMultiplier: 1.1
