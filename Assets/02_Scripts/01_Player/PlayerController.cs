@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -38,6 +36,7 @@ public class PlayerController : MonoBehaviour
     #region Properties
     public Animator Anim => mAnim;
     public PlayerAttack Attack => mAttack;
+    public PlayerStat Stat => mStat;
     public bool CanMove { get; set; } = true;
     #endregion
     private void Awake()
@@ -86,15 +85,15 @@ public class PlayerController : MonoBehaviour
         //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
 
         //Stop
-        mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        //mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
 
         //Move
-        mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
+        //mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
 
         //attack
-        //mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
         //move2
-        //mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
+        mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
 
 
     }
@@ -123,7 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDir.y = 0.0f;
         }
-        mCharacterController.Move(moveDir * mStat.MoveSpeed * Time.deltaTime);
+        mCharacterController.Move(moveDir * Stat.MoveSpeed * Time.deltaTime);
         mCurrentSpeedSqr = mCharacterController.velocity.sqrMagnitude;
         RotateToMoveDir(moveDir);
     }

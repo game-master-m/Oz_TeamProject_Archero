@@ -7,7 +7,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     public float CurrentHP => mCurrentHP;
     public float MaxHP => mMaxHP;
 
-    //인터페이서 IDamageable 구현
+    //인터페이스 IDamageable 구현
     public bool IsDead => mCurrentHP <= 0.0f;
 
     private bool bIsDead = false;
@@ -42,6 +42,9 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
             Die();
         }
     }
+
+    //도트 데미지 받기 추가
+
 
     public virtual void Die()
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AutoTurret", menuName = "Archero/SkillData/Passive/AutoTurretSkillDataSO")]
+[CreateAssetMenu(fileName = "AutoTurret", menuName = "Archero/SkillData/Passive/AutoTurret")]
 public class AutoTurretSkillDataSO : SkillDataSO
 {
     [Header("오토터렛 능력치")]

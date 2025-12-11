@@ -28,7 +28,7 @@ public class EnemyBase : LivingEntity
 
     public NavMeshAgent Agent => mAgent;
 
-    //ÇÃ·¹ÀÌ¾î ÃßÀû¿ë Å¸°Ù
+    //í”Œë ˆì´ì–´ ì¶”ì ìš© íƒ€ê²Ÿ
     protected Transform mTarget;
 
     public event Action<EnemyBase> onEnemyDie;
@@ -41,7 +41,7 @@ public class EnemyBase : LivingEntity
         mAnimator = GetComponent<Animator>();
         mCapsuleCollider = GetComponent<CapsuleCollider>();
 
-        // NavMeshAgent ¼¼ÆÃ (¼Óµµ, È¸Àü µî)
+        // NavMeshAgent ì„¸íŒ… (ì†ë„, íšŒì „ ë“±)
         mAgent.updateRotation = false;
 
         mStateMachine = new StateMachine();
@@ -51,15 +51,15 @@ public class EnemyBase : LivingEntity
 
     protected override void OnEnable()
     {
-        base.OnEnable(); // ºÎ¸ğÀÇ Ã¼·Â ÃÊ±âÈ­ ½ÇÇà
+        base.OnEnable(); // ë¶€ëª¨ì˜ ì²´ë ¥ ì´ˆê¸°í™” ì‹¤í–‰
 
-        //ÄÃ¶óÀÌ´õ ²ô°í, StageManager¿¡¼­ ÄÔ
+        //ì»¬ë¼ì´ë” ë„ê³ , StageManagerì—ì„œ ì¼¬
         if (mCapsuleCollider != null) mCapsuleCollider.enabled = true;
 
-        // ÀûÀÌ ´Ù½Ã »ì¾Æ³¯ ¶§(Ç®¸µ) ÇÊ¿äÇÑ ÃÊ±âÈ­
+        // ì ì´ ë‹¤ì‹œ ì‚´ì•„ë‚  ë•Œ(í’€ë§) í•„ìš”í•œ ì´ˆê¸°í™”
         if (mAgent != null)
         {
-            mAgent.enabled = false; // NavMeshAgent ºñÈ°¼ºÈ­, StageManager¿¡¼­ È°¼ºÈ­ Ã³¸®
+            mAgent.enabled = false; // NavMeshAgent ë¹„í™œì„±í™”, StageManagerì—ì„œ í™œì„±í™” ì²˜ë¦¬
         }
     }
     protected virtual void OnDisable()
@@ -110,28 +110,28 @@ public class EnemyBase : LivingEntity
     public override void Die()
     {
         base.Die();
-        // 0. Á×À½ ¹æ¼Û~
+        // 0. ì£½ìŒ ë°©ì†¡~
         onEnemyDie?.Invoke(this);
 
-        // 0. °æÇèÄ¡ µå¶ø
+        // 0. ê²½í—˜ì¹˜ ë“œë
         ExpPrefab exp = Managers.Pool.GetFromPool(mExpPrefab);
         exp.transform.position = transform.position + Vector3.up * 0.5f;
         exp.SetTarget(mTarget);
 
-        // 1. ¿òÁ÷ÀÓ ¸ØÃã
+        // 1. ì›€ì§ì„ ë©ˆì¶¤
         if (mAgent.isOnNavMesh)
         {
             mAgent.isStopped = true;
         }
         mAgent.enabled = false;
 
-        // 2. Äİ¶óÀÌ´õ ²ô±â (½ÃÃ¼¿¡ °ø°İ ¾È ¸·È÷°Ô)
+        // 2. ì½œë¼ì´ë” ë„ê¸° (ì‹œì²´ì— ê³µê²© ì•ˆ ë§‰íˆê²Œ)
         mCapsuleCollider.enabled = false;
 
-        // 3. StageManager¿¡°Ô ¾Ë¸®±â (ÇÊ¿ä½Ã ÀÌº¥Æ®³ª ¸Å´ÏÀú È£Ãâ)
+        // 3. StageManagerì—ê²Œ ì•Œë¦¬ê¸° (í•„ìš”ì‹œ ì´ë²¤íŠ¸ë‚˜ ë§¤ë‹ˆì € í˜¸ì¶œ)
 
 
-        // 4. ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı ÈÄ Ç®·Î ¹İÈ¯ 
+        // 4. ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ í›„ í’€ë¡œ ë°˜í™˜ 
         Managers.Pool.ReturnToPool(this);
     }
 }

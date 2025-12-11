@@ -14,13 +14,13 @@ public class AutoTurretStrategy : IPassiveStrategy
     {
         mTimer = 0;
         attack.IsAutoTurret = true;
-        attack.MultipleDamage(mDamageMultiplier);
+        attack.Stat.MultipleDamage(mDamageMultiplier);
     }
 
     public void OnUpdate(PlayerAttack attack)
     {
         mTimer += Time.deltaTime;
-        if (mTimer >= 1 / attack.AttackSpeed)
+        if (mTimer >= 1 / attack.Stat.AttackSpeed)
         {
             mTimer = 0;
             attack.MakeProjectile();

@@ -8,6 +8,7 @@ public class RicochetStrategy : IProjectileStrategy, ISkillStackable<IProjectile
     private float mBounceRange; //리코쳇 범위
     private float mDamageMultiplier;
 
+    private bool bIsFirstHit = true;
     public RicochetStrategy(int maxBounceCount, float bounceRange, float damageMultiplier)
     {
         mMaxBounceCount = maxBounceCount;
@@ -15,10 +16,10 @@ public class RicochetStrategy : IProjectileStrategy, ISkillStackable<IProjectile
         mDamageMultiplier = damageMultiplier;
     }
 
-    //스킬선택 시, 이미 보유하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 ApplyStack만 호출
+    //스킬선택 시, 이미 보유하고 있으면 PlayerAttack.cs의 AddOrStack에서 걸러내고 기존 전략인스턴스의 TryStack만 호출
     public bool TryStack(IProjectileStrategy newRicochet)
     {
-        if (newRicochet is RicochetStrategy ricochet)
+        if (newRicochet is RicochetStrategy)
         {
             //튕김 + 1
             mMaxBounceCount += 1;
@@ -30,12 +31,13 @@ public class RicochetStrategy : IProjectileStrategy, ISkillStackable<IProjectile
     public void OnShoot(Projectile projectile)
     {
         projectile.RemainingBounceCount += mMaxBounceCount;
+        bIsFirstHit = true;
     }
     public void OnHit(Projectile projectile, IDamageable target)
     {
-        //데미지 처리?
-        float finalDamage = projectile.CurrentDamage;
-        projectile.MultipleDamage(mDamageMultiplier);
+        //데미지 감소(첫 타격 제외)
+        if (!bIsFirstHit) projectile.MultipleDamage(mDamageMultiplier);
+        bIsFirstHit = false;
 
         //리코쳇 가능 여부 판단
         if (projectile.RemainingBounceCount <= 0)

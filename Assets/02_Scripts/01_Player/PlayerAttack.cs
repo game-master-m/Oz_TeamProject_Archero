@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,12 +9,11 @@ public class PlayerAttack : MonoBehaviour
     private List<IProjectileStrategy> mArrowStrategies = new List<IProjectileStrategy>();
     private List<IPassiveStrategy> mPassiveStrategies = new List<IPassiveStrategy>();
 
+    //모든 스탯은 PlayerStat이 들고있고 관리 함
+    private PlayerStat mStat;
 
-    public float AttackDamage { get; private set; }
-    public float AttackRange { get; private set; }
-    public float AttackSpeed { get; private set; }  //초당 공격 횟수
     public bool IsAutoTurret { get; set; } = false;
-
+    public PlayerStat Stat => mStat;
     private void Start()
     {
         Managers.Pool.CreatePool(mProjectilePrefab, 100, Managers.Pool.transform);
@@ -31,9 +29,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public void InitStat(PlayerStat stats)
     {
-        AttackDamage = stats.AttackDamage;
-        AttackSpeed = stats.AttackSpeed;
-        AttackRange = stats.AttackRange;
+        mStat = stats;
     }
     public void AddSkill(SkillDataSO data)
     {
@@ -64,24 +60,10 @@ public class PlayerAttack : MonoBehaviour
         if (projectile != null)
         {
             projectile.transform.position = transform.position + mProjectileOffeset;
-            projectile.Setup(mArrowStrategies, AttackDamage);
+            projectile.Setup(mArrowStrategies, mStat.AttackDamage);
         }
     }
 
-    #region 스탯변경 메서드
-    public void AddDamage(float add)
-    {
-        AttackDamage += add;
-    }
-    public void MultipleDamage(float multiplier)
-    {
-        AttackDamage *= multiplier;
-    }
-    public void MultipleAttackSpeed(float multiplier)
-    {
-        AttackSpeed *= multiplier;
-    }
-    #endregion 
 
     //리턴이 true면 Add가 된 것이고 , false이면 Stack이 쌓임
     private bool AddOrStack<T>(List<T> list, T newStrategy) where T : class
