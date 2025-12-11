@@ -11,7 +11,6 @@ public class MeleeEnemy : EnemyBase
     #region States
     // 여기에 근접공격 에너미의 상태들을 정의하세요.
     MeleeIdleState mIdleState;
-
     #endregion
 
     protected override void Awake()
@@ -23,7 +22,6 @@ public class MeleeEnemy : EnemyBase
 
         // 상태들 생성
         mIdleState = new MeleeIdleState(this);
-
         //전환조건 설정
         InitTransitions();
     }
@@ -71,7 +69,7 @@ public class MeleeEnemy : EnemyBase
     private void InitTransitions()
     {
         // 상태 전환 로직을 여기에 작성하세요.
-        //mStateMachine.AddTransition(mIdleState, mIdleState, () => true); // 예시
+        //mStateMachine.AddTransition(mIdleState, mMoveState, () => 0.1f); // 예시
 
 
     }

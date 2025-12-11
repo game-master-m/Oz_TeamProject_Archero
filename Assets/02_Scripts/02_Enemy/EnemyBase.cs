@@ -26,11 +26,13 @@ public class EnemyBase : LivingEntity
     public float AttackSpeed => mAttackSpeed;
     public float AttackDamage => mAttackDamage;
 
+    public NavMeshAgent Agent => mAgent;
     //플레이어 추적용 타겟
     protected Transform mTarget;
 
     public event Action<EnemyBase> onEnemyDie;
     public Animator Anim => mAnimator;
+    public Transform Target => mTarget;
 
     protected virtual void Awake()
     {

@@ -14,10 +14,10 @@ public class FanShotStrategy : IProjectileStrategy, ISkillStackable<IProjectileS
 
     public void OnHit(Projectile projectile, IDamageable target) { }
 
-    //스킬선택 시, 이미 FanShot을 보유하고 있으면 PlayerAttack.cs의 AddSkill에서 걸러내고 ApplyStack만 호출
+    //스킬선택 시, 이미 보유하고 있으면 PlayerAttack.cs의 AddOrStack에서 걸러내고 기존 전략인스턴스의 TryStack만 호출
     public bool TryStack(IProjectileStrategy newFanShot)
     {
-        if (newFanShot is FanShotStrategy fanShot)
+        if (newFanShot is FanShotStrategy)
         {
             mShotCount += 2;
             mDamageMultiplier *= mDamageMultiplier;
