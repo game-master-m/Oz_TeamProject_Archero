@@ -1,30 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
 
-public class MeleeEnemy : EnemyBase
+public class RangeEnemy : EnemyBase
 {
-    // 근접공격 에너미의 기능을 여기에 추가하세요.
+    // 원거리공격 에너미의 기능을 여기에 추가하세요.
 
     //EnemyBase를 상속받아 필요한 기능을 구현합니다.
     //EnemyBase에는 NavMeshAgent, Animator, CapsuleCollider,StateMachine, EnemyStat 등이 이미 포함되어 있습니다.
 
-
     #region States
-    // 여기에 근접공격 에너미의 상태들을 정의하세요.
-    MeleeIdleState mIdleState;
-    MeleeMoveState mMoveState;
+    // 여기에 원거리공격 에너미의 상태들을 정의하세요.
+    RangeIdleState mIdleState;
+    RangeMoveState mMoveState;
+ 
 
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
-        // 근접공격 에너미의 초기화 로직을 여기에 작성하세요.
+        // 원거리공격 에너미의 초기화 로직을 여기에 작성하세요.
         InitStats(mStatData);
 
 
         // 상태들 생성
-        mIdleState = new MeleeIdleState(this);
-        mMoveState = new MeleeMoveState(this);
+        mIdleState = new RangeIdleState(this);
+        mMoveState = new RangeMoveState(this);
 
         //전환조건 설정
         InitTransitions();
@@ -77,7 +80,7 @@ public class MeleeEnemy : EnemyBase
         mStateMachine.AddTransition(mIdleState, mMoveState, () => mTarget != null && Vector3.Distance(transform.position, mTarget.position) <= 10f);
         //현재상태가 Idle일때 move상태로 전환하는 조건: 타겟이 존재하고, 타겟과의 거리가 이하일때
         mStateMachine.AddTransition(mMoveState, mIdleState, () => mTarget == null || Vector3.Distance(transform.position, mTarget.position) > 100f);
-        //현재상태가 Move일때 Idle상태로 전환하는 조건: 타겟이 없거나, 타겟과의 거리가 f를 넘을때
+        //현재상태가 Move일때 Idle상태로 전환하는 조건: 타겟이 없거나, 타겟과의 거리가 10f를 넘을때
     }
 
     //TakeDamage(float amount) 필요 시 오버라이드
