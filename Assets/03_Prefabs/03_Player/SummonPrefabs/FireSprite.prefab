@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3362617240482198430}
   - component: {fileID: 150344930593635063}
   - component: {fileID: 635975354517759472}
-  - component: {fileID: 1172423640700198443}
+  - component: {fileID: 849340851855869549}
   m_Layer: 0
   m_Name: FireSprite
   m_TagString: Untagged
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25e1c05a4fbfb814fa72eeb92be0179f, type: 2}
+  - {fileID: 2100000, guid: 20b9bb62acf4ed545a39901aa57e46af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1172423640700198443
+--- !u!114 &849340851855869549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,12 +93,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5424574553938510389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e298736ce5b5d0498ca42f956563499, type: 3}
+  m_Script: {fileID: 11500000, guid: ebaf7837cb4070f468911181666e5403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mProjectilePrefab: {fileID: 286653708799561183, guid: 59b6c41b284c10e4f940ca82097e9332,
+  mElementsProjectilePrefab: {fileID: 8604183404813060388, guid: 3aa58996e5a67a143bd767c9d8d81500,
     type: 3}
   mProjectileOffeset: {x: 0, y: 1, z: 0}
   mTargetRange: 30
-  mTargetOffset: {x: 0, y: 0.5, z: 0}
+  mTargetOffset: {x: 0, y: 0, z: 0}
   mPositionOffset: {x: 1.5, y: 1, z: 0}
+  mSpriteNumber: 1
+  mElement: 0

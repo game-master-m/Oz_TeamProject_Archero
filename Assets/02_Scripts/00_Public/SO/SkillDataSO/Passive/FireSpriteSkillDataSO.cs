@@ -15,6 +15,7 @@ public class FireSpriteSkillDataSO : SkillDataSO
 
     public override IPassiveStrategy CreatePassiveStrategy()
     {
+        
         return new FireSpriteStrategy(mSpriteCount, mFireSpritePrefab);
     }
 }

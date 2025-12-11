@@ -19,20 +19,18 @@ public class FireSpriteStrategy : IPassiveStrategy
     public void OnEquip(PlayerAttack attack) 
     {
         mFireSprite = Managers.Pool.GetFromPool(mFireSpritePrefab);
-
-        mFireSprite.transform.SetParent(attack.gameObject.transform, false);
         mFireSprite.SetUp(attack, mSpriteCount);
     }
 
     public void OnUpdate(PlayerAttack attack)
     {
- 
+        
     }
 
     public void OnUnequip(PlayerAttack attack)
     {
         mFireSprite.StopAllCoroutines();
-        mFireSprite.transform.SetParent(null, false);
+        mFireSprite.Detach();
         Managers.Pool.ReturnToPool(mFireSprite);
     }
 }
