@@ -7,7 +7,7 @@ public class PlayerStatDataSO : ScriptableObject
     [SerializeField] private float mMaxHp = 100f;
     [SerializeField] private float mMoveSpeed = 5f;
     [SerializeField] private float mAttackDamage = 10f;
-    [SerializeField] private float mAttackRange = 10f;
+    [SerializeField] private float mAttackRange = 30f;
     [SerializeField] private float mAttackSpeed = 1f;
     [SerializeField] private float mRotateSpeed = 8.0f;
 

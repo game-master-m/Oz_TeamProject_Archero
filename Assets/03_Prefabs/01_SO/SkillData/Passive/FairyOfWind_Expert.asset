@@ -15,7 +15,7 @@ MonoBehaviour:
   skillName: "\uBC14\uB78C\uC758 \uC694\uC815"
   description: "\uD50C\uB808\uC774\uC5B4\n\uACF5\uACA9\uC18D\uB3C4 +10%\n\uC774\uB3D9\uC18D\uB3C4
     +10%"
-  icon: {fileID: 21300000, guid: afeecad1877009e4580aa6fa1327f1a6, type: 2}
+  icon: {fileID: 21300000, guid: 45f2948b05e0a9d40aa709dd07ab0090, type: 2}
   skillGrade: 2
   mMoveSpeedMultiplier: 1.1
   mAttackSpeedMultiplier: 1.1

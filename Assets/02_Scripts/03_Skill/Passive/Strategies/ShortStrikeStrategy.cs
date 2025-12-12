@@ -16,7 +16,9 @@ public class ShortStrikeStrategy : IPassiveStrategy, ISkillStackable<IPassiveStr
     //OnEquip은 스킬을 선택했을 때, 항상 호출 됨 (추후 문제 생길 시 보완)
     public void OnEquip(PlayerAttack attack)
     {
-        //attack.Stat.MultipleAttackSpeed(mAttackRangeMultiplier);
+        attack.Stat.MultipleAttackRange(mAttackRangeMultiplier);
+        attack.Stat.MultipleDamage(mAttackDamageMultiplier);
+        attack.Stat.MultipleAttackSpeed(mAttackSpeedMultiplier);
     }
 
     public void OnUnequip(PlayerAttack attack)
