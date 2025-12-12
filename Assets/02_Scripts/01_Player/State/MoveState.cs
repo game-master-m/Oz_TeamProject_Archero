@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class MoveState : PlayerState
 {
-    public MoveState(PlayerController player, IState parent = null) : base(player, parent)
-    {
-    }
+    public MoveState(PlayerController player, IState parent = null) : base(player, parent) { }
 
     public override void Enter()
     {
