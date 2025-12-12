@@ -12,9 +12,7 @@ public class MaxHP_UP_Strategy : IPassiveStrategy, ISkillStackable<IPassiveStrat
     //OnEquip은 스킬을 선택했을 때, 항상 호출 됨 (추후 문제 생길 시 보완)
     public void OnEquip(PlayerAttack attack)
     {
-        Utils.Log($"전 : {attack.Stat.MaxHP}");
         attack.Stat.MultipleMaxHP(mMaxHPMultiplier);
-        Utils.Log($"후~~~~~~~ : {attack.Stat.MaxHP}");
     }
 
     public void OnUnequip(PlayerAttack attack)
@@ -31,7 +29,7 @@ public class MaxHP_UP_Strategy : IPassiveStrategy, ISkillStackable<IPassiveStrat
     //TryStack은 true, false 리턴만
     public bool TryStack(IPassiveStrategy strategy)
     {
-        if (strategy is DMG_UP_Strategy)
+        if (strategy is MaxHP_UP_Strategy)
         {
             return true;
         }

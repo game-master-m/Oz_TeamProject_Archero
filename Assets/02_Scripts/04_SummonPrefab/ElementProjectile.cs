@@ -33,7 +33,7 @@ public class ElementProjectile : MonoBehaviour
     {
         mLifeTimer = 0.0f;
     }
-  
+
     //PlayerAttack이 갖고 있는 strategies를 주입
     public void Setup(FairyBase owner, float damage)
     {

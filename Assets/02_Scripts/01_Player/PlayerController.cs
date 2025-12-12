@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private Animator mAnim;
     private CharacterController mCharacterController;
     private PlayerAttack mAttack;
+
+
+    private PlayerStatDataSO mStatDataSO;
     #endregion
 
     #region States
@@ -38,6 +41,13 @@ public class PlayerController : MonoBehaviour
     public PlayerAttack Attack => mAttack;
     public PlayerStat Stat => mStat;
     public bool CanMove { get; set; } = true;
+
+
+    public ThrowState ThrowState => mThrowState;
+    public StopState StopState => mStopState;
+    public StateMachine StateMachine => mStateMachine;
+    public Vector2 InputDir => mInputDir;
+
     #endregion
     private void Awake()
     {
@@ -48,12 +58,18 @@ public class PlayerController : MonoBehaviour
         mAttack = GetComponent<PlayerAttack>();
         mAttackDelayWait = new WaitForSeconds(mAttackDelay);
 
+
+        mStatDataSO = mStat.StatDataSO;
+        
+        
+
         //States
         mStateMachine = new StateMachine();
 
-        mStopState = new StopState(this);
+        //mStopState = new StopState(this);
+        mStopState = new StopState(this,mStatDataSO);
         mMoveState = new MoveState(this);
-        mThrowState = new ThrowState(this);
+        mThrowState = new ThrowState(this,mStatDataSO);
 
         //상태전환 조건들
         InitTransitions();

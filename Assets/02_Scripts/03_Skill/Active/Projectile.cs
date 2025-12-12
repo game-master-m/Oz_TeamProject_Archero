@@ -7,7 +7,6 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     //각각의 프리팹마다 다르게 설정 가능
-    [SerializeField] private float mTargetRange = 30.0f;
     [SerializeField] private float mMoveSpeed = 8.0f;
     [SerializeField] private float mLifeTime = 10.0f;
     [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 0.5f, 0);
@@ -19,6 +18,7 @@ public class Projectile : MonoBehaviour
     // 상태 변수
     private List<IProjectileStrategy> mStrategies = new List<IProjectileStrategy>();
     private float mLifeTimer = 0.0f;
+    private float mTargetRange;
 
     // 이번 발사체에서 무시할 충돌체 ID 목록
     private HashSet<int> mIgnoreColliderIDs = new HashSet<int>();
@@ -63,9 +63,9 @@ public class Projectile : MonoBehaviour
         }
     }
     //PlayerAttack이 갖고 있는 strategies를 주입
-    public void Setup(List<IProjectileStrategy> strategies, float damage)
+    public void Setup(List<IProjectileStrategy> strategies, float damage, float targetRange)
     {
-
+        mTargetRange = targetRange;
         mStrategies = new List<IProjectileStrategy>(strategies);
         CurrentDamage = damage;
 

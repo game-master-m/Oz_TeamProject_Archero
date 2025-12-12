@@ -5,7 +5,9 @@ public class PlayerStat : LivingEntity
 {
     [Header("Data Source")]
     [SerializeField] private PlayerStatDataSO mStat;
-
+    
+    //새로추가함
+    public PlayerStatDataSO StatDataSO => mStat;
     public float AttackDamage { get; private set; }
     public float MoveSpeed { get; private set; }
     public float AttackSpeed { get; private set; }
@@ -42,7 +44,6 @@ public class PlayerStat : LivingEntity
     {
         AttackDamage *= amount;
     }
-
     public void AddMoveSpeed(float amount)
     {
         MoveSpeed += amount;
@@ -78,6 +79,15 @@ public class PlayerStat : LivingEntity
     {
         mMaxHP *= amount;
         mCurrentHP *= amount;
+    }
+    public void MultipleMaxHPAndRecoverAll(float amount)
+    {
+        MultipleMaxHP(amount);
+        mCurrentHP = mMaxHP;
+    }
+    public void MultipleAttackRange(float amount)
+    {
+        AttackRange *= amount;
     }
     #endregion
 

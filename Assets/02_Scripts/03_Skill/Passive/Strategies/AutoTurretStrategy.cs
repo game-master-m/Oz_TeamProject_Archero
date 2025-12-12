@@ -3,11 +3,13 @@ using UnityEngine;
 public class AutoTurretStrategy : IPassiveStrategy
 {
     private float mDamageMultiplier;
+    private float mAttackSpeedMultiplier;
     private float mTimer;
 
-    public AutoTurretStrategy(float damageMultiplier)
+    public AutoTurretStrategy(float damageMultiplier, float attackSpeedMultiplier)
     {
         mDamageMultiplier = damageMultiplier;
+        mAttackSpeedMultiplier = attackSpeedMultiplier;
     }
 
     public void OnEquip(PlayerAttack attack)
@@ -15,6 +17,7 @@ public class AutoTurretStrategy : IPassiveStrategy
         mTimer = 0;
         attack.IsAutoTurret = true;
         attack.Stat.MultipleDamage(mDamageMultiplier);
+        attack.Stat.MultipleAttackSpeed(mAttackSpeedMultiplier);
     }
 
     public void OnUpdate(PlayerAttack attack)
