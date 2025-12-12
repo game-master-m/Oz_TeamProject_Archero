@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: "\uD654\uC5FC\uC815\uB839"
   description: "\uD654\uC5FC\uC815\uB839 \uC18C\uD658"
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c1b90e5a2543fdd42ba914a5fa62247d, type: 2}
   skillGrade: 0
-  mFireSpritePrefab: {fileID: 0}
+  mFireSpritePrefab: {fileID: -8510472695706142344, guid: cb53617a0aa0ae141af22cb200811c10,
+    type: 3}
   mSpriteCount: 1
