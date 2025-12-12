@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private Animator mAnim;
     private CharacterController mCharacterController;
     private PlayerAttack mAttack;
+
+
+    private PlayerStatDataSO mStatDataSO;
     #endregion
 
     #region States
@@ -38,6 +41,13 @@ public class PlayerController : MonoBehaviour
     public PlayerAttack Attack => mAttack;
     public PlayerStat Stat => mStat;
     public bool CanMove { get; set; } = true;
+
+
+    public ThrowState ThrowState => mThrowState;
+    public StopState StopState => mStopState;
+    public StateMachine StateMachine => mStateMachine;
+    public Vector2 InputDir => mInputDir;
+
     #endregion
     private void Awake()
     {
@@ -48,12 +58,18 @@ public class PlayerController : MonoBehaviour
         mAttack = GetComponent<PlayerAttack>();
         mAttackDelayWait = new WaitForSeconds(mAttackDelay);
 
+
+        mStatDataSO = mStat.StatDataSO;
+        
+        
+
         //States
         mStateMachine = new StateMachine();
 
-        mStopState = new StopState(this);
+        //mStopState = new StopState(this);
+        mStopState = new StopState(this,mStatDataSO);
         mMoveState = new MoveState(this);
-        mThrowState = new ThrowState(this);
+        mThrowState = new ThrowState(this,mStatDataSO);
 
         //상태전환 조건들
         InitTransitions();
@@ -85,15 +101,15 @@ public class PlayerController : MonoBehaviour
         //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
 
         //Stop
-        //mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
 
         //Move
-        //mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
+        mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
 
         //attack
-        mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        //mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
         //move2
-        mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
+        //mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
 
 
     }
