@@ -124,7 +124,8 @@ public class Projectile : MonoBehaviour
                 closestEnemy = hitCollider.transform;
 
                 //가장 가까운 적을 무시
-                AddIgnoreTarget(hitCollider.gameObject.GetInstanceID());
+                //AddIgnoreTarget(hitCollider.gameObject.GetInstanceID());
+
                 nearCol = hitCollider;
             }
         }

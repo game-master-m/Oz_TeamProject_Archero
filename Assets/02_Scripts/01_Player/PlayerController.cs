@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -11,9 +14,6 @@ public class PlayerController : MonoBehaviour
     private Animator mAnim;
     private CharacterController mCharacterController;
     private PlayerAttack mAttack;
-
-
-    private PlayerStatDataSO mStatDataSO;
     #endregion
 
     #region States
@@ -31,9 +31,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 mInputDir;
     private Vector3 mMoveDir;
 
-    //코루틴 딜레이 관련
-    private WaitForSeconds mAttackDelayWait;
-    private readonly float mAttackDelay = 0.3f;
+    //코루틴 관련
+    private WaitForSeconds mZeroDotOneWait;
+    private readonly float mZeroDotOneDelay = 0.1f;
+    //StopState에서 돌고 있는 코루틴을 받을 변수
+    private Coroutine mCheckEnemyInRangeCo = null;
+
+    //Collider배열을 계속 생성하면 성능에 안 좋기 때문에, 범위안에 적들이 있는지만 체크하는 Collider Buffer
+    private Collider[] mEnemyColBuffer = new Collider[1];   //탐지 유무라 하나면 충분
     #endregion
 
     #region Properties
@@ -41,13 +46,11 @@ public class PlayerController : MonoBehaviour
     public PlayerAttack Attack => mAttack;
     public PlayerStat Stat => mStat;
     public bool CanMove { get; set; } = true;
-
-
-    public ThrowState ThrowState => mThrowState;
-    public StopState StopState => mStopState;
-    public StateMachine StateMachine => mStateMachine;
     public Vector2 InputDir => mInputDir;
+    public WaitForSeconds ZeroDotWait => mZeroDotOneWait;
 
+    public bool IsFindEnemy { get; set; } = false; //StopState 코루틴에서 변경
+    public Coroutine CheckEnemyInRangeCo { get; set; }
     #endregion
     private void Awake()
     {
@@ -56,20 +59,17 @@ public class PlayerController : MonoBehaviour
         mCharacterController = GetComponent<CharacterController>();
         mStat = GetComponent<PlayerStat>();
         mAttack = GetComponent<PlayerAttack>();
-        mAttackDelayWait = new WaitForSeconds(mAttackDelay);
-
-
-        mStatDataSO = mStat.StatDataSO;
-        
-        
+        mZeroDotOneWait = new WaitForSeconds(mZeroDotOneDelay);
 
         //States
         mStateMachine = new StateMachine();
 
-        //mStopState = new StopState(this);
-        mStopState = new StopState(this,mStatDataSO);
+        mStopState = new StopState(this);
         mMoveState = new MoveState(this);
-        mThrowState = new ThrowState(this,mStatDataSO);
+
+        //ThrowState의 부모로 StopState를 설정하면, StopState -> 다른State 전환조건을 ThrowState도 같이 가짐
+        //(예, StopState -> MoveState, () => speed > 0.01f 의 조건으로 ThrowState -> MoveState 으로 전환 됨)
+        mThrowState = new ThrowState(this, mStopState);
 
         //상태전환 조건들
         InitTransitions();
@@ -79,7 +79,6 @@ public class PlayerController : MonoBehaviour
     {
         mAttack.InitStat(mStat);
         mStateMachine.ChangeState(mStopState);
-        //mStateMachine.ChangeState(mThrowState);
     }
 
     void Update()
@@ -100,14 +99,15 @@ public class PlayerController : MonoBehaviour
         //본인 State에서 본인 State로 계속 넘어가기 때문에 변수추가
         //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
 
-        //Stop
+        //Stop에서 전환
         mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        mStateMachine.AddTransition(mStopState, mThrowState, () => IsFindEnemy && !mStateMachine.IsCurrentState(mThrowState));
 
-        //Move
+        //Move에서 전환
         mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
 
         //attack
-        //mStateMachine.AddTransition(mThrowState, mMoveState, () => mCurrentSpeedSqr > 0.01f);
+        mStateMachine.AddTransition(mThrowState, mStopState, () => !IsFindEnemy);
         //move2
         //mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
 
@@ -150,8 +150,33 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    #region CoRoutines
+    private bool EnemyInRange()
+    {
+        mEnemyColBuffer = Physics.OverlapSphere(transform.position, Stat.AttackRange, Layers.GetLayerMask(ELayerName.Enemy));
+        if (mEnemyColBuffer.Length == 0 || mEnemyColBuffer == null) return false;
+        else return true;
+    }
 
+    #region CoRoutines
+    //코루틴은 StopState에서 실행
+    public IEnumerator CheckEnemyInAttackRange()
+    {
+        while (true)
+        {
+            //0.1초 대기, 성능 최적화를 위해 코루틴 사용
+            if (EnemyInRange())
+            {
+                //탐지 했으면, bool 변수를 true로 바꿈
+                //이 bool변수를 PlayerController에서 Transition 조건으로 사용
+                IsFindEnemy = true;
+            }
+            else
+            {
+                IsFindEnemy = false;
+            }
+            yield return ZeroDotWait;
+        }
+    }
 
     #endregion
 
