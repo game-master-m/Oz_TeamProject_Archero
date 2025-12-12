@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82e0fc2bcac515449eeecdc8cd5362a, type: 3}
   m_Name: Skill_FireSprite
   m_EditorClassIdentifier: 
-  skillName: FireSprite
+  skillName: "\uD654\uC5FC\uC815\uB839"
   description: SummonFireSprite
   icon: {fileID: 0}
   skillGrade: 1

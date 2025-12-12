@@ -29,7 +29,7 @@ public class MoveSpeed_UP_Strategy : IPassiveStrategy, ISkillStackable<IPassiveS
     //TryStack은 true, false 리턴만
     public bool TryStack(IPassiveStrategy strategy)
     {
-        if (strategy is DMG_UP_Strategy)
+        if (strategy is MoveSpeed_UP_Strategy)
         {
             return true;
         }

@@ -79,6 +79,11 @@ public class PlayerStat : LivingEntity
         mMaxHP *= amount;
         mCurrentHP *= amount;
     }
+    public void MultipleMaxHPAndRecoverAll(float amount)
+    {
+        MultipleMaxHP(amount);
+        mCurrentHP = mMaxHP;
+    }
     #endregion
 
     public override void Die()
