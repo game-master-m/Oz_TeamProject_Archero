@@ -6,7 +6,7 @@ public abstract class SpriteBase : MonoBehaviour
 {
     private List<IProjectileStrategy> mArrowStrategies = new List<IProjectileStrategy>();
 
-    [SerializeField] protected ElementCarrirer mElementsProjectilePrefab;
+    [SerializeField] protected ElementProjectile mElementsProjectilePrefab;
     [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, 1.0f, 0);
 
     [SerializeField] private float mTargetRange = 30.0f;
@@ -93,14 +93,11 @@ public abstract class SpriteBase : MonoBehaviour
     //발사체 생성
     public void MakeProjectile()
     {
-        ElementCarrirer element = Managers.Pool.GetFromPool(mElementsProjectilePrefab);
-        Projectile projectile = element.gameObject.GetComponent<Projectile>();
-        if (projectile != null)
+        ElementProjectile element = Managers.Pool.GetFromPool(mElementsProjectilePrefab);
+        if (element != null)
         {
-            projectile.transform.position = transform.position + mProjectileOffeset;
-            projectile.Setup(mArrowStrategies, mAttackDamage);
-            //element.SetUp(mElement, mAttackDamage);
-            element.SetOwner(this.gameObject);
+            element.transform.position = transform.position + mProjectileOffeset;
+            element.Setup(this, mAttackDamage);
         }
     }
 

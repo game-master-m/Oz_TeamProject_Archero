@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public abstract class LivingEntity : MonoBehaviour, IDamageable
 {
@@ -11,6 +12,8 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     public bool IsDead => mCurrentHP <= 0.0f;
 
     private bool bIsDead = false;
+
+    private Coroutine mDotDamageCo;
 
     protected virtual void OnEnable()
     {
@@ -44,7 +47,34 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     }
 
     //도트 데미지 받기 추가
+    public virtual void TakeDotDamage(float damage, float duration, float damageTick) 
+    {
+        if (bIsDead) return;
 
+        //이미 도트데미지 받는중이면 중단하고 다시시작 > 지속시간 갱신
+        if (mDotDamageCo != null)
+        {
+            StopCoroutine(mDotDamageCo);
+            mDotDamageCo = null;
+        }
+        mDotDamageCo = StartCoroutine(DotDamageCo(damage, duration, damageTick));
+    }
+
+    IEnumerator DotDamageCo(float damage, float duration, float damageTick)
+    {
+        WaitForSeconds waitDamageTick = new WaitForSeconds(damageTick);
+        float timer = 0f;
+
+        while (timer < duration) 
+        {
+            TakeDamage(damage);
+            if (bIsDead) break;
+            yield return waitDamageTick;
+            timer += Time.deltaTime;
+        }
+
+        mDotDamageCo = null;
+    }
 
     public virtual void Die()
     {

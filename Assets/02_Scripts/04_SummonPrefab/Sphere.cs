@@ -4,42 +4,20 @@ using UnityEngine;
 
 public class Sphere : MonoBehaviour
 {
-    [SerializeField] private Vector3 mPositionOffset = new Vector3(0, 1.0f, 0);
+    private SphereBase mOwner;
+    private EnemyBase mTarget;
 
-    // 이번 발사체에서 무시할 충돌체 ID 목록
-    private HashSet<int> mIgnoreColliderIDs = new HashSet<int>();
-
-    private PlayerAttack mPlayer;
-    private float mRotateSpeed = 100.0f;
-
-    private float mAttackDamage;
-    private float mAttackSpeed;
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetOwner(SphereBase owner)
     {
-        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
-        SetUp(mPlayer);
+        mOwner = owner;
     }
-
-    // Update is called once per frame
-    void Update()
+  
+    private void OnTriggerEnter(Collider other)
     {
-        this.transform.Rotate(Vector3.up * mRotateSpeed * Time.deltaTime);
-    }
-
-    public void SetUp(PlayerAttack attack) 
-    {
-        this.gameObject.transform.SetParent(attack.gameObject.transform, false);
-        this.gameObject.transform.position = attack.gameObject.transform.position + mPositionOffset;
-
-        mAttackSpeed = attack.gameObject.GetComponent<PlayerStat>().AttackSpeed;
-        mAttackDamage = attack.gameObject.GetComponent<PlayerStat>().AttackDamage * 0.4f;
-
-        ElementCarrirer[] elementCarriers = GetComponentsInChildren<ElementCarrirer>();
-        foreach (ElementCarrirer elementCarrier in elementCarriers) 
+        if (other.gameObject.GetComponent<EnemyBase>() != null)
         {
-           // elementCarrier.SetOwner(this)
+            mTarget = other.gameObject.GetComponent<EnemyBase>();
+            mOwner.OnHitTarget(mTarget);
         }
     }
 }

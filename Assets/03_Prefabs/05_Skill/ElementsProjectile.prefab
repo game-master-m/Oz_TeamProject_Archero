@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6803483176085323961}
   - component: {fileID: 592977375450708687}
   - component: {fileID: 8604183404813060388}
-  - component: {fileID: 2285647389176713802}
   m_Layer: 8
   m_Name: ElementsProjectile
   m_TagString: Untagged
@@ -147,18 +146,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: becc6f80a4154e24fb6b223d90358e84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2285647389176713802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7353907215262609854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 178bf24bdd4dc8b42a74b6a7b744c004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mTargetRange: 30
