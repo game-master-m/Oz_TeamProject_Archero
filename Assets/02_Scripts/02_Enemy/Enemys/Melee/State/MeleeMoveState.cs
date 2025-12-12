@@ -1,13 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class MeleeMoveState : EnemyState
 {
     public MeleeMoveState(EnemyBase enemy, IState parent = null) : base(enemy, parent)
     {
     }
+
+    private Coroutine mRunningCo;
 
     public override void Enter()
     {//무브스테이트로 가면 움직여라
@@ -25,6 +25,7 @@ public class MeleeMoveState : EnemyState
     public override void Exit()
     {
         base.Exit();
-        mEnemy.Agent.SetDestination(mEnemy.transform.position);
+
     }
+
 }
