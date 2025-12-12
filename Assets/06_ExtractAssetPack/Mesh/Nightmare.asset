@@ -2,12 +2,12 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!43 &4300000
 Mesh:
-  serializedVersion: 11
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Nightmare
+  serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -17,7 +17,7 @@ Mesh:
     firstVertex: 0
     vertexCount: 789
     localAABB:
-      m_Center: {x: 0, y: 1.7881393E-07, z: 1.1310432}
+      m_Center: {x: 0, y: 0.00000017881393, z: 1.1310432}
       m_Extent: {x: 0.5550093, y: 0.5532615, z: 0.8744808}
   m_Shapes:
     vertices: []
@@ -25,18 +25,18 @@ Mesh:
     channels: []
     fullWeights: []
   m_BindPose:
-  - e00: 6.123234E-17
-    e01: -6.123234E-17
+  - e00: 6.123234e-17
+    e01: -6.123234e-17
     e02: -1
     e03: 1.5958587
-    e10: -1.5099579E-07
+    e10: -0.00000015099579
     e11: -1
-    e12: 6.123233E-17
-    e13: 1.8647404E-07
+    e12: 6.123233e-17
+    e13: 0.00000018647404
     e20: -1
-    e21: 1.5099579E-07
-    e22: -6.123235E-17
-    e23: 4.4124125E-05
+    e21: 0.00000015099579
+    e22: -6.123235e-17
+    e23: 0.000044124125
     e30: 0
     e31: 0
     e32: 0
@@ -649,7 +649,7 @@ Mesh:
     e31: 0
     e32: 0
     e33: 1
-  m_BoneNameHashes: 91544a0b8ae95169618a8d508e2c3d0d654fe134b4d97d545eb689*30f0c2573460b913744f3a0*45495c5*b501ec57b2f6baf,c286083(a5445c734e737b7350fc1c8.9256211-02b730e401993e7.818e02a,ef1c0d633443b71.2e0e091/7517bfa6a8a3ebc547b9274,42f07ef16fb1e19441dcdad/1a4a7cb(22fb7a5482ae535(e0569db+58073d27f4255db2e0d687000ebb2d015888fdf.f
+  m_BoneNameHashes: 91544a0b8ae95169618a8d508e2c3d0d654fe134b4d97d545eb689a30f0c2573460b913744f3a0a45495c5ab501ec57b2f6bafcc2860838a5445c734e737b7350fc1c8e9256211d02b730e401993e7e818e02acef1c0d633443b71e2e0e091f7517bfa6a8a3ebc547b9274c42f07ef16fb1e19441dcdadf1a4a7cb822fb7a5482ae5358e0569dbb58073d27f4255db2e0d687000ebb2d015888fdfef
   m_RootBoneNameHash: 189420689
   m_BonesAABB:
   - m_Min: {x: -0.40966523, y: -0.46990716, z: -0.49897122}
@@ -731,13 +731,13 @@ Mesh:
   - m_Min: {x: -0.641603, y: -0.2705649, z: -0.10050309}
     m_Max: {x: -0.12750542, y: 0.3993292, z: 0.2828238}
   m_VariableBoneCountWeights:
-    m_Data:
+    m_Data: 
   m_MeshCompression: 2
   m_IsReadable: 0
   m_KeepVertices: 0
   m_KeepIndices: 0
   m_IndexFormat: 0
-  m_IndexBuffer:
+  m_IndexBuffer: 
   m_VertexData:
     serializedVersion: 3
     m_VertexCount: 0
@@ -799,7 +799,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 0
-    _typelessdata:
+    _typelessdata: 
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 2367
@@ -823,7 +823,7 @@ Mesh:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data:
+      m_Data: 
       m_BitSize: 0
     m_Weights:
       m_NumItems: 1173
@@ -835,13 +835,13 @@ Mesh:
       m_BitSize: 1
     m_TangentSigns:
       m_NumItems: 0
-      m_Data:
+      m_Data: 
       m_BitSize: 0
     m_FloatColors:
       m_NumItems: 0
       m_Range: 0
       m_Start: 0
-      m_Data:
+      m_Data: 
       m_BitSize: 0
     m_BoneIndices:
       m_NumItems: 1173
@@ -853,12 +853,12 @@ Mesh:
       m_BitSize: 10
     m_UVInfo: 5
   m_LocalAABB:
-    m_Center: {x: 0, y: 1.7881393E-07, z: 1.1310432}
+    m_Center: {x: 0, y: 0.00000017881393, z: 1.1310432}
     m_Extent: {x: 0.55504835, y: 0.55330056, z: 0.8745198}
   m_MeshUsageFlags: 1
   m_CookingOptions: 30
-  m_BakedConvexCollisionMesh:
-  m_BakedTriangleCollisionMesh:
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
   m_MeshMetrics[0]: 4728.7236
   m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: -1
@@ -866,4 +866,4 @@ Mesh:
     serializedVersion: 2
     offset: 0
     size: 0
-    path:
+    path: 

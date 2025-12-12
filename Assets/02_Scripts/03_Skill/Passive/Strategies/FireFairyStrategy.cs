@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireSpriteStrategy : IPassiveStrategy
+public class FireFairyStrategy : IPassiveStrategy
 {
     private FireFairySkillDataSO mFireFairyData;
     private FireFairy mFireFairyPrefab;
 
     private FireFairy mFireFairy;
 
-    public FireSpriteStrategy(FireSpriteSkillDataSO fairySkillDataSO)
+    public FireFairyStrategy(FireFairySkillDataSO fairySkillDataSO)
     {
-
+        mFireFairyData = fairySkillDataSO;
+        mFireFairyPrefab = mFireFairyData.mFireFairyPrefab;
+  
+        Managers.Pool.CreatePool(mFireFairyPrefab, 1, Managers.Pool.transform);
     }
 
     public void OnEquip(PlayerAttack attack) 

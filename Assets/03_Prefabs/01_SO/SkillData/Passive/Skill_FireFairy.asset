@@ -9,13 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70f9bdcdeb2634547ba608962ac58db2, type: 3}
-  m_Name: Skill_FireSprite
+  m_Script: {fileID: 11500000, guid: b82e0fc2bcac515449eeecdc8cd5362a, type: 3}
+  m_Name: Skill_FireFairy
   m_EditorClassIdentifier: 
   skillName: "\uD654\uC5FC\uC815\uB839"
-  description: "\uD654\uC5FC\uC815\uB839 \uC18C\uD658"
+  description: "\uD654\uC5FC\uC815\uB839\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: c1b90e5a2543fdd42ba914a5fa62247d, type: 2}
-  skillGrade: 0
-  mFireSpritePrefab: {fileID: -8510472695706142344, guid: cb53617a0aa0ae141af22cb200811c10,
+  skillGrade: 1
+  mFireFairyPrefab: {fileID: 849340851855869549, guid: 6092ed30c64075345b27bc4457dc293c,
     type: 3}
-  mSpriteCount: 1
+  mElementNumber: 0
+  mSeatNumber: 1
+  mEffectTime: 3
+  mDamageTick: 0.2
+  mDamageDuplicater: 0.2

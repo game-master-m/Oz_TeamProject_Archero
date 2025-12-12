@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3362617240482198430}
   - component: {fileID: 150344930593635063}
   - component: {fileID: 635975354517759472}
-  - component: {fileID: -8510472695706142344}
+  - component: {fileID: 849340851855869549}
   m_Layer: 0
-  m_Name: FireSprite
+  m_Name: FireFairy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-8510472695706142344
+--- !u!114 &849340851855869549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +93,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5424574553938510389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf88a4e55f3bcb7419fbce23f4a2aa58, type: 3}
+  m_Script: {fileID: 11500000, guid: ebaf7837cb4070f468911181666e5403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mElementsProjectilePrefab: {fileID: 8604183404813060388, guid: 3aa58996e5a67a143bd767c9d8d81500,
+    type: 3}
+  mSpriteNumber: 1
+  mTargetOffset: {x: 0, y: 0, z: 0}
+  mProjectileOffeset: {x: 0, y: 1, z: 0}
+  mPositionOffset: {x: 1.5, y: 1, z: 0}
+  mTargetRange: 30
+  mElement: 0
+  mSkillData: {fileID: 11400000, guid: 5b43463cd33f7e8479d242ccf6afc489, type: 2}
+  mDamageMultiplier: 0.2

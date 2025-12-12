@@ -2,39 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpriteBase : MonoBehaviour
+public abstract class FairyBase : MonoBehaviour
 {
-    private List<IProjectileStrategy> mArrowStrategies = new List<IProjectileStrategy>();
-
+    //페어리용 속성화살
     [SerializeField] protected ElementProjectile mElementsProjectilePrefab;
-    [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, 1.0f, 0);
 
-    [SerializeField] private float mTargetRange = 30.0f;
+    //위치 오프셋
     [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 0, 0);
-
+    [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, 1.0f, 0);
     [SerializeField] private Vector3 mPositionOffset = new Vector3(1.5f, 1.0f, 0);
-    [SerializeField] protected int mSpriteNumber = 1;
 
-    //0 = 화염, 1 = 얼음, 2 = 번개, 3 = 독
-    [SerializeField]private int mElement = 0;
+    //적 탐색 사거리 > 이 안에 적 있으면 발사
+    [SerializeField] private float mTargetRange = 30.0f;
 
+    //페어리마다 다른 값을 가짐
+    protected float mEffectTime;
+    protected float mDamageTick;
+    protected float mDamageDuplicater;
+    protected int mSeatNumber;
+    protected int mElementNumber;
+
+    //페어리 공통
+    protected PlayerAttack mPlayer;
+    protected float mSeatAngle = 60;
+
+    //플레이어 스텟 참조
     private float mAttackDamage;
     private float mAttackSpeed;
+
+    //코루틴용
     private WaitForSeconds mWaitAttack;
 
-    protected PlayerAttack mPlayer;
-
-    public void SetUp(PlayerAttack attack, int spriteCount) 
+    public void SetOwner(PlayerAttack attack) 
     {
-        //위치 설정
-        this.gameObject.transform.SetParent(attack.gameObject.transform, false);
-        Vector3 center = attack.gameObject.transform.position;        
-        this.gameObject.transform.position = center + mPositionOffset;
-        this.gameObject.transform.RotateAround(center, Vector3.up, 30 * spriteCount);
-
-        //스텟 받아오기
+        //플레이어 스텟 받아오기
+        mPlayer = attack;
         mAttackSpeed = attack.gameObject.GetComponent<PlayerStat>().AttackSpeed;
         mAttackDamage = attack.gameObject.GetComponent<PlayerStat>().AttackDamage * 0.4f;
+
+        //위치 설정
+        this.gameObject.transform.SetParent(attack.gameObject.transform, false);      
+        this.gameObject.transform.position = attack.gameObject.transform.position + mPositionOffset;
+
         mWaitAttack = new WaitForSeconds(mAttackSpeed);
 
         Managers.Pool.CreatePool(mElementsProjectilePrefab, 50, Managers.Pool.transform);
@@ -79,12 +88,6 @@ public abstract class SpriteBase : MonoBehaviour
             }
         }
 
-        if (nearCol == null)
-        {
-            //Utils.Log("맞은 적 외 주변에 적이 없습니다.");
-            return false;
-        }
-
         transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
       
         return true;
@@ -93,19 +96,21 @@ public abstract class SpriteBase : MonoBehaviour
     //발사체 생성
     public void MakeProjectile()
     {
-        ElementProjectile element = Managers.Pool.GetFromPool(mElementsProjectilePrefab);
-        if (element != null)
+        ElementProjectile elementProjectile = Managers.Pool.GetFromPool(mElementsProjectilePrefab);
+        if (elementProjectile != null)
         {
-            element.transform.position = transform.position + mProjectileOffeset;
-            element.Setup(this, mAttackDamage);
+            elementProjectile.transform.position = transform.position + mProjectileOffeset;
+            elementProjectile.Setup(this, mAttackDamage);
         }
     }
 
+    //풀에 집어넣기 전에 플레이어한테서 떼어내기
     public void Detach() 
     {
         this.gameObject.transform.SetParent(null, false);
     }
 
+    //발사체한테 명중 신호 받았을때
     public void OnHitTarget(EnemyBase target) 
     {
         ApplyElement(target, mAttackDamage);
@@ -113,11 +118,13 @@ public abstract class SpriteBase : MonoBehaviour
 
     public abstract void ApplyElement(EnemyBase target, float damage);
 
+    //데미지 UP
     public void DuplicateDamage(float amount) 
     {
         mAttackDamage = mAttackDamage + (mAttackDamage * amount);
     }
 
+    //공격속도 UP
     public void DuplicateSpeed(float amount) 
     {
         mAttackSpeed = mAttackSpeed + (mAttackSpeed * amount);
