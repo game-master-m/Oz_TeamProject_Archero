@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FairyOfWind_", menuName = "Archero/SkillData/Passive/FairyOfWind")]
 public class FairyOfWindSkillDataSO : SkillDataSO
 {
-    [Header("이속증가 능력치")]
+    [Header("바람의요정 능력치")]
     [SerializeField] private float mMoveSpeedMultiplier = 1.1f;
     [SerializeField] private float mAttackSpeedMultiplier = 1.1f;
 

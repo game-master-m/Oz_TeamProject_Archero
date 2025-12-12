@@ -42,7 +42,6 @@ public class PlayerStat : LivingEntity
     {
         AttackDamage *= amount;
     }
-
     public void AddMoveSpeed(float amount)
     {
         MoveSpeed += amount;
@@ -83,6 +82,10 @@ public class PlayerStat : LivingEntity
     {
         MultipleMaxHP(amount);
         mCurrentHP = mMaxHP;
+    }
+    public void MultipleAttackRange(float amount)
+    {
+        AttackRange *= amount;
     }
     #endregion
 

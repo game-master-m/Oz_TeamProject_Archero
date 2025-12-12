@@ -60,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
         if (projectile != null)
         {
             projectile.transform.position = transform.position + mProjectileOffeset;
-            projectile.Setup(mArrowStrategies, mStat.AttackDamage);
+            projectile.Setup(mArrowStrategies, mStat.AttackDamage, mStat.AttackRange);
         }
     }
 
