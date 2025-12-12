@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ElementProjectile : MonoBehaviour
 {
-    private SpriteBase mOwner;
+    private FairyBase mOwner;
     private EnemyBase mTarget;
 
     //각각의 프리팹마다 다르게 설정 가능
@@ -27,7 +27,6 @@ public class ElementProjectile : MonoBehaviour
 
     private void Awake()
     {
-        mRB = GetComponent<Rigidbody>();
         mCollider = GetComponent<CapsuleCollider>();
     }
     private void OnEnable()
@@ -36,7 +35,7 @@ public class ElementProjectile : MonoBehaviour
     }
   
     //PlayerAttack이 갖고 있는 strategies를 주입
-    public void Setup(SpriteBase owner, float damage)
+    public void Setup(FairyBase owner, float damage)
     {
         mOwner = owner;
         CurrentDamage = damage;

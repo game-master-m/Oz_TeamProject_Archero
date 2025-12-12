@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6598a48bc3deb8747bd3c3020a03d26f, type: 3}
+  m_Name: Skill_LightningFairy
+  m_EditorClassIdentifier: 
+  skillName: "\uBC88\uAC1C\uC815\uB839"
+  description: "\uBC88\uAC1C\uC815\uB839\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4."
+  icon: {fileID: 21300000, guid: d9f38b07265c980498ad9b78241af4c0, type: 2}
+  skillGrade: 0
+  mLightningFairyPrefab: {fileID: 1302939738660011910, guid: e8a0af1586b646445b8dc96257d9c6c7,
+    type: 3}
+  mElementNumber: 1
+  mSeatNumber: 3
+  mEffectTime: 9999
+  mDamageTick: 1
+  mDamageDuplicater: 0.5
