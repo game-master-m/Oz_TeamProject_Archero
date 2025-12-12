@@ -55,6 +55,7 @@ public class Projectile : MonoBehaviour
     {
         mStrategies.RemoveAll(strategy => strategy is T);
     }
+    //무시할 충돌체 추가(예, 튕기기 시 처음 맞은적을 제외해서 Physics.OverlapSphere 에서 검사 제외)
     public void AddIgnoreTarget(int instanceID)
     {
         if (!mIgnoreColliderIDs.Contains(instanceID))
@@ -121,6 +122,9 @@ public class Projectile : MonoBehaviour
             {
                 closestDistance = distanceToTarget;
                 closestEnemy = hitCollider.transform;
+
+                //가장 가까운 적을 무시
+                AddIgnoreTarget(hitCollider.gameObject.GetInstanceID());
                 nearCol = hitCollider;
             }
         }
@@ -131,7 +135,6 @@ public class Projectile : MonoBehaviour
             ReturnPool();
             return false;
         }
-
         transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
         //Utils.Log($"맞은 적 외 가장 가까운 적 : {closestEnemy.name}");
         return true;

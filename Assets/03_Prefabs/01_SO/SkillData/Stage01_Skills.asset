@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Stage01_Skills
   m_EditorClassIdentifier: 
   allSkills:
-  - {fileID: 11400000, guid: c04b83154253f2a4a8a167c7d748e2e0, type: 2}
+  - {fileID: 11400000, guid: c2a544bcec9be9d43ac2b601ce71e70b, type: 2}
   - {fileID: 11400000, guid: 9749eb131f6da7349bdf06f7cd6bd1c1, type: 2}
-  - {fileID: 11400000, guid: d4007ae152d2ca14497206ee23c8178e, type: 2}
+  - {fileID: 11400000, guid: 2ac4d710dcf48d94fa74a686fac747c8, type: 2}
