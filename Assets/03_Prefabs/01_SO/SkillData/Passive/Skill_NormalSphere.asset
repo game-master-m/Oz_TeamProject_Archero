@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b82e0fc2bcac515449eeecdc8cd5362a, type: 3}
-  m_Name: Skill_FireSprite
+  m_Script: {fileID: 11500000, guid: 57eb1556a94ee714999c5ee2bbdeaf55, type: 3}
+  m_Name: Skill_NormalSphere
   m_EditorClassIdentifier: 
-  skillName: FireSprite
-  description: SummonFireSprite
+  skillName: 
+  description: 
   icon: {fileID: 0}
-  skillGrade: 1
-  mFireSpritePrefab: {fileID: 849340851855869549, guid: 6092ed30c64075345b27bc4457dc293c,
-    type: 3}
-  mSpriteCount: 1
+  skillGrade: 0
+  mNormalSpherePrefab: {fileID: 0}
