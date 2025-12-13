@@ -19,9 +19,13 @@ public class Projectile : MonoBehaviour
     private List<IProjectileStrategy> mStrategies = new List<IProjectileStrategy>();
     private float mLifeTimer = 0.0f;
     private float mTargetRange;
+    private Transform mFirstTarget = null;
 
     // 이번 발사체에서 무시할 충돌체 ID 목록
     private HashSet<int> mIgnoreColliderIDs = new HashSet<int>();
+
+    //LookTarget에서 감지 된 콜라이더 저장 용 버퍼 (OverlapSphereNonAlloc() 사용)
+    private Collider[] mDetectEnemyCols = new Collider[30];
 
     // 프로퍼티
     public int RemainingBounceCount { get; set; } = 0;
@@ -64,8 +68,9 @@ public class Projectile : MonoBehaviour
         }
     }
     //PlayerAttack이 갖고 있는 strategies를 주입
-    public void Setup(List<IProjectileStrategy> strategies, float damage, float targetRange)
+    public void Setup(List<IProjectileStrategy> strategies, float damage, float targetRange, Transform firstTarget)
     {
+        mFirstTarget = firstTarget;
         mTargetRange = targetRange;
         mStrategies = new List<IProjectileStrategy>(strategies);
         CurrentDamage = damage;
@@ -86,13 +91,20 @@ public class Projectile : MonoBehaviour
             //쏠 때 각 전략들 초기화
             strategy.OnShoot(this);
         }
-
     }
+
     public bool LookTarget(float range)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, Layers.GetLayerMask(ELayerName.Enemy));
+        //처음 발사에서는 Player가 탐지한 적을 향함. 중복 감지 제거
+        if (mFirstTarget != null)
+        {
+            transform.LookAt(mFirstTarget.position + mTargetOffset, Vector3.up);
+            mFirstTarget = null;
+            return true;
+        }
 
-        if (hitColliders.Length == 0)
+        int detectCount = Physics.OverlapSphereNonAlloc(transform.position, range, mDetectEnemyCols, Layers.GetLayerMask(ELayerName.Enemy));
+        if (detectCount == 0)
         {
             Utils.Log("주변에 적이 없습니다.");
             ReturnPool();
@@ -103,16 +115,15 @@ public class Projectile : MonoBehaviour
         float closestDistance = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
 
-        Collider nearCol = null;
-
-        foreach (Collider hitCollider in hitColliders)
+        for (int i = 0; i < detectCount; i++)
         {
             //이전 타겟과 동일한 경우 패스
-            if (mIgnoreColliderIDs.Contains(hitCollider.gameObject.GetInstanceID())) continue;
+            if (mIgnoreColliderIDs.Contains(mDetectEnemyCols[i].gameObject.GetInstanceID())) continue;
             //비활성화된 적은 패스
-            if (!hitCollider.enabled || !hitCollider.gameObject.activeInHierarchy) continue;
+            if (!mDetectEnemyCols[i].enabled || !mDetectEnemyCols[i].gameObject.activeInHierarchy) continue;
+            if (mDetectEnemyCols[i] == null) continue;
 
-            Vector3 targetDir = hitCollider.transform.position - currentPosition;
+            Vector3 targetDir = mDetectEnemyCols[i].transform.position - currentPosition;
             float distanceToTarget = targetDir.sqrMagnitude;
 
             //적이 겹쳐있어 거리가 매우 가까울 때 벡터연산 오류 방지
@@ -121,16 +132,11 @@ public class Projectile : MonoBehaviour
             if (distanceToTarget < closestDistance)
             {
                 closestDistance = distanceToTarget;
-                closestEnemy = hitCollider.transform;
-
-                //가장 가까운 적을 무시
-                //AddIgnoreTarget(hitCollider.gameObject.GetInstanceID());
-
-                nearCol = hitCollider;
+                closestEnemy = mDetectEnemyCols[i].transform;
             }
         }
 
-        if (nearCol == null)
+        if (closestEnemy == null)
         {
             Utils.Log("맞은 적 외 주변에 적이 없습니다.");
             ReturnPool();

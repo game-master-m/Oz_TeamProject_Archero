@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private WaitForSeconds mZeroDotOneWait;
     private readonly float mZeroDotOneDelay = 0.1f;
     //StopState에서 돌고 있는 코루틴을 받을 변수
-    private Coroutine mCheckEnemyInRangeCo = null;
 
     //Collider배열을 계속 생성하면 성능에 안 좋기 때문에, 범위안에 적들이 있는지만 체크하는 Collider Buffer
     private Collider[] mEnemyColBuffer = new Collider[30];
@@ -50,8 +49,9 @@ public class PlayerController : MonoBehaviour
     public WaitForSeconds ZeroDotWait => mZeroDotOneWait;
 
     public bool IsFindEnemy { get; set; } = false; //StopState 코루틴에서 변경
-    public Transform ClosestEnemy { get; private set; }
+    public Transform CurrentClosestEnemy { get; private set; } = null;
     public Coroutine CheckEnemyInRangeCo { get; set; }
+    public Coroutine RotateToTargetCo { get; set; }
     #endregion
     private void Awake()
     {
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         mStateMachine.AddTransition(mMoveState, mStopState, () => mCurrentSpeedSqr < 0.01f);
 
         //attack
-        mStateMachine.AddTransition(mThrowState, mStopState, () => !IsFindEnemy);
+        mStateMachine.AddTransition(mThrowState, mStopState, () => !IsFindEnemy || Attack.IsAutoTurret);
         //move2
         //mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
 
@@ -141,20 +141,23 @@ public class PlayerController : MonoBehaviour
         }
         mCharacterController.Move(moveDir * Stat.MoveSpeed * Time.deltaTime);
         mCurrentSpeedSqr = mCharacterController.velocity.sqrMagnitude;
-        RotateToMoveDir(moveDir);
+        if (mCurrentSpeedSqr > 0.01f) RotateToMoveDir(moveDir);
     }
     private void RotateToMoveDir(Vector3 moveDir)
     {
         if (moveDir == Vector3.zero) return;
-        Quaternion lookRot = Quaternion.LookRotation(moveDir, Vector3.up);
+        Vector3 rotateDir = moveDir;
+        rotateDir.y = 0.0f;
+        Quaternion lookRot = Quaternion.LookRotation(rotateDir, Vector3.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * mStat.RotateSpeed);
     }
     #endregion
 
     private Transform GetClosestEnemyInRange()
     {
-        ClosestEnemy = null;
+        Transform closestEnemy = null;
 
+        //OverlapShepreNonAlloc()를 써야 찾은 Collider를 새로 생성하지 않고 BufferCollider배열에 저장 함.
         int count = Physics.OverlapSphereNonAlloc(transform.position, Stat.AttackRange, mEnemyColBuffer, Layers.GetLayerMask(ELayerName.Enemy));
         if (count == 0) return null;
 
@@ -169,10 +172,10 @@ public class PlayerController : MonoBehaviour
             if (distSqr < minDistance)
             {
                 minDistance = distSqr;
-                ClosestEnemy = enemyTrans;
+                closestEnemy = enemyTrans;
             }
         }
-        return ClosestEnemy;
+        return closestEnemy;
     }
 
     #region CoRoutines
@@ -182,42 +185,60 @@ public class PlayerController : MonoBehaviour
         while (true)
         {
             //0.1초 대기, 성능 최적화를 위해 코루틴 사용
-            if (GetClosestEnemyInRange() != null)
+            Transform closestEnemy = GetClosestEnemyInRange();
+            if (closestEnemy != null)
             {
                 //탐지 했으면, bool 변수를 true로 바꿈
                 //이 bool변수를 PlayerController에서 Transition 조건으로 사용
                 IsFindEnemy = true;
+                if (closestEnemy != CurrentClosestEnemy)
+                {
+                    CurrentClosestEnemy = closestEnemy;
+                    if (RotateToTargetCo != null) StopCoroutine(RotateToTargetCo);
+                    RotateToTargetCo = StartCoroutine(RotateToTarget(CurrentClosestEnemy, transform, 30.0f));
+                }
+                else if (RotateToTargetCo == null)
+                {
+                    RotateToTargetCo = StartCoroutine(RotateToTarget(CurrentClosestEnemy, transform, 30.0f));
+                }
             }
             else
             {
                 IsFindEnemy = false;
+                if (RotateToTargetCo != null)
+                {
+                    StopCoroutine(RotateToTargetCo);
+                    RotateToTargetCo = null;
+                }
+                CurrentClosestEnemy = null;
             }
+
             yield return ZeroDotWait;
         }
     }
 
-    public IEnumerator RotateToProjectile(Transform projTrans, Transform myTrans, float rotateSpeed)
+    public IEnumerator RotateToTarget(Transform targetTrans, Transform myTrans, float rotateSpeed)
     {
-        if (projTrans == null) yield break;
-        Vector3 targetDir = projTrans.forward;
-        targetDir.y = 0;
-        if (targetDir == Vector3.zero) yield break;
-        Quaternion lookRot = Quaternion.LookRotation(targetDir, Vector3.up);
-
-        while (true)
+        if (targetTrans == null)
         {
-            float remainAngle = Quaternion.Angle(myTrans.rotation, lookRot);
+            RotateToTargetCo = null;
+            yield break;
+        }
 
-            if (remainAngle < 0.1f)
+        while (targetTrans != null && targetTrans.gameObject.activeInHierarchy)
+        {
+            Vector3 targetDir = targetTrans.position - myTrans.position;
+            targetDir.y = 0;
+
+            if (targetDir != Vector3.zero)
             {
-                myTrans.rotation = lookRot;
-                yield break;
+                Quaternion lookRot = Quaternion.LookRotation(targetDir, Vector3.up);
+                myTrans.rotation = Quaternion.Slerp(myTrans.rotation, lookRot, Time.deltaTime * rotateSpeed);
             }
-
-            myTrans.rotation = Quaternion.Slerp(myTrans.rotation, lookRot, Time.deltaTime * rotateSpeed);
 
             yield return null;
         }
+        RotateToTargetCo = null;
     }
 
     #endregion

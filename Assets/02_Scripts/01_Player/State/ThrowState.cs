@@ -23,7 +23,6 @@ public class ThrowState : PlayerState
 
     //코루틴 최적화
     private Coroutine mRunningShotCo = null;
-    private Coroutine mRunningRotateCo = null;
     private WaitForSeconds mWaitPerOneShot;
     public override void Enter()
     {
@@ -53,30 +52,15 @@ public class ThrowState : PlayerState
             mPlayer.StopCoroutine(mRunningShotCo);
             mRunningShotCo = null;
         }
+        if (mPlayer.RotateToTargetCo != null)
+        {
+            mPlayer.StopCoroutine(mPlayer.RotateToTargetCo);
+            mPlayer.RotateToTargetCo = null;
+        }
         if (mPlayer.CheckEnemyInRangeCo != null)
         {
             mPlayer.StopCoroutine(mPlayer.CheckEnemyInRangeCo);
             mPlayer.CheckEnemyInRangeCo = null;
-        }
-        if (mRunningRotateCo != null)
-        {
-            mPlayer.StopCoroutine(mRunningRotateCo);
-            mRunningRotateCo = null;
-        }
-    }
-
-    private void RestartRotateCo(Transform projTans)
-    {
-        if (mRunningRotateCo != null)
-        {
-            mPlayer.StopCoroutine(mRunningRotateCo);
-            mRunningRotateCo = null;
-        }
-
-        // null 체크 (화살 생성 실패 등의 경우 대비)
-        if (projTans != null)
-        {
-            mRunningRotateCo = mPlayer.StartCoroutine(mPlayer.RotateToProjectile(projTans, mPlayer.transform, 50.0f));
         }
     }
 
@@ -87,20 +71,13 @@ public class ThrowState : PlayerState
         mPlayer.Anim.CrossFade(AnimHash._throw, 0.1f);
         //남은 시간 대기하고 발사
         yield return new WaitForSeconds(fireDelay);
-        Projectile currentProjectile = mPlayer.Attack.MakeProjectile();
-
-        //화살발사 방향으로 회전하는 코루틴 실행
-        RestartRotateCo(currentProjectile.transform);
-
+        Projectile currentProjectile = mPlayer.Attack.MakeProjectile(mPlayer.CurrentClosestEnemy);
 
         while (true)
         {
             //애니메이션은 계속 실행되기때문에 durationPerOneShot 시간마다 화살생성
             yield return mWaitPerOneShot;
-            currentProjectile = mPlayer.Attack.MakeProjectile();
-
-            //화살발사 방향으로 회전하는 코루틴 실행
-            RestartRotateCo(currentProjectile.transform);
+            currentProjectile = mPlayer.Attack.MakeProjectile(mPlayer.CurrentClosestEnemy);
         }
     }
 }

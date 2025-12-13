@@ -54,15 +54,19 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public Projectile MakeProjectile()
+    public Projectile MakeProjectile(Transform firstTarget)
     {
         Projectile projectile = Managers.Pool.GetFromPool(mProjectilePrefab);
         if (projectile != null)
         {
             projectile.transform.position = transform.position + mProjectileOffeset;
-            projectile.Setup(mArrowStrategies, mStat.AttackDamage, mStat.AttackRange);
+            projectile.Setup(mArrowStrategies, mStat.AttackDamage, mStat.AttackRange, firstTarget);
         }
         return projectile;
+    }
+    public Projectile MakeProjectile()
+    {
+        return MakeProjectile(null);
     }
 
 
