@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine mCheckEnemyInRangeCo = null;
 
     //Collider배열을 계속 생성하면 성능에 안 좋기 때문에, 범위안에 적들이 있는지만 체크하는 Collider Buffer
-    private Collider[] mEnemyColBuffer = new Collider[1];   //탐지 유무라 하나면 충분
+    private Collider[] mEnemyColBuffer = new Collider[30];
     #endregion
 
     #region Properties
@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     public WaitForSeconds ZeroDotWait => mZeroDotOneWait;
 
     public bool IsFindEnemy { get; set; } = false; //StopState 코루틴에서 변경
+    public Transform ClosestEnemy { get; private set; }
     public Coroutine CheckEnemyInRangeCo { get; set; }
     #endregion
     private void Awake()
@@ -150,11 +151,28 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    private bool EnemyInRange()
+    private Transform GetClosestEnemyInRange()
     {
-        mEnemyColBuffer = Physics.OverlapSphere(transform.position, Stat.AttackRange, Layers.GetLayerMask(ELayerName.Enemy));
-        if (mEnemyColBuffer.Length == 0 || mEnemyColBuffer == null) return false;
-        else return true;
+        ClosestEnemy = null;
+
+        int count = Physics.OverlapSphereNonAlloc(transform.position, Stat.AttackRange, mEnemyColBuffer, Layers.GetLayerMask(ELayerName.Enemy));
+        if (count == 0) return null;
+
+        float minDistance = float.MaxValue;
+
+        for (int i = 0; i < count; i++)
+        {
+            Transform enemyTrans = mEnemyColBuffer[i].transform;
+
+            float distSqr = (enemyTrans.position - transform.position).sqrMagnitude;
+
+            if (distSqr < minDistance)
+            {
+                minDistance = distSqr;
+                ClosestEnemy = enemyTrans;
+            }
+        }
+        return ClosestEnemy;
     }
 
     #region CoRoutines
@@ -164,7 +182,7 @@ public class PlayerController : MonoBehaviour
         while (true)
         {
             //0.1초 대기, 성능 최적화를 위해 코루틴 사용
-            if (EnemyInRange())
+            if (GetClosestEnemyInRange() != null)
             {
                 //탐지 했으면, bool 변수를 true로 바꿈
                 //이 bool변수를 PlayerController에서 Transition 조건으로 사용
@@ -175,6 +193,30 @@ public class PlayerController : MonoBehaviour
                 IsFindEnemy = false;
             }
             yield return ZeroDotWait;
+        }
+    }
+
+    public IEnumerator RotateToProjectile(Transform projTrans, Transform myTrans, float rotateSpeed)
+    {
+        if (projTrans == null) yield break;
+        Vector3 targetDir = projTrans.forward;
+        targetDir.y = 0;
+        if (targetDir == Vector3.zero) yield break;
+        Quaternion lookRot = Quaternion.LookRotation(targetDir, Vector3.up);
+
+        while (true)
+        {
+            float remainAngle = Quaternion.Angle(myTrans.rotation, lookRot);
+
+            if (remainAngle < 0.1f)
+            {
+                myTrans.rotation = lookRot;
+                yield break;
+            }
+
+            myTrans.rotation = Quaternion.Slerp(myTrans.rotation, lookRot, Time.deltaTime * rotateSpeed);
+
+            yield return null;
         }
     }
 

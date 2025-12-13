@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void MakeProjectile()
+    public Projectile MakeProjectile()
     {
         Projectile projectile = Managers.Pool.GetFromPool(mProjectilePrefab);
         if (projectile != null)
@@ -62,6 +62,7 @@ public class PlayerAttack : MonoBehaviour
             projectile.transform.position = transform.position + mProjectileOffeset;
             projectile.Setup(mArrowStrategies, mStat.AttackDamage, mStat.AttackRange);
         }
+        return projectile;
     }
 
 
