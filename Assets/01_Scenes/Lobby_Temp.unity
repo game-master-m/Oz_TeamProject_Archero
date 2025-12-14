@@ -2590,7 +2590,8 @@ MonoBehaviour:
     type: 3}
   gameManagerPrefab: {fileID: 6798939758725418860, guid: a63248f2a1390844cb33730783d51ebe,
     type: 3}
-  stageManagerPrefab: {fileID: 0}
+  stageManagerPrefab: {fileID: 5166930337996527343, guid: ec3cdf6d0db68cb478024bcba50feb7b,
+    type: 3}
 --- !u!4 &1944988325
 Transform:
   m_ObjectHideFlags: 0
