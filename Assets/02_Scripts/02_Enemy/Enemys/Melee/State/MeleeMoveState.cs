@@ -13,7 +13,7 @@ public class MeleeMoveState : EnemyState
     public override void Enter()
     {
         base.Enter();
-
+        mEnemy.Anim.CrossFade(AnimHash.move, 0.1f);
         if (mEnemy.Agent != null && mEnemy.Agent.isOnNavMesh)
         {
             mEnemy.Agent.isStopped = false;
