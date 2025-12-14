@@ -23,6 +23,7 @@ public class MeleeAttackState : EnemyState
         //공격 애니메이션 재생
         //애니메이션 파라미터는 최대한 안 쓰려고 함.
         //mEnemy.Anim.SetBool("IsAttack", true);
+        mEnemy.Anim.CrossFade(AnimHash.attack, 0.1f);
     }
 
     public override void Update()
@@ -57,7 +58,7 @@ public class MeleeAttackState : EnemyState
         //여기에 실제 공격 판정 및 데미지 적용 로직을 추가하세요.
         {
             //애니메이션 파라미터는 최대한 안 쓰려고 함.
-            mEnemy.Anim.SetTrigger("AttackTrigger");
+            //mEnemy.Anim.SetTrigger("AttackTrigger");
 
             if (mEnemy.Target == null) return;
             LivingEntity targetEntity = mEnemy.Target.GetComponent<LivingEntity>();
