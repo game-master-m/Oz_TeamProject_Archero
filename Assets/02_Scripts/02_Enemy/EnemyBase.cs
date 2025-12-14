@@ -20,12 +20,18 @@ public class EnemyBase : LivingEntity
     protected float mAttackRange;
     protected float mAttackSpeed;
     protected float mRotateSpeed;
+    protected float mDetectRange;
+
+    //프리팹들이 z축을 바라보고 있지 않아서 각 에너미 StatDataSO에 보정 회전값 설정
+    protected Vector3 mRotationOffset;
+    protected Quaternion mCorrectionQtrn;
 
     public float AttackRange => mAttackRange;
     public float RotateSpeed => mRotateSpeed;
     public float AttackSpeed => mAttackSpeed;
     public float AttackDamage => mAttackDamage;
-
+    public float DetectRange => mDetectRange;
+    public Quaternion CorrectionQtrn => mCorrectionQtrn;
     public NavMeshAgent Agent => mAgent;
 
     //플레이어 추적용 타겟
@@ -39,7 +45,9 @@ public class EnemyBase : LivingEntity
     {
         mAgent = GetComponent<NavMeshAgent>();
         mAnimator = GetComponent<Animator>();
+
         mCapsuleCollider = GetComponent<CapsuleCollider>();
+        mCapsuleCollider.isTrigger = true;
 
         // NavMeshAgent 세팅 (속도, 회전 등)
         mAgent.updateRotation = false;
@@ -101,6 +109,11 @@ public class EnemyBase : LivingEntity
         mAttackRange = data.AttackRange;
         mAttackSpeed = data.AttackSpeed;
         mRotateSpeed = data.RotateSpeed;
+        mDetectRange = data.DetectRange;
+        mRotationOffset = data.RotateOffset;
+
+        //보정 회전값 설정
+        mCorrectionQtrn = Quaternion.Euler(mRotationOffset);
     }
     public void SetTarget(Transform target)
     {
@@ -134,4 +147,17 @@ public class EnemyBase : LivingEntity
         // 4. 애니메이션 재생 후 풀로 반환 
         Managers.Pool.ReturnToPool(this);
     }
+
+    #region 헬퍼함수
+    protected bool CheckInDistance(Transform target, float distance)
+    {
+        float distSqr = distance * distance;
+
+        if ((target.position - transform.position).sqrMagnitude <= distSqr)
+        {
+            return true;
+        }
+        return false;
+    }
+    #endregion
 }

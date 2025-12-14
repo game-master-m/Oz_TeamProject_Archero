@@ -191,6 +191,7 @@ public class PlayerController : MonoBehaviour
                 //탐지 했으면, bool 변수를 true로 바꿈
                 //이 bool변수를 PlayerController에서 Transition 조건으로 사용
                 IsFindEnemy = true;
+
                 if (closestEnemy != CurrentClosestEnemy)
                 {
                     CurrentClosestEnemy = closestEnemy;
