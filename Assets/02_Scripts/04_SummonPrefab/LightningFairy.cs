@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LightningFairy : FairyBase
 {
@@ -47,7 +44,7 @@ public class LightningFairy : FairyBase
 
         //맞은 대상 주변 오브젝트 검색
         Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, mChainRange, Layers.GetLayerMask(ELayerName.Enemy));
-       
+
         //주변 오브젝트들에 범위 데미지
         foreach (Collider collider in hitColliders)
         {
@@ -67,15 +64,15 @@ public class LightningFairy : FairyBase
 
         Collider nearCol = null;
 
-        for (int i = 0; i < mMaxChainCount; i++) 
+        for (int i = 0; i < mMaxChainCount; i++)
         {
             int otherID = centerEnemy.gameObject.GetInstanceID();    //충돌체 오브젝트 아이디
-                                                                     
-            if (mIgnoreColliderIDs.Contains(otherID)) 
+
+            if (mIgnoreColliderIDs.Contains(otherID))
             {
                 break; //충돌했던 놈이면 리턴
             }
-            else 
+            else
             {
                 mIgnoreColliderIDs.Add(otherID);
             }
@@ -115,7 +112,7 @@ public class LightningFairy : FairyBase
 
             IDamageable enemyDamageable = centerEnemy.gameObject.GetComponent<IDamageable>();
 
-            if (enemyDamageable != null) 
+            if (enemyDamageable != null)
             {
                 Utils.Log("주변 적으로 튕김");
                 enemyDamageable.TakeDamage(lightningDamage);

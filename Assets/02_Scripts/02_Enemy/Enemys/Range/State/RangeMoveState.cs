@@ -24,6 +24,6 @@ public class RangeMoveState : EnemyState
     public override void Exit()
     {
         base.Exit();
-        mEnemy.Agent.SetDestination(mEnemy.transform.position);
+        //mEnemy.Agent.SetDestination(mEnemy.transform.position);
     }
 }
