@@ -12,7 +12,7 @@ public class FireFairyStrategy : IPassiveStrategy
     public FireFairyStrategy(FireFairySkillDataSO fairySkillDataSO)
     {
         mFireFairyData = fairySkillDataSO;
-        mFireFairyPrefab = mFireFairyData.mFireFairyPrefab;
+        mFireFairyPrefab = mFireFairyData.FireFairyPrefab;
   
         Managers.Pool.CreatePool(mFireFairyPrefab, 1, Managers.Pool.transform);
     }

@@ -17,10 +17,10 @@ public class VenomFairy : FairyBase
     public void SetUp(VenomFairySkillDataSO skillDataSO)
     {
         //페어리 데이터 스텟 받아오기
-        mEffectTime = skillDataSO.mEffectTime;
-        mDamageTick = skillDataSO.mDamageTick;
-        mDamageDuplicater = skillDataSO.mDamageDuplicater;
-        mSeatNumber = skillDataSO.mSeatNumber;
+        mEffectTime = skillDataSO.EffectTime;
+        mDamageTick = skillDataSO.DamageTick;
+        mDamageDuplicater = skillDataSO.DamageDuplicater;
+        mSeatNumber = skillDataSO.SeatNumber;
 
         //자기 자리 위치로 회전
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up,mSeatAngle * mSeatNumber);

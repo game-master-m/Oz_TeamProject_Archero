@@ -10,7 +10,7 @@ public class LightningFairy : FairyBase
     private float mChainRange;
     private float mMaxChainCount;
 
-    //½ºÅ¸Æ®´Â Å×½ºÆ® È¯°æ¿¡¼­ ÀÛµ¿ È®ÀÎ¿ë ¼¼ÆÃ
+    //ìŠ¤íƒ€íŠ¸ëŠ” í…ŒìŠ¤íŠ¸ í™˜ê²½ì—ì„œ ì‘ë™ í™•ì¸ìš© ì„¸íŒ…
     private void Start()
     {
         mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
@@ -20,17 +20,17 @@ public class LightningFairy : FairyBase
 
     public void SetUp(LightningFairySkillDataSO skillDataSO)
     {
-        //Æä¾î¸® µ¥ÀÌÅÍ ½ºÅİ ¹Ş¾Æ¿À±â
-        mEffectTime = skillDataSO.mEffectTime;
-        mDamageTick = skillDataSO.mDamageTick;
-        mDamageDuplicater = skillDataSO.mDamageDuplicater;
-        mSeatNumber = skillDataSO.mSeatNumber;
+        //í˜ì–´ë¦¬ ë°ì´í„° ìŠ¤í…Ÿ ë°›ì•„ì˜¤ê¸°
+        mEffectTime = skillDataSO.EffectTime;
+        mDamageTick = skillDataSO.DamageTick;
+        mDamageDuplicater = skillDataSO.DamageDuplicater;
+        mSeatNumber = skillDataSO.SeatNumber;
 
-        //¹ø°³¿äÁ¤ Àü¿ë ½ºÅİ
-        mChainRange = skillDataSO.mChainRange;
-        mMaxChainCount = skillDataSO.mMaxChainCount;
+        //ë²ˆê°œìš”ì • ì „ìš© ìŠ¤í…Ÿ
+        mChainRange = skillDataSO.ChainRange;
+        mMaxChainCount = skillDataSO.MaxChainCount;
 
-        //ÀÚ±â ÀÚ¸® À§Ä¡·Î È¸Àü
+        //ìê¸° ìë¦¬ ìœ„ì¹˜ë¡œ íšŒì „
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up, mSeatAngle * mSeatNumber);
     }
 
@@ -39,25 +39,25 @@ public class LightningFairy : FairyBase
         mIgnoreColliderIDs.Clear();
 
         Utils.Log("ApplyLightning");
-        //¹ø°³ µ¥¹ÌÁö = µ¥¹ÌÁö * 0.3(±âÁ¸ µ¥¹ÌÁö 30%), ¸ÂÀº ´ë»ó ÁÖº¯¿¡ µ¥¹ÌÁö ÁÖ°í Æ¨±è(feat.Ã¼ÀÎ ¶óÀÌÆ®´×)
+        //ë²ˆê°œ ë°ë¯¸ì§€ = ë°ë¯¸ì§€ * 0.3(ê¸°ì¡´ ë°ë¯¸ì§€ 30%), ë§ì€ ëŒ€ìƒ ì£¼ë³€ì— ë°ë¯¸ì§€ ì£¼ê³  íŠ•ê¹€(feat.ì²´ì¸ ë¼ì´íŠ¸ë‹)
         float lightningDamage = damage * mDamageDuplicater;
 
-        //¸ÂÀº ´ë»ó ÁÖº¯ ¿ÀºêÁ§Æ® °Ë»ö
+        //ë§ì€ ëŒ€ìƒ ì£¼ë³€ ì˜¤ë¸Œì íŠ¸ ê²€ìƒ‰
         Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, mChainRange, Layers.GetLayerMask(ELayerName.Enemy));
 
-        //ÁÖº¯ ¿ÀºêÁ§Æ®µé¿¡ ¹üÀ§ µ¥¹ÌÁö
+        //ì£¼ë³€ ì˜¤ë¸Œì íŠ¸ë“¤ì— ë²”ìœ„ ë°ë¯¸ì§€
         foreach (Collider collider in hitColliders)
         {
             IDamageable enemy = collider.gameObject.GetComponent<IDamageable>();
 
             if (enemy != null)
             {
-                Utils.Log($"{hitColliders.Length}°³ ¿ÀºêÁ§Æ®¿¡ ¹üÀ§ÇÇÇØ");
+                Utils.Log($"{hitColliders.Length}ê°œ ì˜¤ë¸Œì íŠ¸ì— ë²”ìœ„í”¼í•´");
                 enemy.TakeDamage(lightningDamage);
             }
         }
 
-        //¸ÂÀº ¿ÀºêÁ§Æ®¸¦ Áß½ÉÀ¸·Î ¼³Á¤
+        //ë§ì€ ì˜¤ë¸Œì íŠ¸ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ ì„¤ì •
         Transform centerEnemy = target.gameObject.transform;
         float closestDistance = Mathf.Infinity;
         Vector3 centerPosition = target.gameObject.transform.position;
@@ -66,35 +66,38 @@ public class LightningFairy : FairyBase
 
         for (int i = 0; i < mMaxChainCount; i++)
         {
-            int otherID = centerEnemy.gameObject.GetInstanceID();    //Ãæµ¹Ã¼ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ
+            int otherID = centerEnemy.gameObject.GetInstanceID();    //ì¶©ëŒì²´ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””
 
             if (mIgnoreColliderIDs.Contains(otherID))
             {
-                break; //Ãæµ¹Çß´ø ³ğÀÌ¸é ¸®ÅÏ
+                break; //íŠ•ê²¼ë˜ ë†ˆì´ë©´ ë¦¬í„´
             }
             else
             {
+                //ì•„ë‹ˆë©´ íŠ•ê²¼ë˜ ì˜¤ë¸Œì íŠ¸ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                 mIgnoreColliderIDs.Add(otherID);
+
             }
 
-            //¸ÂÀº ´ë»ó ÁÖº¯ Àû ¿ÀºêÁ§Æ® °Ë»ö
+            //ë§ì€ ëŒ€ìƒ ì£¼ë³€ ì  ì˜¤ë¸Œì íŠ¸ ê²€ìƒ‰
             Collider[] nearColliders = Physics.OverlapSphere(centerEnemy.transform.position, mChainRange, Layers.GetLayerMask(ELayerName.Enemy));
 
             if (hitColliders.Length == 0)
             {
-                //ÁÖº¯ Àû ¾øÀ¸¸é ¸®ÅÏ
+                //ì£¼ë³€ ì  ì—†ìœ¼ë©´ ë¦¬í„´
                 return;
             }
 
+            //ì œì¼ ê°€ê¹Œìš´ ì  ì°¾ê¸°
             foreach (Collider hitCollider in hitColliders)
             {
-                //ºñÈ°¼ºÈ­µÈ ÀûÀº ÆĞ½º
+                //ë¹„í™œì„±í™”ëœ ì ì€ íŒ¨ìŠ¤
                 if (!hitCollider.enabled || !hitCollider.gameObject.activeInHierarchy) continue;
 
                 Vector3 targetDir = hitCollider.transform.position - centerPosition;
                 float distanceToTarget = targetDir.sqrMagnitude;
 
-                //ÀûÀÌ °ãÃÄÀÖ¾î °Å¸®°¡ ¸Å¿ì °¡±î¿ï ¶§ º¤ÅÍ¿¬»ê ¿À·ù ¹æÁö
+                //ì ì´ ê²¹ì³ìˆì–´ ê±°ë¦¬ê°€ ë§¤ìš° ê°€ê¹Œìš¸ ë•Œ ë²¡í„°ì—°ì‚° ì˜¤ë¥˜ ë°©ì§€
                 if (distanceToTarget < 0.001f) continue;
 
                 if (distanceToTarget < closestDistance)
@@ -110,11 +113,11 @@ public class LightningFairy : FairyBase
                 return;
             }
 
+            //ë°ë¯¸ì§€ ì…í ìˆ˜ ìˆìœ¼ë©´ ë°ë¯¸ì§€ ì…íˆê¸°
             IDamageable enemyDamageable = centerEnemy.gameObject.GetComponent<IDamageable>();
-
-            if (enemyDamageable != null)
+            if (enemyDamageable != null) 
             {
-                Utils.Log("ÁÖº¯ ÀûÀ¸·Î Æ¨±è");
+                Utils.Log("ì£¼ë³€ ì ìœ¼ë¡œ íŠ•ê¹€");
                 enemyDamageable.TakeDamage(lightningDamage);
             }
         }

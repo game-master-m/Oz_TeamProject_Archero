@@ -12,7 +12,7 @@ public class LightningFairyStrategy : IPassiveStrategy
     public LightningFairyStrategy(LightningFairySkillDataSO fairySkillDataSO)
     {
         mLightningFairyData = fairySkillDataSO;
-        mLightningFairyPrefab = mLightningFairyData.mLightningFairyPrefab;
+        mLightningFairyPrefab = mLightningFairyData.LightningFairyPrefab;
 
         Managers.Pool.CreatePool(mLightningFairyPrefab, 1, Managers.Pool.transform);
     }

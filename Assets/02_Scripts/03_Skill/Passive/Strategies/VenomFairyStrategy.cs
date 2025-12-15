@@ -12,7 +12,7 @@ public class VenomFairyStrategy : IPassiveStrategy
     public VenomFairyStrategy(VenomFairySkillDataSO fairySkillDataSO)
     {
         mVenomFairyData = fairySkillDataSO;
-        mVenomFairyPrefab = mVenomFairyData.mVenomFairyPrefab;
+        mVenomFairyPrefab = mVenomFairyData.VenomFairyPrefab;
 
         Managers.Pool.CreatePool(mVenomFairyPrefab, 1, Managers.Pool.transform);
     }

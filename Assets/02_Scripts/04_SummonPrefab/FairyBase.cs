@@ -8,8 +8,8 @@ public abstract class FairyBase : MonoBehaviour
     [SerializeField] protected ElementProjectile mElementsProjectilePrefab;
 
     //위치 오프셋
-    [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 0, 0);
-    [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, 1.0f, 0);
+    [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 1.5f, 0);
+    [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, -0.5f, 0);
     [SerializeField] private Vector3 mPositionOffset = new Vector3(1.5f, 1.0f, 0);
 
     //적 탐색 사거리 > 이 안에 적 있으면 발사
