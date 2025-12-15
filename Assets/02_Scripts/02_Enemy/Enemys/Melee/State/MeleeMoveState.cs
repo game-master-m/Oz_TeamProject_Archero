@@ -13,7 +13,7 @@ public class MeleeMoveState : EnemyState
     public override void Enter()
     {
         base.Enter();
-
+        mEnemy.Anim.CrossFade(AnimHash.move, 0.1f);
         if (mEnemy.Agent != null && mEnemy.Agent.isOnNavMesh)
         {
             mEnemy.Agent.isStopped = false;
@@ -47,9 +47,11 @@ public class MeleeMoveState : EnemyState
         if (moveDir.sqrMagnitude > 0.01f)
         {
             Quaternion lookRot = Quaternion.LookRotation(moveDir.normalized);
+            //회전값 보정(곱하는 순서가 중요, Forward까지의 회전값 * 보정 회전값)
+            Quaternion targetRot = lookRot * mEnemy.CorrectionQtrn;
             mEnemy.transform.rotation = Quaternion.Slerp(
                 mEnemy.transform.rotation,
-                lookRot,
+                targetRot,
                 mEnemy.RotateSpeed * Time.deltaTime
             );
         }

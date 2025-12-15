@@ -1,69 +1,34 @@
 
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 public class StopState : PlayerState
 {
-
-    private float mTimer = 0.0f;
-
-    private PlayerStatDataSO mStat;
-    
-    
-    public StopState(PlayerController player,PlayerStatDataSO stat,IState parent = null) : base(player, parent)
-    {
-        
-        mStat = stat;
-    }
+    public StopState(PlayerController player, IState parent = null) : base(player, parent) { }
     public override void Enter()//Stop 애니메이션일때 한번 실행
     {
-        
-        
-        
-
-
         //유니티 에디터에서만 로그찍기
         Utils.Log("Stop Enter");
+
         //애니메이션 전환( CrossFade(clip name, 전환시간) , Play(clip name) )
         mPlayer.Anim.CrossFade(AnimHash.idle, 0.1f);
 
-        //테스트 쏘기
-        //if (!mPlayer.Attack.IsAutoTurret)
-        //{
-        //    mPlayer.Attack.MakeProjectile();
-        //}
-
-    }
-    
-    public override void Update()
-    {
-        //PlayerStatDataSO의 mAttackRange를 가져와서 이 사거리 안에 Layer Enemy가 있으면 throwState(mPlayer.Anim.CrossFade(AnimHash._throw, 0.1f);)로 변경        
-
-
-        //Collider[] hitColliders = Physics.OverlapSphere(mPlayer, mStat.AttackRange, Layers.GetLayerMask(ELayerName.Enemy));
-
-        //if (Collider[]hitcollider=Physics.OverlapSphere())
-        //mStat.AttackRange
-        base.Update();
-        
-        if (EnemyInRange())
+        //AutoTurret을 먹으면 아래 코루틴이 실행 될 일이 없고, ThrowState로도 못 넘어감
+        if (!mPlayer.Attack.IsAutoTurret)
         {
-            mPlayer.StateMachine.ChangeState(mPlayer.ThrowState);
-                       
-            
-            return;
+            if (mPlayer.CheckEnemyInRangeCo == null) //방어코드
+            {
+                //StopState는 Monobehabior가 아니기 때문에 PlayerController(mPlayer)에서 StartCoroutine 실행
+                //적 탐지 코루틴 실행(0.1초 마다 탐지)
+                //종료는 ThrowState Exit()와 MoveState Enter()에서 해줌.
+                mPlayer.CheckEnemyInRangeCo = mPlayer.StartCoroutine(mPlayer.CheckEnemyInAttackRange());
+            }
         }
-
-        
-
     }
+    public override void Update() { }
     public override void FixedUpdate() { }
-    public override void Exit() { }
-    private bool EnemyInRange()
+    public override void Exit()
     {
-        float range = mStat.AttackRange;
-
-        Collider[] enemy = Physics.OverlapSphere(mPlayer.transform.position, range, Layers.GetLayerMask(ELayerName.Enemy));
-        return enemy.Length > 0;
+        //현재 상태를 빠져나가기 전 한번 호출.
     }
 
 

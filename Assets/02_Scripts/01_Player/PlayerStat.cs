@@ -1,11 +1,10 @@
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class PlayerStat : LivingEntity
 {
     [Header("Data Source")]
     [SerializeField] private PlayerStatDataSO mStat;
-    
+
     //새로추가함
     public PlayerStatDataSO StatDataSO => mStat;
     public float AttackDamage { get; private set; }

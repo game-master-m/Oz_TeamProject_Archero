@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Rendering.Universal.ShaderGUI;
 using UnityEngine;
 
 public class RangeEnemy : EnemyBase
@@ -14,7 +11,7 @@ public class RangeEnemy : EnemyBase
     // 여기에 원거리공격 에너미의 상태들을 정의하세요.
     RangeIdleState mIdleState;
     RangeMoveState mMoveState;
- 
+    RangeAttackState mAttackState;
 
     #endregion
 
@@ -28,7 +25,7 @@ public class RangeEnemy : EnemyBase
         // 상태들 생성
         mIdleState = new RangeIdleState(this);
         mMoveState = new RangeMoveState(this);
-
+        mAttackState = new RangeAttackState(this);
         //전환조건 설정
         InitTransitions();
     }
@@ -77,10 +74,22 @@ public class RangeEnemy : EnemyBase
     {
         // 상태 전환 로직을 여기에 작성하세요.
         //mStateMachine.AddTransition(mIdleState, mMoveState, () => true); // 예시
-        mStateMachine.AddTransition(mIdleState, mMoveState, () => mTarget != null && Vector3.Distance(transform.position, mTarget.position) <= 10f);
-        //현재상태가 Idle일때 move상태로 전환하는 조건: 타겟이 존재하고, 타겟과의 거리가 이하일때
-        mStateMachine.AddTransition(mMoveState, mIdleState, () => mTarget == null || Vector3.Distance(transform.position, mTarget.position) > 100f);
-        //현재상태가 Move일때 Idle상태로 전환하는 조건: 타겟이 없거나, 타겟과의 거리가 10f를 넘을때
+
+        //현재상태가 Idle일때 move상태로 전환하는 조건: 타겟이 존재하고, 타겟과의 거리가 DetectRange 이하일때
+        mStateMachine.AddTransition(mIdleState, mMoveState,
+            () => mTarget != null && CheckInDistance(mTarget, mDetectRange));
+
+        //현재상태가 Move일때 Idle상태로 전환하는 조건: 타겟이 없거나, 타겟과의 거리가 DetectRange를 넘을때
+        mStateMachine.AddTransition(mMoveState, mIdleState,
+            () => mTarget == null || !CheckInDistance(mTarget, mDetectRange));
+
+        //움직이다가 플레이어가 공격범위 안에 들어오면 공격상태로 전환
+        mStateMachine.AddTransition(mMoveState, mAttackState,
+            () => mTarget != null && CheckInDistance(mTarget, mAttackRange));
+
+        //공격하다가 플레이어가 공격범위를 벗어나면 무브상태로 전환
+        mStateMachine.AddTransition(mAttackState, mMoveState,
+            () => mTarget == null || !CheckInDistance(mTarget, mAttackRange));
     }
 
     //TakeDamage(float amount) 필요 시 오버라이드
