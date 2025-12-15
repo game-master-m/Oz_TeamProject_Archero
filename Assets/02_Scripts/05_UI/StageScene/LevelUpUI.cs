@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ public class LevelUpUI : MonoBehaviour
     [Header("이벤트 구독")]
     [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer; // StageManager가 발송
 
+    [Header("스킬등급 확률")]
+    [SerializeField] private float mLegendChance = 0.1f;
+    [SerializeField] private float mEpicChance = 0.2f;
+    [SerializeField] private float mExpertChance = 0.3f;
 
     // 이번 스테이지에 등장 가능한 모든 스킬 리스트를 담은 SO
     [SerializeField] private SkillContainerSO mSkills;
@@ -18,11 +23,26 @@ public class LevelUpUI : MonoBehaviour
     private PlayerAttack mTargetPlayer;
 
     private List<SkillDataSO> mRemainingSkills = new List<SkillDataSO>();
+    private Dictionary<ESkillGrade, List<SkillDataSO>> mSkillDic = new Dictionary<ESkillGrade, List<SkillDataSO>>();
 
+    public Dictionary<ESkillGrade, List<SkillDataSO>> SkillDic => mSkillDic;
 
+    public event Action<List<SkillDataSO>> onSelectSkill;
     private void Start()
     {
         mRemainingSkills = new List<SkillDataSO>(mSkills.AllSkills);
+        foreach (var skill in mRemainingSkills)
+        {
+            if (!mSkillDic.ContainsKey(skill.skillGrade))
+            {
+                mSkillDic.Add(skill.skillGrade, new List<SkillDataSO>());
+                mSkillDic[skill.skillGrade].Add(skill);
+            }
+            else
+            {
+                mSkillDic[skill.skillGrade].Add(skill);
+            }
+        }
         mRootPanel.SetActive(false);
     }
     private void OnEnable()
@@ -44,7 +64,9 @@ public class LevelUpUI : MonoBehaviour
         mRootPanel.SetActive(true);
 
         // 2. 랜덤 스킬 3개 뽑기 (중복 없이)
-        List<SkillDataSO> randomSkills = GetRandomSkills(3);
+        List<SkillDataSO> randomSkills = GetRandomSkills(3, GetGradeAsChance());
+
+        onSelectSkill?.Invoke(randomSkills);    //SkillAnimation 구독
 
         // 3. 슬롯에 데이터 세팅 및 클릭 이벤트 연결
         for (int i = 0; i < mSkillSlots.Length; i++)
@@ -61,7 +83,14 @@ public class LevelUpUI : MonoBehaviour
             }
         }
     }
-
+    private ESkillGrade GetGradeAsChance()
+    {
+        float roll = UnityEngine.Random.Range(0.0f, 1.0f);
+        if (roll < mLegendChance) return ESkillGrade.Legend;
+        if (roll < mEpicChance + mLegendChance) return ESkillGrade.Epic;
+        if (roll < mExpertChance + mEpicChance + mLegendChance) return ESkillGrade.Expert;
+        return ESkillGrade.Normal;
+    }
     // 슬롯이 클릭되었을 때 실행될 함수
     private void OnSkillSelected(SkillDataSO selectedSkill)
     {
@@ -83,16 +112,16 @@ public class LevelUpUI : MonoBehaviour
     }
 
     // 랜덤 스킬 뽑기 유틸리(업그레이드 필요, 같은 스킬 업그레이드 등)
-    private List<SkillDataSO> GetRandomSkills(int count)
+    private List<SkillDataSO> GetRandomSkills(int count, ESkillGrade grade)
     {
         List<SkillDataSO> result = new List<SkillDataSO>();
-        List<SkillDataSO> tempList = new List<SkillDataSO>(mRemainingSkills);
+        List<SkillDataSO> tempList = new List<SkillDataSO>(mSkillDic[grade]);
 
         for (int i = 0; i < count; i++)
         {
             if (tempList.Count == 0) break;
 
-            int rnd = Random.Range(0, tempList.Count);
+            int rnd = UnityEngine.Random.Range(0, tempList.Count);
             result.Add(tempList[rnd]);
             tempList.RemoveAt(rnd);
         }
