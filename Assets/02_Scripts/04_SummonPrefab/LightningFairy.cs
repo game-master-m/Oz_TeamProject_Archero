@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.GraphicsBuffer;
 
 public class LightningFairy : FairyBase
 {
@@ -24,14 +25,14 @@ public class LightningFairy : FairyBase
     public void SetUp(LightningFairySkillDataSO skillDataSO)
     {
         //페어리 데이터 스텟 받아오기
-        mEffectTime = skillDataSO.mEffectTime;
-        mDamageTick = skillDataSO.mDamageTick;
-        mDamageDuplicater = skillDataSO.mDamageDuplicater;
-        mSeatNumber = skillDataSO.mSeatNumber;
+        mEffectTime = skillDataSO.EffectTime;
+        mDamageTick = skillDataSO.DamageTick;
+        mDamageDuplicater = skillDataSO.DamageDuplicater;
+        mSeatNumber = skillDataSO.SeatNumber;
 
         //번개요정 전용 스텟
-        mChainRange = skillDataSO.mChainRange;
-        mMaxChainCount = skillDataSO.mMaxChainCount;
+        mChainRange = skillDataSO.ChainRange;
+        mMaxChainCount = skillDataSO.MaxChainCount;
 
         //자기 자리 위치로 회전
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up, mSeatAngle * mSeatNumber);
@@ -73,11 +74,13 @@ public class LightningFairy : FairyBase
                                                                      
             if (mIgnoreColliderIDs.Contains(otherID)) 
             {
-                break; //충돌했던 놈이면 리턴
+                break; //튕겼던 놈이면 리턴
             }
             else 
             {
+                //아니면 튕겼던 오브젝트 리스트에 추가
                 mIgnoreColliderIDs.Add(otherID);
+
             }
 
             //맞은 대상 주변 적 오브젝트 검색
@@ -89,6 +92,7 @@ public class LightningFairy : FairyBase
                 return;
             }
 
+            //제일 가까운 적 찾기
             foreach (Collider hitCollider in hitColliders)
             {
                 //비활성화된 적은 패스
@@ -113,8 +117,8 @@ public class LightningFairy : FairyBase
                 return;
             }
 
+            //데미지 입힐 수 있으면 데미지 입히기
             IDamageable enemyDamageable = centerEnemy.gameObject.GetComponent<IDamageable>();
-
             if (enemyDamageable != null) 
             {
                 Utils.Log("주변 적으로 튕김");

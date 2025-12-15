@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class NormalSphere : SphereBase
 {
+    [SerializeField] private NormalSphereSkillDataSO mSkillDataSO;
+
     void Start()
     {
         mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
-        SetUp(mPlayer);
+        SetOwner(mPlayer);
+        SetUp(mSkillDataSO);
     }
 
     void Update()
@@ -16,11 +19,17 @@ public class NormalSphere : SphereBase
         this.transform.Rotate(Vector3.up * mRotateSpeed * Time.deltaTime);
     }
 
+    public void SetUp(NormalSphereSkillDataSO skillDataSO) 
+    {
+        mPositionOffset = skillDataSO.PositionOffset;
+        mRotateSpeed = skillDataSO.RotateSpeed;
+    }
+
     public override void ApplyDamage(EnemyBase target, float damage)
     {
         float sphereDamage = damage * 1.25f;
 
         Utils.Log($"구체데미지{sphereDamage}");
-        //target.TakeDamage(sphereDamage);
+        target.TakeDamage(sphereDamage);
     }
 }

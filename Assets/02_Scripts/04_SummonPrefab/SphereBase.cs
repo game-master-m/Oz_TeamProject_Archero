@@ -4,14 +4,14 @@ using UnityEngine;
 
 public abstract class SphereBase : MonoBehaviour
 {
-    [SerializeField] protected Vector3 mPositionOffset = new Vector3(0, 1.0f, 0);
-    [SerializeField] protected float mRotateSpeed = 100.0f;
-
+    protected Vector3 mPositionOffset;
+    protected float mRotateSpeed;
     protected PlayerAttack mPlayer;
+
     private float mAttackDamage;
     private float mAttackSpeed;
 
-    public void SetUp(PlayerAttack attack) 
+    public void SetOwner(PlayerAttack attack) 
     {
         this.gameObject.transform.position = attack.gameObject.transform.position + mPositionOffset;
 
@@ -24,6 +24,13 @@ public abstract class SphereBase : MonoBehaviour
             sphere.SetOwner(this);
         }
     }
+
+    //풀에 집어넣기 전에 플레이어한테서 떼어내기
+    public void Detach()
+    {
+        this.gameObject.transform.SetParent(null, false);
+    }
+
 
     public void OnHitTarget(EnemyBase target) 
     {

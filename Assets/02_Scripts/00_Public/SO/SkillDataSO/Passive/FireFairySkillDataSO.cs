@@ -3,12 +3,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill_FireFairy", menuName = "Archero/SkillData/Passive/FireFairySkillDataSO")]
 public class FireFairySkillDataSO : SkillDataSO
 {
-    public FireFairy mFireFairyPrefab;
-    public int mElementNumber = 0;
-    public int mSeatNumber = 1;
-    public float mEffectTime = 3f;
-    public float mDamageTick = 0.2f;
-    public float mDamageDuplicater = 0.2f;
+    public FireFairy FireFairyPrefab;
+    public int ElementNumber = 0;
+    public int SeatNumber = 1;
+    public float EffectTime = 3f;
+    public float DamageTick = 0.2f;
+    public float DamageDuplicater = 0.2f;
 
     public override IProjectileStrategy CreateProjectileStrategy()
     {
