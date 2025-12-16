@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelUpUI : MonoBehaviour
@@ -102,6 +103,10 @@ public class LevelUpUI : MonoBehaviour
         if (mTargetPlayer != null)
         {
             mTargetPlayer.AddSkill(selectedSkill);
+
+            //스택킹 스킬이 아니면 목록에서 제거(앞으로 안 보여줌)
+            if (!(selectedSkill is IStackable)) mSkillDic[selectedSkill.skillGrade].Remove(selectedSkill);
+
             Utils.Log($"Skill Added: {selectedSkill.skillName}");
         }
 
@@ -127,6 +132,7 @@ public class LevelUpUI : MonoBehaviour
 
             int rnd = UnityEngine.Random.Range(0, tempList.Count);
             result.Add(tempList[rnd]);
+
             tempList.RemoveAt(rnd);
         }
         return result;
