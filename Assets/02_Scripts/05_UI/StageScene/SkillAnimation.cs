@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class SkillAnimation : MonoBehaviour
 {
@@ -17,13 +16,22 @@ public class SkillAnimation : MonoBehaviour
     [SerializeField] private CanvasGroup mLightBase;
     [SerializeField] private CanvasGroup mLightHighlight;
     [SerializeField] private CanvasGroup mIconFrame;
-
+    //등급 전환 효과 추가
     [SerializeField] private TMP_Text mNameText;
     [SerializeField] private TMP_Text mGradeText;
 
-    [Header("Settings 테스트용")]
-    [SerializeField] private float mSpinDuration = 2.5f; // 몇 초 동안 돌릴지
-    [SerializeField] private Sprite mFinalSprite;
+    [Header("색상변경 컴포넌트")]
+    [SerializeField] private Image[] mLightBaseImages;
+    [SerializeField] private Image[] mLightHighlightImages;
+    [SerializeField] private Image mFrameLightImage;
+    [SerializeField] private Color[] mLightBaseColors;
+    [SerializeField] private Color[] mLightHighlightColors;
+    [SerializeField] private Color[] mFrameLightColors;
+    [SerializeField] private Image[] mLightGradeChangeImages;
+
+    [Header("Settings")]
+    [SerializeField] private float mGradeSpinDuration = 1.5f;
+    [SerializeField] private float mFlashDuration = 1.0f;
 
     [Header("Init Setting value")]
     [SerializeField] private float mAlpahBase = 1.0f;
@@ -36,6 +44,9 @@ public class SkillAnimation : MonoBehaviour
     [SerializeField] Sprite mGradeExpert;   //W:85 H:40 Y:141
     [SerializeField] Sprite mGradeNormal;   //w:85 H:38 Y:140
 
+    [Header("본인 이벤트(각 슬랏에서 쏴줌)")]
+    [SerializeField] VoidEventChannelSO mOnReelEnd;
+
     private readonly Vector3 mGradeOffsetLegend = new Vector3(130f, 86f, 149f);
     private readonly Vector3 mGradeOffsetEpic = new Vector3(135f, 80f, 146.5f);
     private readonly Vector3 mGradeOffsetExpert = new Vector3(85f, 40f, 141.5f);
@@ -44,108 +55,86 @@ public class SkillAnimation : MonoBehaviour
     private readonly float mGradeTextOffsetYEpic = -5.6f;
     private readonly float mGradeTextOffsetYExpert = -3.8f;
     private readonly float mGradeTextOffsetYNormal = -3.7f;
-
-    private LevelUpUI mLevelUpUI;
-
-    private Vector2 initGradePos;
-    private Vector2 initLightSlotPos;
+    private readonly Vector2 mLightGradeChangeOffsetY = new Vector2(0.0f, 680.0f);
     private readonly float mGradeMoveDistance = 55.0f;
+    private readonly float mFinalDelay = 0.5f;
+
+    private Vector2 mInitGradePos;
+    private Vector2 mInitLightSlotPos;
+    private Vector2 mInitLightGradeChangeSize;
+
 
     private ESkillGrade mCurrentGrade;
+    private Dictionary<ESkillGrade, List<SkillDataSO>> mSkillDic;
+
+    private float mCurrentGradeSpinDuration;
+    private float mCurrentFlashDuration;
+    private Vector2 mCurrentLigthGradeChangeOffsetY;
+
+    private SkillDataSO mFinalSkill;
+    private int mFinishedReelCount = 0;
+
     private void Awake()
     {
-        mLevelUpUI = GetComponent<LevelUpUI>();
-
-        initLightSlotPos = mLightSlotImage.rectTransform.anchoredPosition;
+        mInitLightSlotPos = mLightSlotImage.rectTransform.anchoredPosition;
+        mInitLightGradeChangeSize = mLightGradeChangeImages[0].rectTransform.sizeDelta;
+        ChangeGradeImages(ESkillGrade.Normal);
         mLightSlotImage.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     }
-
     private void OnEnable()
     {
-        mLevelUpUI.onSelectSkill += HandleLevelUpStart;
+        mOnReelEnd.onEvent += HandleReelEnd;
     }
     private void OnDisable()
     {
-        mLevelUpUI.onSelectSkill -= HandleLevelUpStart;
+        mOnReelEnd.onEvent -= HandleReelEnd;
     }
-
-    public void ShowSkill(Sprite finalIcon, string name)
+    public void StartSlotAnimation(SkillDataSO finalSkill, Dictionary<ESkillGrade, List<SkillDataSO>> skilDic, int index)
     {
-        Utils.Log("ShowSkill 시작");
-        // 1. UI 초기화
+        //skillDic 주입 필요.
+        mSkillDic = skilDic;
+
         ResetUI();
+        //파이널 스킬네임들 적용
+        mNameText.text = finalSkill.skillName;
+        mFinalSkill = finalSkill;
 
-        //테스트용
-        mNameText.text = name;
+        //초기값 세팅 
+        //일반등급으로 시작
+        mCurrentGrade = ESkillGrade.Normal;
 
-        // 2. 슬롯 머신 시작
-        mSlotEffect.PlaySpin(finalIcon, () =>
+        //각 슬랏 동시 실행
+        mSlotEffect.PlaySpinInitial(mSkillDic[mCurrentGrade]);
+
+        //등급이 높을수록 슬롯머신 효과시간 증가(등급당 +10%)
+        mCurrentGradeSpinDuration = mGradeSpinDuration;
+        //등급이 높을수록 Flash효과 시간증가(등급당 +15%)
+        mCurrentFlashDuration = mFlashDuration;
+        //등급이 높을수록 LightGradeChange의 크기가 커짐(초기 25%, 등급당 두배)
+        mCurrentLigthGradeChangeOffsetY = mLightGradeChangeOffsetY * 0.25f;
+
+        //각 슬랏들 다 실행
+        ProcessGradeSpin(index);
+    }
+
+    private void HandleReelEnd()
+    {
+        mFinishedReelCount++;
+        if (mFinishedReelCount > 2)
         {
-            ExpandUI();
-        });
-
-        // 3. 일정 시간 뒤에 멈춤 명령(나중에 확률 계산으로 변경 -> 에픽등장 연출추가)
-        DOVirtual.DelayedCall(mSpinDuration, () =>
-        {
-            Utils.Log("DelayedCall!!!");
-            mSlotEffect.StopSpin(); // 이제 그만 돌고 결과 내려보내!
-        }).SetUpdate(true);
+            DownLightSlots();
+        }
     }
 
-    //다음 등급으로 진입 실패 시, slot 순서대로 StopSpin(); 호출
-    //각각의 ExpandUI()가 끝나면 -> 모든 slot LastSequence 실행
-
-    private void ExpandUI()
-    {
-        Sequence seq = DOTween.Sequence();
-        seq.SetUpdate(true);
-
-        // Grade image 위로 이동
-        seq.Append(mGradeImage.rectTransform.DOAnchorPosY(initGradePos.y + mGradeMoveDistance, 0.5f).SetEase(Ease.OutBack));
-
-        // 이름 페이드 인
-        seq.Append(mNameText.DOFade(1f, 0.8f));
-
-        //테스트용, 끝나자 마자 DownLightSlots 실행
-        seq.OnComplete(DownLightSlots);
-    }
-
-    //한방에 lightSlot들 내려오고(OutBounce) -> FadeOut과 동시에 ShowPannel을 키고 FadeIn과 동시에 NameText Color Change
-    private void DownLightSlots()
-    {
-        Sequence seq = DOTween.Sequence();
-        seq.SetUpdate(true);
-
-        //LightSlot들 내려옴
-        seq.Append(mLightSlotImage.rectTransform.DOAnchorPosY(0.0f, 0.8f).SetEase(Ease.OutBounce));
-        seq.Join(mLightSlotImage.DOFade(1.0f, 1.0f));
-        seq.OnComplete(ChangeColorSeq);
-
-    }
-
-    // 이 색상 변화 Seq
-    private void ChangeColorSeq()
-    {
-        mShowPannelGroup.gameObject.SetActive(true);
-        mShowPannelGroup.alpha = 0.0f;
-
-        Sequence seq = DOTween.Sequence();
-        seq.SetUpdate(true);
-
-        seq.Append(mNameText.DOColor(mNameTextColor, 1.0f));
-        seq.Join(mLightSlotImage.DOFade(0.0f, 1.0f));
-        seq.Join(mIconFrame.DOFade(0.0f, 1.0f));
-        seq.Join(mShowPannelGroup.DOFade(1.0f, 1.0f));
-        seq.Join(mLightBase.DOFade(0.0f, 0.8f));
-        seq.Join(mLightHighlight.DOFade(0.0f, 0.8f));
-    }
     private void ResetUI()
     {
+        mFinishedReelCount = 0;
+
         mSlotEffect.gameObject.SetActive(true);
         mShowPannelGroup.gameObject.SetActive(false);
 
-        mGradeImage.rectTransform.anchoredPosition = initGradePos;
-        mLightSlotImage.rectTransform.anchoredPosition = initLightSlotPos;
+        mGradeImage.rectTransform.anchoredPosition = mInitGradePos;
+        mLightSlotImage.rectTransform.anchoredPosition = mInitLightSlotPos;
 
         mLightBase.alpha = mAlpahBase;
         mLightHighlight.alpha = mAlpahHight;
@@ -154,39 +143,223 @@ public class SkillAnimation : MonoBehaviour
         mNameText.alpha = 0.0f;
     }
 
-    private void HandleLevelUpStart(List<SkillDataSO> selectedSkills)
+
+    private void ProcessGradeSpin(int index)
     {
-        mCurrentGrade = selectedSkills[0].skillGrade;
-        ChangeGradeImage(mCurrentGrade);
-        //테스트
-        ShowSkill(selectedSkills[0].icon, selectedSkills[0].skillName);
+        ChangeGradeImages(mCurrentGrade);
+
+        if (mCurrentGrade == mFinalSkill.skillGrade)
+        {
+            float finalDuration = mCurrentGradeSpinDuration + (index * mFinalDelay);
+            DOVirtual.DelayedCall(finalDuration, () =>
+            {
+                mSlotEffect.StopSpin(mFinalSkill.icon, () =>
+                {
+                    ExpandUI(index);
+                });
+            }).SetUpdate(true);
+        }
+        else
+        {
+            DOVirtual.DelayedCall(mCurrentGradeSpinDuration, () =>
+            {
+                UpgradeFlashFI(() =>
+                {
+                    //등급이 올라감
+                    mCurrentGrade++;
+
+                    // 슬롯 이펙트의 덱을 다음 등급 리스트로 교체
+                    mSlotEffect.UpdateReelSprites(mSkillDic[mCurrentGrade]);
+
+                    UpgradeFlashFO();
+
+                    mCurrentFlashDuration *= 1.15f;
+                    mCurrentGradeSpinDuration *= 1.1f;
+                    mCurrentLigthGradeChangeOffsetY *= 2.0f;
+                    // 다음 단계 진행 (재귀 호출)
+                    ProcessGradeSpin(index);
+                });
+            }).SetUpdate(true);
+        }
     }
-    private void ChangeGradeImage(ESkillGrade grade)
+    private void ExpandUI(int index)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.SetUpdate(true);
+
+        // Grade image 위로 이동
+        seq.Append(mGradeImage.rectTransform.DOAnchorPosY(mInitGradePos.y + mGradeMoveDistance, 0.5f).SetEase(Ease.OutBack));
+
+        // 이름 페이드 인
+        seq.Append(mNameText.DOFade(1f, 0.8f));
+
+        //끝나고 나머지 애들 기다리고 DownLightSlots 실행
+
+        seq.OnComplete(() => { mOnReelEnd?.Raised(); });
+    }
+    //한방에 lightSlot들 내려오고(OutBounce) -> FadeOut과 동시에 ShowPannel을 키고 FadeIn과 동시에 NameText Color Change
+    private void DownLightSlots()
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.SetUpdate(true);
+        //LightSlot들 내려옴
+        seq.Append(mLightSlotImage.rectTransform.DOAnchorPosY(0.0f, 0.7f).SetEase(Ease.OutBounce));
+        seq.Join(mLightSlotImage.DOFade(1.0f, 0.4f));
+        seq.OnComplete(ChangeNameColorSeq);
+    }
+
+    // 이 색상 변화 Seq
+    private void ChangeNameColorSeq()
+    {
+        mShowPannelGroup.gameObject.SetActive(true);
+        mShowPannelGroup.alpha = 0.0f;
+
+        Sequence seq = DOTween.Sequence();
+        seq.SetUpdate(true);
+
+        seq.AppendInterval(0.15f);
+        seq.Append(mNameText.DOColor(mNameTextColor, 0.8f));
+        seq.Join(mLightSlotImage.DOFade(0.0f, 0.3f));
+        seq.Join(mIconFrame.DOFade(0.0f, 0.3f));
+        seq.Join(mShowPannelGroup.DOFade(1.0f, 0.7f));
+        seq.Join(mLightBase.DOFade(0.0f, 0.3f));
+        seq.Join(mLightHighlight.DOFade(0.0f, 0.3f));
+    }
+
+    private void UpgradeFlashFI(System.Action onComplete)
+    {
+        for (int i = 0; i < mLightGradeChangeImages.Length; i++)
+        {
+            mLightGradeChangeImages[i].color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        }
+        Sequence flashSeq = DOTween.Sequence();
+        flashSeq.SetUpdate(true);
+        flashSeq.Append(mLightBase.DOFade(0.3f, mCurrentFlashDuration * 0.2f).SetEase(Ease.InCubic));
+        flashSeq.Join(mIconFrame.DOFade(0.3f, mCurrentFlashDuration * 0.2f).SetEase(Ease.InCubic));
+        for (int i = 0; i < mLightGradeChangeImages.Length; i++)
+        {
+            flashSeq.Join(mLightGradeChangeImages[i].
+                DOFade(1.0f, mCurrentFlashDuration * 0.2f).SetEase(Ease.OutCubic));
+            flashSeq.Join(mLightGradeChangeImages[i].rectTransform.
+                DOSizeDelta(mInitLightGradeChangeSize + mCurrentLigthGradeChangeOffsetY, mCurrentFlashDuration * 0.2f).
+                SetEase(Ease.OutCubic));
+        }
+        flashSeq.OnComplete(() => onComplete?.Invoke());
+    }
+    private void UpgradeFlashFO()
+    {
+        Color col = GetCurrentGradeColor(mCurrentGrade);
+
+        Sequence flashFOSeq = DOTween.Sequence();
+        flashFOSeq.SetUpdate(true);
+
+        flashFOSeq.Append(mLightGradeChangeImages[0].DOColor(col, mCurrentFlashDuration * 0.1f).SetEase(Ease.InQuad));
+        flashFOSeq.Join(mLightGradeChangeImages[1].DOColor(col, mCurrentFlashDuration * 0.1f).SetEase(Ease.InQuad));
+        flashFOSeq.Append(mLightBase.DOFade(1.0f, mCurrentFlashDuration * 0.7f).SetEase(Ease.OutQuad));
+        flashFOSeq.Join(mIconFrame.DOFade(1.0f, mCurrentFlashDuration * 0.7f).SetEase(Ease.OutQuad));
+        for (int i = 0; i < mLightGradeChangeImages.Length; i++)
+        {
+            flashFOSeq.Join(mLightGradeChangeImages[i].
+                DOFade(0.0f, mCurrentFlashDuration * 0.7f).SetEase(Ease.OutSine));
+            flashFOSeq.Join(mLightGradeChangeImages[i].rectTransform.
+                DOSizeDelta(mInitLightGradeChangeSize, mCurrentFlashDuration * 0.7f).
+                SetEase(Ease.InQuad));
+        }
+    }
+
+    #region Helper 함수들
+    private void ChangeGradeImages(ESkillGrade grade)
     {
         switch (grade)
         {
             case ESkillGrade.None:
             case ESkillGrade.Normal:
                 CalGradeImageRect(mGradeNormal, mGradeOffsetNormal);
-                CalGradeText(mGradeTextOffsetYNormal, "일반");
+                CalGradeTextPos(mGradeTextOffsetYNormal, "일반");
+                ChangeIconFramesColor(ESkillGrade.Normal);
                 break;
             case ESkillGrade.Expert:
                 CalGradeImageRect(mGradeExpert, mGradeOffsetExpert);
-                CalGradeText(mGradeTextOffsetYExpert, "고급");
+                CalGradeTextPos(mGradeTextOffsetYExpert, "고급");
+                ChangeIconFramesColor(ESkillGrade.Expert);
                 break;
             case ESkillGrade.Epic:
                 CalGradeImageRect(mGradeEpic, mGradeOffsetEpic);
-                CalGradeText(mGradeTextOffsetYEpic, "에픽");
+                CalGradeTextPos(mGradeTextOffsetYEpic, "에픽");
+                ChangeIconFramesColor(ESkillGrade.Epic);
                 break;
             case ESkillGrade.Legend:
                 CalGradeImageRect(mGradeLegend, mGradeOffsetLegend);
-                CalGradeText(mGradeTextOffsetYLegend, "전설");
+                CalGradeTextPos(mGradeTextOffsetYLegend, "전설");
+                ChangeIconFramesColor(ESkillGrade.Legend);
                 break;
             default:
                 CalGradeImageRect(mGradeNormal, mGradeOffsetNormal);
-                CalGradeText(mGradeTextOffsetYNormal, "일반");
+                CalGradeTextPos(mGradeTextOffsetYNormal, "일반");
+                ChangeIconFramesColor(ESkillGrade.Normal);
                 break;
         }
+    }
+    private Color GetCurrentGradeColor(ESkillGrade grade)
+    {
+        Color result = Color.white;
+        switch (grade)
+        {
+            case ESkillGrade.Normal:
+                result = mLightBaseColors[0];
+                break;
+            case ESkillGrade.Expert:
+                result = mLightBaseColors[1];
+                break;
+            case ESkillGrade.Epic:
+                result = mLightBaseColors[2];
+                break;
+            case ESkillGrade.Legend:
+                result = mLightBaseColors[3];
+                break;
+        }
+        return result;
+    }
+    private void ChangeIconFramesColor(ESkillGrade grade)
+    {
+        for (int i = 0; i < mLightBaseImages.Length; i++)
+        {
+            switch (grade)
+            {
+                case ESkillGrade.Normal:
+                    mLightBaseImages[i].color = mLightBaseColors[0];
+                    mLightHighlightImages[i].color = mLightHighlightColors[0];
+                    break;
+                case ESkillGrade.Expert:
+                    mLightBaseImages[i].color = mLightBaseColors[1];
+                    mLightHighlightImages[i].color = mLightHighlightColors[1];
+                    break;
+                case ESkillGrade.Epic:
+                    mLightBaseImages[i].color = mLightBaseColors[2];
+                    mLightHighlightImages[i].color = mLightHighlightColors[2];
+                    break;
+                case ESkillGrade.Legend:
+                    mLightBaseImages[i].color = mLightBaseColors[3];
+                    mLightHighlightImages[i].color = mLightHighlightColors[3];
+                    break;
+            }
+        }
+        switch (grade)
+        {
+            case ESkillGrade.Normal:
+                mFrameLightImage.color = mFrameLightColors[0];
+                break;
+            case ESkillGrade.Expert:
+                mFrameLightImage.color = mFrameLightColors[1];
+                break;
+            case ESkillGrade.Epic:
+                mFrameLightImage.color = mFrameLightColors[2];
+                break;
+            case ESkillGrade.Legend:
+                mFrameLightImage.color = mFrameLightColors[3];
+                break;
+        }
+
     }
     private void CalGradeImageRect(Sprite grade, Vector3 offset)
     {
@@ -195,13 +368,14 @@ public class SkillAnimation : MonoBehaviour
         Vector2 pos = mGradeImage.rectTransform.anchoredPosition;
         pos.y = offset.z;
         mGradeImage.rectTransform.anchoredPosition = pos;
-        initGradePos = pos;
+        mInitGradePos = pos;
     }
-    private void CalGradeText(float y, string grade)
+    private void CalGradeTextPos(float y, string grade)
     {
         mGradeText.text = grade;
         Vector2 pos = mGradeText.rectTransform.anchoredPosition;
         pos.y = y;
         mGradeText.rectTransform.anchoredPosition = pos;
     }
+    #endregion
 }

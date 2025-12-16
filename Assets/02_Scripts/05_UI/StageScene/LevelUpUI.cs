@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelUpUI : MonoBehaviour
 {
-
+    [SerializeField] private SkillAnimation[] mSkillAnimations;
     [Header("UI 할당")]
     [SerializeField] private SkillSlotUI[] mSkillSlots; // 인스펙터에서 3개 할당
     [SerializeField] private GameObject mRootPanel;   // 껐다 켰다 할 패널
@@ -66,7 +66,11 @@ public class LevelUpUI : MonoBehaviour
         // 2. 랜덤 스킬 3개 뽑기 (중복 없이)
         List<SkillDataSO> randomSkills = GetRandomSkills(3, GetGradeAsChance());
 
-        onSelectSkill?.Invoke(randomSkills);    //SkillAnimation 구독
+        //각각의 스킬애니메이션 실행
+        //for (int i = 0; i < randomSkills.Count; i++)
+        //{
+        //    mSkillAnimations[i].StartSlotAnimation(randomSkills[i], mSkillDic, i);
+        //}
 
         // 3. 슬롯에 데이터 세팅 및 클릭 이벤트 연결
         for (int i = 0; i < mSkillSlots.Length; i++)
