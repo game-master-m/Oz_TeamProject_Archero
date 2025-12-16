@@ -126,8 +126,7 @@ public class StageManager : MonoBehaviour
             yield return new WaitUntil(() => mAliveEnemyCount <= 0);
 
             // 다음 웨이브 전 1초 휴식
-            if (i < currentRoom.WaveDataList.Count - 1)
-                yield return mWaitOneSec;
+            if (i < currentRoom.WaveDataList.Count - 1) yield return mWaitOneSec;
         }
 
         // 모든 웨이브 종료 -> 방 클리어
@@ -226,12 +225,12 @@ public class StageManager : MonoBehaviour
     // 7. 다음 방으로 이동 코루틴
     private IEnumerator WaitNextRoomCo()
     {
-        yield return mWaitTwoSec;
-
         if (bIsAngelSlimeTurn)
         {
             yield return new WaitUntil(() => bIsAngelSlimeEnded);
         }
+
+        yield return mWaitTwoSec;
 
         StartRoom();
     }
