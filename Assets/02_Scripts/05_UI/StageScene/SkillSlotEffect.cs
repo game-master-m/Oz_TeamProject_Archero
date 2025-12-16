@@ -1,8 +1,8 @@
+using DG.Tweening;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using System.Collections.Generic;
-using System;
 
 public class SkillSlotEffect : MonoBehaviour
 {
@@ -13,8 +13,7 @@ public class SkillSlotEffect : MonoBehaviour
     [SerializeField] private float mItemHeight = 160f;
     [SerializeField] private float mSpinDuration = 0.1f;
 
-    [Header("Data 테스트용")]
-    [SerializeField] private List<Sprite> dummySprites;
+    private List<Sprite> mReelSkillIconList = new List<Sprite>();
 
     private Queue<Sprite> mDeckQue = new Queue<Sprite>();
 
@@ -25,31 +24,43 @@ public class SkillSlotEffect : MonoBehaviour
     private Image mCurrentTop;
 
     private Sequence mCurrentSeq;
+    private Action onComplete;
     private void Awake()
     {
         Initialize();
     }
-
     private void OnDisable()
     {
         KillSequence();
     }
-    public void PlaySpin(Sprite resultSprite, Action onComplete = null)
+    public void PlaySpinInitial(List<SkillDataSO> reelList)
     {
-        if (mCurrentCenter == null) Initialize();
         ResetEffect();
+        UpdateReelSprites(reelList);
 
-        mFinalTargetSprite = resultSprite;
         bIsSpinning = true;
-        DoSpinLoop(onComplete);
+        DoSpinLoop();
     }
-    public void StopSpin()
+    public void UpdateReelSprites(List<SkillDataSO> reelList)
     {
-        bIsSpinning = false;
+        mReelSkillIconList.Clear();
+
+        foreach (var item in reelList)
+        {
+            mReelSkillIconList.Add(item.icon);
+        }
+        mDeckQue.Clear();
     }
+    public void StopSpin(Sprite finalSprite, Action onComplete)
+    {
+        mFinalTargetSprite = finalSprite;
+        bIsSpinning = false;
+        this.onComplete = onComplete;
+    }
+
     private Sprite GetSpriteFromQueue()
     {
-        if (dummySprites == null || dummySprites.Count == 0) return null;
+        if (mReelSkillIconList == null || mReelSkillIconList.Count == 0) return null;
 
         if (mDeckQue.Count == 0)
         {
@@ -60,14 +71,14 @@ public class SkillSlotEffect : MonoBehaviour
     }
     private void RefillQueue()
     {
-        if (dummySprites == null || dummySprites.Count == 0) return;
+        if (mReelSkillIconList == null || mReelSkillIconList.Count == 0) return;
 
-        int count = dummySprites.Count;
+        int count = mReelSkillIconList.Count;
         int startIndex = UnityEngine.Random.Range(0, count);
 
         if (mCurrentTop != null && mCurrentTop.sprite != null)
         {
-            Sprite startSprite = dummySprites[startIndex];
+            Sprite startSprite = mReelSkillIconList[startIndex];
             if (startSprite == mCurrentTop.sprite)
             {
                 startIndex = (startIndex + 1) % count;
@@ -79,7 +90,7 @@ public class SkillSlotEffect : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             int currentIndex = (startIndex + i) % count;
-            Sprite s = dummySprites[currentIndex];
+            Sprite s = mReelSkillIconList[currentIndex];
             if (s != null)
             {
                 mDeckQue.Enqueue(s);
@@ -99,7 +110,7 @@ public class SkillSlotEffect : MonoBehaviour
         //Time.timeScale = 0 일 때, 위치 이동 씹힘 방지
         //Canvas.ForceUpdateCanvases();
     }
-    private void DoSpinLoop(Action onComplete)
+    private void DoSpinLoop()
     {
         mCurrentSeq = DOTween.Sequence();
         mCurrentSeq.SetUpdate(true);
@@ -120,7 +131,7 @@ public class SkillSlotEffect : MonoBehaviour
             {
                 mCurrentTop.sprite = GetSpriteFromQueue();
                 //재귀함수 : bIsSpinning이 false일 때까지 반복 실행.
-                DoSpinLoop(onComplete);
+                DoSpinLoop();
             }
             else
             {
