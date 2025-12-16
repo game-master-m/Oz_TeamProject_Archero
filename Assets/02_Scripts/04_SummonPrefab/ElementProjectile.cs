@@ -10,9 +10,9 @@ public class ElementProjectile : MonoBehaviour
 
     //각각의 프리팹마다 다르게 설정 가능
     [SerializeField] private float mTargetRange = 30.0f;
-    [SerializeField] private float mMoveSpeed = 8.0f;
+    [SerializeField] private float mMoveSpeed = 16.0f;
     [SerializeField] private float mLifeTime = 10.0f;
-    [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 0.5f, 0);
+    [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 1.0f, 0);
 
     //캐싱
     private CapsuleCollider mCollider;

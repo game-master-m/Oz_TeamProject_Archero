@@ -1,11 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Skill_FireFairy", menuName = "Archero/SkillData/Passive/FireFairySkillDataSO")]
-public class FireFairySkillDataSO : SkillDataSO
+[CreateAssetMenu(fileName = "Skill_FireCircle", menuName = "Archero/SkillData/Passive/FireCircleSkillDataSO")]
+public class FireCircleSkillDataSO : SkillDataSO
 {
-    public FireFairy FireFairyPrefab;
-    public int ElementNumber = 0;
-    public int SeatNumber = 1;
+    public FireCircle FireCirclePrefab;
+
+    public Vector3 PositionOffset = new Vector3(0, 1.0f, 0);
+    public float RotateSpeed = 100.0f;
+
     public float EffectTime = PublicDamageConstans.FireEffectTime;
     public float DamageTick = PublicDamageConstans.FireDamageTick;
     public float DamageDuplicater = PublicDamageConstans.FireDamageDuplicater;
@@ -17,6 +21,7 @@ public class FireFairySkillDataSO : SkillDataSO
 
     public override IPassiveStrategy CreatePassiveStrategy()
     {
-        return new FireFairyStrategy(this);
+
+        return new FireCircleStrategy(this);
     }
 }

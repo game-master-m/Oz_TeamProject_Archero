@@ -7,10 +7,8 @@ public class LightningFairySkillDataSO : SkillDataSO
     public int ElementNumber = 1;
     public int SeatNumber = 3;
     public int MaxChainCount = 8;
-    public float EffectTime = 0f;
-    public float DamageTick = 0f;
-    public float DamageDuplicater = 0.3f;
-    public float ChainRange = 6.0f;
+    public float DamageDuplicater = PublicDamageConstans.LightningDamageDuplicater;
+    public float ChainRange = 10.0f;
 
     public override IProjectileStrategy CreateProjectileStrategy()
     {
