@@ -801,7 +801,7 @@ MonoBehaviour:
   mLegendChance: 0.1
   mEpicChance: 0.2
   mExpertChance: 0.3
-  mSkills: {fileID: 11400000, guid: f45a6382b00a19845a4ba80827c946e1, type: 2}
+  mSkills: {fileID: 11400000, guid: a9983e85fabf32f468d2579838855752, type: 2}
 --- !u!114 &134607109
 MonoBehaviour:
   m_ObjectHideFlags: 0
