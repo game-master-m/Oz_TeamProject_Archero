@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a13d74d98e268d4bac816c0b7c5a521, type: 3}
+  m_Name: BlazeMeteorPotion_Normal
+  m_EditorClassIdentifier: 
+  skillName: "\uD654\uC5FC\uBA54\uD14C\uC624 \uD3EC\uC158"
+  description: "\uD654\uC5FC\uBA54\uD14C\uC624 \uD3EC\uC158\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4"
+  icon: {fileID: 21300000, guid: 1798c49bcf561a946bf39eddee09cd3b, type: 2}
+  skillGrade: 1
+  MeteorPrefab: {fileID: 5690469619373769680, guid: 5bf9f3f504857c244ae2bf4c2cda0ee4,
+    type: 3}
+  PotionPrefab: {fileID: 4900596316583842321, guid: 2223ad9145f59d441b31f1be886b49e8,
+    type: 3}
+  MeteorOffset: {x: 0, y: 5, z: 0}
+  ElementNumber: 0
+  EffectTime: 3
+  DamageTick: 0.2
+  DamageDuplicater: 0.2
+  PotionSpawnDelay: 8

@@ -6,9 +6,9 @@ public class FireFairySkillDataSO : SkillDataSO
     public FireFairy FireFairyPrefab;
     public int ElementNumber = 0;
     public int SeatNumber = 1;
-    public float EffectTime = 3f;
-    public float DamageTick = 0.2f;
-    public float DamageDuplicater = 0.2f;
+    public float EffectTime = PublicDamageConstans.FireEffectTime;
+    public float DamageTick = PublicDamageConstans.FireDamageTick;
+    public float DamageDuplicater = PublicDamageConstans.FireDamageDuplicater;
 
     public override IProjectileStrategy CreateProjectileStrategy()
     {

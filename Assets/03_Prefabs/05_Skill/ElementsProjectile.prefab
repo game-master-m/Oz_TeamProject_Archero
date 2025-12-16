@@ -149,6 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTargetRange: 30
-  mMoveSpeed: 8
+  mMoveSpeed: 16
   mLifeTime: 10
   mTargetOffset: {x: 0, y: 0.5, z: 0}

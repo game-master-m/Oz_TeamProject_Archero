@@ -1,0 +1,108 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LightningFairy : FairyBase
+{
+    [SerializeField] private LightningFairySkillDataSO mSkillData;
+    [SerializeField] private LightningEffect mLightningEffectPrefab;
+
+    private float mChainRange;
+    private float mMaxChainCount;
+
+    //스타트는 테스트 환경에서 작동 확인용 세팅
+    private void Start()
+    {
+        Managers.Pool.CreatePool(mLightningEffectPrefab, 10, Managers.Pool.transform);
+        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
+        SetOwner(mPlayer);
+        SetUp(mSkillData);
+    }
+
+    public void SetUp(LightningFairySkillDataSO skillDataSO)
+    {
+        Managers.Pool.CreatePool(mLightningEffectPrefab, 10, Managers.Pool.transform);
+
+        //페어리 데이터 스텟 받아오기
+        mDamageDuplicater = skillDataSO.DamageDuplicater;
+        mSeatNumber = skillDataSO.SeatNumber;
+
+        //번개요정 전용 스텟
+        mChainRange = skillDataSO.ChainRange;
+        mMaxChainCount = skillDataSO.MaxChainCount;
+
+        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
+
+        //자기 자리 위치로 회전
+        this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up, mSeatAngle * mSeatNumber);
+    }
+
+    public override void ApplyElement(EnemyBase target, float damage)
+    {
+        Utils.Log("ApplyLightning");
+        //번개 데미지 = 데미지 * 0.3(기존 데미지 30%), 맞은 대상 주변에 데미지 주고 튕김(feat.체인 라이트닝)
+        float lightningDamage = damage * mDamageDuplicater;
+
+        //맞은 오브젝트를 중심으로 설정
+        Transform currentTarget = target.gameObject.transform;
+        HashSet<Transform> hitTargets = new HashSet<Transform>();
+        hitTargets.Add(currentTarget);
+
+        float closestDistance = Mathf.Infinity;
+        Vector3 centerPosition = target.gameObject.transform.position;
+
+        for (int i = 0; i < mMaxChainCount; i++)
+        {
+            //맞은 대상 주변 적 오브젝트 검색
+            Collider[] hitColliders = Physics.OverlapSphere(currentTarget.transform.position, mChainRange, Layers.GetLayerMask(ELayerName.Enemy));
+
+            Transform nextTarget = null;
+
+            if (hitColliders.Length == 0)
+            {
+                //주변 적 없으면 탈출
+                break;
+            }
+
+            //제일 가까운 적 찾기
+            foreach (Collider hitCollider in hitColliders)
+            {
+                //비활성화된 적은 패스
+                if (!hitCollider.enabled || !hitCollider.gameObject.activeInHierarchy) continue;
+                if (hitCollider.transform == currentTarget) continue;
+                if (hitTargets.Contains(hitCollider.transform)) continue;
+
+                Vector3 targetDir = hitCollider.transform.position - centerPosition;
+                float distanceToTarget = targetDir.sqrMagnitude;
+
+                //적이 겹쳐있어 거리가 매우 가까울 때 벡터연산 오류 방지
+                if (distanceToTarget < 0.001f) continue;
+
+                if (distanceToTarget < closestDistance)
+                {
+                    closestDistance = distanceToTarget;
+                    nextTarget = hitCollider.transform;
+                }
+            }
+
+            if (nextTarget != null)
+            {
+                IDamageable damageable = nextTarget.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(lightningDamage);
+                }
+
+                //라인렌더러 이펙트
+                LightningEffect lightning = Managers.Pool.GetFromPool(mLightningEffectPrefab);
+                lightning.DrawLightning(currentTarget.position, nextTarget.position);
+
+                hitTargets.Add(nextTarget);
+                currentTarget = nextTarget;
+            }
+            else 
+            {
+                break;
+            }
+        }
+    }
+}

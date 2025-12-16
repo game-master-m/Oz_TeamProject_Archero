@@ -6,9 +6,9 @@ public class VenomFairySkillDataSO : SkillDataSO
     public VenomFairy VenomFairyPrefab;
     public int ElementNumber = 2;
     public int SeatNumber = 2;
-    public float EffectTime = 9999f;
-    public float DamageTick = 1.0f;
-    public float DamageDuplicater = 0.5f;
+    public float EffectTime = PublicDamageConstans.VenomEffectTime;
+    public float DamageTick = PublicDamageConstans.VenomDamageTick;
+    public float DamageDuplicater = PublicDamageConstans.VenomDamageDuplicater;
 
     public override IProjectileStrategy CreateProjectileStrategy()
     {
