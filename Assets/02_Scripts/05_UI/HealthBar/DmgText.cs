@@ -28,10 +28,23 @@ public class DmgText : MonoBehaviour
     {
         mElapsed = 0f;
         mText.alpha = 1f;
+        //크리티컬 시, 데미지텍스트 크기 단순 1.5배 테스트
         transform.localScale = isCritical ? mStartScale * 1.5f : mStartScale;
 
+        int dmg = Mathf.RoundToInt(damage); //소수점 반올림
+
         // 1. 텍스트 설정
-        mText.SetText("{0:0}", damage);
+        if (isCritical)
+        {
+            mText.SetText(Utils.ClearAndAppend(Define.Critical, dmg));
+            // 크리티컬이면 텍스트를 가장 앞으로(sorting order가 높을수록 앞에 표시 됨)
+            mText.sortingOrder = 10;
+        }
+        else
+        {
+            mText.SetText(Utils.ClearAndAppend(dmg));
+            mText.sortingOrder = 5;
+        }
 
         // 2. 속성별 색상 적용
         Color targetColor = mNormalColor;
@@ -43,11 +56,6 @@ public class DmgText : MonoBehaviour
             default: targetColor = mNormalColor; break;
         }
         mText.color = targetColor;
-
-        // 크리티컬이면 텍스트를 가장 앞으로(sorting order가 높을수록 앞에 표시 됨)
-        mText.sortingOrder = isCritical ? 10 : 5;
-
-
     }
 
     private void Update()

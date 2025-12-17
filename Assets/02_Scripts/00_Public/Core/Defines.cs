@@ -11,6 +11,9 @@ public static class Define
     // Scenes
     public const string Scene_Lobby = "Lobby_Temp";
     public const string Scene_Stage = "Stage_Temp";
+
+    // 체력바 UI
+    public const string Critical = "Crit! ";
 }
 
 //애니메이터
