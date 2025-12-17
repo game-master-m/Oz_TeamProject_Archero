@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8868788148420179432}
   - component: {fileID: 560871912754637902}
   m_Layer: 0
-  m_Name: DmgText
+  m_Name: DmgTextPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 4}
-  m_SizeDelta: {x: 4, y: 2}
+  m_SizeDelta: {x: 8, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2730462705861692125
 MeshRenderer:
@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6471172488837393972, guid: f82601550160ece4a89d8a48d297667e, type: 2}
+  - {fileID: 2100000, guid: 438bfa5486e0e8845a8e814d2e06213d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,11 +100,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- 123'
+  m_text: crit! 123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f82601550160ece4a89d8a48d297667e, type: 2}
-  m_sharedMaterial: {fileID: -6471172488837393972, guid: f82601550160ece4a89d8a48d297667e,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 438bfa5486e0e8845a8e814d2e06213d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -189,7 +188,7 @@ MonoBehaviour:
   mMoveSpeed: 2.5
   mLifetime: 1
   mCriticalScale: {x: 1.5, y: 1.5, z: 1.5}
-  mNormalColor: {r: 0, g: 0, b: 0, a: 0}
-  mFireColor: {r: 0, g: 0, b: 0, a: 0}
-  mLightningColor: {r: 0, g: 0, b: 0, a: 0}
-  mPoisonColor: {r: 0, g: 0, b: 0, a: 0}
+  mNormalColor: {r: 1, g: 0.995283, b: 0.995283, a: 1}
+  mFireColor: {r: 1, g: 0, b: 0, a: 1}
+  mLightningColor: {r: 0.9716981, g: 0.9042612, b: 0.022917405, a: 1}
+  mPoisonColor: {r: 0.0045389733, g: 0.3207547, b: 0.05783714, a: 1}
