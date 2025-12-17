@@ -68,10 +68,10 @@ public class LevelUpUI : MonoBehaviour
         List<SkillDataSO> randomSkills = GetRandomSkills(3, GetGradeAsChance());
 
         //각각의 스킬애니메이션 실행
-        //for (int i = 0; i < randomSkills.Count; i++)
-        //{
-        //    mSkillAnimations[i].StartSlotAnimation(randomSkills[i], mSkillDic, i);
-        //}
+        for (int i = 0; i < randomSkills.Count; i++)
+        {
+            mSkillAnimations[i].StartSlotAnimation(randomSkills[i], mSkillDic, i);
+        }
 
         // 3. 슬롯에 데이터 세팅 및 클릭 이벤트 연결
         for (int i = 0; i < mSkillSlots.Length; i++)
@@ -105,7 +105,13 @@ public class LevelUpUI : MonoBehaviour
             mTargetPlayer.AddSkill(selectedSkill);
 
             //스택킹 스킬이 아니면 목록에서 제거(앞으로 안 보여줌)
-            if (!(selectedSkill is IStackable)) mSkillDic[selectedSkill.skillGrade].Remove(selectedSkill);
+            if (!(selectedSkill is IStackable))
+            {
+                if (mSkillDic.ContainsKey(selectedSkill.skillGrade))
+                {
+                    mSkillDic[selectedSkill.skillGrade].Remove(selectedSkill);
+                }
+            }
 
             Utils.Log($"Skill Added: {selectedSkill.skillName}");
         }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class LivingEntity : MonoBehaviour, IDamageable
 {
@@ -11,6 +12,10 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     //인터페이스 IDamageable 구현
     public bool IsDead => mCurrentHP <= 0.0f;
 
+    //UI관련
+    public event Action<float, EDmgElement, bool> onDmgTaken;   //데미지, 속성종류, 크리티컬 여부
+    public event Action<float> onHPChanged; //float 은 0~1값
+
     private bool bIsDead = false;
 
     private Coroutine mDotDamageCo;
@@ -21,7 +26,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
         mCurrentHP = mMaxHP;
         bIsDead = false;
 
-
+        onHPChanged?.Invoke(1.0f);  //풀에서 꺼내질 때, 처음 100%
     }
 
     // 외부에서 스탯을 덮어씌워야 할 때 호출 (예: 레벨업 후 스폰)
@@ -29,25 +34,36 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
     {
         mMaxHP = maxHp;
         mCurrentHP = mMaxHP;
+
+        onHPChanged?.Invoke(1.0f);
     }
 
     //인터페이스(IDamageable 구현)
     public virtual void TakeDamage(float amount)
     {
+        TakeDamage(amount, EDmgElement.Normal, false);
+    }
+    public virtual void TakeDamage(float amount, EDmgElement element, bool isCritical = false)
+    {
         if (bIsDead) return;
 
         mCurrentHP -= amount;
 
+        //맞았을 때 이벤트 발행
+        onDmgTaken?.Invoke(amount, element, isCritical);
+        onHPChanged?.Invoke(mCurrentHP / mMaxHP);
+
         if (mCurrentHP <= 0)
         {
             mCurrentHP = 0;
+            onHPChanged?.Invoke(0.0f);
             bIsDead = true;
             Die();
         }
     }
 
     //도트 데미지 받기 추가
-    public virtual void TakeDotDamage(float damage, float duration, float damageTick) 
+    public virtual void TakeDotDamage(float damage, float duration, float damageTick)
     {
         if (bIsDead) return;
 
@@ -65,7 +81,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
         WaitForSeconds waitDamageTick = new WaitForSeconds(damageTick);
         float timer = 0f;
 
-        while (timer < duration) 
+        while (timer < duration)
         {
             TakeDamage(damage);
             if (bIsDead) break;

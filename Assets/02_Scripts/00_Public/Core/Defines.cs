@@ -45,6 +45,10 @@ public enum ESkillGrade
 {
     None, Normal, Expert, Epic, Legend
 }
+public enum EDmgElement
+{
+    Normal, Fire, Lightning, Poison
+}
 
 
 
