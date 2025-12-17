@@ -74,6 +74,8 @@ public class SkillAnimation : MonoBehaviour
     private SkillDataSO mFinalSkill;
     private int mFinishedReelCount = 0;
 
+    private Sequence mCurrentSeq;
+    private Tween mCurrentDelayedCall;
     private void Awake()
     {
         mInitLightSlotPos = mLightSlotImage.rectTransform.anchoredPosition;
@@ -88,6 +90,16 @@ public class SkillAnimation : MonoBehaviour
     private void OnDisable()
     {
         mOnReelEnd.onEvent -= HandleReelEnd;
+        KillAllTweens();
+    }
+    private void KillAllTweens()
+    {
+        mFinishedReelCount = 0;
+        StopAllCoroutines();
+        mCurrentSeq?.Kill();
+        mCurrentDelayedCall?.Kill();
+        DOTween.Kill(transform);
+        DOTween.Kill(mSlotEffect.transform);
     }
     public void StartSlotAnimation(SkillDataSO finalSkill, Dictionary<ESkillGrade, List<SkillDataSO>> skilDic, int index)
     {
@@ -104,7 +116,7 @@ public class SkillAnimation : MonoBehaviour
         mCurrentGrade = ESkillGrade.Normal;
 
         //각 슬랏 동시 실행
-        mSlotEffect.PlaySpinInitial(mSkillDic[mCurrentGrade]);
+        mSlotEffect.PlaySpinInitial(new List<SkillDataSO>(mSkillDic[mCurrentGrade]));
 
         //등급이 높을수록 슬롯머신 효과시간 증가(등급당 +10%)
         mCurrentGradeSpinDuration = mGradeSpinDuration;
@@ -128,13 +140,17 @@ public class SkillAnimation : MonoBehaviour
 
     private void ResetUI()
     {
-        mFinishedReelCount = 0;
+        KillAllTweens();
 
-        mSlotEffect.gameObject.SetActive(true);
         mShowPannelGroup.gameObject.SetActive(false);
+        mSlotEffect.gameObject.SetActive(true);
 
         mGradeImage.rectTransform.anchoredPosition = mInitGradePos;
+
         mLightSlotImage.rectTransform.anchoredPosition = mInitLightSlotPos;
+        Color col = mLightSlotImage.color;
+        col.a = 0.0f;
+        mLightSlotImage.color = col;
 
         mLightBase.alpha = mAlpahBase;
         mLightHighlight.alpha = mAlpahHight;
@@ -151,7 +167,7 @@ public class SkillAnimation : MonoBehaviour
         if (mCurrentGrade == mFinalSkill.skillGrade)
         {
             float finalDuration = mCurrentGradeSpinDuration + (index * mFinalDelay);
-            DOVirtual.DelayedCall(finalDuration, () =>
+            mCurrentDelayedCall = DOVirtual.DelayedCall(finalDuration, () =>
             {
                 mSlotEffect.StopSpin(mFinalSkill.icon, () =>
                 {
@@ -161,7 +177,7 @@ public class SkillAnimation : MonoBehaviour
         }
         else
         {
-            DOVirtual.DelayedCall(mCurrentGradeSpinDuration, () =>
+            mCurrentDelayedCall = DOVirtual.DelayedCall(mCurrentGradeSpinDuration, () =>
             {
                 UpgradeFlashFI(() =>
                 {
@@ -169,7 +185,7 @@ public class SkillAnimation : MonoBehaviour
                     mCurrentGrade++;
 
                     // 슬롯 이펙트의 덱을 다음 등급 리스트로 교체
-                    mSlotEffect.UpdateReelSprites(mSkillDic[mCurrentGrade]);
+                    mSlotEffect.UpdateReelSprites(new List<SkillDataSO>(mSkillDic[mCurrentGrade]));
 
                     UpgradeFlashFO();
 
@@ -184,28 +200,28 @@ public class SkillAnimation : MonoBehaviour
     }
     private void ExpandUI(int index)
     {
-        Sequence seq = DOTween.Sequence();
-        seq.SetUpdate(true);
+        mCurrentSeq = DOTween.Sequence();
+        mCurrentSeq.SetUpdate(true);
 
         // Grade image 위로 이동
-        seq.Append(mGradeImage.rectTransform.DOAnchorPosY(mInitGradePos.y + mGradeMoveDistance, 0.5f).SetEase(Ease.OutBack));
+        mCurrentSeq.Append(mGradeImage.rectTransform.DOAnchorPosY(mInitGradePos.y + mGradeMoveDistance, 0.5f).SetEase(Ease.OutBack));
 
         // 이름 페이드 인
-        seq.Append(mNameText.DOFade(1f, 0.8f));
+        mCurrentSeq.Append(mNameText.DOFade(1f, 0.8f));
 
         //끝나고 나머지 애들 기다리고 DownLightSlots 실행
 
-        seq.OnComplete(() => { mOnReelEnd?.Raised(); });
+        mCurrentSeq.OnComplete(() => { mOnReelEnd?.Raised(); });
     }
     //한방에 lightSlot들 내려오고(OutBounce) -> FadeOut과 동시에 ShowPannel을 키고 FadeIn과 동시에 NameText Color Change
     private void DownLightSlots()
     {
-        Sequence seq = DOTween.Sequence();
-        seq.SetUpdate(true);
+        mCurrentSeq = DOTween.Sequence();
+        mCurrentSeq.SetUpdate(true);
         //LightSlot들 내려옴
-        seq.Append(mLightSlotImage.rectTransform.DOAnchorPosY(0.0f, 0.7f).SetEase(Ease.OutBounce));
-        seq.Join(mLightSlotImage.DOFade(1.0f, 0.4f));
-        seq.OnComplete(ChangeNameColorSeq);
+        mCurrentSeq.Append(mLightSlotImage.rectTransform.DOAnchorPosY(0.0f, 0.7f).SetEase(Ease.OutBounce));
+        mCurrentSeq.Join(mLightSlotImage.DOFade(1.0f, 0.4f));
+        mCurrentSeq.OnComplete(ChangeNameColorSeq);
     }
 
     // 이 색상 변화 Seq
@@ -214,16 +230,16 @@ public class SkillAnimation : MonoBehaviour
         mShowPannelGroup.gameObject.SetActive(true);
         mShowPannelGroup.alpha = 0.0f;
 
-        Sequence seq = DOTween.Sequence();
-        seq.SetUpdate(true);
+        mCurrentSeq = DOTween.Sequence();
+        mCurrentSeq.SetUpdate(true);
 
-        seq.AppendInterval(0.15f);
-        seq.Append(mNameText.DOColor(mNameTextColor, 0.8f));
-        seq.Join(mLightSlotImage.DOFade(0.0f, 0.3f));
-        seq.Join(mIconFrame.DOFade(0.0f, 0.3f));
-        seq.Join(mShowPannelGroup.DOFade(1.0f, 0.7f));
-        seq.Join(mLightBase.DOFade(0.0f, 0.3f));
-        seq.Join(mLightHighlight.DOFade(0.0f, 0.3f));
+        mCurrentSeq.AppendInterval(0.15f);
+        mCurrentSeq.Append(mNameText.DOColor(mNameTextColor, 0.8f));
+        mCurrentSeq.Join(mLightSlotImage.DOFade(0.0f, 0.3f));
+        mCurrentSeq.Join(mIconFrame.DOFade(0.0f, 0.3f));
+        mCurrentSeq.Join(mShowPannelGroup.DOFade(1.0f, 0.7f));
+        mCurrentSeq.Join(mLightBase.DOFade(0.0f, 0.3f));
+        mCurrentSeq.Join(mLightHighlight.DOFade(0.0f, 0.3f));
     }
 
     private void UpgradeFlashFI(System.Action onComplete)
