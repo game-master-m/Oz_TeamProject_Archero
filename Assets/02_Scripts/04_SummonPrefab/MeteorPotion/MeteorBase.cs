@@ -17,14 +17,6 @@ public abstract class MeteorBase : MonoBehaviour
         OnHitGround();
     }
 
-    //세팅
-    public void SetUp(BlazeMeteorPotionSkillDataSO skillDataSO, PlayerAttack attack)
-    {
-        mRange = skillDataSO.DamageRange;
-        mMeteorDamage = attack.Stat.AttackDamage + PublicDamageConstans.MeteorDamageDuplicater;
-        SetElement(skillDataSO, attack);
-    }
-
     //주변 적한테 데미지
     private void OnHitGround() 
     {
@@ -46,8 +38,6 @@ public abstract class MeteorBase : MonoBehaviour
 
         ReturnPool();
     }
-
-    public abstract void SetElement(BlazeMeteorPotionSkillDataSO skillDataSO, PlayerAttack attack);
     public abstract void Applyelement(EnemyBase enemy);
     public abstract void ReturnPool();
 }

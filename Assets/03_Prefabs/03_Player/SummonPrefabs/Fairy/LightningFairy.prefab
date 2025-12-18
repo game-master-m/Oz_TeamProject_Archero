@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5637652675625914632, guid: 7e33a04f3001fee468cc2a757b243538, type: 3}
+  - {fileID: 2100000, guid: 516f26e3517debf4199724d9676f06f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,8 +100,9 @@ MonoBehaviour:
     type: 3}
   mTargetOffset: {x: 0, y: 0, z: 0}
   mProjectileOffeset: {x: 0, y: 0, z: 0}
-  mPositionOffset: {x: 0, y: 1, z: -2.5}
-  mTargetRange: 30
+  mTargetRange: 100
+  mAttackMode: 1
   mSkillData: {fileID: 11400000, guid: 4c16e4961879dd54da49c48f6479f9ed, type: 2}
   mLightningEffectPrefab: {fileID: 6009318885784235730, guid: d4865eee5e6ed9946947a6dafb0d7368,
     type: 3}
+  mOffset: {x: 2, y: 1, z: -2.5}

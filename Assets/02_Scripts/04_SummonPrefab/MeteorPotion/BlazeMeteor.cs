@@ -8,9 +8,11 @@ public class BlazeMeteor : MeteorBase
     private float mEffectTime;
     private float mDamageTick;
 
-    //加己 包访 技泼
-    public override void SetElement(BlazeMeteorPotionSkillDataSO skillDataSO, PlayerAttack attack) 
+    //技泼
+    public void SetUp(BlazeMeteorPotionSkillDataSO skillDataSO, PlayerAttack attack)
     {
+        mRange = skillDataSO.DamageRange;
+        mMeteorDamage = attack.Stat.AttackDamage + PublicDamageConstans.MeteorDamageDuplicater;
         mFireDamage = attack.Stat.AttackDamage * skillDataSO.DamageDuplicater;
         mEffectTime = skillDataSO.EffectTime;
         mDamageTick = skillDataSO.DamageTick;
