@@ -13,12 +13,10 @@ public class PlayerStat : LivingEntity
     public float RotateSpeed { get; private set; }
     public float AttackRange { get; private set; }
 
-    private void Awake()
+    private void OnEnable()
     {
-        // 나중에 Save 데이터나 SO에서 불러오는 로직으로 교체
         InitStats();
     }
-
     // 초기화 메서드 (레벨업이나 부활 시에도 사용 가능)
     public void InitStats()
     {

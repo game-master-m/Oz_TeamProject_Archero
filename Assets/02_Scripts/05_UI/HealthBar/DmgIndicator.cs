@@ -5,8 +5,8 @@ public class DmgIndicator : MonoBehaviour
 {
     [Header("Pool & Offset")]
     [SerializeField] private DmgText mTextPrefab;
-    [SerializeField] private Vector3 mSpawnOffset = new Vector3(0, 2.0f, 0); // 머리 위 위치 보정값
-    [SerializeField] private Vector2 mRandomSpread = new Vector2(0.5f, 0.2f); // 겹침 방지용 랜덤 오프셋 (X, Y)
+    [SerializeField] private Vector3 mSpawnOffset = new Vector3(-0.5f, 4.5f, 0); // 머리 위 위치 보정값
+    [SerializeField] private Vector2 mRandomSpread = new Vector2(0.5f, 0.3f); // 겹침 방지용 랜덤 오프셋 (X, Y)
 
     private LivingEntity mLivingEntity;
 

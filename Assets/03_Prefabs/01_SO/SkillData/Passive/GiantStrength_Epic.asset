@@ -17,6 +17,7 @@ MonoBehaviour:
     +25%\n\uC774\uB3D9\uC18D\uB3C4 -40%"
   icon: {fileID: 21300000, guid: a958fb4be6f8786458c4ff78dc31afaf, type: 2}
   skillGrade: 3
+  isStacking: 1
   mAttackDamageMultiplier: 1.2
   mMaxHPMultiplier: 1.25
   mMoveSpeedMultiplier: 0.6

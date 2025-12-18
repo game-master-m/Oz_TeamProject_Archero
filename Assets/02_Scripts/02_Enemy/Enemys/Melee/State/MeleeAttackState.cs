@@ -3,7 +3,6 @@ using UnityEngine;
 public class MeleeAttackState : EnemyState
 {
     private float mNextAttackTime;
-    private Quaternion targetRot;
 
     public MeleeAttackState(MeleeEnemy meleeEnemy, IState parent = null)
         : base(meleeEnemy, parent)

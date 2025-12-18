@@ -52,6 +52,10 @@ public enum EDmgElement
 {
     Normal, Fire, Lightning, Poison
 }
+public enum EHealthType
+{
+    None, Player, Enemy, Boss
+}
 
 
 

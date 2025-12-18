@@ -17,4 +17,5 @@ MonoBehaviour:
     \uD68C\uBCF5"
   icon: {fileID: 21300000, guid: f189449b317116e4e9479127dde37c91, type: 2}
   skillGrade: 2
+  isStacking: 1
   mMaxHPMultiplier: 1.15

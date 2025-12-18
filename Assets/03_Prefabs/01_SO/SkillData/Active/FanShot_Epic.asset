@@ -17,5 +17,6 @@ MonoBehaviour:
     20%"
   icon: {fileID: 21300000, guid: a8aa05d219dc43b48a13b2fb5ddafe5d, type: 2}
   skillGrade: 3
+  isStacking: 1
   mShotCount: 3
   mDamageMultiplier: 0.8
