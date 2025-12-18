@@ -30,7 +30,7 @@ public class DmgIndicator : MonoBehaviour
         mLivingEntity.onDmgTaken -= SpawnDamageText;
     }
 
-    private void SpawnDamageText(float damage, EDmgElement element, bool isCritical = false)
+    private void SpawnDamageText(float damage, EDmgElement element, bool isCritical)
     {
         DmgText textPrefab = Managers.Pool.GetFromPool(mTextPrefab);
         if (textPrefab == null) return;

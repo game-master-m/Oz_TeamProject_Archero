@@ -61,9 +61,12 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
             Die();
         }
     }
-
-    //도트 데미지 받기 추가
     public virtual void TakeDotDamage(float damage, float duration, float damageTick)
+    {
+        TakeDotDamage(damage, duration, damageTick, EDmgElement.Normal);
+    }
+    //도트 데미지 받기 추가
+    public virtual void TakeDotDamage(float damage, float duration, float damageTick, EDmgElement element)
     {
         if (bIsDead) return;
 
@@ -73,17 +76,17 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
             StopCoroutine(mDotDamageCo);
             mDotDamageCo = null;
         }
-        mDotDamageCo = StartCoroutine(DotDamageCo(damage, duration, damageTick));
+        mDotDamageCo = StartCoroutine(DotDamageCo(damage, duration, damageTick, element));
     }
 
-    IEnumerator DotDamageCo(float damage, float duration, float damageTick)
+    IEnumerator DotDamageCo(float damage, float duration, float damageTick, EDmgElement element)
     {
         WaitForSeconds waitDamageTick = new WaitForSeconds(damageTick);
         float timer = 0f;
 
         while (timer < duration)
         {
-            TakeDamage(damage);
+            TakeDamage(damage, element);
             if (bIsDead) break;
             yield return waitDamageTick;
             timer += Time.deltaTime;
