@@ -862,7 +862,7 @@ MonoBehaviour:
   mLightGradeChangeImages:
   - {fileID: 1726484949}
   - {fileID: 1683261654}
-  mGradeSpinDuration: 1.5
+  mGradeSpinDuration: 1
   mFlashDuration: 1
   mAlpahBase: 1
   mAlpahHight: 0.6
@@ -1811,7 +1811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &492670154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2326,7 +2326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &683328766
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3788,7 +3788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1033019442
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4928,7 +4928,7 @@ MonoBehaviour:
   mLightGradeChangeImages:
   - {fileID: 1084321718}
   - {fileID: 2078282542}
-  mGradeSpinDuration: 1.5
+  mGradeSpinDuration: 1
   mFlashDuration: 1
   mAlpahBase: 1
   mAlpahHight: 0.6
@@ -9954,7 +9954,7 @@ MonoBehaviour:
   mLightGradeChangeImages:
   - {fileID: 1249003489}
   - {fileID: 624169263}
-  mGradeSpinDuration: 1.5
+  mGradeSpinDuration: 1
   mFlashDuration: 1
   mAlpahBase: 1
   mAlpahHight: 0.6
