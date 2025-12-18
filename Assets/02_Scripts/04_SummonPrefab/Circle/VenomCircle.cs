@@ -50,6 +50,6 @@ public class VenomCircle : SphereBase
 
         Utils.Log($"구체데미지{sphereDamage}");
         target.TakeDamage(sphereDamage);
-        target.TakeDotDamage(venomDamage, mEffectTime, mDamageTick);
+        target.TakeDotDamage(venomDamage, mEffectTime, mDamageTick, EDmgElement.Poison);
     }
 }

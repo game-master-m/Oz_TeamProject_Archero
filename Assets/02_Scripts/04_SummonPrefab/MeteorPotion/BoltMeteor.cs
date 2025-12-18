@@ -75,7 +75,7 @@ public class BoltMeteor : MeteorBase
                 IDamageable damageable = nextTarget.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(mBoltDamage);
+                    damageable.TakeDamage(mBoltDamage, EDmgElement.Lightning);
                 }
 
                 //∂Û¿Œ∑ª¥ı∑Ø ¿Ã∆Â∆Æ

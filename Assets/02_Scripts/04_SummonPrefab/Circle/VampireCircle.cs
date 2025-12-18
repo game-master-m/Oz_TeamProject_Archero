@@ -39,8 +39,9 @@ public class VampireCircle : SphereBase
     public override void ApplyDamage(EnemyBase target, float damage)
     {
         //float sphereDamage = damage * 1.25f;
-        float restoreAmount = mPlayer.Stat.MaxHP * 0.02f;
-        mPlayer.Stat.AddHP(restoreAmount);
-        Utils.Log($"체력{restoreAmount}만큼회복");
+        float vampireAmount = mPlayer.Stat.MaxHP * 0.02f;
+        mPlayer.Stat.AddHP(vampireAmount);
+        target.TakeDamage(vampireAmount);
+        Utils.Log($"체력{vampireAmount}만큼회복");
     }
 }

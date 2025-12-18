@@ -123,7 +123,7 @@ public class ElementProjectile : MonoBehaviour
             bShouldReturnPool = true;   //밑의 전략에서 false로 바꿀 수 있음
 
             //Projectile의 현재 데미지만큼만 타겟에게 데미지 입힘
-            target.TakeDamage(CurrentDamage);
+            target.TakeDamage(CurrentDamage, EDmgElement.Normal);
             Utils.Log($"TargetHit, damage : {CurrentDamage}");
 
             if (bShouldReturnPool)

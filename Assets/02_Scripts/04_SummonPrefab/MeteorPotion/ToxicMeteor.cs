@@ -22,7 +22,7 @@ public class ToxicMeteor : MeteorBase
     //속성 부여
     public override void Applyelement(EnemyBase enemy)
     {
-        enemy.TakeDotDamage(mToxicDamage, mEffectTime, mDamageTick);
+        enemy.TakeDotDamage(mToxicDamage, mEffectTime, mDamageTick, EDmgElement.Poison);
     }
 
     public override void ReturnPool()

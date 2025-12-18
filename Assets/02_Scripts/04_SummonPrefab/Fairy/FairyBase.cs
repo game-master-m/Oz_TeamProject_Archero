@@ -14,19 +14,18 @@ public abstract class FairyBase : MonoBehaviour
     //적 탐색 사거리 > 이 안에 적 있으면 발사
     [SerializeField] private float mTargetRange = 30.0f;
 
-    //공격모드 > 0 = 발사안함, 1 = 화살발사
+    //공격모드 > 0 = 발사안함(레이저), 1 = 화살발사
     [SerializeField] private int mAttackMode = 1; 
     //페어리마다 다른 값을 가짐
     protected float mEffectTime;
     protected float mDamageTick;
     protected float mDamageDuplicater;
     protected int mSeatNumber;
-    protected int mElementNumber;
 
     //페어리 공통
     protected PlayerAttack mPlayer;
-    protected float mAttackDelay = 3.0f;
     protected float mSeatAngle = 45;
+    protected float mAttackDelay = 3.0f;
 
     //플레이어 스텟 참조
     private float mAttackDamage;
@@ -45,7 +44,7 @@ public abstract class FairyBase : MonoBehaviour
         this.gameObject.transform.position = attack.gameObject.transform.position;
         this.gameObject.transform.rotation = Quaternion.identity;
 
-        mWaitAttack = new WaitForSeconds(mAttackDelay);
+        UpdateAttackDelay(mAttackDelay);
 
         Managers.Pool.CreatePool(mElementsProjectilePrefab, 50, Managers.Pool.transform);
 
@@ -55,6 +54,12 @@ public abstract class FairyBase : MonoBehaviour
             //공격 시작
             StartCoroutine(AttackCo());
         }
+    }
+
+    public void UpdateAttackDelay(float newDelay) 
+    {
+        mAttackDelay = newDelay;
+        mWaitAttack = new WaitForSeconds(mAttackDelay);
     }
 
     //Projectile과 거의 같음
