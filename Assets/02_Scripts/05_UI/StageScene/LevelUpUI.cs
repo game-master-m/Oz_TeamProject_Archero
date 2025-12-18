@@ -23,26 +23,22 @@ public class LevelUpUI : MonoBehaviour
 
     private PlayerAttack mTargetPlayer;
 
-    private List<SkillDataSO> mRemainingSkills = new List<SkillDataSO>();
     private Dictionary<ESkillGrade, List<SkillDataSO>> mSkillDic = new Dictionary<ESkillGrade, List<SkillDataSO>>();
 
     public Dictionary<ESkillGrade, List<SkillDataSO>> SkillDic => mSkillDic;
-
+    public SkillContainerSO SkillContainer => mSkills;
     public event Action<List<SkillDataSO>> onSelectSkill;
     private void Start()
     {
-        mRemainingSkills = new List<SkillDataSO>(mSkills.AllSkills);
-        foreach (var skill in mRemainingSkills)
+        mSkillDic.Clear();
+        List<SkillDataSO> list = new List<SkillDataSO>(SkillContainer.AllSkills);
+        foreach (var skill in list)
         {
             if (!mSkillDic.ContainsKey(skill.skillGrade))
             {
-                mSkillDic.Add(skill.skillGrade, new List<SkillDataSO>());
-                mSkillDic[skill.skillGrade].Add(skill);
+                mSkillDic[skill.skillGrade] = new List<SkillDataSO>();
             }
-            else
-            {
-                mSkillDic[skill.skillGrade].Add(skill);
-            }
+            mSkillDic[skill.skillGrade].Add(skill);
         }
         mRootPanel.SetActive(false);
     }
@@ -105,12 +101,29 @@ public class LevelUpUI : MonoBehaviour
             mTargetPlayer.AddSkill(selectedSkill);
 
             //스택킹 스킬이 아니면 목록에서 제거(앞으로 안 보여줌)
-            if (!(selectedSkill is IStackable))
+            if (!selectedSkill.isStacking)
             {
-                if (mSkillDic.ContainsKey(selectedSkill.skillGrade))
+                ESkillGrade grade = selectedSkill.skillGrade;
+                if (mSkillDic.TryGetValue(grade, out List<SkillDataSO> skillList))
                 {
-                    mSkillDic[selectedSkill.skillGrade].Remove(selectedSkill);
+                    bool isRemoved = skillList.Remove(selectedSkill);
+                    if (isRemoved)
+                    {
+                        Utils.Log($"[SkillSystem] {selectedSkill.skillName}이 리스트에서 제거되었습니다.");
+                    }
+                    else
+                    {
+                        Utils.Log($"[SkillSystem] {selectedSkill.skillName} 삭제 실패! 리스트에 존재하지 않음.");
+                    }
                 }
+                else
+                {
+                    Utils.Log("스태킹 스킬이 아니지만, mSkillDic의 grade키값에 해당하는 리스트가 없습니다.");
+                }
+            }
+            else
+            {
+                Utils.Log("스태킹 스킬!!");
             }
 
             Utils.Log($"Skill Added: {selectedSkill.skillName}");
@@ -129,19 +142,24 @@ public class LevelUpUI : MonoBehaviour
     // 랜덤 스킬 뽑기 유틸리(업그레이드 필요, 같은 스킬 업그레이드 등)
     private List<SkillDataSO> GetRandomSkills(int count, ESkillGrade grade)
     {
+        Debug.Log($"[Debug] 요청 등급: {grade}, 실제 리스트 개수: {mSkillDic[grade].Count}");
+
         List<SkillDataSO> result = new List<SkillDataSO>();
         List<SkillDataSO> tempList = new List<SkillDataSO>(mSkillDic[grade]);
 
+        Utils.Log($"tempList 의 갯수 : {tempList.Count}");
         for (int i = 0; i < count; i++)
         {
             if (tempList.Count == 0) break;
 
-            int rnd = UnityEngine.Random.Range(0, tempList.Count);
-            result.Add(tempList[rnd]);
+            int rnd = UnityEngine.Random.Range(i, tempList.Count);
 
-            tempList.RemoveAt(rnd);
+            SkillDataSO temp = tempList[i];
+            tempList[i] = tempList[rnd];
+            tempList[rnd] = temp;
+
+            result.Add(tempList[i]);
         }
         return result;
-
     }
 }

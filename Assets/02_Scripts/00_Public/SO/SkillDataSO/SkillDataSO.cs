@@ -8,7 +8,8 @@ public abstract class SkillDataSO : ScriptableObject
     public string description;
     public Sprite icon;
     public ESkillGrade skillGrade;
-
+    [Header("스태킹 여부")]
+    public bool isStacking = false;
     public virtual IProjectileStrategy CreateProjectileStrategy()
     {
         return null;

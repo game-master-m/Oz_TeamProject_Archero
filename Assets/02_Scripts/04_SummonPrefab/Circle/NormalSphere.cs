@@ -6,20 +6,19 @@ public class NormalSphere : SphereBase
 {
     [SerializeField] private NormalSphereSkillDataSO mSkillDataSO;
 
-    void Start()
+
+    private void OnEnable()
     {
-        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
         SetOwner(mPlayer);
         SetUp(mSkillDataSO);
     }
-
     void Update()
     {
         this.gameObject.transform.position = mPlayer.gameObject.transform.position + mPositionOffset;
         this.transform.Rotate(Vector3.up * mRotateSpeed * Time.deltaTime);
     }
 
-    public void SetUp(NormalSphereSkillDataSO skillDataSO) 
+    public void SetUp(NormalSphereSkillDataSO skillDataSO)
     {
         mTotalCount--;
         mPositionOffset = skillDataSO.PositionOffset;

@@ -13,9 +13,12 @@ public abstract class SphereBase : MonoBehaviour
     private float mAttackDamage;
     private float mAttackSpeed;
 
-    public void SetOwner(PlayerAttack attack) 
+    public void SetOwner(PlayerAttack attack)
     {
         mTotalCount++;
+
+        mPlayer = attack;
+
         Utils.Log($"ÅäÅ»Ä«¿îÆ®: {mTotalCount}");
         this.gameObject.transform.position = attack.gameObject.transform.position + mPositionOffset;
 
@@ -23,7 +26,7 @@ public abstract class SphereBase : MonoBehaviour
         mAttackDamage = attack.Stat.AttackDamage;
 
         Sphere[] childShpheres = GetComponentsInChildren<Sphere>();
-        foreach (Sphere sphere in childShpheres) 
+        foreach (Sphere sphere in childShpheres)
         {
             sphere.SetOwner(this);
         }
@@ -37,7 +40,7 @@ public abstract class SphereBase : MonoBehaviour
     }
 
 
-    public void OnHitTarget(EnemyBase target) 
+    public void OnHitTarget(EnemyBase target)
     {
         ApplyDamage(target, mAttackDamage);
     }
