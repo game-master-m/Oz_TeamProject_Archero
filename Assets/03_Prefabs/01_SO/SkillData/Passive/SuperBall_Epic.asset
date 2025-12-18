@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SuperBall_Epic
   m_EditorClassIdentifier: 
   skillName: "\uAC15\uB825\uD68C\uC804\uAD6C\uC2AC"
-  description: "\uC8FC\uC704\uB97C \uD68C\uC804\uD558\uB294 \uAD6C\uC2AC\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4"
+  description: "\uAC15\uB825\uD68C\uC804\uAD6C\uC2AC\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4"
   icon: {fileID: 21300000, guid: c432196c879089c47a8b18744d6796cf, type: 2}
   skillGrade: 3
   NormalSpherePrefab: {fileID: 1677701217161897918, guid: ac984d181a88b4f49972539bf821c6da,

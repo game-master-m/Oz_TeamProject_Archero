@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2781410738928257789, guid: 52cb38ba90c18774794c0b02f47f04d2, type: 3}
+  - {fileID: 2100000, guid: a4f615c8525d3d544a5c11dfbb119114, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
     type: 3}
   mTargetOffset: {x: 0, y: 0, z: 0}
   mProjectileOffeset: {x: 0, y: 0, z: 0}
-  mPositionOffset: {x: 0, y: 1, z: -2.5}
-  mTargetRange: 30
+  mTargetRange: 100
+  mAttackMode: 1
   mSkillData: {fileID: 11400000, guid: ba07a5906e3b7334fa30857da8396130, type: 2}
+  mOffset: {x: -2, y: 1, z: -2.5}

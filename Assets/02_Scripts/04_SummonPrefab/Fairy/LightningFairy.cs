@@ -5,7 +5,8 @@ public class LightningFairy : FairyBase
 {
     [SerializeField] private LightningFairySkillDataSO mSkillData;
     [SerializeField] private LightningEffect mLightningEffectPrefab;
-
+    [SerializeField] private Vector3 mOffset = new Vector3(2, 1, -3);
+    private float mSlerpSpeed = 5.0f;
     private float mChainRange;
     private float mMaxChainCount;
 
@@ -34,6 +35,12 @@ public class LightningFairy : FairyBase
 
         //자기 자리 위치로 회전
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up, mSeatAngle * mSeatNumber);
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 targetPos = mPlayer.gameObject.transform.position + mPlayer.gameObject.transform.rotation * mOffset;
+        transform.position = Vector3.Slerp(transform.position, targetPos, mSlerpSpeed * Time.deltaTime);
     }
 
     public override void ApplyElement(EnemyBase target, float damage)

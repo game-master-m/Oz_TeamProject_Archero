@@ -10,11 +10,12 @@ public abstract class FairyBase : MonoBehaviour
     //위치 오프셋
     [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 1.5f, 0);
     [SerializeField] private Vector3 mProjectileOffeset = new Vector3(0, 0, 0);
-    [SerializeField] private Vector3 mPositionOffset = new Vector3(0, 1.0f, -2.5f);
 
     //적 탐색 사거리 > 이 안에 적 있으면 발사
     [SerializeField] private float mTargetRange = 30.0f;
 
+    //공격모드 > 0 = 발사안함, 1 = 화살발사
+    [SerializeField] private int mAttackMode = 1; 
     //페어리마다 다른 값을 가짐
     protected float mEffectTime;
     protected float mDamageTick;
@@ -24,6 +25,7 @@ public abstract class FairyBase : MonoBehaviour
 
     //페어리 공통
     protected PlayerAttack mPlayer;
+    protected float mAttackDelay = 3.0f;
     protected float mSeatAngle = 45;
 
     //플레이어 스텟 참조
@@ -40,17 +42,19 @@ public abstract class FairyBase : MonoBehaviour
         mAttackSpeed = attack.Stat.AttackSpeed;
         mAttackDamage = attack.Stat.AttackDamage;
 
-        //위치 설정
-        this.gameObject.transform.SetParent(attack.gameObject.transform, false);
-        this.gameObject.transform.localPosition = mPositionOffset;
-        this.gameObject.transform.localRotation = Quaternion.identity;
+        this.gameObject.transform.position = attack.gameObject.transform.position;
+        this.gameObject.transform.rotation = Quaternion.identity;
 
-        mWaitAttack = new WaitForSeconds(mAttackSpeed);
+        mWaitAttack = new WaitForSeconds(mAttackDelay);
 
         Managers.Pool.CreatePool(mElementsProjectilePrefab, 50, Managers.Pool.transform);
 
-        //공격 시작
-        StartCoroutine(AttackCo());
+        //일반 속성정령은 1번, 레이저는 0번 > 레이저 공격은 LaserFairy에서 구현
+        if (mAttackMode == 1) 
+        {
+            //공격 시작
+            StartCoroutine(AttackCo());
+        }
     }
 
     //Projectile과 거의 같음
@@ -88,7 +92,6 @@ public abstract class FairyBase : MonoBehaviour
                 nearCol = hitCollider;
             }
         }
-
         transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
       
         return true;

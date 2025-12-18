@@ -5,7 +5,8 @@ using UnityEngine;
 public class VenomFairy : FairyBase
 {
     [SerializeField] private VenomFairySkillDataSO mSkillData;
-
+    [SerializeField] private Vector3 mOffset = new Vector3(-2, 1, -3);
+    private float mSlerpSpeed = 5.0f;
     //스타트는 테스트 환경에서 작동 확인용 세팅
     private void Start()
     {
@@ -26,6 +27,12 @@ public class VenomFairy : FairyBase
 
         //자기 자리 위치로 회전
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up,mSeatAngle * mSeatNumber);
+    }
+
+    private void LateUpdate()
+    {
+        Vector3 targetPos = mPlayer.gameObject.transform.position + mPlayer.gameObject.transform.rotation * mOffset;
+        transform.position = Vector3.Slerp(transform.position, targetPos, mSlerpSpeed * Time.deltaTime);
     }
 
     public override void ApplyElement(EnemyBase target, float damage)
