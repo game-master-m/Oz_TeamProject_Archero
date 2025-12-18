@@ -17,6 +17,7 @@ MonoBehaviour:
     \uAC10\uC18C 40%"
   icon: {fileID: 21300000, guid: 0a2fa806610a25049aad4c93872c35b6, type: 2}
   skillGrade: 2
+  isStacking: 1
   mMaxBounceCount: 1
   mBounceRange: 10
   mDamageMultiplier: 0.6

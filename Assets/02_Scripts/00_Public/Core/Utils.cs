@@ -9,6 +9,7 @@ public static class Utils
     public static StringBuilder ClearAndAppend(int value)
     {
         mBuilder.Clear();
+        mBuilder.Append("- ");
         mBuilder.Append(value);
         return mBuilder;
     }
@@ -16,6 +17,7 @@ public static class Utils
     {
         mBuilder.Clear();
         mBuilder.Append(prefix);
+        mBuilder.Append("- ");
         mBuilder.Append(value);
         return mBuilder;
     }

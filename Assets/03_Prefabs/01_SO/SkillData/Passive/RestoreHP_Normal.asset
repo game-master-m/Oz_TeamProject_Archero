@@ -16,3 +16,4 @@ MonoBehaviour:
   description: "\uD50C\uB808\uC774\uC5B4\n\uCCB4\uB825 \uB79C\uB364 \uD68C\uBCF5 "
   icon: {fileID: 21300000, guid: 4d023d6ad8edcc14ebf2dddb7ea49165, type: 2}
   skillGrade: 1
+  isStacking: 1

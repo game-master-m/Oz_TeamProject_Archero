@@ -185,9 +185,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mText: {fileID: 8868788148420179432}
-  mMoveSpeed: 2.5
   mLifetime: 1
-  mCriticalScale: {x: 1.5, y: 1.5, z: 1.5}
+  mShakeDuration: 0.3
+  mMoveDuration: 0.7
+  targetScaleNormal: 1.5
+  targetScaleCritical: 2
+  shakePowerNormal: 0.3
+  shakePowerCritical: 0.6
   mNormalColor: {r: 1, g: 0.995283, b: 0.995283, a: 1}
   mFireColor: {r: 1, g: 0, b: 0, a: 1}
   mLightningColor: {r: 0.9716981, g: 0.9042612, b: 0.022917405, a: 1}
