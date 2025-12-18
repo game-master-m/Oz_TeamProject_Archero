@@ -100,7 +100,7 @@ public class LightningCircle : SphereBase
                 IDamageable damageable = nextTarget.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(lightningDamage);
+                    damageable.TakeDamage(lightningDamage, EDmgElement.Lightning);
                 }
 
                 Utils.Log("¿Ã∆Â∆Æº“»Ø!!");

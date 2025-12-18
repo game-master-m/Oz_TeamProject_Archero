@@ -22,13 +22,6 @@ public class LaserFairy : FairyBase
     private bool mIsAttack = false;
 
     private WaitForSeconds mLaserDelay;
-    //스타트는 테스트 환경에서 작동 확인용 세팅
-    private void Start()
-    {
-        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
-        SetOwner(mPlayer);
-        SetUp(mSkillData);
-    }
 
     public void SetUp(LaserFairySkillDataSO skillDataSO)
     {
@@ -43,6 +36,7 @@ public class LaserFairy : FairyBase
 
         mLaserDelay = new WaitForSeconds(mLaserDamageTick);
 
+        Utils.Log($"{mPlayer.name}");
         //자기 자리 위치로 회전
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up, mSeatAngle * mSeatNumber);
     }

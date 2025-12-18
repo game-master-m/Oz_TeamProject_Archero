@@ -10,15 +10,6 @@ public class LightningFairy : FairyBase
     private float mChainRange;
     private float mMaxChainCount;
 
-    //스타트는 테스트 환경에서 작동 확인용 세팅
-    private void Start()
-    {
-        Managers.Pool.CreatePool(mLightningEffectPrefab, 10, Managers.Pool.transform);
-        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
-        SetOwner(mPlayer);
-        SetUp(mSkillData);
-    }
-
     public void SetUp(LightningFairySkillDataSO skillDataSO)
     {
         Managers.Pool.CreatePool(mLightningEffectPrefab, 10, Managers.Pool.transform);
@@ -31,8 +22,7 @@ public class LightningFairy : FairyBase
         mChainRange = skillDataSO.ChainRange;
         mMaxChainCount = skillDataSO.MaxChainCount;
 
-        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
-
+        Utils.Log($"{mPlayer.name}");
         //자기 자리 위치로 회전
         this.gameObject.transform.RotateAround(mPlayer.gameObject.transform.position, Vector3.up, mSeatAngle * mSeatNumber);
     }
@@ -96,7 +86,7 @@ public class LightningFairy : FairyBase
                 IDamageable damageable = nextTarget.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(lightningDamage);
+                    damageable.TakeDamage(lightningDamage, EDmgElement.Lightning);
                 }
 
                 //라인렌더러 이펙트

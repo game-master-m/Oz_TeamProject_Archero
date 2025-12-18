@@ -22,7 +22,7 @@ public class BlazeMeteor : MeteorBase
     //속성 부여
     public override void Applyelement(EnemyBase enemy)
     {
-        enemy.TakeDotDamage(mFireDamage, mEffectTime, mDamageTick);
+        enemy.TakeDotDamage(mFireDamage, mEffectTime, mDamageTick, EDmgElement.Fire);
     }
 
     public override void ReturnPool()

@@ -50,6 +50,6 @@ public class FireCircle : SphereBase
 
         Utils.Log($"구체데미지{sphereDamage}");
         target.TakeDamage(sphereDamage);
-        target.TakeDotDamage(fireDamage, mEffectTime, mDamageTick);
+        target.TakeDotDamage(fireDamage, mEffectTime, mDamageTick, EDmgElement.Fire);
     }
 }

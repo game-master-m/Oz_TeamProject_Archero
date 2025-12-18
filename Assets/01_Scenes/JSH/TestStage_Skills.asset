@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: TestStage_Skills
   m_EditorClassIdentifier: 
   allSkills:
+  - {fileID: 11400000, guid: fed36e21fc93b164ba62794b2d92a88e, type: 2}
+  - {fileID: 11400000, guid: 531226207c1ccf54fa9eb7587d71e742, type: 2}
   - {fileID: 11400000, guid: c5af69dd7703f9745b7fd5e988e76b4e, type: 2}
   - {fileID: 11400000, guid: 7539b054e2d0def48bfe95745639e1c4, type: 2}
+  - {fileID: 11400000, guid: 863a46fd7720ac8428845ad882ae7267, type: 2}
   - {fileID: 11400000, guid: 1bc4a5a84b3cb154db53e2b8bed8c71b, type: 2}
+  - {fileID: 11400000, guid: 6eb946ebff4ec8d4495865e247f5d581, type: 2}
   - {fileID: 11400000, guid: 37e077d3d3adadf47b215a440f5bc062, type: 2}
+  - {fileID: 11400000, guid: ba07a5906e3b7334fa30857da8396130, type: 2}
+  - {fileID: 11400000, guid: 5b43463cd33f7e8479d242ccf6afc489, type: 2}
+  - {fileID: 11400000, guid: 4c16e4961879dd54da49c48f6479f9ed, type: 2}
