@@ -27,11 +27,14 @@ public class ToxicMeteorPotion : PotionBase
     {
         //메테오 생성
         mToxicMeteor = Managers.Pool.GetFromPool(mMeteorPrefab);
-        //위쪽에 띄우기 > 중력 받아서 떨어짐
-        Vector3 targetPos = FindCloseEnemy().position;
-        if (targetPos == null)
+        Vector3 targetPos;
+        if (FindCloseEnemy() == null)
         {
             targetPos = this.gameObject.transform.position;
+        }
+        else 
+        {
+            targetPos = FindCloseEnemy().position;
         }
         mToxicMeteor.gameObject.transform.position = targetPos + mMeteorOffset;
         mToxicMeteor.SetUp(mSkillDataSO, mPlayer);
