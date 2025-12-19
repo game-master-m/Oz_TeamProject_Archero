@@ -28,7 +28,12 @@ public class BlazeMeteorPotion : PotionBase
         //메테오 생성
         mBlazeMeteor = Managers.Pool.GetFromPool(mMeteorPrefab);
         //위쪽에 띄우기 > 중력 받아서 떨어짐
-        mBlazeMeteor.gameObject.transform.position = this.gameObject.transform.position + mMeteorOffset;
+        Vector3 targetPos = FindCloseEnemy().position;
+        if (targetPos == null) 
+        {
+            targetPos = this.gameObject.transform.position;
+        }
+        mBlazeMeteor.gameObject.transform.position = targetPos + mMeteorOffset;
         mBlazeMeteor.SetUp(mSkillDataSO, mPlayer);
         Managers.Pool.ReturnToPool(this);
     }

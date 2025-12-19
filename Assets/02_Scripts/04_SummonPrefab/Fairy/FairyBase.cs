@@ -4,6 +4,13 @@ using UnityEngine;
 
 public abstract class FairyBase : MonoBehaviour
 {
+    //현재 작동중인 페어리
+    private static List<FairyBase> mAllFaries = new List<FairyBase>();
+    //공격 코루틴 호스트
+    private static FairyBase mCoroutineHost;
+    //공격 코루틴 > 모든 페어리가 공유
+    private static Coroutine mAttackCoroutine;
+
     //페어리용 속성화살
     [SerializeField] protected ElementProjectile mElementsProjectilePrefab;
 
@@ -14,7 +21,7 @@ public abstract class FairyBase : MonoBehaviour
     //적 탐색 사거리 > 이 안에 적 있으면 발사
     [SerializeField] private float mTargetRange = 30.0f;
 
-    //공격모드 > 0 = 발사안함(레이저), 1 = 화살발사
+    //공격모드 > 0 = 레이저, 1 = 화살발사
     [SerializeField] private int mAttackMode = 1; 
     //페어리마다 다른 값을 가짐
     protected float mEffectTime;
@@ -32,7 +39,7 @@ public abstract class FairyBase : MonoBehaviour
     private float mAttackSpeed;
 
     //코루틴용
-    private WaitForSeconds mWaitAttack;
+    private static WaitForSeconds mWaitAttack;
 
     public void SetOwner(PlayerAttack attack) 
     {
@@ -45,14 +52,14 @@ public abstract class FairyBase : MonoBehaviour
         this.gameObject.transform.rotation = Quaternion.identity;
 
         UpdateAttackDelay(mAttackDelay);
+        mAllFaries.Add(this);
 
         Managers.Pool.CreatePool(mElementsProjectilePrefab, 50, Managers.Pool.transform);
 
-        //일반 속성정령은 1번, 레이저는 0번 > 레이저 공격은 LaserFairy에서 구현
-        if (mAttackMode == 1) 
+        if (mAttackCoroutine == null) 
         {
-            //공격 시작
-            StartCoroutine(AttackCo());
+            mCoroutineHost = this;
+            mAttackCoroutine = mCoroutineHost.StartCoroutine(GlobalAttackCo());
         }
     }
 
@@ -102,6 +109,20 @@ public abstract class FairyBase : MonoBehaviour
         return true;
     }
 
+    public void SetAttackMode() 
+    {
+        switch (mAttackMode) 
+        {
+            case 0:
+                ApplyElement(null, mAttackDamage);
+                break;
+
+            case 1:
+                MakeProjectile();
+                break;
+        }     
+    }
+
     //발사체 생성
     public void MakeProjectile()
     {
@@ -117,6 +138,20 @@ public abstract class FairyBase : MonoBehaviour
     public void Detach() 
     {
         this.gameObject.transform.SetParent(null, false);
+        mAllFaries.Remove(this);
+        if (mCoroutineHost == this) 
+        {
+            if (mAllFaries.Count > 0)
+            {
+                mCoroutineHost = mAllFaries[0];
+                mAttackCoroutine = mCoroutineHost.StartCoroutine(GlobalAttackCo());
+            }
+            else 
+            {
+                mCoroutineHost = null;
+                mAttackCoroutine = null;
+            }
+        }
     }
 
     //발사체한테 명중 신호 받았을때
@@ -140,15 +175,17 @@ public abstract class FairyBase : MonoBehaviour
     }
 
     //공격 코루틴
-    IEnumerator AttackCo() 
+    private static IEnumerator GlobalAttackCo() 
     {
         while (true) 
-        {            
-            if (LookTarget())
+        {
+            foreach (var fairy in mAllFaries) 
             {
-                MakeProjectile();
+                if (fairy != null && fairy.LookTarget()) 
+                {
+                    fairy.SetAttackMode();
+                }
             }
-
             yield return mWaitAttack;
         }
     }

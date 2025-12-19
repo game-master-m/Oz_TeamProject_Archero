@@ -15,6 +15,7 @@ public class BoltMeteorPotionSkillDataSO : SkillDataSO
     public float ChainRange = 10;
     public float DamageDuplicater = PublicDamageConstans.LightningDamageDuplicater;
     public float DamageRange = 20;
+    public float MeteorSpeed = 20;
     public float PotionSpawnDelay = 3.0f;
 
     public override IProjectileStrategy CreateProjectileStrategy()

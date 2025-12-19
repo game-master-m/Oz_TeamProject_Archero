@@ -11,7 +11,6 @@ public class LaserFairy : FairyBase
     [SerializeField] private float mLaserRadius = 2.0f;
     private LaserEffect mLaserEffect;
 
-    private float mTimer = 0f;
     private float mSlerpSpeed = 5.0f;
 
     private float mLaserDuration;
@@ -23,8 +22,10 @@ public class LaserFairy : FairyBase
 
     private WaitForSeconds mLaserDelay;
 
-    public void SetUp(LaserFairySkillDataSO skillDataSO)
+    public void SetUp(LaserFairySkillDataSO skillDataSO, PlayerAttack attack)
     {
+        SetOwner(attack);
+
         Managers.Pool.CreatePool(mLaserEffectPrefab, 10, Managers.Pool.transform);
 
         //페어리 데이터 스텟 받아오기
@@ -43,20 +44,12 @@ public class LaserFairy : FairyBase
 
     private void Update()
     {
-        if (!mIsAttack)
-        {
-            mTimer += Time.deltaTime;
-            if (mTimer >= mAttackDelay)
-            {
-                mTimer = 0;
-                LaserAttack();
-            }
-        }
-        else
+        if (mIsAttack)
         {
             if (mLaserEffect == null)
-            { 
-                mLaserEffect = Managers.Pool.GetFromPool(mLaserEffectPrefab); 
+            {
+                mLaserEffect = Managers.Pool.GetFromPool(mLaserEffectPrefab);
+                if (mLaserEffect == null) { Utils.Log("레이저 생성 실패"); }
             }
             Vector3 start = this.gameObject.transform.position;
             Vector3 end = start + this.gameObject.transform.forward * mLaserRange;
@@ -75,17 +68,14 @@ public class LaserFairy : FairyBase
     {
         if (LookTarget())
         {
-            StartCoroutine(LaserAttackCo());
+            LaserAttack();
         }
     }
 
-    private void LaserAttack() 
-    {
-        if (LookTarget()) 
-        {
-            mIsAttack = true;
-            StartCoroutine(LaserAttackCo());
-        }
+    public void LaserAttack() 
+    {    
+        mIsAttack = true;
+        StartCoroutine(LaserAttackCo());  
     }
 
     private IEnumerator LaserAttackCo() 
@@ -105,7 +95,7 @@ public class LaserFairy : FairyBase
             }
             yield return mLaserDelay;
         }
-        mLaserEffect.gameObject.SetActive(false);
+        if (mLaserEffect == null) Utils.Log("레이저없음");
         Managers.Pool.ReturnToPool(mLaserEffect);
         mLaserEffect = null;
         mIsAttack = false;

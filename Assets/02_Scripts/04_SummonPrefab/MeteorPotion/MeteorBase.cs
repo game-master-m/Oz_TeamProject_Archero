@@ -6,11 +6,23 @@ using UnityEngine;
 public abstract class MeteorBase : MonoBehaviour
 {
     private Collider[] mCollidersInRange = new Collider[30];
+    private Rigidbody mRigidbody;
     protected BlazeMeteorPotionSkillDataSO mSkillData;
     protected PlayerAttack mPlayer;
 
+    protected float mMeteorSpeed;
     protected float mRange;
     protected float mMeteorDamage;
+
+    private void Start()
+    {
+        mRigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        mRigidbody.MovePosition(transform.position + Vector3.down * mMeteorSpeed * Time.fixedDeltaTime);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

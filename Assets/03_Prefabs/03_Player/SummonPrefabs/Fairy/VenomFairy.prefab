@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8a33129614e6049a98c76b961269d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mElementsProjectilePrefab: {fileID: 8604183404813060388, guid: 3aa58996e5a67a143bd767c9d8d81500,
+  mElementsProjectilePrefab: {fileID: 8604183404813060388, guid: 96b897507f1a21c40ba87d37a329ec4a,
     type: 3}
   mTargetOffset: {x: 0, y: 0, z: 0}
   mProjectileOffeset: {x: 0, y: 0, z: 0}

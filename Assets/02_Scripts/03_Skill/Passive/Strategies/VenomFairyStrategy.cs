@@ -20,8 +20,7 @@ public class VenomFairyStrategy : IPassiveStrategy
     public void OnEquip(PlayerAttack attack)
     {
         mVenomFairy = Managers.Pool.GetFromPool(mVenomFairyPrefab);
-        mVenomFairy.SetOwner(attack);
-        mVenomFairy.SetUp(mVenomFairyData);
+        mVenomFairy.SetUp(mVenomFairyData, attack);
     }
 
     public void OnUpdate(PlayerAttack attack)

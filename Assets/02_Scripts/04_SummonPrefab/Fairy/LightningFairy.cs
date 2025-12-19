@@ -10,8 +10,10 @@ public class LightningFairy : FairyBase
     private float mChainRange;
     private float mMaxChainCount;
 
-    public void SetUp(LightningFairySkillDataSO skillDataSO)
+    public void SetUp(LightningFairySkillDataSO skillDataSO, PlayerAttack attack)
     {
+        SetOwner(attack);
+
         Managers.Pool.CreatePool(mLightningEffectPrefab, 10, Managers.Pool.transform);
 
         //페어리 데이터 스텟 받아오기

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Sphere : MonoBehaviour
 {
-    private SphereBase mOwner;
-    private EnemyBase mTarget;
+    protected SphereBase mOwner;
+    protected EnemyBase mTarget;
 
     // 이번 발사체에서 무시할 충돌체 ID 목록
-    private HashSet<int> mIgnoreColliderIDs = new HashSet<int>();
+    protected HashSet<int> mIgnoreColliderIDs = new HashSet<int>();
 
     public void SetOwner(SphereBase owner)
     {
