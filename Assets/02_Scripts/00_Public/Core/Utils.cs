@@ -6,18 +6,24 @@ public static class Utils
 {
     private static StringBuilder mBuilder = new StringBuilder(64);
 
-    public static StringBuilder ClearAndAppend(int value)
+    public static StringBuilder DamageAppend(int value)
     {
         mBuilder.Clear();
         mBuilder.Append("- ");
         mBuilder.Append(value);
         return mBuilder;
     }
-    public static StringBuilder ClearAndAppend(string prefix, int value)
+    public static StringBuilder DamageAppend(string prefix, int value)
     {
         mBuilder.Clear();
         mBuilder.Append(prefix);
         mBuilder.Append("- ");
+        mBuilder.Append(value);
+        return mBuilder;
+    }
+    public static StringBuilder IntAppend(int value)
+    {
+        mBuilder.Clear();
         mBuilder.Append(value);
         return mBuilder;
     }

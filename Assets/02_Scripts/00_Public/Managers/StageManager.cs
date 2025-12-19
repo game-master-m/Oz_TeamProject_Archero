@@ -6,8 +6,14 @@ using UnityEngine.AI;
 public class StageManager : MonoBehaviour
 {
     [Header("이벤트 발송")]
-    [SerializeField] private VoidEventChannelSO mOnRoomClear;   //몬스터경험치 프리팹이 구독
-    [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer; //레벨업 UI가 구독
+    [SerializeField] private VoidEventChannelSO mOnRoomClear;                   //몬스터경험치 프리팹이 구독
+    [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer;       //레벨업 UI가 구독
+    [SerializeField] private IntTripleEventChannelSO mOnStageClear;             //EndUI(SuccessUI를 따로 만들지 고민)가 구독, KillCount기반 로비플레이어 레벨업 및 골드획득
+    [SerializeField] private IntTripleEventChannelSO mOnShowEndUIRequest;       //EndUI가 구독, KillCount기반 로비플레이어 레벨업 및 골드획득
+    [SerializeField] private VoidEventChannelSO mOnNoticeLastRoom;              //LevelUpController.cs가 구독
+
+    [Header("이벤트 구독")]
+    [SerializeField] private VoidEventChannelSO mOnPlayerDie;   //PlayerStat.cs 가 발행
 
     // 런타임 참조 변수 (Initializer에게서 받음)
     private StageDataSO mStageData;
@@ -19,6 +25,7 @@ public class StageManager : MonoBehaviour
     private int mCurrentRoomIndex = 0;
     private int mAliveEnemyCount = 0;
     private bool bIsBattleActive = false;
+
     private StageMap mCurrentMapInstance;
 
     // 천사슬라임 여부
@@ -31,12 +38,23 @@ public class StageManager : MonoBehaviour
     private float mOneSec = 1.0f;
     private float mTwoSec = 2.0f;
     private Coroutine mWaitNextRoomCo;
+
+    private int mKillCount;
+
     private void Awake()
     {
         mWaitOneSec = new WaitForSeconds(mOneSec);
         mWaitTwoSec = new WaitForSeconds(mTwoSec);
     }
 
+    private void OnEnable()
+    {
+        mOnPlayerDie.onEvent += HandlePlayerDie;
+    }
+    private void OnDisable()
+    {
+        mOnPlayerDie.onEvent -= HandlePlayerDie;
+    }
 
     public void LevelUp()
     {
@@ -56,6 +74,7 @@ public class StageManager : MonoBehaviour
         if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
         mCurrentRoomIndex = 0;
         mAliveEnemyCount = 0;
+        mKillCount = 0;
         bIsBattleActive = false;
 
 
@@ -69,6 +88,10 @@ public class StageManager : MonoBehaviour
         if (mCurrentRoomIndex >= mStageData.RoomDataList.Count)
         {
             Utils.Log("스테이지 클리어!");
+
+            //스테이지 클리어 이벤트 발행(현재까지의 킬 카운트, 현재 룸 번호(-1), 현재 스테이지 넘버)
+            mOnStageClear.Raised(mKillCount, mCurrentRoomIndex, mStageData.ChapterID);
+
             return;
         }
 
@@ -202,6 +225,9 @@ public class StageManager : MonoBehaviour
         Utils.Log($"Enemy Died: {enemy.name}, Alive Count: {mAliveEnemyCount}");
         if (mAliveEnemyCount < 0) mAliveEnemyCount = 0;
 
+        //죽인 에너미 수 누적
+        mKillCount++;
+
         // UI 갱신 등 추가 로직 가능
     }
 
@@ -211,11 +237,17 @@ public class StageManager : MonoBehaviour
         Utils.Log($"Room {mCurrentRoomIndex} Clear!");
         bIsBattleActive = false;
 
+        if (mDoorObject != null) mDoorObject.SetActive(false); // 문 열기
+
+        mCurrentRoomIndex++; // 다음 방 인덱스로 증가
+        if (mCurrentRoomIndex >= mStageData.RoomDataList.Count)
+        {
+            //마지막 룸은 Skill선택UI 보이지 않게
+            mOnNoticeLastRoom.Raised();
+        }
+
         //룸 클리어 이벤트 발송 -> 몬스터에서 떨어진 경험치 획득로직
         mOnRoomClear.Raised();
-
-        if (mDoorObject != null) mDoorObject.SetActive(false); // 문 열기
-        mCurrentRoomIndex++; // 다음 방 인덱스로 증가
 
         //다음 방으로 이동 대기 코루틴 시작
         if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
@@ -233,5 +265,13 @@ public class StageManager : MonoBehaviour
         yield return mWaitTwoSec;
 
         StartRoom();
+    }
+
+    private void HandlePlayerDie()
+    {
+        //플레이어 죽음 관련 처리들
+
+        //1. 죽음발송(현재까지의 킬 카운트, 현재 룸 번호(-1), 현재 스테이지 넘버)
+        mOnShowEndUIRequest.Raised(mKillCount, mCurrentRoomIndex, mStageData.ChapterID);
     }
 }

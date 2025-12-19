@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerStat : LivingEntity
@@ -5,6 +6,8 @@ public class PlayerStat : LivingEntity
     [Header("Data Source")]
     [SerializeField] private PlayerStatDataSO mStat;
 
+    [Header("이벤트 발행")]
+    [SerializeField] private VoidEventChannelSO mOnPlayerDie;       //StageManger.cs 가 구독
     //새로추가함
     public PlayerStatDataSO StatDataSO => mStat;
     public float AttackDamage { get; private set; }
@@ -13,9 +16,19 @@ public class PlayerStat : LivingEntity
     public float RotateSpeed { get; private set; }
     public float AttackRange { get; private set; }
 
+    public bool IsDied { get; private set; }
+
+    private float mDieDelay = 0.5f;
+
     private void OnEnable()
     {
+        IsDied = false;
         InitStats();
+        StopAllCoroutines();
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
     // 초기화 메서드 (레벨업이나 부활 시에도 사용 가능)
     public void InitStats()
@@ -91,7 +104,16 @@ public class PlayerStat : LivingEntity
     public override void Die()
     {
         base.Die();
+        IsDied = true;
+        Utils.Log("플레이어 다이~!");
 
         //Player Die 시 호출
+        StartCoroutine(DelayAndDieBroadCastCO());
+    }
+
+    private IEnumerator DelayAndDieBroadCastCO()
+    {
+        yield return new WaitForSeconds(mDieDelay);
+        mOnPlayerDie.Raised();
     }
 }

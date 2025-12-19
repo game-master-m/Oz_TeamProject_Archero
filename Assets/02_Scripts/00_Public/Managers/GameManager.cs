@@ -3,10 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("데이터 참조")]
-
-    [Header("이벤트 구독")]
-
+    //[Header("데이터 참조")]
 
     [Header("이벤트 발행")]
     [SerializeField] private VoidEventChannelSO mOnGamePause;        //PauseUI 구독
@@ -14,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     private bool bIsPause = false;
     private bool bIsGameOver = false;
+    public bool CanPause { get; set; } = false;
+
     private void Start()
     {
         //LoadLobbyScene();
@@ -40,10 +39,15 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLobbyScene()
     {
-
+        Time.timeScale = 1.0f;
+        bIsPause = false;
+        Managers.Pool.ReturnAllObjects();
+        SceneManager.LoadScene(Define.Scene_Lobby);
     }
     public void TogglePause()
     {
+        if (!CanPause) return;
+
         //편의 상 게임오버에서 esc키를 누르면 stage 재로드
         if (bIsGameOver)
         {

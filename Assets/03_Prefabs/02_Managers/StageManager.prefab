@@ -46,3 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mOnRoomClear: {fileID: 11400000, guid: f963f027679763248b75649d9f30ae06, type: 2}
   mOnLevelUpPlayer: {fileID: 11400000, guid: 2c06f072d672f824a99527fa99ada666, type: 2}
+  mOnStageClear: {fileID: 11400000, guid: 00a83b1d54b6e30478e9ddcc21576c57, type: 2}
+  mOnShowEndUIRequest: {fileID: 11400000, guid: ac657fa318aa4ba40b15267d95b240f0,
+    type: 2}
+  mOnNoticeLastRoom: {fileID: 11400000, guid: 4501eea442c30844385ce699759bf33c, type: 2}
+  mOnPlayerDie: {fileID: 11400000, guid: 77db8a905e33d6f459782502bdefd6d6, type: 2}

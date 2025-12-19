@@ -125,11 +125,11 @@ public class LevelUpUI : MonoBehaviour
             {
                 Utils.Log("스태킹 스킬!!");
             }
-
             Utils.Log($"Skill Added: {selectedSkill.skillName}");
         }
 
         // 2. 팝업 닫기 및 게임 재개
+        Managers.Game.CanPause = true;
         Close();
     }
 
