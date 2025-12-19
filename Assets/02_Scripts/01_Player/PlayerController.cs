@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private StopState mStopState;
     private MoveState mMoveState;
     private ThrowState mThrowState;
-
+    private DeathState mDeathState;
     #endregion
 
     #region Private Member
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public Animator Anim => mAnim;
     public PlayerAttack Attack => mAttack;
     public PlayerStat Stat => mStat;
+    public CharacterController CharacterController => mCharacterController;
     public bool CanMove { get; set; } = true;
     public Vector2 InputDir => mInputDir;
     public WaitForSeconds ZeroDotWait => mZeroDotOneWait;
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
         //캐싱
         mAnim = GetComponent<Animator>();
         mCharacterController = GetComponent<CharacterController>();
+        mCharacterController.enabled = true;
+
         mStat = GetComponent<PlayerStat>();
         mAttack = GetComponent<PlayerAttack>();
         mZeroDotOneWait = new WaitForSeconds(mZeroDotOneDelay);
@@ -65,6 +69,7 @@ public class PlayerController : MonoBehaviour
 
         mStopState = new StopState(this);
         mMoveState = new MoveState(this);
+        mDeathState = new DeathState(this);
 
         //ThrowState의 부모로 StopState를 설정하면, StopState -> 다른State 전환조건을 ThrowState도 같이 가짐
         //(예, StopState -> MoveState, () => speed > 0.01f 의 조건으로 ThrowState -> MoveState 으로 전환 됨)
@@ -96,7 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         //Any
         //본인 State에서 본인 State로 계속 넘어가기 때문에 변수추가
-        //mStateMachine.AddAnyTransition(mMoveState, () => true && !mStateMachine.IsCurrentState(mMoveState));
+        mStateMachine.AddAnyTransition(mDeathState, () => Stat.IsDead && !mStateMachine.IsCurrentState(mDeathState));
 
         //Stop에서 전환
         mStateMachine.AddTransition(mStopState, mMoveState, () => mCurrentSpeedSqr > 0.01f);

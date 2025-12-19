@@ -53,7 +53,7 @@ public class DmgText : MonoBehaviour
         {
             targetScale = targetScaleCritical;
             shakePower = shakePowerCritical;
-            mText.SetText(Utils.ClearAndAppend(Define.Critical, dmg));
+            mText.SetText(Utils.DamageAppend(Define.Critical, dmg));
             // 크리티컬이면 텍스트를 가장 앞으로(sorting order가 높을수록 앞에 표시 됨)
             mText.sortingOrder = 10;
         }
@@ -61,7 +61,7 @@ public class DmgText : MonoBehaviour
         {
             targetScale = targetScaleNormal;
             shakePower = shakePowerNormal;
-            mText.SetText(Utils.ClearAndAppend(dmg));
+            mText.SetText(Utils.DamageAppend(dmg));
             mText.sortingOrder = 5;
         }
 

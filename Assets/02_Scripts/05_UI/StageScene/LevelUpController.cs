@@ -7,20 +7,31 @@ public class LevelUpController : MonoBehaviour
 
     [Header("이벤트 구독")]
     [SerializeField] private IntEventChannelSO mOnGetExpRequest; // 각 경험치들이 발송
-
+    [SerializeField] private VoidEventChannelSO mOnNoticeLastRoom; //StageManager.cs가 발송(마지막 룸)
 
 
     private int mCurrentExp = 0;
     private float mExpMultiplier = 1.2f;
+
+    private bool bIsLastRoom = false;
     private void OnEnable()
     {
         mOnGetExpRequest.onEvent += HandleGetExp;
+        mOnNoticeLastRoom.onEvent += HandleLastRoom;
+
+        bIsLastRoom = false;
     }
     private void OnDisable()
     {
         mOnGetExpRequest.onEvent -= HandleGetExp;
-    }
+        mOnNoticeLastRoom.onEvent -= HandleLastRoom;
 
+        bIsLastRoom = false;
+    }
+    private void HandleLastRoom()
+    {
+        bIsLastRoom = true;
+    }
     private void HandleGetExp(int exp)
     {
         mCurrentExp += exp;
@@ -29,8 +40,13 @@ public class LevelUpController : MonoBehaviour
         {
             mCurrentExp = 0;
             mRequiredExp *= mExpMultiplier; // 필요 경험치 증가
+
             //StageManger 에게 레벨업 요청
-            Managers.Stage.LevelUp();
+            if (!bIsLastRoom)
+            {
+                Managers.Stage.LevelUp();
+                Managers.Game.CanPause = false;
+            }
         }
     }
 

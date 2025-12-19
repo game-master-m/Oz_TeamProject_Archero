@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseUI : MonoBehaviour
 {
@@ -8,9 +10,20 @@ public class PauseUI : MonoBehaviour
 
     [Header("참조")]
     [SerializeField] private GameObject mPausePannel;
+    [SerializeField] private Button mContinueBtn;
+    [SerializeField] private Button mExitBtn;
+    [SerializeField] private float mBtnDelay = 0.3f;
+
+    private WaitForSeconds mBtnWait;
     private void Awake()
     {
         mPausePannel.SetActive(false);
+        mContinueBtn.onClick.RemoveAllListeners();
+        mExitBtn.onClick.RemoveAllListeners();
+        mContinueBtn.onClick.AddListener(OnClickContinueBtn);
+        mExitBtn.onClick.AddListener(OnClickExitBtn);
+
+        mBtnWait = new WaitForSeconds(mBtnDelay);
     }
     private void OnEnable()
     {
@@ -23,6 +36,7 @@ public class PauseUI : MonoBehaviour
         //메서드 연결 해제
         mOnGameResume.onEvent -= HandleGameResume;
         mOnGamePause.onEvent -= HandleGamePause;
+
     }
 
     private void Update()
@@ -35,6 +49,14 @@ public class PauseUI : MonoBehaviour
 
         }
     }
+    private void OnClickContinueBtn()
+    {
+        Managers.Game.TogglePause();
+    }
+    private void OnClickExitBtn()
+    {
+        Managers.Game.LoadLobbyScene();
+    }
     private void HandleGamePause()
     {
         mPausePannel.SetActive(true);
@@ -43,4 +65,6 @@ public class PauseUI : MonoBehaviour
     {
         mPausePannel.SetActive(false);
     }
+
+
 }
