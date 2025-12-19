@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class VenomCircle : SphereBase
 {
     [SerializeField] private VenomCircleSkillDataSO mSkillDataSO;
 
-    [SerializeField]private int mOrbitIndex = 0;
+    [SerializeField] private int mOrbitIndex = 0;
     private int mOrbitCount = 0;
     private float mEffectTime;
     private float mDamageTick;
@@ -35,7 +34,7 @@ public class VenomCircle : SphereBase
     public void SetUp(VenomCircleSkillDataSO skillDataSO)
     {
         mOrbitCount = mTotalCount;
-        mOrbitIndex = mTotalCount/2;
+        mOrbitIndex = mTotalCount / 2;
         mPositionOffset = skillDataSO.PositionOffset;
         mRotateSpeed = skillDataSO.RotateSpeed;
         mEffectTime = skillDataSO.EffectTime;
