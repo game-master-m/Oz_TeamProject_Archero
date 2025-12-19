@@ -37,8 +37,8 @@ public class HealthBar : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (mRect == null) mRect = GetComponentInParent<RectTransform>();
-        UpdateVisuals();
+        //if (mRect == null) mRect = GetComponentInParent<RectTransform>();
+        //UpdateVisuals();
     }
 #endif
     private void OnEnable()

@@ -20,6 +20,13 @@ public class PlayerAttack : MonoBehaviour
 
         mArrowStrategies.Add(new BasicArrowStrategy());
     }
+    private void OnDisable()
+    {
+        foreach (var strategy in mPassiveStrategies)
+        {
+            strategy.OnUnequip(this);
+        }
+    }
     private void Update()
     {
         foreach (var passive in mPassiveStrategies)

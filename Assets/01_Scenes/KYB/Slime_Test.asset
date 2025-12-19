@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Slime_Test
   m_EditorClassIdentifier: 
-  mMaxHP: 1000
+  mMaxHP: 10
   mMoveSpeed: 0
   mAttackDamage: 10
   mAttackRange: 2.5
