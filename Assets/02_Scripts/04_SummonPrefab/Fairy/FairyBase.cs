@@ -34,6 +34,8 @@ public abstract class FairyBase : MonoBehaviour
     protected float mSeatAngle = 45;
     protected float mAttackDelay = 3.0f;
 
+    protected Transform mTargetTransform;
+
     //플레이어 스텟 참조
     private float mAttackDamage;
     private float mAttackSpeed;
@@ -104,6 +106,8 @@ public abstract class FairyBase : MonoBehaviour
                 nearCol = hitCollider;
             }
         }
+
+        mTargetTransform = closestEnemy;
         transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
       
         return true;

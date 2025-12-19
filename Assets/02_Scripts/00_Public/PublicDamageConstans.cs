@@ -29,4 +29,12 @@ public static class PublicDamageConstans
     public const float LaserDamageTick = LaserDuration * 0.25f;  //레이저 지속시간동안 4번 타격
     public const float LaserRange = 30f;                         //레이저 번위(길이)
     public const float LaserDamageDuplicater = 0.5f;             //레이저 배율
+
+    //폭탄 데미지 > IDamageable 의 TakeDotDamage에 사용
+    //0.4배 * 5 라고 되어 있는데 아마 짧게 데미지 파바박하고 뜨는듯
+    //0.4배 데미지를 5명한테 준다고 보기에는 너무 배율이 낮음
+    public const float BombEffectTime = 0.25f;                   //폭찬 데미지 지속시간
+    public const float BombDamageTick = 0.05f;                   //데미지 부여 주기
+    public const float BombDamageDuplicater = 0.4f;              //배율
+    public const float BombRange = 5f;                           //폭탄 범위
 }
