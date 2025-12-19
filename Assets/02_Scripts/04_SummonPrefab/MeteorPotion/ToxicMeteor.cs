@@ -16,6 +16,7 @@ public class ToxicMeteor : MeteorBase
         mToxicDamage = attack.Stat.AttackDamage * skillDataSO.DamageDuplicater;
         mEffectTime = skillDataSO.EffectTime;
         mDamageTick = skillDataSO.DamageTick;
+        mMeteorSpeed = skillDataSO.MeteorSpeed;
         Utils.Log("메테오 셋업 완료");
     }
 

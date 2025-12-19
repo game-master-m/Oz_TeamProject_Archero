@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: ToxicMeteorPotion_Normal
   m_EditorClassIdentifier: 
   skillName: "\uB9F9\uB3C5\uBA54\uD14C\uC624 \uD3EC\uC158"
-  description: "\uB9F9\uB3C5\uBA54\uD14C\uC624 \uD3EC\uC158\uC744 \uC18C\uD658\uD569\uB2C8"
+  description: "\uB9F9\uB3C5\uBA54\uD14C\uC624 \uD3EC\uC158\uC744\n\uC18C\uD658\uD569\uB2C8"
   icon: {fileID: 21300000, guid: 9e355eac0b3e9a64186402665bb43d1c, type: 2}
   skillGrade: 1
+  isStacking: 0
   MeteorPrefab: {fileID: 1250638109099019324, guid: 7885e1afe86e6564b8eaeb6456d19add,
     type: 3}
   PotionPrefab: {fileID: 8351063307941162402, guid: 8a06116c1da8ce04c8fc747fbbfe5560,
     type: 3}
-  MeteorOffset: {x: 0, y: 5, z: 0}
+  MeteorOffset: {x: 0, y: 10, z: 0}
   ElementNumber: 0
   EffectTime: 9999
   DamageTick: 1
   DamageDuplicater: 0.5
-  DamageRange: 20
+  DamageRange: 8
+  MeteorSpeed: 20
   PotionSpawnDelay: 8

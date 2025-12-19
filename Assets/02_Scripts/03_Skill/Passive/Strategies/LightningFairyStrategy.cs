@@ -20,8 +20,7 @@ public class LightningFairyStrategy : IPassiveStrategy
     public void OnEquip(PlayerAttack attack)
     {
         mLightningFairy = Managers.Pool.GetFromPool(mLightningFairyPrefab);
-        mLightningFairy.SetOwner(attack);
-        mLightningFairy.SetUp(mLightningFairyData);
+        mLightningFairy.SetUp(mLightningFairyData, attack);
     }
 
     public void OnUpdate(PlayerAttack attack)

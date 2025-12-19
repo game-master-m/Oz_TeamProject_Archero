@@ -20,8 +20,7 @@ public class FireFairyStrategy : IPassiveStrategy
     public void OnEquip(PlayerAttack attack) 
     {
         mFireFairy = Managers.Pool.GetFromPool(mFireFairyPrefab);
-        mFireFairy.SetOwner(attack);
-        mFireFairy.SetUp(mFireFairyData);
+        mFireFairy.SetUp(mFireFairyData, attack);
     }
 
     public void OnUpdate(PlayerAttack attack)

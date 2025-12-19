@@ -8,7 +8,8 @@ public abstract class SphereBase : MonoBehaviour
 
     protected Vector3 mPositionOffset;
     protected float mRotateSpeed;
-    protected PlayerAttack mPlayer;
+    [SerializeField] protected PlayerAttack mPlayer;
+    protected Sphere[] mChildShpheres;
 
     private float mAttackDamage;
     private float mAttackSpeed;
@@ -25,8 +26,8 @@ public abstract class SphereBase : MonoBehaviour
         mAttackSpeed = attack.Stat.AttackSpeed;
         mAttackDamage = attack.Stat.AttackDamage;
 
-        Sphere[] childShpheres = GetComponentsInChildren<Sphere>();
-        foreach (Sphere sphere in childShpheres)
+        mChildShpheres = GetComponentsInChildren<Sphere>();
+        foreach (Sphere sphere in mChildShpheres)
         {
             sphere.SetOwner(this);
         }

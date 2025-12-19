@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: LightningFairy_Normal
   m_EditorClassIdentifier: 
   skillName: "\uBC88\uAC1C\uC815\uB839"
-  description: "\uBC88\uAC1C\uC815\uB839\uC744 \uC18C\uD658\uD569\uB2C8\uB2E4"
+  description: "\uBC88\uAC1C\uC815\uB839\uC744\n\uC18C\uD658\uD569\uB2C8\uB2E4"
   icon: {fileID: 21300000, guid: d9f38b07265c980498ad9b78241af4c0, type: 2}
   skillGrade: 1
+  isStacking: 0
   LightningFairyPrefab: {fileID: 1302939738660011910, guid: e8a0af1586b646445b8dc96257d9c6c7,
     type: 3}
   ElementNumber: 1

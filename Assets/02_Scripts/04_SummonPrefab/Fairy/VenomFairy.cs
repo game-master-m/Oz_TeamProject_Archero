@@ -8,8 +8,10 @@ public class VenomFairy : FairyBase
     [SerializeField] private Vector3 mOffset = new Vector3(-2, 1, -3);
     private float mSlerpSpeed = 5.0f;
 
-    public void SetUp(VenomFairySkillDataSO skillDataSO)
+    public void SetUp(VenomFairySkillDataSO skillDataSO, PlayerAttack attack)
     {
+        SetOwner(attack);
+
         //페어리 데이터 스텟 받아오기
         mEffectTime = skillDataSO.EffectTime;
         mDamageTick = skillDataSO.DamageTick;

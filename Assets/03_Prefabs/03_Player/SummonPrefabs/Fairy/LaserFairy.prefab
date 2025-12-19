@@ -103,6 +103,7 @@ MonoBehaviour:
   mTargetRange: 30
   mAttackMode: 0
   mSkillData: {fileID: 11400000, guid: 37e077d3d3adadf47b215a440f5bc062, type: 2}
-  mOffset: {x: -3, y: 1, z: -2}
+  mOffset: {x: -3.5, y: 1, z: -1.5}
   mLaserEffectPrefab: {fileID: 2221843063068372525, guid: 91b6749f86cab2643b27f744c119901c,
     type: 3}
+  mLaserRadius: 2

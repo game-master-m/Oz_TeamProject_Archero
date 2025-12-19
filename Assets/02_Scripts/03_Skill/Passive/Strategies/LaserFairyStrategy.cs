@@ -20,8 +20,7 @@ public class LaserFairyStrategy : IPassiveStrategy
     public void OnEquip(PlayerAttack attack)
     {
         mLaserFairy = Managers.Pool.GetFromPool(mLaserFairyPrefab);
-        mLaserFairy.SetOwner(attack);
-        mLaserFairy.SetUp(mLaserFairyData);
+        mLaserFairy.SetUp(mLaserFairyData, attack);
     }
 
     public void OnUpdate(PlayerAttack attack)

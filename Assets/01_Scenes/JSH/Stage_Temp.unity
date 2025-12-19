@@ -332,7 +332,7 @@ MonoBehaviour:
   mLegendChance: 0.1
   mEpicChance: 0.2
   mExpertChance: 0.3
-  mSkills: {fileID: 11400000, guid: a9983e85fabf32f468d2579838855752, type: 2}
+  mSkills: {fileID: 11400000, guid: 9feb9ce5049578c4098d87175a816b44, type: 2}
 --- !u!1 &39136024
 GameObject:
   m_ObjectHideFlags: 0

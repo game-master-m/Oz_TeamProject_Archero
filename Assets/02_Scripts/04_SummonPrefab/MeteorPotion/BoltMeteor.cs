@@ -18,7 +18,7 @@ public class BoltMeteor : MeteorBase
         mMaxChainCount = skillDataSO.MaxChainCount;
         mMeteorDamage = attack.Stat.AttackDamage + PublicDamageConstans.MeteorDamageDuplicater;
         mBoltDamage = attack.Stat.AttackDamage * skillDataSO.DamageDuplicater;
-
+        mMeteorSpeed = skillDataSO.MeteorSpeed;
         Managers.Pool.CreatePool(mLightningEffectPrefab, 8, Managers.Pool.transform);
         Utils.Log("메테오 셋업 완료");
     }
