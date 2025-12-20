@@ -72,7 +72,20 @@ public class StageInitialize : MonoBehaviour
                     if (prefab != null && !registeredNames.Contains(prefab.name))
                     {
                         // 풀 매니저에게 생성 요청 (기본 5)
-                        Managers.Pool.CreatePool(prefab, 6, Managers.Pool.transform);
+                        switch (prefab.EEnemyType)
+                        {
+                            case EEnemyType.None:
+                            case EEnemyType.Melee:
+                            case EEnemyType.Range:
+                                Managers.Pool.CreatePool(prefab, 6, Managers.Pool.transform);
+                                break;
+                            case EEnemyType.Boss:
+                                Managers.Pool.CreatePool(prefab, 1, Managers.Pool.transform);
+                                break;
+                            default:
+                                Utils.Log("EEnemyTpye 이 알맞지 않습니다");
+                                break;
+                        }
 
                         // 등록 명단에 추가
                         registeredNames.Add(prefab.name);

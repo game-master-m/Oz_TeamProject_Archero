@@ -40,22 +40,12 @@ public enum ELayerName
 {
     Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle, Projectile, Exp
 }
-public enum EEnemyName
-{
-    None, Slime
-}
-public enum ESkillGrade
-{
-    None, Normal, Expert, Epic, Legend
-}
-public enum EDmgElement
-{
-    Normal, Fire, Lightning, Poison
-}
-public enum EHealthType
-{
-    None, Player, Enemy, Boss
-}
+public enum EEnemyName { None, Slime }
+public enum ESkillGrade { None, Normal, Expert, Epic, Legend }
+public enum EDmgElement { Normal, Fire, Lightning, Poison }
+public enum EHealthType { None, Player, Enemy, Boss }
+public enum EEnemyType { None, Melee, Range, Boss }
+public enum ENodeState { Running, Success, Failure }
 
 
 

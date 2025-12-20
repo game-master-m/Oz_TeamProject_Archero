@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BT_Sequence : BT_Node
 {
@@ -13,9 +11,9 @@ public class BT_Sequence : BT_Node
 
     public override BT_NodeStatus Evaluate()
     {
-        foreach(var node in children)
+        foreach (var node in children)
         {
-            var status=node.Evaluate();
+            var status = node.Evaluate();
 
             if (status == BT_NodeStatus.Failure)
             {

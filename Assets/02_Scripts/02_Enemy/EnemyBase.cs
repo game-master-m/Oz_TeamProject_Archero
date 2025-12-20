@@ -9,8 +9,9 @@ public class EnemyBase : LivingEntity
 {
     [SerializeField] protected EnemyStatDataSO mStatData;
     [SerializeField] private ExpPrefab mExpPrefab;
+    [SerializeField] private EEnemyType mEnemyType = EEnemyType.Melee;
 
-    protected Animator mAnimator;
+    protected Animator mAnim;
     protected NavMeshAgent mAgent;
     protected CapsuleCollider mCapsuleCollider;
 
@@ -33,18 +34,18 @@ public class EnemyBase : LivingEntity
     public float DetectRange => mDetectRange;
     public Quaternion CorrectionQtrn => mCorrectionQtrn;
     public NavMeshAgent Agent => mAgent;
-
+    public EEnemyType EEnemyType => mEnemyType;
     //플레이어 추적용 타겟
     protected Transform mTarget;
 
     public event Action<EnemyBase> onEnemyDie;
-    public Animator Anim => mAnimator;
+    public Animator Anim => mAnim;
     public Transform Target => mTarget;
 
     protected virtual void Awake()
     {
         mAgent = GetComponent<NavMeshAgent>();
-        mAnimator = GetComponent<Animator>();
+        mAnim = GetComponent<Animator>();
 
         mCapsuleCollider = GetComponent<CapsuleCollider>();
         mCapsuleCollider.isTrigger = true;
@@ -61,7 +62,6 @@ public class EnemyBase : LivingEntity
     {
         base.OnEnable(); // 부모의 체력 초기화 실행
 
-        //컬라이더 끄고, StageManager에서 켬
         if (mCapsuleCollider != null) mCapsuleCollider.enabled = true;
 
         // 적이 다시 살아날 때(풀링) 필요한 초기화
@@ -115,7 +115,9 @@ public class EnemyBase : LivingEntity
         //보정 회전값 설정
         mCorrectionQtrn = Quaternion.Euler(mRotationOffset);
     }
-    public void SetTarget(Transform target)
+
+    //StageManager.cs에서 생성할 때 호출해서 플레이어 Transform을 주입해줌
+    public virtual void SetTarget(Transform target)
     {
         mTarget = target;
     }
@@ -123,13 +125,6 @@ public class EnemyBase : LivingEntity
     public override void Die()
     {
         base.Die();
-        // 0. 죽음 방송~
-        onEnemyDie?.Invoke(this);
-
-        // 0. 경험치 드랍
-        ExpPrefab exp = Managers.Pool.GetFromPool(mExpPrefab);
-        exp.transform.position = transform.position + Vector3.up * 0.5f;
-        exp.SetTarget(mTarget);
 
         // 1. 움직임 멈춤
         if (mAgent.isOnNavMesh)
@@ -141,10 +136,17 @@ public class EnemyBase : LivingEntity
         // 2. 콜라이더 끄기 (시체에 공격 안 막히게)
         mCapsuleCollider.enabled = false;
 
+        // 3. 죽음 방송~
+        onEnemyDie?.Invoke(this);
+
+        // 4. 경험치 드랍
+        ExpPrefab exp = Managers.Pool.GetFromPool(mExpPrefab);
+        exp.transform.position = transform.position + Vector3.up * 0.5f;
+        exp.SetTarget(mTarget);
+
         // 3. StageManager에게 알리기 (필요시 이벤트나 매니저 호출)
 
-
-        // 4. 애니메이션 재생 후 풀로 반환 
+        // 4. 애니메이션 재생 후 풀로 반환(각 DeathState에서 제어하자)
         Managers.Pool.ReturnToPool(this);
     }
 
