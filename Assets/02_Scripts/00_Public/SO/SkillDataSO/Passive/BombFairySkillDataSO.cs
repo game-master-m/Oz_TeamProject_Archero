@@ -12,6 +12,7 @@ public class BombFairySkillDataSO : SkillDataSO
     public float DamageTick = PublicDamageConstans.BombDamageTick;
     public float DamageDuplicater = PublicDamageConstans.BombDamageDuplicater;
     public float BombRange = PublicDamageConstans.BombRange;
+    public float BombHeights = 5.0f;
 
     public override IProjectileStrategy CreateProjectileStrategy()
     {
