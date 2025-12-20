@@ -16,13 +16,13 @@ public class PlayerStat : LivingEntity
     public float RotateSpeed { get; private set; }
     public float AttackRange { get; private set; }
 
-    public bool IsDied { get; private set; }
 
     private float mDieDelay = 0.5f;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        IsDied = false;
+        base.OnEnable();
+
         InitStats();
         StopAllCoroutines();
     }
@@ -104,7 +104,6 @@ public class PlayerStat : LivingEntity
     public override void Die()
     {
         base.Die();
-        IsDied = true;
         Utils.Log("플레이어 다이~!");
 
         //Player Die 시 호출

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class BossEnemyBT : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class BossEnemyBT : MonoBehaviour
     public float attackDistance = 2.5f;
     public float speed = 2.0f;
 
-    
+
     Animator mAnim;
 
 
@@ -102,7 +101,7 @@ public class BossEnemyBT : MonoBehaviour
     //Leaf행동들(실제 애니/이동로직)
     BT_NodeStatus Idle()
     {
-        
+
         AnimatorChange("IDLE");
         return BT_NodeStatus.Sucess;
     }

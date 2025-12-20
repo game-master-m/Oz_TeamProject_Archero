@@ -31,8 +31,7 @@ public class MeleeEnemy : EnemyBase
     }
     private void Start()
     {
-        // 초기 상태 설정
-        mStateMachine.ChangeState(mIdleState);
+
     }
     protected override void Update()
     {
@@ -52,6 +51,9 @@ public class MeleeEnemy : EnemyBase
     {
         base.OnEnable();
         // 추가적인 활성화 로직이 필요하면 여기에 작성하세요.
+
+        // 초기 상태 설정
+        mStateMachine.ChangeState(mIdleState);
     }
     protected override void OnDisable()
     {

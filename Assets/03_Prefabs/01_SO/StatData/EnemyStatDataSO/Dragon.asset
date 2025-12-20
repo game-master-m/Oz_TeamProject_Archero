@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Dragon
   m_EditorClassIdentifier: 
-  mMaxHP: 20
+  mMaxHP: 2500
   mMoveSpeed: 4
-  mAttackDamage: 10
-  mAttackRange: 2.5
+  mAttackDamage: 120
+  mAttackRange: 35
   mAttackSpeed: 1
   mRotateSpeed: 8
-  mDetectRange: 40
+  mDetectRange: 50
+  mRotateOffset: {x: 0, y: 0, z: 0}

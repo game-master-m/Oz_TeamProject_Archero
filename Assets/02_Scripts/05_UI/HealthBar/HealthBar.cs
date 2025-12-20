@@ -34,13 +34,13 @@ public class HealthBar : MonoBehaviour
 
         if (mCanvas != null) mCanvas.enabled = false;
     }
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        //if (mRect == null) mRect = GetComponentInParent<RectTransform>();
-        //UpdateVisuals();
-    }
-#endif
+    //#if UNITY_EDITOR
+    //    private void OnValidate()
+    //    {
+    //        if (mRect == null) mRect = GetComponentInParent<RectTransform>();
+    //        UpdateVisuals();
+    //    }
+    //#endif
     private void OnEnable()
     {
         StartCoroutine(InitAfterOneFrame());

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class BT_Selector : BT_Node
 {
@@ -12,7 +11,7 @@ public class BT_Selector : BT_Node
 
     public override BT_NodeStatus Evaluate()
     {
-        foreach(var node in children)
+        foreach (var node in children)
         {
             var status = node.Evaluate();
 
