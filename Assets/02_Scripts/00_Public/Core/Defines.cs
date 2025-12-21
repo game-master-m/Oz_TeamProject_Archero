@@ -24,6 +24,10 @@ public class AnimHash
     public static readonly int _throw = Animator.StringToHash("Throw");
     public static readonly int attackSpeedMultiplier = Animator.StringToHash("AttackSpeedMultiplier");
     public static readonly int attack = Animator.StringToHash("Attack");
+    public static readonly int attackSpin = Animator.StringToHash("AttackSpin");
+    public static readonly int attackDown = Animator.StringToHash("AttackDown");
+    public static readonly int hit = Animator.StringToHash("Hit");
+    public static readonly int death = Animator.StringToHash("Death");
 }
 
 //·¹ÀÌ¾î
