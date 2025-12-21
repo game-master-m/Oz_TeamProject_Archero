@@ -31,7 +31,13 @@ public class SequenceNode : Node
                     currentIndex = 0;
                     return ENodeState.Failure;
                 case ENodeState.Success:
-                    continue; // 다음 자식으로 진행
+                    currentIndex++;
+                    if (currentIndex >= children.Count)
+                    {
+                        currentIndex = 0;
+                        return ENodeState.Success;
+                    }
+                    return ENodeState.Running;
             }
         }
 

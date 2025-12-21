@@ -3,7 +3,7 @@ using UnityEngine;
 public class DragonController : EnemyBase
 {
     //행동트리에서 사용할 데이터 묶음
-    public EnemyBoard Board { get; private set; }
+    public BlackBoard Board { get; private set; }
 
     #region 상태들 선언
     //크게 아이들 , 컴뱃, 기절, 죽음
@@ -26,17 +26,19 @@ public class DragonController : EnemyBase
     private readonly float mDizzyDuration = 1.5f;
     private readonly float mMinDizzyDmgRate = 0.02f;  //총 체력의 2%
 
-    private bool bIsPhaseSecond = false;
-    private bool bIsPhaseThird = false;
-
 
     #region LifeCycle
     protected override void Awake()
     {
         base.Awake();
-        Board = new EnemyBoard();
         //스탯 초기화
         InitStats(mStatData);
+
+        //BlackBoard 컴포넌트 주입
+        Board = new BlackBoard();
+
+        //정지거리를 넉넉하게 잡음
+        mAgent.stoppingDistance = 1.5f;
 
         //상태 생성
         mIdleState = new DragonIdleState(this);     //내부 행동트리로 패트롤까지 수행
@@ -91,8 +93,6 @@ public class DragonController : EnemyBase
         Board.HPPercent = 1.0f;
         IsDizzy = false;
         DizzyCount = 0;
-        bIsPhaseSecond = false;
-        bIsPhaseThird = false;
     }
     public override void SetTarget(Transform target)
     {
@@ -114,21 +114,6 @@ public class DragonController : EnemyBase
             }
         }
         Board.HPPercent = hpPercent;
-        if (hpPercent < 0.2f)
-        {
-            bIsPhaseSecond = false;
-            bIsPhaseThird = true;
-        }
-        else if (hpPercent < 0.6f)
-        {
-            bIsPhaseThird = false;
-            bIsPhaseSecond = true;
-        }
-        else
-        {
-            bIsPhaseThird = false;
-            bIsPhaseSecond = false;
-        }
     }
     #endregion
 
@@ -148,11 +133,11 @@ public class DragonController : EnemyBase
         //Combat State
         mStateMachine.AddTransition(mCombatState, mIdleState, () => mTarget != null && !CheckInDistance(mTarget, mDetectRange));
         mStateMachine.AddTransition(mCombatState, mFirstPhaseState,
-            () => !bIsPhaseSecond && !bIsPhaseThird && !mStateMachine.IsCurrentState(mFirstPhaseState));
+            () => !mStateMachine.IsCurrentState(mFirstPhaseState) && Board.HPPercent > 0.7f && Board.HPPercent <= 1.0f);
         mStateMachine.AddTransition(mCombatState, mSecondPhaseState,
-            () => bIsPhaseSecond && !bIsPhaseThird && !mStateMachine.IsCurrentState(mSecondPhaseState));
+            () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 0.7f);
         mStateMachine.AddTransition(mCombatState, mThirdPhaseState,
-            () => !bIsPhaseSecond && bIsPhaseThird && !mStateMachine.IsCurrentState(mThirdPhaseState));
+            () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 0.3f);
 
     }
     #endregion
