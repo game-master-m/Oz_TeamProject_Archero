@@ -1,35 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeAttackState : EnemyState
 {
-    public RangeAttackState(EnemyBase enemy, IState parent = null) : base(enemy, parent)
-    {
-    }
+    private float mAttackTimer;
+
+    public RangeAttackState(EnemyBase enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        base.Enter();
-        Utils.Log("RangeAttack Enter");
-        //mEnemy.Anim.CrossFade(AnimHash.attack, 0.1f); //공격애니메이션을 만들거나 아니면 삭제..?
+        mAttackTimer = 0f;
+        mEnemy.Agent.isStopped = true;
     }
 
     public override void Update()
     {
-        base.Update();
-        //여기에 원거리 공격 상태에서 필요한 로직
-        //투사체를 발사한다거나, 공격 타이밍을 조절한다거나 
+        if (mEnemy.Target == null) return;
+
+        RotateToTarget();
+
+        mAttackTimer += Time.deltaTime;
+        if (mAttackTimer >= mEnemy.AttackSpeed)
+        {
+            PerformAttack();
+            mAttackTimer = 0f;
+        }
     }
 
-    public override void FixedUpdate()
+    private void RotateToTarget()
     {
-        base.FixedUpdate();
+        Vector3 dir = mEnemy.Target.position - mEnemy.transform.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.01f) return;
+
+        Quaternion targetRot =
+            Quaternion.LookRotation(dir) * mEnemy.CorrectionQtrn;
+
+        mEnemy.transform.rotation = Quaternion.RotateTowards(
+            mEnemy.transform.rotation,
+            targetRot,
+            mEnemy.RotateSpeed * Time.deltaTime);
     }
 
-    public override void Exit()
+    private void PerformAttack()
     {
-        base.Exit();
-        // 공격이 끝났을 때 필요한 정리 작업들
+        mEnemy.Anim.SetTrigger("Attack");
+
+        // 즉시 발사 (또는 Animation Event로 분리 가능)
+        ((RangeEnemy)mEnemy).FireProjectile();
     }
 }
