@@ -1,98 +1,62 @@
+ï»¿using UnityEngine;
+
 using UnityEngine;
 
 public class RangeEnemy : EnemyBase
 {
-    // ¿ø°Å¸®°ø°İ ¿¡³Ê¹ÌÀÇ ±â´ÉÀ» ¿©±â¿¡ Ãß°¡ÇÏ¼¼¿ä.
+    [Header("Projectile")]
+    [SerializeField] private EnemyProjectile mProjectilePrefab;
+    [SerializeField] private Transform mFirePoint;
 
-    //EnemyBase¸¦ »ó¼Ó¹Ş¾Æ ÇÊ¿äÇÑ ±â´ÉÀ» ±¸ÇöÇÕ´Ï´Ù.
-    //EnemyBase¿¡´Â NavMeshAgent, Animator, CapsuleCollider,StateMachine, EnemyStat µîÀÌ ÀÌ¹Ì Æ÷ÇÔµÇ¾î ÀÖ½À´Ï´Ù.
-
-    #region States
-    // ¿©±â¿¡ ¿ø°Å¸®°ø°İ ¿¡³Ê¹ÌÀÇ »óÅÂµéÀ» Á¤ÀÇÇÏ¼¼¿ä.
     RangeIdleState mIdleState;
     RangeMoveState mMoveState;
     RangeAttackState mAttackState;
 
-    #endregion
-
     protected override void Awake()
     {
         base.Awake();
-        // ¿ø°Å¸®°ø°İ ¿¡³Ê¹ÌÀÇ ÃÊ±âÈ­ ·ÎÁ÷À» ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-        InitStats(mStatData);
 
-
-        // »óÅÂµé »ı¼º
         mIdleState = new RangeIdleState(this);
         mMoveState = new RangeMoveState(this);
         mAttackState = new RangeAttackState(this);
-        //ÀüÈ¯Á¶°Ç ¼³Á¤
+
         InitTransitions();
+
+        Managers.Pool.CreatePool(mProjectilePrefab, 20, Managers.Pool.transform);
     }
-    private void Start()
-    {
-        // ÃÊ±â »óÅÂ ¼³Á¤
-        mStateMachine.ChangeState(mIdleState);
-    }
-    protected override void Update()
-    {
-        base.Update();
-        //Å×½ºÆ®¿ë Å¸°Ù ÃßÃ´
-        if (mTarget != null)
-        {
-            //mAgent.SetDestination(mTarget.position);
-        }
-    }
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-        // Ãß°¡ÀûÀÎ °íÁ¤ ¾÷µ¥ÀÌÆ® ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
-        // Ãß°¡ÀûÀÎ È°¼ºÈ­ ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-    }
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        // Ãß°¡ÀûÀÎ ºñÈ°¼ºÈ­ ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-    }
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        // Ãß°¡ÀûÀÎ ÆÄ±« ·ÎÁ÷ÀÌ ÇÊ¿äÇÏ¸é ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-    }
-    public override void InitStats(EnemyStatDataSO data)
-    {
-        base.InitStats(data);
-        // ±ÙÁ¢°ø°İ ¿¡³Ê¹ÌÀÇ ½ºÅÈ ÃÊ±âÈ­ ·ÎÁ÷À» ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
 
+        InitStats(mStatData);
+        mAgent.enabled = true;
+
+        mStateMachine.ChangeState(mIdleState);
     }
 
     private void InitTransitions()
     {
-        // »óÅÂ ÀüÈ¯ ·ÎÁ÷À» ¿©±â¿¡ ÀÛ¼ºÇÏ¼¼¿ä.
-        //mStateMachine.AddTransition(mIdleState, mMoveState, () => true); // ¿¹½Ã
-
-        //ÇöÀç»óÅÂ°¡ IdleÀÏ¶§ move»óÅÂ·Î ÀüÈ¯ÇÏ´Â Á¶°Ç: Å¸°ÙÀÌ Á¸ÀçÇÏ°í, Å¸°Ù°úÀÇ °Å¸®°¡ DetectRange ÀÌÇÏÀÏ¶§
         mStateMachine.AddTransition(mIdleState, mMoveState,
-            () => mTarget != null && CheckInDistance(mTarget, mDetectRange));
+            () => mTarget != null && CheckInDistance(mTarget, DetectRange));
 
-        //ÇöÀç»óÅÂ°¡ MoveÀÏ¶§ Idle»óÅÂ·Î ÀüÈ¯ÇÏ´Â Á¶°Ç: Å¸°ÙÀÌ ¾ø°Å³ª, Å¸°Ù°úÀÇ °Å¸®°¡ DetectRange¸¦ ³ÑÀ»¶§
         mStateMachine.AddTransition(mMoveState, mIdleState,
-            () => mTarget == null || !CheckInDistance(mTarget, mDetectRange));
+            () => mTarget == null || !CheckInDistance(mTarget, DetectRange));
 
-        //¿òÁ÷ÀÌ´Ù°¡ ÇÃ·¹ÀÌ¾î°¡ °ø°İ¹üÀ§ ¾È¿¡ µé¾î¿À¸é °ø°İ»óÅÂ·Î ÀüÈ¯
         mStateMachine.AddTransition(mMoveState, mAttackState,
-            () => mTarget != null && CheckInDistance(mTarget, mAttackRange));
+            () => mTarget != null && CheckInDistance(mTarget, AttackRange));
 
-        //°ø°İÇÏ´Ù°¡ ÇÃ·¹ÀÌ¾î°¡ °ø°İ¹üÀ§¸¦ ¹ş¾î³ª¸é ¹«ºê»óÅÂ·Î ÀüÈ¯
         mStateMachine.AddTransition(mAttackState, mMoveState,
-            () => mTarget == null || !CheckInDistance(mTarget, mAttackRange));
+            () => mTarget == null || !CheckInDistance(mTarget, AttackRange));
     }
 
-    //TakeDamage(float amount) ÇÊ¿ä ½Ã ¿À¹ö¶óÀÌµå
+    // ğŸ”¥ ì‹¤ì œ ê³µê²© (Stateì—ì„œ í˜¸ì¶œ)
+    public void FireProjectile()
+    {
+        if (mTarget == null) return;
 
-    //Die() ÇÊ¿ä ½Ã ¿À¹ö¶óÀÌµå
+        EnemyProjectile proj = Managers.Pool.GetFromPool(mProjectilePrefab);
+        proj.transform.position = mFirePoint.position;
+        proj.Fire(mTarget.position, AttackDamage);
+    }
 }
