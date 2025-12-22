@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class HomingFireBall : EnemyProjectileBase
 {
-    [SerializeField] private float mHomingTurnSpeed = 2.5f;
+    [SerializeField] private float mHomingTurnSpeed = 2.0f;
+    [SerializeField] private float mHomingRange = 15.0f;
     private Transform mTarget;
+
+    private Vector3 mLastFrameTargetPos;
 
     public override void Setup(float damage, float speed, Vector3 direction, EnemyBase owner)
     {
@@ -16,14 +19,25 @@ public class HomingFireBall : EnemyProjectileBase
         if (mTarget != null)
         {
             // 타겟을 향한 방향 계산
-            Vector3 targetDir = (mTarget.position + Vector3.up * 0.5f - transform.position).normalized;
+            Vector3 targetPos = (mTarget.position - transform.position);
+            targetPos.y = 0.0f;
 
-            // 부드럽게 타겟 쪽으로 회전 (Slerp)
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.LookRotation(targetDir),
-                mHomingTurnSpeed * Time.fixedDeltaTime
-            );
+            if (!((targetPos.sqrMagnitude > mLastFrameTargetPos.sqrMagnitude
+                 && mLastFrameTargetPos != Vector3.zero)
+                || targetPos.sqrMagnitude < 10f))
+            {
+                if (targetPos.sqrMagnitude < mHomingRange * mHomingRange)
+                {
+                    Vector3 targetDir = targetPos.normalized;
+                    // 부드럽게 타겟 쪽으로 회전 (Slerp)
+                    transform.rotation = Quaternion.Slerp(transform.rotation,
+                        Quaternion.LookRotation(targetDir),
+                        mHomingTurnSpeed * Time.fixedDeltaTime
+                    );
+                }
+            }
+
+            mLastFrameTargetPos = targetPos;
         }
 
         // 부모의 기본적인 velocity 설정 실행

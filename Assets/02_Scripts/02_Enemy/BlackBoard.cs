@@ -19,4 +19,5 @@ public class BlackBoard
 
     //투사체 접근용
     public SmallFireBall SmallFireBallPrefab { get; set; }
+    public HomingFireBall HomingFireBallPrefab { get; set; }
 }

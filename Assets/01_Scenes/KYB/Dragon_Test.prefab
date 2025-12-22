@@ -751,6 +751,8 @@ MonoBehaviour:
   mEnemyType: 3
   mSmallFireBallPrefab: {fileID: 5392403191203697857, guid: 17f7e6e81a941ca4aa6f951f81926b4c,
     type: 3}
+  mHomingFireBallPrefab: {fileID: 5922272314187969800, guid: cefcd741ed2287741a86acaf1dad0e29,
+    type: 3}
 --- !u!114 &2530470900646688803
 MonoBehaviour:
   m_ObjectHideFlags: 0

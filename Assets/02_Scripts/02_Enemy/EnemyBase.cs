@@ -7,9 +7,12 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 public class EnemyBase : LivingEntity
 {
+    [Header("Enemy Base 참조")]
     [SerializeField] protected EnemyStatDataSO mStatData;
     [SerializeField] private ExpPrefab mExpPrefab;
     [SerializeField] private EEnemyType mEnemyType = EEnemyType.Melee;
+    [SerializeField] private SmallFireBall mSmallFireBallPrefab;
+    [SerializeField] private HomingFireBall mHomingFireBallPrefab;
 
     protected Animator mAnim;
     protected NavMeshAgent mAgent;
@@ -35,6 +38,10 @@ public class EnemyBase : LivingEntity
     public Quaternion CorrectionQtrn => mCorrectionQtrn;
     public NavMeshAgent Agent => mAgent;
     public EEnemyType EEnemyType => mEnemyType;
+
+    //행동트리에서 사용할 데이터 묶음
+    public BlackBoard Board { get; private set; }
+
     //플레이어 추적용 타겟
     protected Transform mTarget;
 
@@ -55,7 +62,15 @@ public class EnemyBase : LivingEntity
 
         mStateMachine = new StateMachine();
 
+        //BlackBoard 컴포넌트 주입
+        Board = new BlackBoard();
+
+        Board.SmallFireBallPrefab = mSmallFireBallPrefab;
+        Board.HomingFireBallPrefab = mHomingFireBallPrefab;
+
         Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mSmallFireBallPrefab, 40, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mHomingFireBallPrefab, 20, Managers.Pool.transform);
     }
 
     protected override void OnEnable()
@@ -122,6 +137,7 @@ public class EnemyBase : LivingEntity
     public virtual void SetTarget(Transform target)
     {
         mTarget = target;
+        Board.Target = target;
     }
 
     public override void Die()
