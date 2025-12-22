@@ -11,10 +11,28 @@ public class DashAttackNode : ActionNode
     private float mTimer;
     private float mOriginalSpeed;
     private bool bPosRecorded;
+    private bool bIsHitProcessed;
+    private bool bIsAnimStart = false;
 
-    public DashAttackNode(EnemyBase owner, BlackBoard board) : base(owner)
+    private float mOriginAcceleration;
+    private float mOriginStoppingDist;
+
+    private readonly float mChargeTime;
+    private readonly float mTargetFixTime;
+    private readonly float mMoveSpeedMultiplier;
+    private readonly float mAnimSpeedRate;
+    private readonly float mColliderRadius;
+
+    private readonly RaycastHit[] mHitResults = new RaycastHit[1];
+
+    public DashAttackNode(EnemyBase owner, BlackBoard board, float chargeTime, float targetFixTime, float moveSpeedMultiplier, float animSpeedRate, float colliderRadius) : base(owner)
     {
         mBoard = board;
+        mChargeTime = chargeTime;
+        mTargetFixTime = targetFixTime;
+        mMoveSpeedMultiplier = moveSpeedMultiplier;
+        mAnimSpeedRate = animSpeedRate;
+        mColliderRadius = colliderRadius;
     }
 
     public override ENodeState Evaluate()
@@ -34,18 +52,30 @@ public class DashAttackNode : ActionNode
 
     private ENodeState UpdateCharging()
     {
+        if (!bIsAnimStart)
+        {
+            mOwner.Agent.velocity = Vector3.zero;
+            mOwner.Agent.isStopped = true;
+            mOwner.Anim.speed = mAnimSpeedRate; // 재생속도 늦춤
+            mOwner.Anim.CrossFade(AnimHash.attackDown, 0.1f);
+            bIsAnimStart = true;
+        }
         mTimer += Time.deltaTime;
 
-        // 0.6초 시점에 플레이어 위치 기록
-        if (mTimer >= 0.6f && !bPosRecorded)
+        // 0.8초 시점에 플레이어 위치 기록
+        if (mTimer >= mTargetFixTime && !bPosRecorded)
         {
             mTargetPos = mBoard.Target.position;
             bPosRecorded = true;
             Utils.Log("대쉬 대상 위치 기록 완료");
         }
+        else
+        {
+            mOwner.LookAtDiretion(mBoard.Target.position - mOwner.transform.position);
+        }
 
         // 1.5초 기모으기 완료 후 대쉬 전환
-        if (mTimer >= 1.5f)
+        if (mTimer >= mChargeTime)
         {
             PrepareDash();
             mCurrentState = EDashState.Dashing;
@@ -57,30 +87,36 @@ public class DashAttackNode : ActionNode
     private void PrepareDash()
     {
         mOriginalSpeed = mOwner.Agent.speed;
-        mOwner.Agent.speed = mOriginalSpeed * 4.0f; // 속도 4배
+        mOriginAcceleration = mOwner.Agent.acceleration;
+        mOriginStoppingDist = mOwner.Agent.stoppingDistance;
+
+        mOwner.Agent.acceleration = 500f;   //가속도 확 늘림
+        mOwner.Agent.speed = mOriginalSpeed * mMoveSpeedMultiplier; // 속도 확 빠르게
+
+        mOwner.Agent.stoppingDistance = 0.1f;
         mOwner.Agent.isStopped = false;
         mOwner.Agent.SetDestination(mTargetPos);
 
-        mOwner.Anim.speed = 0.3f; // 재생속도 0.3
-        mOwner.Anim.SetTrigger("AttackDown");
-
         mLastPosition = mOwner.transform.position;
+        bIsHitProcessed = false;
     }
 
     private ENodeState UpdateDashing()
     {
         // 1. 터널링 방지 판정 (이전 위치와 현재 위치 사이 스캔)
-        if (CheckTunnelingCollision())
+        if (!bIsHitProcessed)
         {
-            ResetDashSettings();
-            return ENodeState.Success; // 피격 성공
+            if (CheckTunnelingCollision())
+            {
+                bIsHitProcessed = true;
+            }
         }
 
         // 2. 목적지 도달 체크
         if (!mOwner.Agent.pathPending && mOwner.Agent.remainingDistance <= mOwner.Agent.stoppingDistance + 0.1f)
         {
             ResetDashSettings();
-            return ENodeState.Failure; // 피격 실패
+            return bIsHitProcessed ? ENodeState.Success : ENodeState.Failure;
         }
 
         return ENodeState.Running;
@@ -95,10 +131,11 @@ public class DashAttackNode : ActionNode
         if (distance > 0.01f)
         {
             // SphereCast로 궤적 추적
-            int layerMask = 1 << LayerMask.NameToLayer("Player"); // 혹은 Layers 헬퍼 사용
-            if (Physics.SphereCast(mLastPosition, 1.5f, direction.normalized, out RaycastHit hit, distance, layerMask))
+            int layerMask = Layers.GetLayerMask(ELayerName.Player);
+            int hitCount = Physics.SphereCastNonAlloc(mLastPosition, mColliderRadius, direction.normalized, mHitResults, distance, layerMask);
+            if (hitCount > 0)
             {
-                if (hit.collider.TryGetComponent<IDamageable>(out var target))
+                if (mHitResults[0].collider.TryGetComponent<IDamageable>(out var target))
                 {
                     target.TakeDamage(mOwner.AttackDamage);
                     Utils.Log("대쉬 공격 적중!");
@@ -112,8 +149,12 @@ public class DashAttackNode : ActionNode
 
     private void ResetDashSettings()
     {
+        bIsAnimStart = false;
+        mOwner.Agent.acceleration = mOriginAcceleration;
+        mOwner.Agent.stoppingDistance = mOriginStoppingDist;
         mOwner.Agent.speed = mOriginalSpeed;
         mOwner.Anim.speed = 1.0f;
+        mOwner.Anim.Play(AnimHash.idle);
         mTimer = 0f;
         bPosRecorded = false;
         mCurrentState = EDashState.Charging;

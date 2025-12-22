@@ -169,6 +169,10 @@ public class EnemyBase : LivingEntity
     }
     public void LookAtDiretion(Vector3 moveDir)
     {
+        LookAtDiretion(moveDir, RotateSpeed);
+    }
+    public void LookAtDiretion(Vector3 moveDir, float rotateSpeed)
+    {
         moveDir.y = 0;
 
         // velocity가 0이면 회전하지 않도록 체크
@@ -180,7 +184,7 @@ public class EnemyBase : LivingEntity
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRot,
-                RotateSpeed * Time.deltaTime
+                rotateSpeed * Time.deltaTime
             );
         }
     }

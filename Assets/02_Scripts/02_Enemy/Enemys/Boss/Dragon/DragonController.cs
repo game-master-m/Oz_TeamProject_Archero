@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class DragonController : EnemyBase
 {
+    [Header("투사체 프리팹")]
+    [SerializeField] private SmallFireBall mSmallFireBallPrefab;
+
     //행동트리에서 사용할 데이터 묶음
     public BlackBoard Board { get; private set; }
 
@@ -34,8 +37,11 @@ public class DragonController : EnemyBase
         //스탯 초기화
         InitStats(mStatData);
 
+        Managers.Pool.CreatePool(mSmallFireBallPrefab, 40, Managers.Pool.transform);
+
         //BlackBoard 컴포넌트 주입
         Board = new BlackBoard();
+        Board.SmallFireBallPrefab = mSmallFireBallPrefab;
 
         //정지거리를 넉넉하게 잡음
         mAgent.stoppingDistance = 1.5f;
@@ -132,12 +138,16 @@ public class DragonController : EnemyBase
 
         //Combat State
         mStateMachine.AddTransition(mCombatState, mIdleState, () => mTarget != null && !CheckInDistance(mTarget, mDetectRange));
-        mStateMachine.AddTransition(mCombatState, mFirstPhaseState,
-            () => !mStateMachine.IsCurrentState(mFirstPhaseState) && Board.HPPercent > 0.7f && Board.HPPercent <= 1.0f);
+        //mStateMachine.AddTransition(mCombatState, mFirstPhaseState,
+        //    () => !mStateMachine.IsCurrentState(mFirstPhaseState) && Board.HPPercent > 0.7f && Board.HPPercent <= 1.0f);
+        //mStateMachine.AddTransition(mCombatState, mSecondPhaseState,
+        //    () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 0.7f);
+        //mStateMachine.AddTransition(mCombatState, mThirdPhaseState,
+        //    () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 0.3f);
+
+        //Test
         mStateMachine.AddTransition(mCombatState, mSecondPhaseState,
-            () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 0.7f);
-        mStateMachine.AddTransition(mCombatState, mThirdPhaseState,
-            () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 0.3f);
+            () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 1.0f);
 
     }
     #endregion

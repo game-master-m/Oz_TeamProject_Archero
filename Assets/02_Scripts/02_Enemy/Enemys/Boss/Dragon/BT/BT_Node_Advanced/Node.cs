@@ -1,7 +1,7 @@
 
 public abstract class Node
 {
-    public ENodeState state { get; protected set; }
+    public ENodeState State { get; protected set; }
 
     // 매 프레임 실행될 로직
     public abstract ENodeState Evaluate();
@@ -9,6 +9,6 @@ public abstract class Node
     // 실행 중인 노드를 강제로 멈출 때 호출
     public virtual void Abort()
     {
-        state = ENodeState.Failure;
+        State = ENodeState.Failure;
     }
 }

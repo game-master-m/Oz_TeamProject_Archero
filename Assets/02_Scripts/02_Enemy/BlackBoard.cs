@@ -14,6 +14,9 @@ public class BlackBoard
     public bool IsAngry { get; set; } = false;
     public Vector3 LastKnownPos { get; set; }
 
-    //쿨타임 관리
+    //쿨타임 관리(Dictionary로 바꿔야 할 듯
     public float AttackCoolDown { get; set; }
+
+    //투사체 접근용
+    public SmallFireBall SmallFireBallPrefab { get; set; }
 }
