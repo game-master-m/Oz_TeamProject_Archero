@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FanShot_Lv", menuName = "Archero/SkillData/Active/MultiShotSkillDataSO")]
+[CreateAssetMenu(fileName = "FanShot_Lv", menuName = "Archero/SkillData/Active/FanShotSkillDataSO")]
 public class FanShotSkillDataSO : SkillDataSO
 {
     [Header("FanShot ´É·ÂÄ¡")]

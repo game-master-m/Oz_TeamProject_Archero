@@ -11,14 +11,14 @@ public class BombFairy : FairyBase
     private Bomb mBomb;
 
     private float mSlerpSpeed = 5.0f;
-    private float mEffectTime;
-    private float mDamageTick;
-    private float mDamageDuplicater;
     private float mBombDamage;
 
     private float mBombRange;
     private float mBombHeight;
+    private float mBombCount;
+    private float mBombThrowTick;
 
+    private WaitForSeconds mWaitThrowTick;
 
     public void SetUp(BombFairySkillDataSO skillDataSO, PlayerAttack attack)
     {
@@ -29,12 +29,14 @@ public class BombFairy : FairyBase
         //페어리 데이터 스텟 받아오기
         mSkillData = skillDataSO;
         mSeatNumber = skillDataSO.SeatNumber;
-        mEffectTime = skillDataSO.EffectTime;
-        mDamageTick = skillDataSO.DamageTick;
         mDamageDuplicater = skillDataSO.DamageDuplicater;
 
         mBombRange = skillDataSO.BombRange;
         mBombHeight = skillDataSO.BombHeights;
+        mBombCount = skillDataSO.BombCount;
+        mBombThrowTick = skillDataSO.BombThrowTick;
+
+        mWaitThrowTick = new WaitForSeconds(mBombThrowTick);
 
         Utils.Log($"{mPlayer.name}");
         //자기 자리 위치로 회전
@@ -51,16 +53,25 @@ public class BombFairy : FairyBase
     {
         mBombDamage = damage * mDamageDuplicater;
 
-        mBomb = Managers.Pool.GetFromPool(mBombPrefab);
-        mBomb.SetUp(this.gameObject, mBombHeight, mBombRange);
-        mBomb.gameObject.transform.position = this.gameObject.transform.position + mBombOffset;
-        LookTarget();
-        mBomb.DoJump(mTargetTransform.position, mBombHeight);
+        StartCoroutine(BombThrowCo());
     }
 
     public void Explode(EnemyBase target) 
     {
         //폭탄 데미지 = 데미지 * 0.4(기존 데미지 40%) * 다섯번
-        target.TakeDotDamage(mBombDamage, mEffectTime, mDamageTick);
+        target.TakeDamage(mBombDamage * FairyReinforceStatic.FairyAttackDamageDuplicater, EDmgElement.Normal);
+    }
+
+    IEnumerator BombThrowCo() 
+    {
+        for (int i = 0; i < mBombCount; i++)
+        {
+            mBomb = Managers.Pool.GetFromPool(mBombPrefab);
+            mBomb.SetUp(this.gameObject, mBombHeight, mBombRange);
+            mBomb.gameObject.transform.position = this.gameObject.transform.position + mBombOffset;
+            LookTarget();
+            mBomb.DoJump(mTargetTransform.position, mBombHeight);
+            yield return mWaitThrowTick;
+        }
     }
 }

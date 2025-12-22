@@ -8,8 +8,8 @@ public class BombFairySkillDataSO : SkillDataSO
     public BombFairy BombFairyPrefab;
     public int ElementNumber = 4;
     public int SeatNumber = 1;
-    public float EffectTime = PublicDamageConstans.BombEffectTime;
-    public float DamageTick = PublicDamageConstans.BombDamageTick;
+    public float BombCount = PublicDamageConstans.BombCount;
+    public float BombThrowTick = PublicDamageConstans.BombThrowTick;
     public float DamageDuplicater = PublicDamageConstans.BombDamageDuplicater;
     public float BombRange = PublicDamageConstans.BombRange;
     public float BombHeights = 5.0f;

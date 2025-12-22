@@ -31,14 +31,15 @@ public abstract class FairyBase : MonoBehaviour
 
     //페어리 공통
     protected PlayerAttack mPlayer;
+    protected static float mAttackSpeed;
+    protected static float mAttackDelay = 3.0f;
     protected float mSeatAngle = 45;
-    protected float mAttackDelay = 3.0f;
 
     protected Transform mTargetTransform;
 
     //플레이어 스텟 참조
-    private float mAttackDamage;
-    private float mAttackSpeed;
+    private static float mAttackDamage;
+    private static float mFairyDamageDuplicater = 1.0f;
 
     //코루틴용
     private static WaitForSeconds mWaitAttack;
@@ -47,13 +48,12 @@ public abstract class FairyBase : MonoBehaviour
     {
         //플레이어 스텟 받아오기
         mPlayer = attack;
-        mAttackSpeed = attack.Stat.AttackSpeed;
         mAttackDamage = attack.Stat.AttackDamage;
-
+        mAttackSpeed = FairyReinforceStatic.FairyAttackSpeedDuplicater;
         this.gameObject.transform.position = attack.gameObject.transform.position;
         this.gameObject.transform.rotation = Quaternion.identity;
 
-        UpdateAttackDelay(mAttackDelay);
+        mWaitAttack = new WaitForSeconds(mAttackDelay / mAttackSpeed);
         mAllFaries.Add(this);
 
         Managers.Pool.CreatePool(mElementsProjectilePrefab, 50, Managers.Pool.transform);
@@ -63,12 +63,6 @@ public abstract class FairyBase : MonoBehaviour
             mCoroutineHost = this;
             mAttackCoroutine = mCoroutineHost.StartCoroutine(GlobalAttackCo());
         }
-    }
-
-    public void UpdateAttackDelay(float newDelay) 
-    {
-        mAttackDelay = newDelay;
-        mWaitAttack = new WaitForSeconds(mAttackDelay);
     }
 
     //Projectile과 거의 같음
@@ -161,22 +155,10 @@ public abstract class FairyBase : MonoBehaviour
     //발사체한테 명중 신호 받았을때
     public void OnHitTarget(EnemyBase target) 
     {
-        ApplyElement(target, mAttackDamage);
+        ApplyElement(target, mAttackDamage * FairyReinforceStatic.FairyAttackDuplicater);
     }
 
     public abstract void ApplyElement(EnemyBase target, float damage);
-
-    //데미지 UP
-    public void DuplicateDamage(float amount) 
-    {
-        mAttackDamage = mAttackDamage + (mAttackDamage * amount);
-    }
-
-    //공격속도 UP
-    public void DuplicateSpeed(float amount) 
-    {
-        mAttackSpeed = mAttackSpeed + (mAttackSpeed * amount);
-    }
 
     //공격 코루틴
     private static IEnumerator GlobalAttackCo() 
@@ -189,6 +171,12 @@ public abstract class FairyBase : MonoBehaviour
                 {
                     fairy.SetAttackMode();
                 }
+            }
+            if (mAttackSpeed != FairyReinforceStatic.FairyAttackSpeedDuplicater) 
+            {
+                Utils.Log("공속업데이트 완료");
+                mAttackSpeed = FairyReinforceStatic.FairyAttackSpeedDuplicater;
+                mWaitAttack = new WaitForSeconds(mAttackDelay / mAttackSpeed);
             }
             yield return mWaitAttack;
         }
