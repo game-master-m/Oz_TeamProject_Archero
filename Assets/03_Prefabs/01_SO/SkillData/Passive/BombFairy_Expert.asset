@@ -20,9 +20,9 @@ MonoBehaviour:
   BombFairyPrefab: {fileID: 105101342948433968, guid: 162083a3d7e821b4ea65d90f50390f23,
     type: 3}
   ElementNumber: 4
-  SeatNumber: -3
-  EffectTime: 0.25
-  DamageTick: 0.05
+  SeatNumber: 2
+  BombCount: 5
+  BombThrowTick: 0.25
   DamageDuplicater: 0.4
   BombRange: 5
   BombHeights: 3

@@ -68,20 +68,20 @@ public class LaserFairy : FairyBase
     {
         if (LookTarget())
         {
-            LaserAttack();
+            LaserAttack(damage);
         }
     }
 
-    public void LaserAttack() 
+    public void LaserAttack(float damage) 
     {    
         mIsAttack = true;
-        StartCoroutine(LaserAttackCo());  
+        StartCoroutine(LaserAttackCo(damage));  
     }
 
-    private IEnumerator LaserAttackCo() 
+    private IEnumerator LaserAttackCo(float damage) 
     {
         float startTime = Time.time;
-        float laserDamage = mPlayer.Stat.AttackDamage * mLaserDamageDuplicater;
+        float laserDamage = damage * mLaserDamageDuplicater;
 
         while (Time.time - startTime < mLaserDuration) 
         {
@@ -90,7 +90,7 @@ public class LaserFairy : FairyBase
             {
                 if (hit[i].transform.TryGetComponent(out EnemyBase enemy)) 
                 {
-                    enemy.TakeDamage(laserDamage);
+                    enemy.TakeDamage(laserDamage * FairyReinforceStatic.FairyAttackDamageDuplicater);
                 }
             }
             yield return mLaserDelay;

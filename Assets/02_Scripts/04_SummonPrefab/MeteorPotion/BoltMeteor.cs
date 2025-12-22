@@ -33,11 +33,10 @@ public class BoltMeteor : MeteorBase
         HashSet<Transform> hitTargets = new HashSet<Transform>();
         hitTargets.Add(currentTarget);
 
-        float closestDistance = Mathf.Infinity;
-        Vector3 centerPosition = enemy.gameObject.transform.position;
-
         for (int i = 0; i < mMaxChainCount; i++)
         {
+            float closestDistance = Mathf.Infinity;
+            Vector3 centerPosition = enemy.gameObject.transform.position;
             //맞은 대상 주변 적 오브젝트 검색
             Collider[] hitColliders = Physics.OverlapSphere(currentTarget.transform.position, mChainRange, Layers.GetLayerMask(ELayerName.Enemy));
 

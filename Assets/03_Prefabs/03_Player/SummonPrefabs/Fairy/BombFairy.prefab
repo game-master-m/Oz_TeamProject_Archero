@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7b9203e97060d4c48924974a5273f7a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,11 +99,11 @@ MonoBehaviour:
   mElementsProjectilePrefab: {fileID: 8604183404813060388, guid: 3aa58996e5a67a143bd767c9d8d81500,
     type: 3}
   mTargetOffset: {x: 0, y: 1.5, z: 0}
-  mProjectileOffeset: {x: 3.5, y: 1, z: 1.5}
+  mProjectileOffeset: {x: 0, y: 1, z: 0}
   mTargetRange: 30
-  mAttackMode: 1
+  mAttackMode: 0
   mSkillData: {fileID: 11400000, guid: 028eb2d9a3850c945885eedf10674325, type: 2}
-  mOffset: {x: 0, y: 1, z: -3}
+  mOffset: {x: 3.5, y: 1, z: -1.5}
   mBombOffset: {x: 0, y: -1, z: 0}
   mBombPrefab: {fileID: 931957747262188243, guid: e4d63c20f21c12c4cbf14dbbfe362e6e,
     type: 3}

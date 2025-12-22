@@ -20,7 +20,7 @@ MonoBehaviour:
   LaserFairyPrefab: {fileID: 53040990338611051, guid: fe1c11651f79827498c181db4abc13d7,
     type: 3}
   ElementNumber: 4
-  SeatNumber: 3
+  SeatNumber: -2
   LaserDuration: 0.4
   LaserDamageTick: 0.1
   LaserRange: 50
