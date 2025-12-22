@@ -25,4 +25,4 @@ MonoBehaviour:
   DamageDuplicater: 0.1
   DamageDelay: 3
   KnockBackRadius: 5
-  KnockBackForce: 5
+  KnockBackForce: 2

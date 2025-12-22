@@ -10081,7 +10081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856cc22ce7ab6bd4eaf4aab25816d44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mStageData: {fileID: 11400000, guid: a7e611d340efdb141b834164ec784cab, type: 2}
+  mStageData: {fileID: 11400000, guid: 33a0e0ad21d27a94290926915e640f30, type: 2}
   mPlayer: {fileID: 634761995}
   mSpawnPoints:
   - {fileID: 354081335}

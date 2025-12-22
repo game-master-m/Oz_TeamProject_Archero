@@ -30,7 +30,7 @@ public class MultiShotStrategy : IProjectileStrategy, ISkillStackable<IProjectil
         Projectile subArrow = Managers.Pool.GetFromPool(projectile);
         subArrow.gameObject.transform.position = projectile.transform.position - projectile.transform.forward * 1;
         subArrow.gameObject.transform.rotation = projectile.transform.rotation;
-        subArrow.gameObject.transform.Rotate(0.0f, 180f, 0.0f);
+  
         projectile.StartCoroutine(CopyAfterOneFrame(subArrow, projectile));
     }
 
