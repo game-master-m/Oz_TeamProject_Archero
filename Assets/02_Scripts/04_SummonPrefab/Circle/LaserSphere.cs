@@ -17,6 +17,8 @@ public class LaserSphere : Sphere
 
     private bool mIsAttack = false;
 
+    private WaitForSeconds mLaserTick = new WaitForSeconds(0.5f);
+
     private void Update()
     {
         if (mIsAttack)
@@ -66,15 +68,10 @@ public class LaserSphere : Sphere
             {
                 if (hit[i].transform.TryGetComponent(out EnemyBase enemy))
                 {
-                    int otherID = hit[i].transform.GetInstanceID();
-                                                                      
-                    if (mIgnoreColliderIDs.Contains(otherID)) continue;
-
-                    mIgnoreColliderIDs.Add(otherID);
                     enemy.TakeDamage(laserDamage);
                 }
             }
-            yield return null;
+            yield return mLaserTick;
         }
         mLaserEffect.gameObject.SetActive(false);
         Managers.Pool.ReturnToPool(mLaserEffect);

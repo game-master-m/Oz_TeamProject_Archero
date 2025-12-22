@@ -20,7 +20,7 @@ MonoBehaviour:
   VenomFairyPrefab: {fileID: 2687202478790337105, guid: 930d819c0de5920489a3480f136cae56,
     type: 3}
   ElementNumber: 2
-  SeatNumber: 0
+  SeatNumber: -1
   EffectTime: 9999
   DamageTick: 1
   DamageDuplicater: 0.5

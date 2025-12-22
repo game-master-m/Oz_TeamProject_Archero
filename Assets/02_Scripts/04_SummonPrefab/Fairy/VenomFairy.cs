@@ -34,6 +34,6 @@ public class VenomFairy : FairyBase
         Utils.Log("ApplyVenom");
         //독 데미지 = 데미지 * 0.5(기존 데미지 50%), 죽을때까지 1초 간격 > 그냥 지속시간을 엄청 늘려놨음
         float venomDamage = damage * mDamageDuplicater;
-        target.TakeDotDamage(venomDamage, mEffectTime, mDamageTick, EDmgElement.Poison);
+        target.TakeDotDamage(venomDamage * FairyReinforceStatic.FairyAttackDamageDuplicater, mEffectTime, mDamageTick, EDmgElement.Poison);
     }
 }

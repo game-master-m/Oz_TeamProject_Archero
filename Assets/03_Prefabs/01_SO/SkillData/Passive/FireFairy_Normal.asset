@@ -20,7 +20,7 @@ MonoBehaviour:
   FireFairyPrefab: {fileID: 849340851855869549, guid: 6092ed30c64075345b27bc4457dc293c,
     type: 3}
   ElementNumber: 1
-  SeatNumber: -1
+  SeatNumber: 0
   EffectTime: 3
   DamageTick: 0.2
   DamageDuplicater: 0.2

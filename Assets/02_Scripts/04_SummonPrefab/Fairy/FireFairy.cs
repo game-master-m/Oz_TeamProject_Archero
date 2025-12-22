@@ -34,6 +34,6 @@ public class FireFairy : FairyBase
         Utils.Log("ApplyFire");
         //화염 데미지 = 데미지 * 0.2(기존 데미지 20%), 3초동안 0.2초 간격
         float fireDamage = damage * mDamageDuplicater;
-        target.TakeDotDamage(fireDamage, mEffectTime, mDamageTick, EDmgElement.Fire);
+        target.TakeDotDamage(fireDamage * FairyReinforceStatic.FairyAttackDamageDuplicater, mEffectTime, mDamageTick, EDmgElement.Fire);
     }
 }
