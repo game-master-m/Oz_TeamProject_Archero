@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Dino
   m_EditorClassIdentifier: 
-  mMaxHP: 20
-  mMoveSpeed: 4
-  mAttackDamage: 10
+  mMaxHP: 150
+  mMoveSpeed: 1.7
+  mAttackDamage: 30
   mAttackRange: 2.5
-  mAttackSpeed: 1
+  mAttackSpeed: 2
   mRotateSpeed: 8
   mDetectRange: 40
+  mRotateOffset: {x: 0, y: 0, z: 0}
