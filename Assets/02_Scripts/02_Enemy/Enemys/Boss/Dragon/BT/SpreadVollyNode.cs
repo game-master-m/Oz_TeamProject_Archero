@@ -1,21 +1,21 @@
 using System;
 using UnityEngine;
 
-public class PredictVolleyNode : ActionNode
+public class SpreadVollyNode : ActionNode
 {
     private BlackBoard mBoard;
     private int mFireCount = 0;
     private float mTimer = 0f;
     private Vector3 mSpawnOffset = Vector3.zero;
     private bool bIsInitialized = false;
+    private bool bIsLeft;
     private Func<EnemyProjectileBase> mProjectileFactory;
 
     private readonly int mMaxShots;
     private readonly float mFireInterval;
-    private readonly float mLeadTime = 2.5f; // 예측 가중치
     private readonly float mMoveSpeed;
 
-    public PredictVolleyNode(EnemyBase owner, BlackBoard board, int maxShots, float moveSpeed, float fireInterval, Vector3 spawnOffset, Func<EnemyProjectileBase> factory) : base(owner)
+    public SpreadVollyNode(EnemyBase owner, BlackBoard board, int maxShots, float moveSpeed, float fireInterval, Vector3 spawnOffset, Func<EnemyProjectileBase> factory) : base(owner)
     {
         mBoard = board;
         mMaxShots = maxShots;
@@ -29,18 +29,22 @@ public class PredictVolleyNode : ActionNode
     {
         if (mBoard.Target == null) return ENodeState.Failure;
 
+
         if (!bIsInitialized)
         {
-            mBoard.LastKnownPos = mOwner.Target.position;
+            int leftOfRight = Mathf.FloorToInt(UnityEngine.Random.Range(0, 2));
+            bIsLeft = leftOfRight == 0 ? true : false;
+
             mFireCount = 0;
             mTimer = 0f;
             bIsInitialized = true;
+            mBoard.LastKnownPos = mOwner.Target.position;
         }
 
         mTimer += Time.deltaTime;
         if (mTimer >= mFireInterval && mFireCount < mMaxShots)
         {
-            FirePredictiveShot();
+            FireSpreadShot();
             mFireCount++;
             mTimer = 0f;
         }
@@ -54,18 +58,15 @@ public class PredictVolleyNode : ActionNode
         return ENodeState.Running;
     }
 
-    private void FirePredictiveShot()
+    private void FireSpreadShot()
     {
-        // [예측 로직] 타겟의 현재 위치 + (이동 속도 * 가중치)
-        Vector3 playerVelocity = (mBoard.Target.position - mBoard.LastKnownPos) / mFireInterval;
-        Vector3 predictPos = mBoard.Target.position + (playerVelocity * mLeadTime * mFireInterval);
-        mBoard.LastKnownPos = mBoard.Target.position; // 다음 프레임 속도 계산용
-
-        Vector3 fireDir = (predictPos - (mOwner.transform.position + mSpawnOffset)).normalized;
-        fireDir.y = 0f;
+        float deg = bIsLeft ? -mFireCount * 8.0f : mFireCount * 8.0f;
+        Vector3 fireDir = Quaternion.Euler(0, deg, 0) * (mBoard.LastKnownPos - mOwner.transform.position);
+        fireDir.y = 0.0f;
 
         EnemyProjectileBase smallFireBall = mProjectileFactory?.Invoke();
         smallFireBall.transform.position = mOwner.transform.position + mOwner.transform.TransformDirection(mSpawnOffset);
         smallFireBall.Setup(mOwner.AttackDamage * 0.5f, mMoveSpeed, fireDir, mOwner);
+
     }
 }

@@ -329,6 +329,7 @@ MonoBehaviour:
   mStatData: {fileID: 11400000, guid: 7ac3db28b7db73b45b4aa661b88943dd, type: 2}
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
+  mEnemyType: 0
 --- !u!95 &3966424938172678486
 Animator:
   serializedVersion: 5

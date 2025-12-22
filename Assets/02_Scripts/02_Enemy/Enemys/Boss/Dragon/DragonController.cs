@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class DragonController : EnemyBase
 {
-    [Header("투사체 프리팹")]
-    [SerializeField] private SmallFireBall mSmallFireBallPrefab;
-
-    //행동트리에서 사용할 데이터 묶음
-    public BlackBoard Board { get; private set; }
 
     #region 상태들 선언
     //크게 아이들 , 컴뱃, 기절, 죽음
@@ -36,12 +31,6 @@ public class DragonController : EnemyBase
         base.Awake();
         //스탯 초기화
         InitStats(mStatData);
-
-        Managers.Pool.CreatePool(mSmallFireBallPrefab, 40, Managers.Pool.transform);
-
-        //BlackBoard 컴포넌트 주입
-        Board = new BlackBoard();
-        Board.SmallFireBallPrefab = mSmallFireBallPrefab;
 
         //정지거리를 넉넉하게 잡음
         mAgent.stoppingDistance = 1.5f;
@@ -104,7 +93,6 @@ public class DragonController : EnemyBase
     {
         Utils.Log("Dragon SetTarget!");
         base.SetTarget(target);
-        Board.Target = target;
     }
     #endregion
 
