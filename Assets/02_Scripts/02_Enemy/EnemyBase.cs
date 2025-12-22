@@ -104,13 +104,15 @@ public class EnemyBase : LivingEntity
     public virtual void InitStats(EnemyStatDataSO data)
     {
         base.Init(data.MaxHP);
-        mAgent.speed = data.MoveSpeed;
         mAttackDamage = data.AttackDamage;
         mAttackRange = data.AttackRange;
         mAttackSpeed = data.AttackSpeed;
         mRotateSpeed = data.RotateSpeed;
         mDetectRange = data.DetectRange;
         mRotationOffset = data.RotateOffset;
+
+        //속도는 NavMesh Agent에 직접 설정
+        mAgent.speed = data.MoveSpeed;
 
         //보정 회전값 설정
         mCorrectionQtrn = Quaternion.Euler(mRotationOffset);
@@ -160,6 +162,27 @@ public class EnemyBase : LivingEntity
             return true;
         }
         return false;
+    }
+    public void SetMoveSpeed(float multiplier)
+    {
+        mAgent.speed = mStatData.MoveSpeed * multiplier;
+    }
+    public void LookAtDiretion(Vector3 moveDir)
+    {
+        moveDir.y = 0;
+
+        // velocity가 0이면 회전하지 않도록 체크
+        if (moveDir.sqrMagnitude > 0.01f)
+        {
+            Quaternion lookRot = Quaternion.LookRotation(moveDir.normalized);
+            //회전값 보정(곱하는 순서가 중요, Forward까지의 회전값 * 보정 회전값)
+            Quaternion targetRot = lookRot * CorrectionQtrn;
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                RotateSpeed * Time.deltaTime
+            );
+        }
     }
     #endregion
 }

@@ -2,17 +2,17 @@ using UnityEngine;
 
 public abstract class ActionNode : Node
 {
-    protected MonoBehaviour owner;
-    protected Coroutine activeCoroutine;
+    protected EnemyBase mOwner;
+    protected Coroutine mActiveCoroutine;
 
-    public ActionNode(MonoBehaviour owner) => this.owner = owner;
+    public ActionNode(EnemyBase owner) => this.mOwner = owner;
 
     public override void Abort()
     {
-        if (activeCoroutine != null)
+        if (mActiveCoroutine != null)
         {
-            owner.StopCoroutine(activeCoroutine);
-            activeCoroutine = null;
+            mOwner.StopCoroutine(mActiveCoroutine);
+            mActiveCoroutine = null;
         }
         base.Abort();
     }

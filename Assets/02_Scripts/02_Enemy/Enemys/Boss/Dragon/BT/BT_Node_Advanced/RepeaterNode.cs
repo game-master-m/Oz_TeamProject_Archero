@@ -8,5 +8,14 @@ public class RepeaterNode : Node
         child.Evaluate();
         return ENodeState.Running; // 무한 반복
     }
+
+    public override void Abort()
+    {
+        if (child != null)
+        {
+            child.Abort();
+        }
+        base.Abort();
+    }
 }
 

@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.AI;
 
-public class EnemyBoard
+public class BlackBoard
 {
     //실시간 참조 데이터
+    public Vector3 NextDestination { get; set; }
     public Transform Target { get; set; }
     public float DistToTarget { get; set; }
+    public float CurrentWaitTime { get; set; }
 
     //AI 상태 데이터
     public float HPPercent { get; set; } = 1.0f;
