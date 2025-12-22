@@ -17,15 +17,48 @@ MonoBehaviour:
     type: 3}
   waveDataList:
   - spawnInfoList:
-    - enemyPrefab: {fileID: 4473601220503894025, guid: 6eb4f88dd331ac045a83486f6d76874f,
-        type: 3}
-      spawnPointIndex: 1
-      spawnDelay: 0
-    - enemyPrefab: {fileID: 4473601220503894025, guid: 6eb4f88dd331ac045a83486f6d76874f,
+    - enemyPrefab: {fileID: 5724651120281873940, guid: 32bad211d68896c4fbd4a3da41a24248,
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
-    - enemyPrefab: {fileID: 4473601220503894025, guid: 6eb4f88dd331ac045a83486f6d76874f,
+    - enemyPrefab: {fileID: 5724651120281873940, guid: 32bad211d68896c4fbd4a3da41a24248,
         type: 3}
       spawnPointIndex: 3
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 5724651120281873940, guid: 32bad211d68896c4fbd4a3da41a24248,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 5724651120281873940, guid: 32bad211d68896c4fbd4a3da41a24248,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 730887462043408789, guid: 084c19b6eac928d4a85e757a66d39b8e,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 730887462043408789, guid: 084c19b6eac928d4a85e757a66d39b8e,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 730887462043408789, guid: 084c19b6eac928d4a85e757a66d39b8e,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 730887462043408789, guid: 084c19b6eac928d4a85e757a66d39b8e,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 1842223190953490312, guid: 7081419461e95064996437c69fd3799a,
+        type: 3}
+      spawnPointIndex: 9
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 1842223190953490312, guid: 7081419461e95064996437c69fd3799a,
+        type: 3}
+      spawnPointIndex: 9
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 1842223190953490312, guid: 7081419461e95064996437c69fd3799a,
+        type: 3}
+      spawnPointIndex: 9
       spawnDelay: 0
