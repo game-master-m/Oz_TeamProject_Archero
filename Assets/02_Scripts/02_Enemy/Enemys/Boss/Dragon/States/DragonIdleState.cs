@@ -38,7 +38,7 @@ public class DragonIdleState : DragonState
         Node move = new MoveToNextPosNode(mDragon, mDragon.Board);
 
         // 3. 대기 (보드에 설정된 CurrentWaitTime 사용)
-        Node wait = new WaitNode(mDragon, mDragon.Board);
+        Node wait = new WaitNode(mDragon, 1.0f);
 
         // 4. 순차 실행 (메모리 기능을 켜서 이동 중 중단되어도 이어서 진행)
         SequenceNode seq = new SequenceNode(new List<Node> { setup, move, wait }, true);

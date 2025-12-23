@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class WaitNode : ActionNode
 {
-    private BlackBoard mBoard;
     private float mStartTime;
     private bool bIsWaiting = false;
+    private float mWaitTime;
 
     private Quaternion mStartRotation;
     private readonly float mLookAroundAngle = 40.0f;
     private readonly float mLookAroundSpeed = 1.5f;
 
-    public WaitNode(EnemyBase owner, BlackBoard board) : base(owner)
+    public WaitNode(EnemyBase owner, float waitTime) : base(owner)
     {
-        this.mBoard = board;
+        mWaitTime = waitTime;
     }
 
     public override ENodeState Evaluate()
@@ -25,13 +25,12 @@ public class WaitNode : ActionNode
             mStartRotation = mOwner.transform.rotation;
 
             // 보드에 저장된 랜덤 시간을 사용합니다.
-            Debug.Log($"드래곤이 {mBoard.CurrentWaitTime:F1}초 동안 대기합니다.");
+            Debug.Log($"드래곤이 {mWaitTime:F1}초 동안 대기합니다.");
         }
         float elapsed = Time.time - mStartTime;
-        if (elapsed >= mBoard.CurrentWaitTime)
+        if (elapsed >= mWaitTime)
         {
             bIsWaiting = false;
-            Debug.Log($"대기 완료 {mBoard.CurrentWaitTime:F1}초");
             return ENodeState.Success;
         }
 

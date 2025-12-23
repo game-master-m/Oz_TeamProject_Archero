@@ -41,10 +41,10 @@ public class SequenceNode : Node
 
     public override void Abort()
     {
+        base.Abort();
         if (mCurrentIndex < mChildren.Count)
             mChildren[mCurrentIndex].Abort();
 
         mCurrentIndex = 0;
-        base.Abort();
     }
 }

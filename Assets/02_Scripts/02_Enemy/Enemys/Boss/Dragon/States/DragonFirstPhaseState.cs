@@ -93,7 +93,7 @@ public class DragonFirstPhaseState : DragonState
                 new SequenceNode(new List<Node>
                 {
                     new DashAttackNode(mDragon, mDragon.Board, mChargeTime, mTargetFixTime, mMoveSpeedMultiplier, mAnimSpeedRate, mColliderRadius),
-                    new WaitNode(mDragon, mDragon.Board) // 보드에 CurrentWaitTime = 1.0f 설정 필요
+                    new WaitNode(mDragon, 1.0f) // 보드에 CurrentWaitTime = 1.0f 설정 필요
                 }),
                 new ConditionNode(() => true)
             }),

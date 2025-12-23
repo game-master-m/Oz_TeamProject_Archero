@@ -10,23 +10,16 @@ public class DragonSecondPhaseState : DragonState
     private readonly float mMoveSpeed = 10.0f;
     private readonly float mFireInterval = 0.15f;
     private readonly Vector3 mSpawnOffset = new Vector3(0, 1.0f, 0.5f);
+    private readonly Vector3 mSpawnOffset2 = new Vector3(0.0f, 3.0f, 2.0f);
 
     //½ºÇÁ·¹µå ¼¦
     private readonly int mMaxSpreadShot = 10;
+
+
+
     public DragonSecondPhaseState(DragonController dragon, IState parent = null) : base(dragon, parent)
     {
-        mPhase2BT = new RepeaterNode(new SequenceNode(new List<Node>
-        {
-            new WaitNode(mDragon,mDragon.Board),
-            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
-            new FanShotNode(mDragon,mDragon.Board,6,14.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
-            new WaitNode(mDragon,mDragon.Board),
-            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
-            new SpreadVollyNode(mDragon,mDragon.Board,mMaxSpreadShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-            new PredictVolleyNode(mDragon, mDragon.Board, mMaxShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
-            new SpreadVollyNode(mDragon, mDragon.Board, mMaxSpreadShot, mMoveSpeed, mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-        }));
+        BuildBT();
     }
 
     public override void Enter()
@@ -39,4 +32,82 @@ public class DragonSecondPhaseState : DragonState
     }
     public override void FixedUpdate() { }
     public override void Exit() { }
+
+    private void BuildBT()
+    {
+        Node pressure = new SequenceNode(new List<Node>
+        {
+            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
+            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
+            new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
+            new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
+            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
+            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new WaitNode(mDragon,1.0f)
+        });
+
+        Node harass = new SequenceNode(new List<Node>
+        {
+            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new SummonFireTrailNode(mDragon,mDragon.Board,3.0f,mSpawnOffset2),
+            new SpreadVollyNode(mDragon,mDragon.Board,mMaxSpreadShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
+            new PredictVolleyNode(mDragon, mDragon.Board, mMaxShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
+            new SpreadVollyNode(mDragon, mDragon.Board, mMaxSpreadShot, mMoveSpeed, mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
+            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new WaitNode(mDragon,1.0f)
+        });
+
+        Node fakeFan = new SequenceNode(new List<Node>
+        {
+            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
+            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
+            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
+            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new WaitNode(mDragon,1.0f)
+        });
+
+        Node fakeBig = new SequenceNode(new List<Node>
+        {
+            new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
+            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
+            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
+            new WaitNode(mDragon,1.0f)
+        });
+
+        Node randomAttack = new RandomSelectorNode(new List<Node>
+        {
+            pressure,harass,fakeBig,fakeFan
+        });
+
+        Node mainCycle = new SequenceNode(new List<Node>
+        {
+            randomAttack,
+            new WaitNode(mDragon,1.0f),
+            randomAttack,
+            new WaitNode(mDragon,1.0f),
+
+            new SetRandomPatrolDataNode(mDragon, mDragon.Board, 8.0f, 0.8f, 1.2f),
+            new MoveToNextPosNode(mDragon, mDragon.Board),
+            new WaitNode(mDragon,mDragon.Board.CurrentWaitTime),
+        });
+
+        mPhase2BT = new RepeaterNode(
+            new SelectorNode(new List<Node>
+            {
+                new SequenceNode(new List<Node>
+                {
+                    new ConditionNode(() => (mDragon.Target.position - mDragon.transform.position).sqrMagnitude > 800.0f),
+                    new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+                    new DashAttackNode(mDragon, mDragon.Board, 1.3f, 1.0f, 15.0f, 0.27f, 3.5f),
+                    new WaitNode(mDragon,0.5f),
+                }),
+
+                mainCycle
+            })
+        );
+    }
 }
