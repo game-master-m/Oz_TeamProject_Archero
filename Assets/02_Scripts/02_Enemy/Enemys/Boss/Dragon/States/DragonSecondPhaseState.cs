@@ -10,7 +10,7 @@ public class DragonSecondPhaseState : DragonState
     private readonly float mMoveSpeed = 10.0f;
     private readonly float mFireInterval = 0.15f;
     private readonly Vector3 mSpawnOffset = new Vector3(0, 1.0f, 0.5f);
-    private readonly Vector3 mSpawnOffset2 = new Vector3(0.0f, 3.0f, 2.0f);
+    private readonly Vector3 mSpawnOffset2 = new Vector3(0.0f, 3.2f, 2.5f);
 
     //½ºÇÁ·¹µå ¼¦
     private readonly int mMaxSpreadShot = 10;
@@ -31,13 +31,17 @@ public class DragonSecondPhaseState : DragonState
         mPhase2BT.Evaluate();
     }
     public override void FixedUpdate() { }
-    public override void Exit() { }
+    public override void Exit()
+    {
+        mPhase2BT.Abort();
+    }
 
     private void BuildBT()
     {
         Node pressure = new SequenceNode(new List<Node>
         {
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
             new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
             new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
@@ -50,6 +54,7 @@ public class DragonSecondPhaseState : DragonState
         Node harass = new SequenceNode(new List<Node>
         {
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,3.0f,mSpawnOffset2),
             new SpreadVollyNode(mDragon,mDragon.Board,mMaxSpreadShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
             new PredictVolleyNode(mDragon, mDragon.Board, mMaxShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
@@ -61,6 +66,7 @@ public class DragonSecondPhaseState : DragonState
         Node fakeFan = new SequenceNode(new List<Node>
         {
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
             new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
             new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
@@ -71,6 +77,7 @@ public class DragonSecondPhaseState : DragonState
         Node fakeBig = new SequenceNode(new List<Node>
         {
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
+            new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
             new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
             new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
@@ -103,7 +110,7 @@ public class DragonSecondPhaseState : DragonState
                     new ConditionNode(() => (mDragon.Target.position - mDragon.transform.position).sqrMagnitude > 800.0f),
                     new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
                     new DashAttackNode(mDragon, mDragon.Board, 1.3f, 1.0f, 15.0f, 0.27f, 3.5f),
-                    new WaitNode(mDragon,0.5f),
+                    new WaitNode(mDragon,1.5f),
                 }),
 
                 mainCycle

@@ -2,7 +2,7 @@
 - Project name: Oz_TeamProject_Archero
 - Unity version: Unity 2022.3.18f1
 - Active game object:
-  - Name: Tail4_end
+  - Name: AttackCol
   - Tag: Untagged
-  - Layer: Default
+  - Layer: EnemyAttack
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
