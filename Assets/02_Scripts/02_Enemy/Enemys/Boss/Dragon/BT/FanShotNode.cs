@@ -7,19 +7,20 @@ public class FanShotNode : ActionNode
     private Vector3 mSpawnOffset = Vector3.zero;
     private bool bIsInitialized = false;
     private float mTimer = 0f;
-    private float mShotDuration = 1.0f;
+    private float mAfterDelay;
     private Func<EnemyProjectileBase> mProjectileFactory;
 
     private readonly int mMaxShots;
     private readonly float mMoveSpeed;
 
-    public FanShotNode(EnemyBase owner, BlackBoard board, int maxShots, float moveSpeed, Vector3 spawnOffset, Func<EnemyProjectileBase> factory) : base(owner)
+    public FanShotNode(EnemyBase owner, BlackBoard board, int maxShots, float moveSpeed, float afterDelay, Vector3 spawnOffset, Func<EnemyProjectileBase> factory) : base(owner)
     {
         mBoard = board;
         mMaxShots = maxShots;
         mSpawnOffset = spawnOffset;
         mMoveSpeed = moveSpeed;
         mProjectileFactory = factory;
+        mAfterDelay = afterDelay;
     }
 
     public override ENodeState Evaluate()
@@ -30,12 +31,12 @@ public class FanShotNode : ActionNode
         {
             mTimer = 0f;
             bIsInitialized = true;
+            FireFanShot();
         }
 
         mTimer += Time.deltaTime;
-        if (mTimer >= mShotDuration)
+        if (mTimer >= mAfterDelay)
         {
-            FireFanShot();
             mTimer = 0f;
             bIsInitialized = false;
             return ENodeState.Success;

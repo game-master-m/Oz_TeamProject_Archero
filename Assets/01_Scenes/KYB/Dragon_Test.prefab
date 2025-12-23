@@ -753,6 +753,10 @@ MonoBehaviour:
     type: 3}
   mHomingFireBallPrefab: {fileID: 5922272314187969800, guid: cefcd741ed2287741a86acaf1dad0e29,
     type: 3}
+  mBigFireBallPrefab: {fileID: 6849689849667787166, guid: d0d52d8db44968144a99f8480bd8f2d5,
+    type: 3}
+  mFireTrailPrefab: {fileID: 1867303470303842447, guid: a2a96030ebe1af14c8f8de9595fa12d3,
+    type: 3}
 --- !u!114 &2530470900646688803
 MonoBehaviour:
   m_ObjectHideFlags: 0

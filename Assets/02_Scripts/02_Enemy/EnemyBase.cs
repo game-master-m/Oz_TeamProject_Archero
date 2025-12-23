@@ -11,13 +11,10 @@ public class EnemyBase : LivingEntity
     [SerializeField] protected EnemyStatDataSO mStatData;
     [SerializeField] private ExpPrefab mExpPrefab;
     [SerializeField] private EEnemyType mEnemyType = EEnemyType.Melee;
-    [SerializeField] private SmallFireBall mSmallFireBallPrefab;
-    [SerializeField] private HomingFireBall mHomingFireBallPrefab;
 
     protected Animator mAnim;
     protected NavMeshAgent mAgent;
     protected CapsuleCollider mCapsuleCollider;
-
     protected StateMachine mStateMachine;
 
     protected float mAttackDamage;
@@ -65,12 +62,8 @@ public class EnemyBase : LivingEntity
         //BlackBoard 컴포넌트 주입
         Board = new BlackBoard();
 
-        Board.SmallFireBallPrefab = mSmallFireBallPrefab;
-        Board.HomingFireBallPrefab = mHomingFireBallPrefab;
-
         Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
-        Managers.Pool.CreatePool(mSmallFireBallPrefab, 40, Managers.Pool.transform);
-        Managers.Pool.CreatePool(mHomingFireBallPrefab, 20, Managers.Pool.transform);
+
     }
 
     protected override void OnEnable()

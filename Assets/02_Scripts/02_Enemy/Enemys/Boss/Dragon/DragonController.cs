@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class DragonController : EnemyBase
 {
-
+    [Header("사용스킬 및 이펙트")]
+    [SerializeField] private SmallFireBall mSmallFireBallPrefab;
+    [SerializeField] private HomingFireBall mHomingFireBallPrefab;
+    [SerializeField] private BigFireBall mBigFireBallPrefab;
+    [SerializeField] private FireTrail mFireTrailPrefab;
     #region 상태들 선언
     //크게 아이들 , 컴뱃, 기절, 죽음
     DragonIdleState mIdleState;
@@ -20,6 +24,7 @@ public class DragonController : EnemyBase
     public int DizzyCount { get; set; }
     public float DizzyDuration => mDizzyDuration;
     #endregion
+
     private readonly int mMaxDizzyCount = 30;
     private readonly float mDizzyDuration = 1.5f;
     private readonly float mMinDizzyDmgRate = 0.02f;  //총 체력의 2%
@@ -29,6 +34,7 @@ public class DragonController : EnemyBase
     protected override void Awake()
     {
         base.Awake();
+
         //스탯 초기화
         InitStats(mStatData);
 
@@ -48,7 +54,18 @@ public class DragonController : EnemyBase
         //상태 전이조건
         InitTransitions();
     }
+    private void Start()
+    {
+        Managers.Pool.CreatePool(mSmallFireBallPrefab, 40, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mHomingFireBallPrefab, 20, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mBigFireBallPrefab, 10, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mFireTrailPrefab, 2, Managers.Pool.transform);
 
+        Board.SmallFireBallPrefab = mSmallFireBallPrefab;
+        Board.HomingFireBallPrefab = mHomingFireBallPrefab;
+        Board.BigFireBallPrefab = mBigFireBallPrefab;
+        Board.FireTrailPrefab = mFireTrailPrefab;
+    }
     protected override void Update()
     {
         base.Update();
