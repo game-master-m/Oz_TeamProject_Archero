@@ -148,6 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMoveSpeed: 24
+  mExplodeEffectPrefab: {fileID: 9020610952927046917, guid: 72d3813a75126214eb80b4830586bf07,
+    type: 3}
+  mCircleEffectPrefab: {fileID: 8348799155907039199, guid: 8c16b27925bf8d24eb41489a504ef9d7,
+    type: 3}
 --- !u!1001 &4809090664655332075
 PrefabInstance:
   m_ObjectHideFlags: 0

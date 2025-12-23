@@ -13,10 +13,12 @@ public abstract class MeteorBase : MonoBehaviour
     protected float mMeteorSpeed;
     protected float mRange;
     protected float mMeteorDamage;
+    protected WaitForSeconds mWaitEffect;
 
     private void Start()
     {
         mRigidbody = GetComponent<Rigidbody>();
+        mWaitEffect = new WaitForSeconds(1.5f);
     }
 
     private void FixedUpdate()
@@ -48,8 +50,9 @@ public abstract class MeteorBase : MonoBehaviour
             }
         }
 
-        ReturnPool();
+        SetExplodeEffect();
     }
     public abstract void Applyelement(EnemyBase enemy);
     public abstract void ReturnPool();
+    protected abstract void SetExplodeEffect();
 }

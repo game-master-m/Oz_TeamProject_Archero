@@ -27,8 +27,9 @@ public class MultiShotStrategy : IProjectileStrategy, ISkillStackable<IProjectil
 
     private void SpawnSubArrow(Projectile projectile)
     {
+        Vector3 randomOffset = new Vector3(Random.Range(-0.3f, 0.3f), 0f, 0f);
         Projectile subArrow = Managers.Pool.GetFromPool(projectile);
-        subArrow.gameObject.transform.position = projectile.transform.position - projectile.transform.forward * 1;
+        subArrow.gameObject.transform.position = projectile.transform.position - projectile.transform.forward * 1 + randomOffset;
         subArrow.gameObject.transform.rotation = projectile.transform.rotation;
   
         projectile.StartCoroutine(CopyAfterOneFrame(subArrow, projectile));

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class PotionBase : MonoBehaviour
 {
+    private Vector3 mOffset = new Vector3(0f, 0.5f, 0f);
     private Vector3 mSpawnPos;
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +25,7 @@ public abstract class PotionBase : MonoBehaviour
         //위치 구하는 공식
         float temp = (planeY - ray.origin.y) / ray.direction.y;
         mSpawnPos = ray.origin + ray.direction * temp;  
-        this.gameObject.transform.position = mSpawnPos;
+        this.gameObject.transform.position = mSpawnPos + mOffset;
     }
 
     public abstract void ApplyPotionEffect();

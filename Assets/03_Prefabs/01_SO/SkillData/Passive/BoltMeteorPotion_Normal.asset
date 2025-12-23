@@ -26,6 +26,6 @@ MonoBehaviour:
   MaxChainCount: 8
   ChainRange: 10
   DamageDuplicater: 0.3
-  DamageRange: 8
+  DamageRange: 2
   MeteorSpeed: 20
-  PotionSpawnDelay: 3
+  PotionSpawnDelay: 5

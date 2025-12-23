@@ -65,6 +65,11 @@ public abstract class FairyBase : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        transform.LookAt(mTargetTransform.position, Vector3.up);
+    }
+
     //Projectile과 거의 같음
     public bool LookTarget()
     {
