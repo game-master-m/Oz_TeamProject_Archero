@@ -91,11 +91,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d546e5695af3e442913f4c4c2fafd80,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8945458289476343973}
+      addedObject: {fileID: 995689780046314747}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d546e5695af3e442913f4c4c2fafd80,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 995689780046314747}
+      addedObject: {fileID: -3394410359531150447}
   m_SourcePrefab: {fileID: 100100000, guid: 7d546e5695af3e442913f4c4c2fafd80, type: 3}
 --- !u!1 &3732615879304160254 stripped
 GameObject:
@@ -169,21 +169,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8945458289476343973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3732615879304160254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e35bb558212384cab4ab2cd86636fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mStatData: {fileID: 11400000, guid: 6c25f890b7dcb2a4eab49b1af077fcd8, type: 2}
-  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
-    type: 3}
 --- !u!114 &995689780046314747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +185,24 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
+--- !u!114 &-3394410359531150447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3732615879304160254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStatData: {fileID: 11400000, guid: 6c25f890b7dcb2a4eab49b1af077fcd8, type: 2}
+  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
+    type: 3}
+  mEnemyType: 2
+  mProjectilePrefab: {fileID: 0}
+  mFirePoint: {fileID: 0}
 --- !u!4 &4073289195451873604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d546e5695af3e442913f4c4c2fafd80,

@@ -230,11 +230,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4178d0e4aec816647a223fa91d9da296,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7443912649202983069}
+      addedObject: {fileID: 1283035075641515823}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4178d0e4aec816647a223fa91d9da296,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1283035075641515823}
+      addedObject: {fileID: -5380974655607406522}
   m_SourcePrefab: {fileID: 100100000, guid: 4178d0e4aec816647a223fa91d9da296, type: 3}
 --- !u!4 &2529492038488605705 stripped
 Transform:
@@ -314,21 +314,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7443912649202983069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2905207928400813747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e35bb558212384cab4ab2cd86636fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mStatData: {fileID: 11400000, guid: 846e2cf5d3c2d1440ad739e22d1e2412, type: 2}
-  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
-    type: 3}
 --- !u!114 &1283035075641515823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,3 +330,21 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
+--- !u!114 &-5380974655607406522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2905207928400813747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStatData: {fileID: 11400000, guid: 846e2cf5d3c2d1440ad739e22d1e2412, type: 2}
+  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
+    type: 3}
+  mEnemyType: 2
+  mProjectilePrefab: {fileID: 0}
+  mFirePoint: {fileID: 0}
