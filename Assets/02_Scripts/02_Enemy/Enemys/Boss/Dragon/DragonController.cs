@@ -7,6 +7,10 @@ public class DragonController : EnemyBase
     [SerializeField] private HomingFireBall mHomingFireBallPrefab;
     [SerializeField] private BigFireBall mBigFireBallPrefab;
     [SerializeField] private FireTrail mFireTrailPrefab;
+
+    [Header("꼬리공격용 컬라이더")]
+    [SerializeField] private EnemyAttackCol mAttackCol;
+
     #region 상태들 선언
     //크게 아이들 , 컴뱃, 기절, 죽음
     DragonIdleState mIdleState;
@@ -23,6 +27,7 @@ public class DragonController : EnemyBase
     public bool IsDizzy { get; set; } = false;
     public int DizzyCount { get; set; }
     public float DizzyDuration => mDizzyDuration;
+    public EnemyAttackCol AttackCol => mAttackCol;
     #endregion
 
     private readonly int mMaxDizzyCount = 30;
@@ -65,6 +70,8 @@ public class DragonController : EnemyBase
         Board.HomingFireBallPrefab = mHomingFireBallPrefab;
         Board.BigFireBallPrefab = mBigFireBallPrefab;
         Board.FireTrailPrefab = mFireTrailPrefab;
+
+        mAttackCol.SetUpDmg(mAttackDamage);
     }
     protected override void Update()
     {
@@ -151,8 +158,8 @@ public class DragonController : EnemyBase
         //    () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 0.3f);
 
         //Test
-        mStateMachine.AddTransition(mCombatState, mSecondPhaseState,
-            () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 1.0f);
+        mStateMachine.AddTransition(mCombatState, mThirdPhaseState,
+            () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 1.0f);
 
     }
     #endregion

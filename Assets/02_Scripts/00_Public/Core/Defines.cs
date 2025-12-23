@@ -42,7 +42,7 @@ public class Layers
 //Enums
 public enum ELayerName
 {
-    Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle, Projectile, Exp
+    Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle, Projectile, Exp, EnemyAttack
 }
 public enum EEnemyName { None, Slime }
 public enum ESkillGrade { None, Normal, Expert, Epic, Legend }
