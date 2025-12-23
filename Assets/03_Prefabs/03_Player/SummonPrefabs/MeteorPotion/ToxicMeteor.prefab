@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 4.35}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1719276045750179526}
@@ -99,6 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0be9590019d32b4bb26683bf1fa0d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mExplodeEffectPrefab: {fileID: 9020610952927046917, guid: 72d3813a75126214eb80b4830586bf07,
+    type: 3}
+  mCircleEffectPrefab: {fileID: 8348799155907039199, guid: 8c16b27925bf8d24eb41489a504ef9d7,
+    type: 3}
 --- !u!135 &2953309173485938057
 SphereCollider:
   m_ObjectHideFlags: 0

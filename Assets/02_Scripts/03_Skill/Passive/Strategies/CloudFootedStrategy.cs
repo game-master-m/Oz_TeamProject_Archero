@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -28,6 +29,7 @@ public class CloudFootedStrategy : IPassiveStrategy
     private float mStartTime = 0;
     private float mEffectTime = 0;
 
+    private WaitForSeconds mWaitdamage;
     public CloudFootedStrategy(CloudFootedSkillDataSO skillDataSO)
     {
         mSkillData = skillDataSO;
@@ -41,6 +43,8 @@ public class CloudFootedStrategy : IPassiveStrategy
 
         mKnockBackRadius = skillDataSO.KnockBackRadius;
         mKnockBackForce = skillDataSO.KnockBackForce;
+
+        mWaitdamage = new WaitForSeconds(mDamageTick);
     }
 
     public void OnEquip(PlayerAttack attack)
@@ -84,7 +88,6 @@ public class CloudFootedStrategy : IPassiveStrategy
         if (mEffectPrefab != null)
         {
             mEffect.gameObject.SetActive(true);
-
             foreach (var ps in mParticles) { ps.Play(); }
 
             mIsEffectPlaying = true;
@@ -92,6 +95,9 @@ public class CloudFootedStrategy : IPassiveStrategy
         }
 
         float knockbackDamage = attack.Stat.AttackDamage * mDamageDuplicater;
+
+        attack.StartCoroutine(AttackCo(knockbackDamage));
+
         Collider[] hitColliders = Physics.OverlapSphere(mPlayer.gameObject.transform.position, mKnockBackRadius, Layers.GetLayerMask(ELayerName.Enemy));
 
         foreach (Collider collider in hitColliders)
@@ -101,22 +107,15 @@ public class CloudFootedStrategy : IPassiveStrategy
             if (collider.gameObject.TryGetComponent(out NavMeshAgent agent))
             {
                 Vector3 dir = (collider.gameObject.transform.position - mPlayer.gameObject.transform.position).normalized;
-                
-                agent.isStopped = true;
-
                 Vector3 knockBackPos = collider.transform.position + dir * mKnockBackForce;
 
-                if (NavMesh.SamplePosition(knockBackPos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas)) 
+                if (NavMesh.SamplePosition(knockBackPos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
                 {
-                    collider.gameObject.transform.position = hit.position;
+                    attack.StartCoroutine(KnockBackCo(collider.transform, hit.position, 1f));
                 }
 
+                agent.isStopped = true;
                 mAgents.Add(agent);
-            }
-
-            if (collider.TryGetComponent(out EnemyBase enemy))
-            {
-                enemy.TakeDotDamage(knockbackDamage, mDamageTick * mDamageCount, mDamageTick);
             }
         }
     }
@@ -131,12 +130,37 @@ public class CloudFootedStrategy : IPassiveStrategy
         mAgents.Clear();
     }
 
-    void OnDrawGizmos() 
+    IEnumerator AttackCo(float knockbackDamage) 
     {
-        if (mPlayer != null)
+        for (int i = 0; i < mDamageCount; i++)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(mPlayer.transform.position, mKnockBackRadius);
+            Collider[] hitColliders = Physics.OverlapSphere(mPlayer.gameObject.transform.position, mKnockBackRadius, Layers.GetLayerMask(ELayerName.Enemy));
+
+            foreach (Collider collider in hitColliders)
+            {
+                if (!collider.enabled || !collider.gameObject.activeInHierarchy) continue;
+               
+                if (collider.TryGetComponent(out EnemyBase enemy))
+                {
+                    enemy.TakeDamage(knockbackDamage);
+                }
+            }
+
+            yield return mWaitdamage;
         }
+    }
+
+    IEnumerator KnockBackCo(Transform target, Vector3 endPos, float duration) 
+    {
+        Vector3 startPos = target.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration) 
+        {
+            target.position = Vector3.Slerp(startPos, endPos, elapsed / duration);
+            elapsed += duration;
+            yield return null;
+        }
+        target.position = endPos;
     }
 }

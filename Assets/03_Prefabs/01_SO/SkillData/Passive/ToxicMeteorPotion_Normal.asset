@@ -26,6 +26,6 @@ MonoBehaviour:
   EffectTime: 9999
   DamageTick: 1
   DamageDuplicater: 0.5
-  DamageRange: 8
+  DamageRange: 2
   MeteorSpeed: 20
-  PotionSpawnDelay: 8
+  PotionSpawnDelay: 5

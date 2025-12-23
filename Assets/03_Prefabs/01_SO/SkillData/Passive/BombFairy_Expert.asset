@@ -24,5 +24,5 @@ MonoBehaviour:
   BombCount: 5
   BombThrowTick: 0.25
   DamageDuplicater: 0.4
-  BombRange: 5
+  BombRange: 1
   BombHeights: 3
