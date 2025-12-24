@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 2}
   mOnNoticeLastRoom: {fileID: 11400000, guid: 4501eea442c30844385ce699759bf33c, type: 2}
   mOnPlayerDie: {fileID: 11400000, guid: 77db8a905e33d6f459782502bdefd6d6, type: 2}
+  mOnSceneChanged: {fileID: 11400000, guid: f4a4e8fe2d455754ba9006fb0f0ab2d1, type: 2}
+  mSpawnRadius: 3.5

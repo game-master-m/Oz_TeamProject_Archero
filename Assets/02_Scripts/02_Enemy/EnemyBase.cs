@@ -179,14 +179,14 @@ public class EnemyBase : LivingEntity
         Managers.Pool.ReturnToPool(this);
     }
 
-    private void DropItems() 
+    private void DropItems()
     {
-        foreach (var drop in mDropItems) 
+        foreach (var drop in mDropItems)
         {
             TryDrop(drop);
         }
 
-        if (mCommonDropTable != null) 
+        if (mCommonDropTable != null)
         {
             foreach (var drop in mCommonDropTable.commonDrops)
             {
@@ -195,7 +195,7 @@ public class EnemyBase : LivingEntity
         }
     }
 
-    private void TryDrop(DropItemData drop) 
+    private void TryDrop(DropItemData drop)
     {
         if (drop == null || drop.itemPrefab == null) return;
 
@@ -208,25 +208,26 @@ public class EnemyBase : LivingEntity
         }
     }
 
-    public void KnockBack(Vector3 attackerPos, float force, float duration = 0.3f) 
+    public void KnockBack(Vector3 attackerPos, float force, float duration = 0.3f)
     {
         // 1. 넉백 방향 계산
         Vector3 dir = (transform.position - attackerPos).normalized;
-        
+
         // 2. 에이전트 잠시 끄기
-        if(mAgent != null) mAgent.enabled = false;
+        if (mAgent != null) mAgent.enabled = false;
 
         // 3. 넉백 코루틴 실행
         StartCoroutine(KnockBackCo(dir, force, duration));
     }
 
-    private IEnumerator KnockBackCo(Vector3 dir, float force, float duration) 
+    private IEnumerator KnockBackCo(Vector3 dir, float force, float duration)
     {
         float elapsed = 0f;
         Vector3 startPos = transform.position;
         Vector3 endPos = startPos + dir * force;
+        endPos.y = startPos.y;
 
-        while (elapsed < duration) 
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
@@ -238,10 +239,16 @@ public class EnemyBase : LivingEntity
             yield return null;
         }
 
-        if (mAgent.isOnNavMesh) 
+        mAgent.enabled = true;
+        bool isOnNavMesh = false;
+        while (!isOnNavMesh)
         {
-            mAgent.enabled = true;
-            mAgent.isStopped = false;
+            if (mAgent.isOnNavMesh)
+            {
+                mAgent.isStopped = false;
+                isOnNavMesh = true;
+            }
+            yield return null;
         }
     }
 
