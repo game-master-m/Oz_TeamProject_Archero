@@ -60,6 +60,7 @@ public class SplitShotStrategy : IProjectileStrategy, ISkillStackable<IProjectil
         {
             subArrow.AddIgnoreTarget(ignoreTargetID);
         }
+        subArrow.gameObject.transform.position = projectile.transform.position;
         subArrow.CopyWithOutOnShoot(projectile);
 
         //한번 분리 후 Split전략 제거, 안 해도 되지만 몬스터가 많으면 무한증식 가능,
