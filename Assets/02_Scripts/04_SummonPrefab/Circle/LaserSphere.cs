@@ -17,7 +17,7 @@ public class LaserSphere : Sphere
 
     private bool mIsAttack = false;
 
-    private WaitForSeconds mLaserTick = new WaitForSeconds(0.5f);
+    //private WaitForSeconds mLaserTick = new WaitForSeconds(0.2f);
 
     private void Update()
     {
@@ -71,7 +71,7 @@ public class LaserSphere : Sphere
                     enemy.TakeDamage(laserDamage);
                 }
             }
-            yield return mLaserTick;
+            yield return null;
         }
         mLaserEffect.gameObject.SetActive(false);
         Managers.Pool.ReturnToPool(mLaserEffect);
@@ -79,5 +79,20 @@ public class LaserSphere : Sphere
         mIsAttack = false;
         mCoolTime = Time.time;
         Utils.Log($"레이저 공격 : {mIsAttack}");
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + transform.forward * mLaserRange;
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(startPos + transform.up * mLaserRadius, endPos + transform.up * mLaserRadius);
+        Gizmos.DrawLine(startPos - transform.up * mLaserRadius, endPos - transform.up * mLaserRadius);
+        Gizmos.DrawLine(startPos + transform.right * mLaserRadius, endPos + transform.right * mLaserRadius);
+        Gizmos.DrawLine(startPos - transform.right * mLaserRadius, endPos - transform.right * mLaserRadius);
+        Gizmos.DrawWireSphere(startPos, mLaserRadius);
+        Gizmos.DrawWireSphere(endPos, mLaserRadius);
     }
 }

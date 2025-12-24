@@ -108,7 +108,7 @@ public class CloudFootedStrategy : IPassiveStrategy
         }
     }
 
-    IEnumerator AttackCo(float knockbackDamage) 
+    IEnumerator AttackCo(float knockbackDamage)
     {
         for (int i = 0; i < mDamageCount; i++)
         {
