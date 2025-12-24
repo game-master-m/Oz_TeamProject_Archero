@@ -10,6 +10,7 @@ public class LaserFairy : FairyBase
     [SerializeField] private LaserEffect mLaserEffectPrefab;
     [SerializeField] private float mLaserRadius = 2.0f;
     private LaserEffect mLaserEffect;
+    private Vector3 mLaserOffset = new Vector3(0f, 1f, 0f); 
 
     private float mSlerpSpeed = 5.0f;
 
@@ -51,7 +52,7 @@ public class LaserFairy : FairyBase
                 mLaserEffect = Managers.Pool.GetFromPool(mLaserEffectPrefab);
                 if (mLaserEffect == null) { Utils.Log("레이저 생성 실패"); }
             }
-            Vector3 start = this.gameObject.transform.position;
+            Vector3 start = this.gameObject.transform.position + mLaserOffset;
             Vector3 end = start + this.gameObject.transform.forward * mLaserRange;
             mLaserEffect.SetLineRenderer(mLaserRadius);
             mLaserEffect.DrawLaser(start, end);

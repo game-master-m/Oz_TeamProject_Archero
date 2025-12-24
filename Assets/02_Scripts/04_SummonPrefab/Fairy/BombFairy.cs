@@ -6,7 +6,7 @@ public class BombFairy : FairyBase
 {
     [SerializeField] private BombFairySkillDataSO mSkillData;
     [SerializeField] private Vector3 mOffset = new Vector3(0, 1, -3);
-    [SerializeField] private Vector3 mBombOffset = new Vector3(0, 1, 0);
+    [SerializeField] private Vector3 mBombOffset = new Vector3(0, 2, 0);
     [SerializeField] private Bomb mBombPrefab;
     private Bomb mBomb;
 

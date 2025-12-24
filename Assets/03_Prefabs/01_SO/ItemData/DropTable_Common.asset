@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fb4dd6cc8144d4ca3d1663f5de22cc, type: 3}
+  m_Name: DropTable_Common
+  m_EditorClassIdentifier: 
+  commonDrops:
+  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
+      type: 3}
+    dropChance: 0.1

@@ -52,8 +52,8 @@ public class Bomb : MonoBehaviour
         mBombRange = range;
         mWaitEffect = new WaitForSeconds(1.5f);
 
-        Managers.Pool.CreatePool(mExplodeEffectPrefab, 3, Managers.Pool.transform);
-        Managers.Pool.CreatePool(mCircleEffectPrefab, 3, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mExplodeEffectPrefab, 8, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mCircleEffectPrefab, 8, Managers.Pool.transform);
     }
 
     //y = 4 * height * (경과시간/전체점프시간) * (1 - 경과시간/전체점프시간)
@@ -142,6 +142,12 @@ public class Bomb : MonoBehaviour
         yield return mWaitEffect;
 
         ReturnPool();
+    }
+
+    private void OnDisable()
+    {
+        if (mCircleEffect != null) Managers.Pool.ReturnToPool(mCircleEffect);
+        if (mExplodeEffect != null) Managers.Pool.ReturnToPool(mExplodeEffect);
     }
 
     private void OnDrawGizmos()

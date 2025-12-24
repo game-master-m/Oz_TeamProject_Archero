@@ -12,7 +12,6 @@ public class ElementProjectile : MonoBehaviour
     [SerializeField] private float mTargetRange = 30.0f;
     [SerializeField] private float mMoveSpeed = 16.0f;
     [SerializeField] private float mLifeTime = 10.0f;
-    [SerializeField] private Vector3 mTargetOffset = new Vector3(0, 1.0f, 0);
 
     //캐싱
     private CapsuleCollider mCollider;
@@ -93,7 +92,9 @@ public class ElementProjectile : MonoBehaviour
             return false;
         }
 
-        transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
+        //높이는 그대로 x,z만 바라보기
+        Vector3 lookDir = new Vector3(closestEnemy.position.x, transform.position.y, closestEnemy.position.z);
+        transform.LookAt(lookDir, Vector3.up);
 
         return true;
     }

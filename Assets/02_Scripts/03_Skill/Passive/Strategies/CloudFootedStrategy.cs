@@ -13,8 +13,6 @@ public class CloudFootedStrategy : IPassiveStrategy
     private float mEffectDuration;
     private bool mIsEffectPlaying = false;
 
-    private List<NavMeshAgent> mAgents = new List<NavMeshAgent>();
-
     private CloudFootedSkillDataSO mSkillData;
     private PlayerAttack mPlayer;
 
@@ -73,7 +71,6 @@ public class CloudFootedStrategy : IPassiveStrategy
             {
                 mEffect.gameObject.SetActive(false);
                 mIsEffectPlaying = false;
-                ResumeAgents();
             }
         }
     }
@@ -104,30 +101,11 @@ public class CloudFootedStrategy : IPassiveStrategy
         {
             if (!collider.enabled || !collider.gameObject.activeInHierarchy) continue;
 
-            if (collider.gameObject.TryGetComponent(out NavMeshAgent agent))
+            if (collider.gameObject.TryGetComponent(out EnemyBase enemy)) 
             {
-                Vector3 dir = (collider.gameObject.transform.position - mPlayer.gameObject.transform.position).normalized;
-                Vector3 knockBackPos = collider.transform.position + dir * mKnockBackForce;
-
-                if (NavMesh.SamplePosition(knockBackPos, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
-                {
-                    attack.StartCoroutine(KnockBackCo(collider.transform, hit.position, 1f));
-                }
-
-                agent.isStopped = true;
-                mAgents.Add(agent);
+                enemy.KnockBack(mPlayer.transform.position, mKnockBackForce);
             }
         }
-    }
-
-    private void ResumeAgents() 
-    {
-        for (int i = 0; i < mAgents.Count; i++) 
-        {
-            mAgents[i].isStopped = false;
-        }
-
-        mAgents.Clear();
     }
 
     IEnumerator AttackCo(float knockbackDamage) 
@@ -148,19 +126,5 @@ public class CloudFootedStrategy : IPassiveStrategy
 
             yield return mWaitdamage;
         }
-    }
-
-    IEnumerator KnockBackCo(Transform target, Vector3 endPos, float duration) 
-    {
-        Vector3 startPos = target.position;
-        float elapsed = 0f;
-
-        while (elapsed < duration) 
-        {
-            target.position = Vector3.Slerp(startPos, endPos, elapsed / duration);
-            elapsed += duration;
-            yield return null;
-        }
-        target.position = endPos;
     }
 }

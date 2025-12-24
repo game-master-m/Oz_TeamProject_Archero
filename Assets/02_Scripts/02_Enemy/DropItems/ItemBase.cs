@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VenomProjectile : ElementProjectile
+public class ItemBase : MonoBehaviour
 {
-
+    
 }
