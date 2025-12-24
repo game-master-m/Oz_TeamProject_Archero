@@ -10,6 +10,8 @@ public class SpawnInfo
     public int spawnPointIndex;
     //줘도 되고 안줘도 되는 값, 줬을 경우 해당 시간만큼 딜레이 후 스폰
     public float spawnDelay;
+    //한번에 소환 될 숫자
+    public int spawnCount;
 }
 
 [System.Serializable]

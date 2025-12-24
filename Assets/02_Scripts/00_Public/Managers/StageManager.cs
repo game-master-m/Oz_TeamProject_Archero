@@ -15,6 +15,11 @@ public class StageManager : MonoBehaviour
     [Header("이벤트 구독")]
     [SerializeField] private VoidEventChannelSO mOnPlayerDie;   //PlayerStat.cs 가 발행
 
+    [Header("Spawn 관련")]
+    [SerializeField] private float mSpawnRadius = 3.5f;
+    //이펙트 프리팹 생성
+    //소환 이펙트 후 에너미 소환
+
     // 런타임 참조 변수 (Initializer에게서 받음)
     private StageDataSO mStageData;
     private PlayerController mPlayer;
@@ -25,7 +30,6 @@ public class StageManager : MonoBehaviour
     private int mCurrentRoomIndex = 0;
     private int mAliveEnemyCount = 0;
     private bool bIsBattleActive = false;
-
     private StageMap mCurrentMapInstance;
 
     // 천사슬라임 여부
@@ -160,7 +164,7 @@ public class StageManager : MonoBehaviour
     {
         foreach (var info in wave.spawnInfoList)
         {
-            mAliveEnemyCount++;
+            mAliveEnemyCount += info.spawnCount;
             StartCoroutine(SpawnEnemyWithDelay(info));
         }
     }
@@ -173,47 +177,47 @@ public class StageManager : MonoBehaviour
         {
             yield break;
         }
-        //NavMesh 로딩대기 1프레임
-        yield return null;
 
-        // PoolManager 몬스터 생성 요청
-        EnemyBase enemyPrefab = info.enemyPrefab.GetComponent<EnemyBase>();
-        EnemyBase enemy = Managers.Pool.GetFromPool(enemyPrefab);
-
-        if (enemy != null)
+        float spawnAngle = 360.0f / info.spawnCount;
+        for (int i = 0; i < info.spawnCount; i++)
         {
-            // 위치 설정
-            int index = info.spawnPointIndex % mSpawnPoints.Count;
-            enemy.transform.position = mSpawnPoints[index].position;
+            // PoolManager 몬스터 생성 요청
+            EnemyBase enemyPrefab = info.enemyPrefab.GetComponent<EnemyBase>();
+            EnemyBase enemy = Managers.Pool.GetFromPool(enemyPrefab);
 
-            Physics.SyncTransforms(); // 물리 갱신
-
-            //NavMesh 로딩대기 1프레임(혹시 몰라 한번 더 대기)
-            yield return null;
-            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-
-            //필요 시 Rotation도 설정 가능
-
-            if (agent != null)
+            if (enemy != null)
             {
-                agent.enabled = true;
-                if (agent.isOnNavMesh)
+                // 위치 설정
+                int index = info.spawnPointIndex % mSpawnPoints.Count;
+
+                // spawnPoint 주위로 원형
+                Vector3 spawnOrigin = mSpawnPoints[index].position;
+                enemy.transform.position = spawnOrigin + (Quaternion.Euler(0.0f, spawnAngle * i, 0.0f) * Vector3.forward * mSpawnRadius);
+
+                Physics.SyncTransforms(); // 물리 갱신
+
+                //NavMesh 로딩대기 1프레임
+                yield return null;
+                NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+
+                //필요 시 Rotation도 설정 가능
+
+                if (agent != null)
                 {
-                    agent.isStopped = false;
+                    agent.enabled = true;
+                    if (agent.isOnNavMesh)
+                    {
+                        agent.isStopped = false;
+                    }
                 }
+
+                // 몬스터 세팅
+                enemy.onEnemyDie -= HandleEnemyDeath; // 중복 제거
+                enemy.onEnemyDie += HandleEnemyDeath; // 사망 구독
+
+                // 타겟(플레이어) 주입
+                enemy.SetTarget(mPlayer.transform);
             }
-            else
-            {
-                enemy.transform.position = mSpawnPoints[index].position;
-            }
-
-            // 몬스터 세팅
-
-            enemy.onEnemyDie -= HandleEnemyDeath; // 중복 제거
-            enemy.onEnemyDie += HandleEnemyDeath; // 사망 구독
-
-            // 타겟(플레이어) 주입
-            enemy.SetTarget(mPlayer.transform);
         }
     }
 
