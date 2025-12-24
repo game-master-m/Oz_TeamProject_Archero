@@ -184,6 +184,12 @@ MonoBehaviour:
   mStatData: {fileID: 11400000, guid: bfd1d1f5deae23d47a94678405474bfc, type: 2}
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
+  mEnemyType: 1
+  mDropItems:
+  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
+      type: 3}
+    dropChance: 0
+  mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
 --- !u!114 &3618585978215090182
 MonoBehaviour:
   m_ObjectHideFlags: 0
