@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Chicken
   m_EditorClassIdentifier: 
-  mMaxHP: 50
-  mMoveSpeed: 3.5
-  mAttackDamage: 10
+  mMaxHP: 100
+  mMoveSpeed: 6
+  mAttackDamage: 15
   mAttackRange: 2.5
   mAttackSpeed: 2.5
   mRotateSpeed: 8

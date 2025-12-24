@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tribal
   m_EditorClassIdentifier: 
   mMaxHP: 180
-  mMoveSpeed: 2
+  mMoveSpeed: 5
   mAttackDamage: 28
   mAttackRange: 2.5
   mAttackSpeed: 2

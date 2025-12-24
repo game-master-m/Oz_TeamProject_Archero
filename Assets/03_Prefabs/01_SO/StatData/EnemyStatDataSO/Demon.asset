@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Demon
   m_EditorClassIdentifier: 
   mMaxHP: 700
-  mMoveSpeed: 2
+  mMoveSpeed: 5
   mAttackDamage: 80
   mAttackRange: 2.5
   mAttackSpeed: 2

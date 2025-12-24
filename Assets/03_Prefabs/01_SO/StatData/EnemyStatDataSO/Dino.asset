@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dino
   m_EditorClassIdentifier: 
   mMaxHP: 150
-  mMoveSpeed: 1.7
+  mMoveSpeed: 4
   mAttackDamage: 30
   mAttackRange: 2.5
   mAttackSpeed: 2

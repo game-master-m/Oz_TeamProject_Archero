@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ghost
   m_EditorClassIdentifier: 
   mMaxHP: 150
-  mMoveSpeed: 3
+  mMoveSpeed: 5
   mAttackDamage: 25
   mAttackRange: 2.5
   mAttackSpeed: 2

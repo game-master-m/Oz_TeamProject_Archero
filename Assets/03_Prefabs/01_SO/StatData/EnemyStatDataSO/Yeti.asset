@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yeti
   m_EditorClassIdentifier: 
   mMaxHP: 400
-  mMoveSpeed: 1.5
+  mMoveSpeed: 5
   mAttackDamage: 45
   mAttackRange: 2.5
   mAttackSpeed: 1.5

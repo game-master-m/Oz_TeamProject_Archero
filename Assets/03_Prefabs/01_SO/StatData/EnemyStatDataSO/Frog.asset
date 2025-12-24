@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Frog
   m_EditorClassIdentifier: 
-  mMaxHP: 90
-  mMoveSpeed: 3
-  mAttackDamage: 18
+  mMaxHP: 100
+  mMoveSpeed: 5
+  mAttackDamage: 20
   mAttackRange: 2.5
   mAttackSpeed: 2
   mRotateSpeed: 8

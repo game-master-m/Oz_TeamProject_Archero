@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cactoro
   m_EditorClassIdentifier: 
   mMaxHP: 120
-  mMoveSpeed: 1.8
+  mMoveSpeed: 5
   mAttackDamage: 20
   mAttackRange: 2.5
   mAttackSpeed: 2
