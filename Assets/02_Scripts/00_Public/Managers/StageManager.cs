@@ -14,6 +14,7 @@ public class StageManager : MonoBehaviour
 
     [Header("이벤트 구독")]
     [SerializeField] private VoidEventChannelSO mOnPlayerDie;   //PlayerStat.cs 가 발행
+    [SerializeField] private VoidEventChannelSO mOnSceneChanged;     //GameManager 구독
 
     [Header("Spawn 관련")]
     [SerializeField] private float mSpawnRadius = 3.5f;
@@ -54,10 +55,12 @@ public class StageManager : MonoBehaviour
     private void OnEnable()
     {
         mOnPlayerDie.onEvent += HandlePlayerDie;
+        mOnSceneChanged.onEvent += HandleSceneLoaded;
     }
     private void OnDisable()
     {
         mOnPlayerDie.onEvent -= HandlePlayerDie;
+        mOnSceneChanged.onEvent -= HandleSceneLoaded;
     }
 
     public void LevelUp()
@@ -76,11 +79,7 @@ public class StageManager : MonoBehaviour
 
         // 변수 리셋
         if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
-        mCurrentRoomIndex = 0;
-        mAliveEnemyCount = 0;
-        mKillCount = 0;
-        bIsBattleActive = false;
-
+        ResetStage();
         //시작 시, 스킬 하나 먼저 선택
         StartCoroutine(StartRoomCo());
     }
@@ -287,5 +286,18 @@ public class StageManager : MonoBehaviour
 
         //1. 죽음발송(현재까지의 킬 카운트, 현재 룸 번호(-1), 현재 스테이지 넘버)
         mOnShowEndUIRequest.Raised(mKillCount, mCurrentRoomIndex, mStageData.ChapterID);
+    }
+    private void HandleSceneLoaded()
+    {
+        ResetStage();
+    }
+    private void ResetStage()
+    {
+        StopAllCoroutines();
+
+        mCurrentRoomIndex = 0;
+        mAliveEnemyCount = 0;
+        mKillCount = 0;
+        bIsBattleActive = false;
     }
 }

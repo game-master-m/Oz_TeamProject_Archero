@@ -1271,8 +1271,8 @@ MonoBehaviour:
   mLightGradeChangeImages:
   - {fileID: 1726484949}
   - {fileID: 1683261654}
-  mGradeSpinDuration: 1
-  mFlashDuration: 1
+  mGradeSpinDuration: 0.5
+  mFlashDuration: 0.5
   mAlpahBase: 1
   mAlpahHight: 0.6
   mNameTextColor: {r: 0.08235294, g: 0.34901962, b: 0.04705883, a: 1}
@@ -6441,8 +6441,8 @@ MonoBehaviour:
   mLightGradeChangeImages:
   - {fileID: 1084321718}
   - {fileID: 2078282542}
-  mGradeSpinDuration: 1
-  mFlashDuration: 1
+  mGradeSpinDuration: 0.5
+  mFlashDuration: 0.5
   mAlpahBase: 1
   mAlpahHight: 0.6
   mNameTextColor: {r: 0.08235294, g: 0.34901962, b: 0.047058824, a: 1}
@@ -13886,8 +13886,8 @@ MonoBehaviour:
   mLightGradeChangeImages:
   - {fileID: 1249003489}
   - {fileID: 624169263}
-  mGradeSpinDuration: 1
-  mFlashDuration: 1
+  mGradeSpinDuration: 0.5
+  mFlashDuration: 0.5
   mAlpahBase: 1
   mAlpahHight: 0.6
   mNameTextColor: {r: 0.08235294, g: 0.34901962, b: 0.047058824, a: 1}

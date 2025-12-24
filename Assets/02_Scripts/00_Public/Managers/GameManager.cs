@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("이벤트 발행")]
     [SerializeField] private VoidEventChannelSO mOnGamePause;        //PauseUI 구독
     [SerializeField] private VoidEventChannelSO mOnGameResume;       //PuaseUI 구독
+    [SerializeField] private VoidEventChannelSO mOnSceneChanged;     //StageManager 구독
 
     private bool bIsPause = false;
     private bool bIsGameOver = false;
@@ -19,7 +20,6 @@ public class GameManager : MonoBehaviour
     }
     private void OnEnable()
     {
-
         //씬 전환관련
         SceneManager.sceneLoaded += HandleOnSceneLoad;
     }
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     }
     public void HandleOnSceneLoad(Scene scene, LoadSceneMode mode)
     {
+        mOnSceneChanged.Raised();
     }
     public void LoadStageScene()
     {
