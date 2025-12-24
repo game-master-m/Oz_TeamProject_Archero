@@ -4,9 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class ExpPrefab : MonoBehaviour
 {
-    [SerializeField] private float mMoveSpeed = 15f;
+    [SerializeField] private float mMoveSpeed = 20.0f;
     [SerializeField] private int mExpAmount = 50;
     [SerializeField] private Vector3 offset = new Vector3(0f, 1.0f, 0f);
+    [SerializeField] private float mRotateSpeed = 20.0f;
 
     [Header("이벤트 발송")]
     [SerializeField] private IntEventChannelSO mOnGetExpRequest;    //LevelUpController가 구독
@@ -55,20 +56,23 @@ public class ExpPrefab : MonoBehaviour
     public void SetTarget(Transform target)
     {
         mTarget = target;
-        //Utils.Log($"ExpPrefab Set Target: {mTarget.name}");
     }
     private void FixedUpdate()
     {
-        if (!bIsRoomClear) return;
-        mMoveDirection = (mTarget.position + offset - transform.position).normalized;
-        mRigidbody.velocity = mMoveDirection * mMoveSpeed;
+        if (bIsRoomClear)
+        {
+            mMoveDirection = (mTarget.position + offset - transform.position).normalized;
+            mRigidbody.velocity = mMoveDirection * mMoveSpeed;
+        }
+        //회전 애니메이션
+        transform.Rotate(Vector3.up * mRotateSpeed * Time.fixedDeltaTime, Space.World);
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //프로젝트 셋팅의 레이어 충돌 매트릭스에서 Player와만 충돌하도록 설정했으므로 태그 체크 불필요
         //if (!other.CompareTag(Define.Tag_Player)) return;
-
         mOnGetExpRequest.Raised(mExpAmount);
         Managers.Pool.ReturnToPool(this);
     }

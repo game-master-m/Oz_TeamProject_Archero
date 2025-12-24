@@ -118,7 +118,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1842223190953490312}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -190,6 +190,7 @@ MonoBehaviour:
   mStatData: {fileID: 11400000, guid: d141dffa11569884fad2a4ad6d7f0e12, type: 2}
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
+  mEnemyType: 1
 --- !u!114 &1086970315355692738
 MonoBehaviour:
   m_ObjectHideFlags: 0

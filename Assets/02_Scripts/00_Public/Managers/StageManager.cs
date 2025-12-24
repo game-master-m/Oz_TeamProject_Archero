@@ -77,9 +77,8 @@ public class StageManager : MonoBehaviour
         mKillCount = 0;
         bIsBattleActive = false;
 
-
-        // 첫 번째 방 시작
-        StartRoom();
+        //시작 시, 스킬 하나 먼저 선택
+        StartCoroutine(StartRoomCo());
     }
 
     // 2. 방 시작 로직
@@ -264,6 +263,17 @@ public class StageManager : MonoBehaviour
 
         yield return mWaitTwoSec;
 
+        StartRoom();
+    }
+
+    // StateScene 진입 시 살짝 대기 후 스킬선택 창 보여주고, StartRoom
+    private IEnumerator StartRoomCo()
+    {
+        yield return mWaitOneSec;
+        mOnLevelUpPlayer.Raised(mPlayer.Attack);
+        Managers.Game.CanPause = false;
+
+        yield return mWaitOneSec;
         StartRoom();
     }
 
