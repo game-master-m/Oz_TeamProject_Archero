@@ -7,7 +7,7 @@ public class LaserSphere : Sphere
     private PlayerAttack mPlayer;
 
     [SerializeField] private LaserEffect mLaserEffectPrefab;
-    [SerializeField] private float mLaserRadius = 2.0f;
+    [SerializeField] private float mLaserRadius = 1.0f;
 
     private LaserEffect mLaserEffect;
     private float mCoolTime = 0;
@@ -16,8 +16,6 @@ public class LaserSphere : Sphere
     private float mLaserDelay;
 
     private bool mIsAttack = false;
-
-    //private WaitForSeconds mLaserTick = new WaitForSeconds(0.2f);
 
     private void Update()
     {

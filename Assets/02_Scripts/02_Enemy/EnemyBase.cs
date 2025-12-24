@@ -202,6 +202,8 @@ public class EnemyBase : LivingEntity
         float rand = UnityEngine.Random.Range(0f, 1f);
         if (rand <= drop.dropChance)
         {
+            Vector2 randomCircle = UnityEngine.Random.insideUnitSphere * 2f;
+            Vector3 dropPos = transform.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
             ItemBase item = Managers.Pool.GetFromPool(drop.itemPrefab);
             item.transform.position = transform.position + Vector3.up * 0.5f;
             item.gameObject.SetActive(true);
