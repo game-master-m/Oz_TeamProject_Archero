@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ea68d7fe137d4798c32e0089b78fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMoveSpeed: 18
-  mExpAmount: 50
+  mMoveSpeed: 25
+  mExpAmount: 10
   offset: {x: 0, y: 1, z: 0}
   mRotateSpeed: 100
   mOnGetExpRequest: {fileID: 11400000, guid: 402b6d39a81f0844cb2a78ddc0732557, type: 2}

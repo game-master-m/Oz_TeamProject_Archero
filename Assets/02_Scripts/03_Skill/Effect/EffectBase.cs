@@ -5,7 +5,7 @@ public abstract class EffectBase : MonoBehaviour
     [Header("EffectBase ÂüÁ¶")]
     [SerializeField] protected float mLifeTime;
     [SerializeField] protected float mSizeMultiplier = 1.0f;
-    [SerializeField] protected float mPlaySpeedMultiplier = 1.0f;
+    [SerializeField] protected float mPlayBackSpeed = 1.0f;
 
     protected ParticleSystem[] mParticles;
     protected float mTimer = 0.0f;
@@ -18,7 +18,23 @@ public abstract class EffectBase : MonoBehaviour
         {
             var main = p.main;
             main.startSizeMultiplier = mSizeMultiplier;
-            main.simulationSpeed = mPlaySpeedMultiplier;
+            main.simulationSpeed = mPlayBackSpeed;
+        }
+    }
+    public virtual void SetSize(float sizeMultiplier)
+    {
+        foreach (ParticleSystem p in mParticles)
+        {
+            var main = p.main;
+            main.startSizeMultiplier = sizeMultiplier;
+        }
+    }
+    public virtual void SetSpeed(float playBackSpeed)
+    {
+        foreach (ParticleSystem p in mParticles)
+        {
+            var main = p.main;
+            main.simulationSpeed = playBackSpeed;
         }
     }
     public virtual void Setup(Vector3 spawnPos, Quaternion rotation)

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf69ff5fde247cc4789be46188e0fdea, type: 3}
   m_Name: Room01_10
   m_EditorClassIdentifier: 
-  bIsBoosRoom: 0
-  mapPrefab: {fileID: 2259268359442540368, guid: 643acaaaea1984c4499542501f51aa94,
+  bIsBoosRoom: 1
+  mapPrefab: {fileID: 2259268359442540368, guid: 4cf36e73a4affab448ae5123c2a111a1,
     type: 3}
   waveDataList:
   - spawnInfoList:

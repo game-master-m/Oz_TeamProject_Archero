@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Room01_20
   m_EditorClassIdentifier: 
   bIsBoosRoom: 1
-  mapPrefab: {fileID: 2259268359442540368, guid: 643acaaaea1984c4499542501f51aa94,
+  mapPrefab: {fileID: 2259268359442540368, guid: 8a4ab785218525246b575bd467d78237,
     type: 3}
   waveDataList:
   - spawnInfoList:
