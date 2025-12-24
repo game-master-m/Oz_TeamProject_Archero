@@ -21,3 +21,4 @@ MonoBehaviour:
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
+      spawnCount: 1

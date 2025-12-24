@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf69ff5fde247cc4789be46188e0fdea, type: 3}
   m_Name: Room02_10
   m_EditorClassIdentifier: 
-  bIsBoosRoom: 0
+  bIsBoosRoom: 1
   mapPrefab: {fileID: 2259268359442540368, guid: 643acaaaea1984c4499542501f51aa94,
     type: 3}
   waveDataList:
@@ -21,7 +21,4 @@ MonoBehaviour:
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
-    - enemyPrefab: {fileID: 4473601220503894025, guid: 6eb4f88dd331ac045a83486f6d76874f,
-        type: 3}
-      spawnPointIndex: 2
-      spawnDelay: 0
+      spawnCount: 2
