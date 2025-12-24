@@ -20,9 +20,9 @@ MonoBehaviour:
   EffectPrefab: {fileID: -3402068849359981943, guid: 1b1542835364a3949bd9e56531910bda,
     type: 3}
   EffectDuration: 1.5
-  DamageCount: 15
+  DamageCount: 1
   DamageTick: 0.1
-  DamageDuplicater: 0.1
+  DamageDuplicater: 0.5
   DamageDelay: 3
   KnockBackRadius: 2
   KnockBackForce: 2
