@@ -2,7 +2,7 @@
 - Project name: Oz_TeamProject_Archero
 - Unity version: Unity 2022.3.18f1
 - Active game object:
-  - Name: StageManager
-  - Tag: Untagged
-  - Layer: Default
+  - Name: Player
+  - Tag: Player
+  - Layer: Player
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

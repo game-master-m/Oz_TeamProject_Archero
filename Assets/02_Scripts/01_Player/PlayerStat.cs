@@ -74,26 +74,31 @@ public class PlayerStat : LivingEntity
     {
         mCurrentHP += amount;
         if (mCurrentHP > MaxHP) mCurrentHP = MaxHP;
+        UpdateHPRequest(mCurrentHP / MaxHP);
     }
     public void MultipleHP(float amount)
     {
         mCurrentHP *= amount;
         if (mCurrentHP > MaxHP) mCurrentHP = MaxHP;
+        UpdateHPRequest(mCurrentHP / MaxHP);
     }
     public void AddMaxHP(float amount)
     {
         mMaxHP += amount;
         mCurrentHP += amount;
+        UpdateHPRequest(mCurrentHP / MaxHP);
     }
     public void MultipleMaxHP(float amount)
     {
         mMaxHP *= amount;
         mCurrentHP *= amount;
+        UpdateHPRequest(mCurrentHP / MaxHP);
     }
     public void MultipleMaxHPAndRecoverAll(float amount)
     {
         MultipleMaxHP(amount);
         mCurrentHP = mMaxHP;
+        UpdateHPRequest(mCurrentHP / MaxHP);
     }
     public void MultipleAttackRange(float amount)
     {

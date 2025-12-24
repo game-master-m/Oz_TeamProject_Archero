@@ -100,4 +100,9 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
         // 자식 클래스에서 구현 (애니메이션, 풀 반환 등)
 
     }
+
+    protected void UpdateHPRequest(float hpRatio)
+    {
+        onHPChanged?.Invoke(hpRatio);
+    }
 }
