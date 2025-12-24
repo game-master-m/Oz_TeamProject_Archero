@@ -24,8 +24,8 @@ public class ToxicMeteor : MeteorBase
         mMeteorSpeed = skillDataSO.MeteorSpeed;
         Utils.Log("메테오 셋업 완료");
 
-        Managers.Pool.CreatePool(mExplodeEffectPrefab, 3, Managers.Pool.transform);
-        Managers.Pool.CreatePool(mCircleEffectPrefab, 3, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mExplodeEffectPrefab, 8, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mCircleEffectPrefab, 8, Managers.Pool.transform);
 
         SetWarningEffect();
     }
@@ -94,5 +94,11 @@ public class ToxicMeteor : MeteorBase
             float radius = mExplodeEffect.transform.localScale.x * 0.5f;
             Gizmos.DrawWireSphere(transform.position, radius);
         }
+    }
+
+    private void OnDisable()
+    {
+        if (mCircleEffect != null) Managers.Pool.ReturnToPool(mCircleEffect);
+        if (mExplodeEffect != null) Managers.Pool.ReturnToPool(mExplodeEffect);
     }
 }
