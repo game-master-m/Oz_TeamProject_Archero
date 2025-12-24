@@ -22,7 +22,7 @@ public abstract class FairyBase : MonoBehaviour
     [SerializeField] private float mTargetRange = 30.0f;
 
     //공격모드 > 0 = 레이저, 1 = 화살발사
-    [SerializeField] private int mAttackMode = 1; 
+    [SerializeField] private int mAttackMode = 1;
     //페어리마다 다른 값을 가짐
     protected float mEffectTime;
     protected float mDamageTick;
@@ -44,7 +44,7 @@ public abstract class FairyBase : MonoBehaviour
     //코루틴용
     private static WaitForSeconds mWaitAttack;
 
-    public void SetOwner(PlayerAttack attack) 
+    public void SetOwner(PlayerAttack attack)
     {
         //플레이어 스텟 받아오기
         mPlayer = attack;
@@ -58,7 +58,7 @@ public abstract class FairyBase : MonoBehaviour
 
         Managers.Pool.CreatePool(mElementsProjectilePrefab, 50, Managers.Pool.transform);
 
-        if (mAttackCoroutine == null) 
+        if (mAttackCoroutine == null)
         {
             mCoroutineHost = this;
             mAttackCoroutine = mCoroutineHost.StartCoroutine(GlobalAttackCo());
@@ -108,13 +108,13 @@ public abstract class FairyBase : MonoBehaviour
 
         mTargetTransform = closestEnemy;
         transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
-      
+
         return true;
     }
 
-    public void SetAttackMode() 
+    public void SetAttackMode()
     {
-        switch (mAttackMode) 
+        switch (mAttackMode)
         {
             case 0:
                 ApplyElement(null, mAttackDamage);
@@ -123,7 +123,7 @@ public abstract class FairyBase : MonoBehaviour
             case 1:
                 MakeProjectile();
                 break;
-        }     
+        }
     }
 
     //발사체 생성
@@ -138,18 +138,18 @@ public abstract class FairyBase : MonoBehaviour
     }
 
     //풀에 집어넣기 전에 플레이어한테서 떼어내기
-    public void Detach() 
+    public void Detach()
     {
         this.gameObject.transform.SetParent(null, false);
         mAllFaries.Remove(this);
-        if (mCoroutineHost == this) 
+        if (mCoroutineHost == this)
         {
             if (mAllFaries.Count > 0)
             {
                 mCoroutineHost = mAllFaries[0];
                 mAttackCoroutine = mCoroutineHost.StartCoroutine(GlobalAttackCo());
             }
-            else 
+            else
             {
                 mCoroutineHost = null;
                 mAttackCoroutine = null;
@@ -158,7 +158,7 @@ public abstract class FairyBase : MonoBehaviour
     }
 
     //발사체한테 명중 신호 받았을때
-    public void OnHitTarget(EnemyBase target) 
+    public void OnHitTarget(EnemyBase target)
     {
         ApplyElement(target, mAttackDamage * FairyReinforceStatic.FairyAttackDuplicater);
     }
@@ -166,18 +166,18 @@ public abstract class FairyBase : MonoBehaviour
     public abstract void ApplyElement(EnemyBase target, float damage);
 
     //공격 코루틴
-    private static IEnumerator GlobalAttackCo() 
+    private static IEnumerator GlobalAttackCo()
     {
-        while (true) 
+        while (true)
         {
-            foreach (var fairy in mAllFaries) 
+            foreach (var fairy in mAllFaries)
             {
-                if (fairy != null && fairy.LookTarget()) 
+                if (fairy != null && fairy.LookTarget())
                 {
                     fairy.SetAttackMode();
                 }
             }
-            if (mAttackSpeed != FairyReinforceStatic.FairyAttackSpeedDuplicater) 
+            if (mAttackSpeed != FairyReinforceStatic.FairyAttackSpeedDuplicater)
             {
                 Utils.Log("공속업데이트 완료");
                 mAttackSpeed = FairyReinforceStatic.FairyAttackSpeedDuplicater;
