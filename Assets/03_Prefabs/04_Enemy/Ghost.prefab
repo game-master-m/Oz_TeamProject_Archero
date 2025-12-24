@@ -91,11 +91,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8e610f7245cea14ebb82ed8d7c8c7bc,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3541522118488639611}
+      addedObject: {fileID: 9077440835630540489}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8e610f7245cea14ebb82ed8d7c8c7bc,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9077440835630540489}
+      addedObject: {fileID: -7618608721203970334}
   m_SourcePrefab: {fileID: 100100000, guid: c8e610f7245cea14ebb82ed8d7c8c7bc, type: 3}
 --- !u!4 &6170664509789993063 stripped
 Transform:
@@ -175,21 +175,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-3541522118488639611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6839078877505266397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e35bb558212384cab4ab2cd86636fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mStatData: {fileID: 11400000, guid: fe3a8cd59035e6845ba7d4142b7492f1, type: 2}
-  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
-    type: 3}
 --- !u!114 &9077440835630540489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +191,24 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
+--- !u!114 &-7618608721203970334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6839078877505266397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStatData: {fileID: 11400000, guid: fe3a8cd59035e6845ba7d4142b7492f1, type: 2}
+  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
+    type: 3}
+  mEnemyType: 2
+  mProjectilePrefab: {fileID: 0}
+  mFirePoint: {fileID: 0}
 --- !u!1001 &8112721287533760865
 PrefabInstance:
   m_ObjectHideFlags: 0

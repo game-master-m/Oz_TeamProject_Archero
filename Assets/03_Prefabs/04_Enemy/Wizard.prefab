@@ -235,6 +235,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4219015709462514900}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d8b6538d3e4afd4fb00f024deacdd17,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4130371266979014151}
   m_SourcePrefab: {fileID: 100100000, guid: 9d8b6538d3e4afd4fb00f024deacdd17, type: 3}
 --- !u!4 &8596699182748390841 stripped
 Transform:
@@ -329,6 +333,7 @@ MonoBehaviour:
   mStatData: {fileID: 11400000, guid: 5d6da60873467724a9ddf9619084b4c8, type: 2}
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
+  mEnemyType: 1
 --- !u!114 &4219015709462514900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,3 +350,21 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
+--- !u!114 &-4130371266979014151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936915106892844803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStatData: {fileID: 11400000, guid: 5d6da60873467724a9ddf9619084b4c8, type: 2}
+  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
+    type: 3}
+  mEnemyType: 2
+  mProjectilePrefab: {fileID: 0}
+  mFirePoint: {fileID: 0}
