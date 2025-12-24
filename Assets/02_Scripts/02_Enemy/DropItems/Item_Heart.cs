@@ -12,6 +12,8 @@ public class Item_Heart : ItemBase
             other.gameObject.TryGetComponent(out PlayerAttack attack);
 
             attack.Stat.AddHP(mHealAmount);
+
+            Managers.Pool.ReturnToPool(this);
         }
     }
 }

@@ -71,9 +71,13 @@ public class EnemyBase : LivingEntity
         Board = new BlackBoard();
 
         Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
-        foreach (var drop in mDropItems)
+        if (mDropItems != null) 
         {
-            Managers.Pool.CreatePool(drop.itemPrefab, 10, Managers.Pool.transform);
+            foreach (var drop in mDropItems)
+            {
+                if (drop != null && drop.itemPrefab != null)
+                Managers.Pool.CreatePool(drop.itemPrefab, 10, Managers.Pool.transform);
+            }
         }
     }
 
@@ -193,6 +197,8 @@ public class EnemyBase : LivingEntity
 
     private void TryDrop(DropItemData drop) 
     {
+        if (drop == null || drop.itemPrefab == null) return;
+
         float rand = UnityEngine.Random.Range(0f, 1f);
         if (rand <= drop.dropChance)
         {
