@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Cat
   m_EditorClassIdentifier: 
-  mMaxHP: 80
-  mMoveSpeed: 3
+  mMaxHP: 100
+  mMoveSpeed: 8
   mAttackDamage: 15
   mAttackRange: 2.5
   mAttackSpeed: 2

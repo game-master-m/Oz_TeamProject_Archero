@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Atmabee
   m_EditorClassIdentifier: 
-  mMaxHP: 50
-  mMoveSpeed: 2
+  mMaxHP: 70
+  mMoveSpeed: 5
   mAttackDamage: 20
   mAttackRange: 2.5
   mAttackSpeed: 1

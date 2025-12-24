@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Fish
   m_EditorClassIdentifier: 
-  mMaxHP: 70
-  mMoveSpeed: 2
-  mAttackDamage: 10
+  mMaxHP: 150
+  mMoveSpeed: 5
+  mAttackDamage: 25
   mAttackRange: 2.5
-  mAttackSpeed: 2
+  mAttackSpeed: 3
   mRotateSpeed: 8
   mDetectRange: 40
   mRotateOffset: {x: 0, y: 0, z: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PinkBlob
   m_EditorClassIdentifier: 
   mMaxHP: 120
-  mMoveSpeed: 2
+  mMoveSpeed: 5
   mAttackDamage: 18
   mAttackRange: 2.5
   mAttackSpeed: 2

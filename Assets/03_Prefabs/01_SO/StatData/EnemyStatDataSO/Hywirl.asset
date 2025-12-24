@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hywirl
   m_EditorClassIdentifier: 
   mMaxHP: 130
-  mMoveSpeed: 2.8
+  mMoveSpeed: 5
   mAttackDamage: 20
   mAttackRange: 2.5
   mAttackSpeed: 2

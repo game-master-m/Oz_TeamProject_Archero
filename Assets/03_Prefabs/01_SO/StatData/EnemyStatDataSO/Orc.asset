@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Orc
   m_EditorClassIdentifier: 
-  mMaxHP: 200
-  mMoveSpeed: 2
+  mMaxHP: 500
+  mMoveSpeed: 5
   mAttackDamage: 45
   mAttackRange: 1.5
   mAttackSpeed: 12

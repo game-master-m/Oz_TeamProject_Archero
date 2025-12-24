@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Bunny
   m_EditorClassIdentifier: 
-  mMaxHP: 60
-  mMoveSpeed: 4
-  mAttackDamage: 10
+  mMaxHP: 140
+  mMoveSpeed: 8
+  mAttackDamage: 15
   mAttackRange: 2.5
   mAttackSpeed: 2.5
   mRotateSpeed: 8

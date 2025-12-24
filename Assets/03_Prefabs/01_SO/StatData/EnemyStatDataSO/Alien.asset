@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Alien
   m_EditorClassIdentifier: 
   mMaxHP: 100
-  mMoveSpeed: 2
+  mMoveSpeed: 8
   mAttackDamage: 10
   mAttackRange: 2.5
   mAttackSpeed: 1

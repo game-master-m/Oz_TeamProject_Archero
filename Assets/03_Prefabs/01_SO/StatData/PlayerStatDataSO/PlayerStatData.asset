@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerStatData
   m_EditorClassIdentifier: 
   mMaxHp: 100
-  mMoveSpeed: 8
-  mAttackDamage: 500
+  mMoveSpeed: 15
+  mAttackDamage: 70
   mAttackRange: 30
   mAttackSpeed: 2
   mRotateSpeed: 8

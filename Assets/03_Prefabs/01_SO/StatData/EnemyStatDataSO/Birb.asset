@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Birb
   m_EditorClassIdentifier: 
   mMaxHP: 100
-  mMoveSpeed: 2
+  mMoveSpeed: 5
   mAttackDamage: 25
   mAttackRange: 2.5
   mAttackSpeed: 2

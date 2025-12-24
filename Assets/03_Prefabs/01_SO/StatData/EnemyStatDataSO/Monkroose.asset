@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monkroose
   m_EditorClassIdentifier: 
   mMaxHP: 200
-  mMoveSpeed: 2
+  mMoveSpeed: 5
   mAttackDamage: 30
   mAttackRange: 2.5
   mAttackSpeed: 2

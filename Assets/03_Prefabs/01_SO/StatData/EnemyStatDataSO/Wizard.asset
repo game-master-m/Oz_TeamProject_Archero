@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Wizard
   m_EditorClassIdentifier: 
-  mMaxHP: 120
-  mMoveSpeed: 2
+  mMaxHP: 150
+  mMoveSpeed: 5
   mAttackDamage: 35
   mAttackRange: 2.5
   mAttackSpeed: 2
