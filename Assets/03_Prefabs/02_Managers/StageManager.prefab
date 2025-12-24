@@ -53,3 +53,5 @@ MonoBehaviour:
   mOnPlayerDie: {fileID: 11400000, guid: 77db8a905e33d6f459782502bdefd6d6, type: 2}
   mOnSceneChanged: {fileID: 11400000, guid: f4a4e8fe2d455754ba9006fb0f0ab2d1, type: 2}
   mSpawnRadius: 3.5
+  mSummonEffectPrefab: {fileID: 8724561738059847795, guid: 8d45be96f3e36b04c85d5f3544ffc996,
+    type: 3}

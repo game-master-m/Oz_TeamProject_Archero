@@ -18,8 +18,7 @@ public class StageManager : MonoBehaviour
 
     [Header("Spawn 관련")]
     [SerializeField] private float mSpawnRadius = 3.5f;
-    //이펙트 프리팹 생성
-    //소환 이펙트 후 에너미 소환
+    [SerializeField] private SummonEffect mSummonEffectPrefab;
 
     // 런타임 참조 변수 (Initializer에게서 받음)
     private StageDataSO mStageData;
@@ -51,6 +50,10 @@ public class StageManager : MonoBehaviour
         mWaitOneSec = new WaitForSeconds(mOneSec);
         mWaitTwoSec = new WaitForSeconds(mTwoSec);
     }
+    private void Start()
+    {
+        Managers.Pool.CreatePool(mSummonEffectPrefab, 30, Managers.Pool.transform);
+    }
 
     private void OnEnable()
     {
@@ -80,8 +83,10 @@ public class StageManager : MonoBehaviour
         // 변수 리셋
         if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
         ResetStage();
+
+        GenerateMap();
         //시작 시, 스킬 하나 먼저 선택
-        StartCoroutine(StartRoomCo());
+        StartCoroutine(StartFirstRoomCo());
     }
 
     // 2. 방 시작 로직
@@ -90,14 +95,27 @@ public class StageManager : MonoBehaviour
         if (mCurrentRoomIndex >= mStageData.RoomDataList.Count)
         {
             Utils.Log("스테이지 클리어!");
-
+            mCurrentRoomIndex--;
             //스테이지 클리어 이벤트 발행(현재까지의 킬 카운트, 현재 룸 번호(-1), 현재 스테이지 넘버)
             mOnStageClear.Raised(mKillCount, mCurrentRoomIndex, mStageData.ChapterID);
 
             return;
         }
-
         // [맵 교체 로직 시작] ==============================================
+        GenerateMap();
+
+        bIsBattleActive = true;
+
+        //문 사용 시 추가할 내용들 ------------------------------------------------
+        //if (mDoorObject != null) mDoorObject.SetActive(true); // 문 닫기
+
+        // ---------------------------------------------------------------------
+
+        StartCoroutine(ProcessWaveRoutine());
+    }
+    private void GenerateMap()
+    {
+
         // 1. 이전 맵이 있다면 반납 (청소)
         if (mCurrentMapInstance != null)
         {
@@ -123,19 +141,7 @@ public class StageManager : MonoBehaviour
                 mCurrentMapInstance.OnMapSpawn();
             }
         }
-
-        // [맵 교체 로직 끝] ================================================
-
-        bIsBattleActive = true;
-
-        //문 사용 시 추가할 내용들 ------------------------------------------------
-        //if (mDoorObject != null) mDoorObject.SetActive(true); // 문 닫기
-
-        // ---------------------------------------------------------------------
-
-        StartCoroutine(ProcessWaveRoutine());
     }
-
     // 3. 웨이브 진행 코루틴
     private IEnumerator ProcessWaveRoutine()
     {
@@ -186,40 +192,57 @@ public class StageManager : MonoBehaviour
 
             if (enemy != null)
             {
+                //소환 이펙트완료까지 꺼둠
+                enemy.gameObject.SetActive(false);
+
                 // 위치 설정
                 int index = info.spawnPointIndex % mSpawnPoints.Count;
-
                 // spawnPoint 주위로 원형
                 Vector3 spawnOrigin = mSpawnPoints[index].position;
-                enemy.transform.position = spawnOrigin + (Quaternion.Euler(0.0f, spawnAngle * i, 0.0f) * Vector3.forward * mSpawnRadius);
+                Vector3 spawnPos = spawnOrigin + (Quaternion.Euler(0.0f, spawnAngle * i, 0.0f) * Vector3.forward * mSpawnRadius);
+                enemy.transform.position = spawnPos;
 
-                Physics.SyncTransforms(); // 물리 갱신
-
-                //NavMesh 로딩대기 1프레임
-                yield return null;
-                NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-
-                //필요 시 Rotation도 설정 가능
-
-                if (agent != null)
-                {
-                    agent.enabled = true;
-                    if (agent.isOnNavMesh)
-                    {
-                        agent.isStopped = false;
-                    }
-                }
-
-                // 몬스터 세팅
-                enemy.onEnemyDie -= HandleEnemyDeath; // 중복 제거
-                enemy.onEnemyDie += HandleEnemyDeath; // 사망 구독
-
-                // 타겟(플레이어) 주입
-                enemy.SetTarget(mPlayer.transform);
+                //위치는 잡았고, 이펙트? 효과
+                StartCoroutine(EffectAndSpawn(enemy));
             }
         }
     }
+    //에너미 소환 이펙트 후 소환
+    private IEnumerator EffectAndSpawn(EnemyBase enemy)
+    {
+        //소환 이펙트 프리팹 가져오고
+        SummonEffect effect = Managers.Pool.GetFromPool(mSummonEffectPrefab);
+        effect.Setup(enemy.transform.position, Quaternion.identity);
+        //이펙트 재생 시간은 프리팹 인스펙터에서 조절가능
 
+        //이펙트 연출 시간 기다리고
+        yield return mWaitOneSec;
+
+        //액티브 true하고
+        enemy.gameObject.SetActive(true);
+        Physics.SyncTransforms(); // 물리 갱신
+
+        //NavMesh 로딩대기 1프레임
+        yield return null;
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+
+        //에이전트 셋팅, 필요 시 Rotation도 설정 가능
+        if (agent != null)
+        {
+            agent.enabled = true;
+            if (agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+            }
+        }
+
+        // 몬스터 세팅
+        enemy.onEnemyDie -= HandleEnemyDeath; // 중복 제거
+        enemy.onEnemyDie += HandleEnemyDeath; // 사망 구독
+
+        // 타겟(플레이어) 주입
+        enemy.SetTarget(mPlayer.transform);
+    }
     // 5. 몬스터 사망 콜백 (Observer)
     private void HandleEnemyDeath(EnemyBase enemy)
     {
@@ -264,13 +287,14 @@ public class StageManager : MonoBehaviour
             yield return new WaitUntil(() => bIsAngelSlimeEnded);
         }
 
+        //경험치들 날아오는 시간 버는 용
         yield return mWaitTwoSec;
 
         StartRoom();
     }
 
     // StateScene 진입 시 살짝 대기 후 스킬선택 창 보여주고, StartRoom
-    private IEnumerator StartRoomCo()
+    private IEnumerator StartFirstRoomCo()
     {
         yield return mWaitOneSec;
         mOnLevelUpPlayer.Raised(mPlayer.Attack);
@@ -279,6 +303,8 @@ public class StageManager : MonoBehaviour
         yield return mWaitOneSec;
         StartRoom();
     }
+
+
 
     private void HandlePlayerDie()
     {
