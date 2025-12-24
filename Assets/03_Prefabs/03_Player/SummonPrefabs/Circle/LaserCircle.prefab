@@ -9902,7 +9902,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mLaserEffectPrefab: {fileID: 2221843063068372525, guid: 91b6749f86cab2643b27f744c119901c,
     type: 3}
-  mLaserRadius: 2
+  mLaserRadius: 1
 --- !u!1 &3487540182691257274
 GameObject:
   m_ObjectHideFlags: 0
@@ -29556,4 +29556,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mLaserEffectPrefab: {fileID: 2221843063068372525, guid: 91b6749f86cab2643b27f744c119901c,
     type: 3}
-  mLaserRadius: 2
+  mLaserRadius: 1

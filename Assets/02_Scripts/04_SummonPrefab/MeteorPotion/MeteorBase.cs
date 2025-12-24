@@ -18,7 +18,7 @@ public abstract class MeteorBase : MonoBehaviour
     private void Start()
     {
         mRigidbody = GetComponent<Rigidbody>();
-        mWaitEffect = new WaitForSeconds(1.5f);
+        mWaitEffect = new WaitForSeconds(0.5f);
     }
 
     private void FixedUpdate()

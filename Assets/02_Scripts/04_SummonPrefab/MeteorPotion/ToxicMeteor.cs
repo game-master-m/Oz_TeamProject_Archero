@@ -35,10 +35,18 @@ public class ToxicMeteor : MeteorBase
     {
         enemy.TakeDotDamage(mToxicDamage, mEffectTime, mDamageTick, EDmgElement.Poison);
     }
-
     public override void ReturnPool()
     {
-        Managers.Pool.ReturnToPool(mExplodeEffect);
+        if (mCircleEffect != null)
+        {
+            Managers.Pool.ReturnToPool(mCircleEffect);
+            mCircleEffect = null;
+        }
+        if (mExplodeEffect != null)
+        {
+            Managers.Pool.ReturnToPool(mExplodeEffect);
+            mExplodeEffect = null;
+        }
         Managers.Pool.ReturnToPool(this);
     }
 
@@ -52,8 +60,6 @@ public class ToxicMeteor : MeteorBase
 
     protected override void SetExplodeEffect()
     {
-        Managers.Pool.ReturnToPool(mCircleEffect);
-
         mExplodeEffect = Managers.Pool.GetFromPool(mExplodeEffectPrefab);
         mExplodeEffect.transform.localScale = Vector3.one * mRange;
         mExplodeEffect.gameObject.transform.position
@@ -94,11 +100,5 @@ public class ToxicMeteor : MeteorBase
             float radius = mExplodeEffect.transform.localScale.x * 0.5f;
             Gizmos.DrawWireSphere(transform.position, radius);
         }
-    }
-
-    private void OnDisable()
-    {
-        if (mCircleEffect != null) Managers.Pool.ReturnToPool(mCircleEffect);
-        if (mExplodeEffect != null) Managers.Pool.ReturnToPool(mExplodeEffect);
     }
 }
