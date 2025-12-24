@@ -13,5 +13,28 @@ MonoBehaviour:
   m_Name: Room01_16
   m_EditorClassIdentifier: 
   bIsBoosRoom: 0
-  mapPrefab: {fileID: 0}
-  waveDataList: []
+  mapPrefab: {fileID: 2259268359442540368, guid: 643acaaaea1984c4499542501f51aa94,
+    type: 3}
+  waveDataList:
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 4279935612792246263, guid: 8266e148ea317114a84e3eda61f12f03,
+        type: 3}
+      spawnPointIndex: 4
+      spawnDelay: 0
+    - enemyPrefab: {fileID: 4279935612792246263, guid: 8266e148ea317114a84e3eda61f12f03,
+        type: 3}
+      spawnPointIndex: 4
+      spawnDelay: 0
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 7369603945038555379, guid: 9770b71f09402ee409b703a200574b4f,
+        type: 3}
+      spawnPointIndex: 7
+      spawnDelay: 2
+    - enemyPrefab: {fileID: 7369603945038555379, guid: 9770b71f09402ee409b703a200574b4f,
+        type: 3}
+      spawnPointIndex: 7
+      spawnDelay: 2
+    - enemyPrefab: {fileID: 7369603945038555379, guid: 9770b71f09402ee409b703a200574b4f,
+        type: 3}
+      spawnPointIndex: 7
+      spawnDelay: 2
