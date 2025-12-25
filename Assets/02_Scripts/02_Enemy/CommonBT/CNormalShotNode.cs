@@ -52,7 +52,7 @@ public class CNormalShotNode : ActionNode
         }
         else
         {
-            mOwner.LookAtDiretion(mBoard.Target.position);
+            mOwner.LookAtDiretion(mBoard.Target.position - mOwner.transform.position);
         }
 
         if (bHitProcessed && Time.time >= mAttackEndTime)

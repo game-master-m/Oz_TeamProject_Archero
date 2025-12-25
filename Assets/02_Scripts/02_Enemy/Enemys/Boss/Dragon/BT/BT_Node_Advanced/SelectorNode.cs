@@ -28,8 +28,23 @@ public class SelectorNode : Node
                 return childState;
             }
         }
+        if (lastRunningIndex != -1)
+        {
+            children[lastRunningIndex].Abort();
+            lastRunningIndex = -1;
+        }
+        return ENodeState.Failure;
+    }
+    public override void Abort()
+    {
+        base.Abort();
+
+        if (lastRunningIndex != -1 && lastRunningIndex < children.Count)
+        {
+            children[lastRunningIndex].Abort();
+        }
 
         lastRunningIndex = -1;
-        return ENodeState.Failure;
+
     }
 }

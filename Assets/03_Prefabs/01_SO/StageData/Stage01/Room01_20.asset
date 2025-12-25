@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   waveDataList:
   - spawnInfoList:
-    - enemyPrefab: {fileID: 5929296341400581596, guid: a795af07812c8f847a29d3efeb377d2c,
+    - enemyPrefab: {fileID: 5929296341400581596, guid: 67232bba17e476740b5ec2a8ef719350,
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
