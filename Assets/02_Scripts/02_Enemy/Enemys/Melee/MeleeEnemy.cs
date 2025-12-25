@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MeleeEnemy : EnemyBase
 {
@@ -11,8 +12,8 @@ public class MeleeEnemy : EnemyBase
     #region States
     // 여기에 근접공격 에너미의 상태들을 정의하세요.
     MeleeIdleState mIdleState;
-    MeleeMoveState mMoveState;
-    MeleeAttackState mAttackState;
+    MeleeCombatState mCombatState;
+    MeleeDeathState mDeathState;
     #endregion
 
     protected override void Awake()
@@ -23,9 +24,8 @@ public class MeleeEnemy : EnemyBase
 
         // 상태들 생성
         mIdleState = new MeleeIdleState(this);
-        mMoveState = new MeleeMoveState(this);
-        mAttackState = new MeleeAttackState(this);
-
+        mCombatState = new MeleeCombatState(this);
+        mDeathState = new MeleeDeathState(this);
         //전환조건 설정
         InitTransitions();
     }
@@ -73,30 +73,19 @@ public class MeleeEnemy : EnemyBase
 
     private void InitTransitions()
     {
-        // 상태 전환 로직을 여기에 작성하세요.
-        //mStateMachine.AddTransition(mIdleState, mMoveState, () => true); // 예시
+        //LivingEntity의 IsDead(mCurrentHP = 0 ) true일 때, 항상 데쓰스테이트로 감 -> 다른 state exit()에서 BT 종료
+        mStateMachine.AddAnyTransition(mDeathState, () => !IsDead && mStateMachine.IsCurrentState(mDeathState));
 
-        //현재상태가 Idle일때 move상태로 전환하는 조건: 타겟이 존재하고, 타겟과의 거리가 DetectRange 이하일때
-        mStateMachine.AddTransition(mIdleState, mMoveState,
+        mStateMachine.AddTransition(mIdleState, mCombatState,
             () => mTarget != null && CheckInDistance(mTarget, mDetectRange));
 
-        //현재상태가 Move일때 Idle상태로 전환하는 조건: 타겟이 없거나, 타겟과의 거리가 DetectRange를 넘을때
-        mStateMachine.AddTransition(mMoveState, mIdleState,
+        mStateMachine.AddTransition(mCombatState, mIdleState,
             () => mTarget == null || !CheckInDistance(mTarget, mDetectRange));
-
-        //움직이다가 플레이어가 공격범위 안에 들어오면 공격상태로 전환
-        mStateMachine.AddTransition(mMoveState, mAttackState,
-            () => mTarget != null && CheckInDistance(mTarget, mAttackRange));
-
-        //공격하다가 플레이어가 공격범위를 벗어나면 무브상태로 전환
-        mStateMachine.AddTransition(mAttackState, mMoveState,
-            () => mTarget == null || !CheckInDistance(mTarget, mAttackRange));
     }
 
     //TakeDamage(float amount) 필요 시 오버라이드
 
     //Die() 필요 시 오버라이드
-
 
 }
 

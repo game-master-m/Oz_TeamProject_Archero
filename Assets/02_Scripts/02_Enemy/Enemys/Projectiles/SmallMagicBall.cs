@@ -1,0 +1,5 @@
+
+public class SmallGreenBall : EnemyProjectileBase
+{
+
+}

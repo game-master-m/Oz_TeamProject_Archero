@@ -9,7 +9,7 @@ public class BigFireBall : EnemyProjectileBase
 
     private bool bHasSplit = false;
     private float mSplitDelay;
-    protected virtual void Awake()
+    protected override void Awake()
     {
         base.Awake();
         Managers.Pool.CreatePool(mExplosionAir, 10, Managers.Pool.transform);

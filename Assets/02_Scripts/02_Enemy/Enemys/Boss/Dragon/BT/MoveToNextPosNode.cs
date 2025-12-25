@@ -3,7 +3,7 @@ using UnityEngine;
 public class MoveToNextPosNode : ActionNode
 {
     private BlackBoard board;
-
+    private float mTimer = 0.0f;
     public MoveToNextPosNode(EnemyBase owner, BlackBoard board) : base(owner)
     {
         this.board = board;
@@ -33,10 +33,25 @@ public class MoveToNextPosNode : ActionNode
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.05f)
         {
             agent.isStopped = true;
+            mTimer = 0.0f;
+            return ENodeState.Success;
+        }
+
+        //무한 러닝 방지
+        mTimer += Time.deltaTime;
+        if (mTimer > 5.0f)
+        {
+            mTimer = 0.0f;
+            agent.isStopped = true;
             return ENodeState.Success;
         }
 
         mOwner.LookAtDiretion(mOwner.Agent.velocity);
         return ENodeState.Running;
+    }
+    public override void Abort()
+    {
+        base.Abort();
+        mTimer = 0.0f;
     }
 }

@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 
-using UnityEngine;
-
 public class RangeEnemy : EnemyBase
 {
     [Header("Projectile")]
-    [SerializeField] private EnemyProjectile mProjectilePrefab;
-    [SerializeField] private Transform mFirePoint;
+    [SerializeField] private SmallWaterBall mWaterBallPrefab;
+    [SerializeField] private Vector3 mSpawnOffset = new Vector3(0.0f, 0.5f, 2.0f);
 
     RangeIdleState mIdleState;
-    RangeMoveState mMoveState;
-    RangeAttackState mAttackState;
+    RangeCombatState mCombatState;
+    RangeDeathState mDeathState;
 
+    public Vector3 SpawnOffset => mSpawnOffset;
     protected override void Awake()
     {
         base.Awake();
 
         mIdleState = new RangeIdleState(this);
-        mMoveState = new RangeMoveState(this);
-        mAttackState = new RangeAttackState(this);
+        mCombatState = new RangeCombatState(this);
+        mDeathState = new RangeDeathState(this);
 
         InitTransitions();
 
-        Managers.Pool.CreatePool(mProjectilePrefab, 20, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mWaterBallPrefab, 20, Managers.Pool.transform);
     }
-
+    private void Start()
+    {
+        Board.SpawnOffset = mSpawnOffset;
+        Board.SmallWaterBall = mWaterBallPrefab;
+    }
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -37,26 +40,13 @@ public class RangeEnemy : EnemyBase
 
     private void InitTransitions()
     {
-        mStateMachine.AddTransition(mIdleState, mMoveState,
+        mStateMachine.AddAnyTransition(mDeathState, () => IsDead && !mStateMachine.IsCurrentState(mDeathState));
+
+        mStateMachine.AddTransition(mIdleState, mCombatState,
             () => mTarget != null && CheckInDistance(mTarget, DetectRange));
 
-        mStateMachine.AddTransition(mMoveState, mIdleState,
+        mStateMachine.AddTransition(mCombatState, mIdleState,
             () => mTarget == null || !CheckInDistance(mTarget, DetectRange));
-
-        mStateMachine.AddTransition(mMoveState, mAttackState,
-            () => mTarget != null && CheckInDistance(mTarget, AttackRange));
-
-        mStateMachine.AddTransition(mAttackState, mMoveState,
-            () => mTarget == null || !CheckInDistance(mTarget, AttackRange));
     }
 
-    // 🔥 실제 공격 (State에서 호출)
-    public void FireProjectile()
-    {
-        if (mTarget == null) return;
-
-        EnemyProjectile proj = Managers.Pool.GetFromPool(mProjectilePrefab);
-        proj.transform.position = mFirePoint.position;
-        proj.Fire(mTarget.position, AttackDamage);
-    }
 }

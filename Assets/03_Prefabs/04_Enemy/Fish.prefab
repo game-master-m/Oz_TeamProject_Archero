@@ -351,5 +351,6 @@ MonoBehaviour:
       type: 3}
     dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
-  mProjectilePrefab: {fileID: 0}
-  mFirePoint: {fileID: 0}
+  mWaterBallPrefab: {fileID: 891448210927078767, guid: 86ec03fa3b38cc64891e3a1b1a7d6d3a,
+    type: 3}
+  mSpawnOffset: {x: 0, y: 0.5, z: 2}

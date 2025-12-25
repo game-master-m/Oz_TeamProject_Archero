@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class MeleeIdleState : EnemyState
 {
+    private Node mPatrolBT;
     public MeleeIdleState(EnemyBase enemy, IState parent = null) : base(enemy, parent)
     {
+        mPatrolBT = new RepeaterNode(BT_Builder.GetPatrolBT(enemy, enemy.Board, 10.0f, 1.5f, 2.5f));
     }
 
     public override void Enter()
     {
         base.Enter();
-        //유니티 에디터에서만 로그찍기
-        Utils.Log("MeleeIdle Enter");
-        mEnemy.Anim.CrossFade(AnimHash.idle, 0.1f);
     }
     public override void Update()
     {
         base.Update();
+        mPatrolBT.Evaluate();
     }
     public override void FixedUpdate()
     {
@@ -24,6 +24,7 @@ public class MeleeIdleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        mPatrolBT?.Abort();
     }
 
 }

@@ -71,12 +71,12 @@ public class EnemyBase : LivingEntity
         Board = new BlackBoard();
 
         Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
-        if (mDropItems != null) 
+        if (mDropItems != null)
         {
             foreach (var drop in mDropItems)
             {
                 if (drop != null && drop.itemPrefab != null)
-                Managers.Pool.CreatePool(drop.itemPrefab, 10, Managers.Pool.transform);
+                    Managers.Pool.CreatePool(drop.itemPrefab, 10, Managers.Pool.transform);
             }
         }
     }
@@ -179,6 +179,7 @@ public class EnemyBase : LivingEntity
         Managers.Pool.ReturnToPool(this);
     }
 
+    #region 드랍
     private void DropItems()
     {
         foreach (var drop in mDropItems)
@@ -194,7 +195,6 @@ public class EnemyBase : LivingEntity
             }
         }
     }
-
     private void TryDrop(DropItemData drop)
     {
         if (drop == null || drop.itemPrefab == null) return;
@@ -209,7 +209,9 @@ public class EnemyBase : LivingEntity
             item.gameObject.SetActive(true);
         }
     }
+    #endregion
 
+    #region 넉백
     public void KnockBack(Vector3 attackerPos, float force, float duration = 0.3f)
     {
         // 1. 넉백 방향 계산
@@ -253,6 +255,7 @@ public class EnemyBase : LivingEntity
             yield return null;
         }
     }
+    #endregion
 
     #region 헬퍼함수
     protected bool CheckInDistance(Transform target, float distance)

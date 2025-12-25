@@ -8512,11 +8512,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1419194592}
     m_Modifications:
-    - target: {fileID: 394246900496908342, guid: b92148d2cc259974c9a51ec837aa29e8,
-        type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3964363558090927402, guid: b92148d2cc259974c9a51ec837aa29e8,
         type: 3}
       propertyPath: m_Name
@@ -12305,7 +12300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1942854294
 RectTransform:
   m_ObjectHideFlags: 0
