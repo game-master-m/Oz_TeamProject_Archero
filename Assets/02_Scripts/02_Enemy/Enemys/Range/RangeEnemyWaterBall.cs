@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class RangeEnemy : EnemyBase
+public class RangeEnemyWaterBall : EnemyBase
 {
     [Header("Projectile")]
-    [SerializeField] private SmallWaterBall mWaterBallPrefab;
+    [SerializeField] private EnemyProjectileBase mProjectilePrefab;
     [SerializeField] private Vector3 mSpawnOffset = new Vector3(0.0f, 0.5f, 2.0f);
 
     RangeIdleState mIdleState;
@@ -21,12 +21,15 @@ public class RangeEnemy : EnemyBase
 
         InitTransitions();
 
-        Managers.Pool.CreatePool(mWaterBallPrefab, 20, Managers.Pool.transform);
+        if (mProjectilePrefab != null)
+        {
+            Managers.Pool.CreatePool(mProjectilePrefab, 20, Managers.Pool.transform);
+        }
     }
     private void Start()
     {
         Board.SpawnOffset = mSpawnOffset;
-        Board.SmallWaterBall = mWaterBallPrefab;
+        Board.SmallWaterBall = mProjectilePrefab;
     }
     protected override void OnEnable()
     {

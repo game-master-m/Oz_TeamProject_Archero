@@ -189,6 +189,8 @@ public class StageManager : MonoBehaviour
             // PoolManager 몬스터 생성 요청
             EnemyBase enemyPrefab = info.enemyPrefab.GetComponent<EnemyBase>();
             EnemyBase enemy = Managers.Pool.GetFromPool(enemyPrefab);
+            enemy.Anim.Rebind();
+            enemy.Anim.Update(0.0f);
 
             if (enemy != null)
             {
@@ -203,12 +205,12 @@ public class StageManager : MonoBehaviour
                 enemy.transform.position = spawnPos;
 
                 //위치는 잡았고, 이펙트? 효과
-                StartCoroutine(EffectAndSpawn(enemy));
+                StartCoroutine(EffectAndSpawn(enemy, spawnPos));
             }
         }
     }
     //에너미 소환 이펙트 후 소환
-    private IEnumerator EffectAndSpawn(EnemyBase enemy)
+    private IEnumerator EffectAndSpawn(EnemyBase enemy, Vector3 spawnPos)
     {
         //소환 이펙트 프리팹 가져오고
         SummonEffect effect = Managers.Pool.GetFromPool(mSummonEffectPrefab);
@@ -230,6 +232,7 @@ public class StageManager : MonoBehaviour
         if (agent != null)
         {
             agent.enabled = true;
+            agent.Warp(spawnPos);
             if (agent.isOnNavMesh)
             {
                 agent.isStopped = false;

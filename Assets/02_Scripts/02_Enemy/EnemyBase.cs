@@ -150,8 +150,6 @@ public class EnemyBase : LivingEntity
 
     public override void Die()
     {
-        base.Die();
-
         // 1. 움직임 멈춤
         if (mAgent.isOnNavMesh)
         {
@@ -176,7 +174,8 @@ public class EnemyBase : LivingEntity
         // 6. StageManager에게 알리기 (필요시 이벤트나 매니저 호출)
 
         // 7. 애니메이션 재생 후 풀로 반환(각 DeathState에서 제어하자)
-        Managers.Pool.ReturnToPool(this);
+        //Managers.Pool.ReturnToPool(this);
+        base.Die();
     }
 
     #region 드랍

@@ -23,7 +23,7 @@ public class CWaitNode : ActionNode
         {
             mStartTime = Time.time;
 
-            mOwner.Anim.CrossFade(AnimHash.idle, 0.1f);
+            mOwner.Anim.Play(AnimHash.idle);
 
             bIsWaiting = true;
             mStartRotation = mOwner.transform.rotation;

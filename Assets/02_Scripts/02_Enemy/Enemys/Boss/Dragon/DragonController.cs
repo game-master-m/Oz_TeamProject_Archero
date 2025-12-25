@@ -150,17 +150,12 @@ public class DragonController : EnemyBase
 
         //Combat State
         mStateMachine.AddTransition(mCombatState, mIdleState, () => mTarget != null && !CheckInDistance(mTarget, mDetectRange));
-        //mStateMachine.AddTransition(mCombatState, mFirstPhaseState,
-        //    () => !mStateMachine.IsCurrentState(mFirstPhaseState) && Board.HPPercent > 0.7f && Board.HPPercent <= 1.0f);
-        //mStateMachine.AddTransition(mCombatState, mSecondPhaseState,
-        //    () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 0.7f);
-        //mStateMachine.AddTransition(mCombatState, mThirdPhaseState,
-        //    () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 0.3f);
-
-        //Test
+        mStateMachine.AddTransition(mCombatState, mFirstPhaseState,
+            () => !mStateMachine.IsCurrentState(mFirstPhaseState) && Board.HPPercent > 0.7f && Board.HPPercent <= 1.0f);
+        mStateMachine.AddTransition(mCombatState, mSecondPhaseState,
+            () => !mStateMachine.IsCurrentState(mSecondPhaseState) && Board.HPPercent > 0.3f && Board.HPPercent <= 0.7f);
         mStateMachine.AddTransition(mCombatState, mThirdPhaseState,
-            () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 1.0f);
-
+            () => !mStateMachine.IsCurrentState(mThirdPhaseState) && Board.HPPercent <= 0.3f);
     }
     #endregion
 }

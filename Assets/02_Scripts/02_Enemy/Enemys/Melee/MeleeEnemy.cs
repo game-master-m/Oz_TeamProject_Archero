@@ -74,7 +74,7 @@ public class MeleeEnemy : EnemyBase
     private void InitTransitions()
     {
         //LivingEntity의 IsDead(mCurrentHP = 0 ) true일 때, 항상 데쓰스테이트로 감 -> 다른 state exit()에서 BT 종료
-        mStateMachine.AddAnyTransition(mDeathState, () => !IsDead && mStateMachine.IsCurrentState(mDeathState));
+        mStateMachine.AddAnyTransition(mDeathState, () => IsDead && !mStateMachine.IsCurrentState(mDeathState));
 
         mStateMachine.AddTransition(mIdleState, mCombatState,
             () => mTarget != null && CheckInDistance(mTarget, mDetectRange));

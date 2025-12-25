@@ -1,5 +1,5 @@
 
-public class SmallGreenBall : EnemyProjectileBase
+public class SmallMagicBall : EnemyProjectileBase
 {
 
 }

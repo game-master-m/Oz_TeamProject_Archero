@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MeleeIdleState : EnemyState
@@ -26,5 +27,4 @@ public class MeleeIdleState : EnemyState
         base.Exit();
         mPatrolBT?.Abort();
     }
-
 }

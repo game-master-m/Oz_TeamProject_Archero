@@ -53,7 +53,11 @@ public static class BT_Builder
         SelectorNode select = new SelectorNode(new List<Node>
         {
             GetNormalAttackBT(enemy,board,rotateSpeed,hitTiming,hitBoxOffsetForward,hitBoxRadius,waitTime),
-            new CMoveToTargetNode(enemy,board),
+            new SequenceNode(new List<Node>()
+            {
+                new CWaitNode(enemy,0.5f,true),
+                new CMoveToTargetNode(enemy,board),
+            })
         });
         return select;
     }
@@ -64,7 +68,11 @@ public static class BT_Builder
         SelectorNode select = new SelectorNode(new List<Node>
         {
             GetNormalShotBT(enemy,board, rotateSpeed,shotTiming,waitTime,projectileSpeed,offset,factory),
-            new CMoveToTargetNode(enemy,board),
+            new SequenceNode(new List<Node>()
+            {
+                new CWaitNode(enemy,0.5f,true),
+                new CMoveToTargetNode(enemy,board),
+            })
         });
         return select;
     }

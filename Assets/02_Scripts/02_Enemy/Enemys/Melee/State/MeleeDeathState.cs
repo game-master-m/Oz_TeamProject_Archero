@@ -10,7 +10,7 @@ public class MeleeDeathState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        Utils.Log("Enemy DeatState Enter");
+        Managers.Pool.ReturnToPool(mEnemy);
     }
 
     public override void Update()

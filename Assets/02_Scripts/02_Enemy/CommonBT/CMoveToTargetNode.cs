@@ -4,6 +4,8 @@ public class CMoveToTargetNode : ActionNode
 {
     private BlackBoard mBoard;
     private bool bIsFirstFrame = true;
+    private float mSetDestinationTimer = 0.3f;
+    private readonly float mSetDestinationDuration = 0.3f;
 
     public CMoveToTargetNode(EnemyBase owner, BlackBoard board) : base(owner)
     {
@@ -16,7 +18,7 @@ public class CMoveToTargetNode : ActionNode
         if (mBoard.Target == null) return ENodeState.Failure;
         if (bIsFirstFrame)
         {
-            mOwner.Anim.CrossFade(AnimHash.move, 0.1f);
+            mOwner.Anim.Play(AnimHash.move);
             bIsFirstFrame = false;
         }
 
@@ -33,10 +35,15 @@ public class CMoveToTargetNode : ActionNode
         }
 
         // 3. NavMeshAgent를 통한 이동 설정
-        if (mOwner.Agent.isOnNavMesh)
+        mSetDestinationTimer += Time.deltaTime;
+        if (mSetDestinationTimer >= mSetDestinationDuration)
         {
-            mOwner.Agent.isStopped = false;
-            mOwner.Agent.SetDestination(mBoard.Target.position);
+            mSetDestinationTimer = 0.0f;
+            if (mOwner.Agent.isOnNavMesh)
+            {
+                mOwner.Agent.isStopped = false;
+                mOwner.Agent.SetDestination(mBoard.Target.position);
+            }
         }
 
         // 4. 이동 방향을 바라보도록 회전

@@ -8,4 +8,5 @@ public class ConditionNode : Node
     {
         return condition() ? ENodeState.Success : ENodeState.Failure;
     }
+
 }

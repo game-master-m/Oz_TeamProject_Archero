@@ -7,6 +7,7 @@ public class RangeDeathState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        Managers.Pool.ReturnToPool(mEnemy);
     }
 
     public override void Update()
