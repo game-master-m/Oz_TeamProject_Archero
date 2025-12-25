@@ -21,7 +21,10 @@ public class BlackBoard
     public SmallFireBall SmallFireBallPrefab { get; set; }
     public HomingFireBall HomingFireBallPrefab { get; set; }
     public BigFireBall BigFireBallPrefab { get; set; }
-
+    public SmallWaterBall SmallWaterBall { get; set; }
+    public SmallGreenBall SmallGreenBall { get; set; }
+    public SmallWindBall SmallWindBall { get; set; }
+    public Vector3 SpawnOffset { get; set; }
     //ÇÁ¸®ÆÕ ÀÌÆåÆ® Á¢±Ù¿ë
     public EffectBase CurrentEffect { get; set; }
     public FireTrail FireTrailPrefab { get; set; }

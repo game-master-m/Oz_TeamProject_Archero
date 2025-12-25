@@ -10,7 +10,7 @@ public class EnemyStatDataSO : ScriptableObject
     [SerializeField] private float mMoveSpeed = 5f;
     [SerializeField] private float mAttackDamage = 10f;
     [SerializeField] private float mAttackRange = 10f;
-    [SerializeField] private float mAttackSpeed = 3.0f;
+    [SerializeField] private float mHitTiming = 3.0f;
     [SerializeField] private float mRotateSpeed = 8.0f;
     [SerializeField] private float mDetectRange = 20.0f;
 
@@ -21,7 +21,7 @@ public class EnemyStatDataSO : ScriptableObject
     public float MoveSpeed => mMoveSpeed;
     public float AttackDamage => mAttackDamage;
     public float AttackRange => mAttackRange;
-    public float AttackSpeed => mAttackSpeed;
+    public float AttackSpeed => mHitTiming;
     public float RotateSpeed => mRotateSpeed;
     public float DetectRange => mDetectRange;
     public Vector3 RotateOffset => mRotateOffset;

@@ -16,7 +16,7 @@ MonoBehaviour:
   mMoveSpeed: 5
   mAttackDamage: 45
   mAttackRange: 1.5
-  mAttackSpeed: 12
+  mHitTiming: 0.45
   mRotateSpeed: 8
   mDetectRange: 40
   mRotateOffset: {x: 0, y: 0, z: 0}
