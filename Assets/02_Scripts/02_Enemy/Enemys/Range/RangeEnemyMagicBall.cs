@@ -19,7 +19,7 @@ public class RangeEnemyMagicBall : EnemyBase
         Board.SmallMagicBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
-        mCombatState = new RangeCombatState(this);
+        mCombatState = new RangeCombatState(this, EProjectileName.SmallMagicBall);
         mDeathState = new RangeDeathState(this);
 
         InitTransitions();

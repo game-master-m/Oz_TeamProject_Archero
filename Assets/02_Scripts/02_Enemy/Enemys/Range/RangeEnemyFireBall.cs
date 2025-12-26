@@ -19,7 +19,7 @@ public class RangeEnemyFireBall : EnemyBase
         Board.SmallFireBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
-        mCombatState = new RangeCombatState(this);
+        mCombatState = new RangeCombatState(this, EProjectileName.SmallFireBall);
         mDeathState = new RangeDeathState(this);
 
         InitTransitions();

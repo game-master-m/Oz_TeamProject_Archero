@@ -19,7 +19,7 @@ public class RangeEnemyWindBall : EnemyBase
         Board.SmallWindBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
-        mCombatState = new RangeCombatState(this);
+        mCombatState = new RangeCombatState(this, EProjectileName.SmallWindBall);
         mDeathState = new RangeDeathState(this);
 
         InitTransitions();

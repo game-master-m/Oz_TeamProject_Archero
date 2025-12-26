@@ -64,7 +64,7 @@ public class StageProgressUI : MonoBehaviour
         mCurrentRoomNumText.SetText(Utils.IntAppend(currentRoomNum));
         mNextRoomNumText.SetText(Utils.IntAppend(nextRoomNum));
 
-        if (nextRoomNum == mBossRoomNumList[mBossRoomIndex] && currentRoomNum < mBossRoomNumList[mBossRoomNumList.Count - 1])
+        if (nextRoomNum == mBossRoomNumList[mBossRoomIndex] && nextRoomNum < mBossRoomNumList[mBossRoomNumList.Count - 1])
         {
             mBossRoomIndex++;
         }

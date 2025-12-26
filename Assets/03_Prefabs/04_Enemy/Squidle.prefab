@@ -234,7 +234,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e0b638cd5e2ebae40b0c742c68f5311d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3582150105256140988}
+      addedObject: {fileID: -4376564248540607147}
   m_SourcePrefab: {fileID: 100100000, guid: e0b638cd5e2ebae40b0c742c68f5311d, type: 3}
 --- !u!1 &7241737114134120376 stripped
 GameObject:
@@ -324,7 +324,7 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
---- !u!114 &3582150105256140988
+--- !u!114 &-4376564248540607147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7241737114134120376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d104163e0d0e1c040b97b29b264bf8ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e94238a4ae6a294f9bb3b9bac980438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 1951cdfa968aba8498c9b3ae5ef5ef70, type: 2}
@@ -344,7 +344,7 @@ MonoBehaviour:
   - itemPrefab: {fileID: 0}
     dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
-  mProjectilePrefab: {fileID: 8074751471807556544, guid: 2d1a33dc7aea355428f8c3a399b56030,
+  mProjectilePrefab: {fileID: 5392403191203697857, guid: 32f091b57abb33e4593c6213d22f7af3,
     type: 3}
   mSpawnOffset: {x: 0, y: 0.5, z: 2}
 --- !u!4 &8013030899418029314 stripped

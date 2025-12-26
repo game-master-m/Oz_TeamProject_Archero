@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SuperFairy : FairyBase
 {
@@ -88,7 +87,7 @@ public class SuperFairy : FairyBase
 
         while (Time.time - startTime < mLaserDuration)
         {
-           TargetPointSearch();
+            TargetPointSearch();
             for (int i = 0; i < mPointList.Count; i++)
             {
                 if (mPointList[i].TryGetComponent(out EnemyBase enemy))
