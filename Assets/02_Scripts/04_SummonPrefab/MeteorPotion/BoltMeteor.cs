@@ -129,7 +129,7 @@ public class BoltMeteor : MeteorBase
         mExplodeEffect = Managers.Pool.GetFromPool(mExplodeEffectPrefab);
         mExplodeEffect.transform.localScale = Vector3.one * mRange;
         mExplodeEffect.gameObject.transform.position
-            = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
+            = new Vector3(this.gameObject.transform.position.x, 0.2f, this.gameObject.transform.position.z);
 
         if (mExplodeEffect != null)
         {

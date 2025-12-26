@@ -30,8 +30,9 @@ public class BombFairyStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mBombFairy == null) return;  
         mBombFairy.StopAllCoroutines();
         mBombFairy.Detach();
-        Managers.Pool.ReturnToPool(mBombFairy);
+        Managers.Pool.ReturnToPool(mBombFairy); 
     }
 }

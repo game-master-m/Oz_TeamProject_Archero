@@ -57,7 +57,7 @@ public class BlazeMeteor : MeteorBase
         mCircleEffect = Managers.Pool.GetFromPool(mCircleEffectPrefab);
         mCircleEffect.transform.localScale = Vector3.one * mRange * 2f;
         mCircleEffect.gameObject.transform.position
-            = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
+            = new Vector3(this.gameObject.transform.position.x, 0.2f, this.gameObject.transform.position.z);
     }
 
     protected override void SetExplodeEffect()

@@ -32,6 +32,7 @@ public class LaserCircleStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mLaserCircle == null) return;
         mLaserCircle.Detach();
         Managers.Pool.ReturnToPool(mLaserCircle);
     }

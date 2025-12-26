@@ -32,6 +32,7 @@ public class FireCircleStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mFireCircle == null) return;
         mFireCircle.Detach();
         Managers.Pool.ReturnToPool(mFireCircle);
     }

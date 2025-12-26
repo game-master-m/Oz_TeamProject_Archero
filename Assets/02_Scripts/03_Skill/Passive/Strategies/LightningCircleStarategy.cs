@@ -32,6 +32,7 @@ public class LightningCircleStarategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mLightningCircle == null) return; 
         mLightningCircle.Detach();
         Managers.Pool.ReturnToPool(mLightningCircle);
     }

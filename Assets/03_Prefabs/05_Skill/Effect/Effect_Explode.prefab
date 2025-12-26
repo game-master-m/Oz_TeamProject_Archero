@@ -24288,3 +24288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2586392d4f67d429d5f95cd6811c96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mLifeTime: 0.5
+  mSizeMultiplier: 2
+  mPlayBackSpeed: 1
