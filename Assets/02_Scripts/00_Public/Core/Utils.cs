@@ -13,6 +13,11 @@ public static class Utils
         mBuilder.Append(value);
         return mBuilder;
     }
+    public static StringBuilder StringAppend(string value)
+    {
+        mBuilder.Clear();
+        return mBuilder.Append(value);
+    }
     public static StringBuilder DamageAppend(string prefix, int value)
     {
         mBuilder.Clear();

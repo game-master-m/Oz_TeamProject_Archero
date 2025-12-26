@@ -6,10 +6,29 @@ public class RangeCombatState : EnemyState
     private float mWaitAfterShotAnimation = 1.0f;
     private float mProjectileSpeed = 15.0f;
 
-    public RangeCombatState(EnemyBase enemy, IState parent = null) : base(enemy, parent)
+    public RangeCombatState(EnemyBase enemy, EProjectileName ball, IState parent = null) : base(enemy, parent)
     {
+        SelectorNode node;
+        switch (ball)
+        {
+            case EProjectileName.SmallWindBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallWindBall));
+                break;
+            case EProjectileName.SmallFireBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallFireBall));
+                break;
+            case EProjectileName.SmallWaterBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallWaterBall));
+                break;
+            case EProjectileName.SmallMagicBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallMagicBall));
+                break;
+            default:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallFireBall));
+                break;
+        }
         mChaseAndShot = new RepeaterNode(
-                BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallWaterBall))
+                node
             );
     }
     public override void Enter()

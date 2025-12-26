@@ -12768,6 +12768,7 @@ MonoBehaviour:
   mFillImage: {fileID: 633335547}
   mExpProgressText: {fileID: 1414214793}
   mLevelText: {fileID: 1603110729}
+  mCurrentGetGoldAmountText: {fileID: 135561160}
   mOnStageClear: {fileID: 11400000, guid: 00a83b1d54b6e30478e9ddcc21576c57, type: 2}
   mOnShowEndUIRequest: {fileID: 11400000, guid: ac657fa318aa4ba40b15267d95b240f0,
     type: 2}

@@ -15,6 +15,9 @@ public class EndUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI mExpProgressText;
     [SerializeField] private TextMeshProUGUI mLevelText;
 
+    //골드받아오기
+    [SerializeField] private TextMeshProUGUI mCurrentGetGoldAmountText;
+
     [Header("이벤트 구독")]
     [SerializeField] private IntTripleEventChannelSO mOnStageClear;        //StageManager.cs 가 발행
     [SerializeField] private IntTripleEventChannelSO mOnShowEndUIRequest;  //StageManager.cs 가 발행
@@ -73,7 +76,7 @@ public class EndUI : MonoBehaviour
         //일단은 획득경험치만 표기
         mExpProgressText.SetText(Utils.IntAppend(CalculateExp(killCount, roomIndex, stageNumber)));
         mExpNumText.SetText(Utils.IntAppend(CalculateExp(killCount, roomIndex, stageNumber)));
-        mGoldText.SetText(Utils.IntAppend(CalculateGold(killCount, roomIndex, stageNumber)));
+        mGoldText.SetText(Utils.StringAppend(mCurrentGetGoldAmountText.text));
 
         //레벨텍스트와 프로그레스텍스트의 경험치 총량은 DataManager.cs 설계 후 적용
 
@@ -97,4 +100,5 @@ public class EndUI : MonoBehaviour
         return result;
     }
     //획득 한 경험치 프리팹 기준으로 다시 설정하자 =====================================================
+
 }

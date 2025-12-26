@@ -18,7 +18,7 @@ public class RangeEnemyWaterBall : EnemyBase
         Board.SmallWaterBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
-        mCombatState = new RangeCombatState(this);
+        mCombatState = new RangeCombatState(this, EProjectileName.SmallWaterBall);
         mDeathState = new RangeDeathState(this);
 
         InitTransitions();
