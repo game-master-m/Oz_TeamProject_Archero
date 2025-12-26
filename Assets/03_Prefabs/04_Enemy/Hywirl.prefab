@@ -95,7 +95,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d546e5695af3e442913f4c4c2fafd80,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3394410359531150447}
+      addedObject: {fileID: 739611308460527383}
   m_SourcePrefab: {fileID: 100100000, guid: 7d546e5695af3e442913f4c4c2fafd80, type: 3}
 --- !u!1 &3732615879304160254 stripped
 GameObject:
@@ -112,7 +112,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3732615879304160254}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.99
+  m_Radius: 1.4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -144,7 +144,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.34
+  m_Radius: 1.85
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1.45, z: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
---- !u!114 &-3394410359531150447
+--- !u!114 &739611308460527383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3732615879304160254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Script: {fileID: 11500000, guid: 4813019094d79314daba4abd6843f72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 6c25f890b7dcb2a4eab49b1af077fcd8, type: 2}
@@ -202,11 +202,10 @@ MonoBehaviour:
     type: 3}
   mEnemyType: 2
   mDropItems:
-  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
-      type: 3}
+  - itemPrefab: {fileID: 0}
     dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
-  mProjectilePrefab: {fileID: 891448210927078767, guid: 86ec03fa3b38cc64891e3a1b1a7d6d3a,
+  mProjectilePrefab: {fileID: -9168590644289163733, guid: 17fadd4cde227d048b3b8d1e85779374,
     type: 3}
   mSpawnOffset: {x: 0, y: 0.5, z: 2}
 --- !u!4 &4073289195451873604 stripped

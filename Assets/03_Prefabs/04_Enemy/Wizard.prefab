@@ -234,7 +234,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d8b6538d3e4afd4fb00f024deacdd17,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -4130371266979014151}
+      addedObject: {fileID: 1832151351417683435}
   m_SourcePrefab: {fileID: 100100000, guid: 9d8b6538d3e4afd4fb00f024deacdd17, type: 3}
 --- !u!4 &8596699182748390841 stripped
 Transform:
@@ -257,7 +257,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8936915106892844803}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.4
+  m_Radius: 1.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -289,7 +289,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 1.55
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1.16, z: 0}
@@ -330,7 +330,7 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
---- !u!114 &-4130371266979014151
+--- !u!114 &1832151351417683435
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,15 +339,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8936915106892844803}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Script: {fileID: 11500000, guid: 4813019094d79314daba4abd6843f72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 5d6da60873467724a9ddf9619084b4c8, type: 2}
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
   mEnemyType: 2
-  mDropItems: []
+  mDropItems:
+  - itemPrefab: {fileID: 0}
+    dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
-  mProjectilePrefab: {fileID: 891448210927078767, guid: 86ec03fa3b38cc64891e3a1b1a7d6d3a,
+  mProjectilePrefab: {fileID: -9168590644289163733, guid: 17fadd4cde227d048b3b8d1e85779374,
     type: 3}
   mSpawnOffset: {x: 0, y: 0.5, z: 2}
