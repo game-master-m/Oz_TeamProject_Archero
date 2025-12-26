@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class ExplodeEffect : MonoBehaviour
+public class ExplodeEffect : EffectBase
 {
 
 }

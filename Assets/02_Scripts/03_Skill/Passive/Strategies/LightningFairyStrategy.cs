@@ -30,6 +30,7 @@ public class LightningFairyStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mLightningFairy == null) return;
         mLightningFairy.StopAllCoroutines();
         mLightningFairy.Detach();
         Managers.Pool.ReturnToPool(mLightningFairy);

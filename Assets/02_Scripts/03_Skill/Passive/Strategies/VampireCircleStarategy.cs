@@ -32,6 +32,7 @@ public class VampireCircleStarategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mVampireCircle == null) return;
         mVampireCircle.Detach();
         Managers.Pool.ReturnToPool(mVampireCircle);
     }

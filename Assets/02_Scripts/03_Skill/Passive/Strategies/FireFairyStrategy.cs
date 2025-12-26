@@ -30,6 +30,7 @@ public class FireFairyStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mFireFairy == null) return;
         mFireFairy.StopAllCoroutines();
         mFireFairy.Detach();
         Managers.Pool.ReturnToPool(mFireFairy);

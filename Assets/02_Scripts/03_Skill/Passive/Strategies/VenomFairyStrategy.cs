@@ -30,6 +30,7 @@ public class VenomFairyStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mVenomFairy == null) return;
         mVenomFairy.StopAllCoroutines();
         mVenomFairy.Detach();
         Managers.Pool.ReturnToPool(mVenomFairy);

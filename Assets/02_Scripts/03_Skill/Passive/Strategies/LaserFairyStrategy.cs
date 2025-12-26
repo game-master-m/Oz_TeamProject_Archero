@@ -30,6 +30,7 @@ public class LaserFairyStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mLaserFairy == null) return;
         mLaserFairy.StopAllCoroutines();
         mLaserFairy.Detach();
         Managers.Pool.ReturnToPool(mLaserFairy);

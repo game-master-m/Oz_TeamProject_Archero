@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class BlazeMeteorPotion : PotionBase
@@ -30,7 +29,7 @@ public class BlazeMeteorPotion : PotionBase
         Vector3 targetPos;
         if (FindCloseEnemy() == null)
         {
-            targetPos = this.gameObject.transform.position;
+           return;
         }
         else
         {

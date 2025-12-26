@@ -32,6 +32,7 @@ public class VenomCircleStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mVenomCircle == null) return;
         mVenomCircle.Detach();
         Managers.Pool.ReturnToPool(mVenomCircle);
     }

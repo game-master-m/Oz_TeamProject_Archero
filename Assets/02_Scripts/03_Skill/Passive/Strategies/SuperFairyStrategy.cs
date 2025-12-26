@@ -30,6 +30,7 @@ public class SuperFairyStrategy : IPassiveStrategy
 
     public void OnUnequip(PlayerAttack attack)
     {
+        if (mSuperFairy == null) return;
         mSuperFairy.StopAllCoroutines();
         mSuperFairy.Detach();
         Managers.Pool.ReturnToPool(mSuperFairy);

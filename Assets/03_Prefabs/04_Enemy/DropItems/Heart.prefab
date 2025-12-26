@@ -98,6 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c632cb6aa301b54da7ed73b7b00ca7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mRotateSpeed: 2
+  mFloatingRange: 0.2
+  mFloatingSpeed: 2
+  mItemType: 4
+  mEffect: 3
   mHealAmount: 100
 --- !u!135 &8006010333441267046
 SphereCollider:
@@ -118,7 +123,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.250061
+  m_Radius: 0.5
   m_Center: {x: 0, y: -0.000000007450581, z: 0}
 --- !u!54 &1194217343167671908
 Rigidbody:
@@ -145,5 +150,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 90
   m_CollisionDetection: 0
