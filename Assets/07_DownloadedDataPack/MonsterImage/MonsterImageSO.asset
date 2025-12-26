@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d285dba3ad1b8d443a1c1cc7f11ae986, type: 3}
+  m_Name: MonsterImageSO
+  m_EditorClassIdentifier: 
+  monsterImage:
+  - MonsterName: Alien
+    MonsterDescription: 
+    MonsterIcon: {fileID: 21300000, guid: c6dab9692669eec41b4bd97c7b148b08, type: 3}
+  - MonsterName: Alpaking
+    MonsterDescription: "\uC774\uC18D\uC740 \uBE60\uB974\uC9C0\uB9CC \uACF5\uACA9\uB825\uC774
+      \uC57D\uD568"
+    MonsterIcon: {fileID: 21300000, guid: d278807c1183f7b49930c6ee05dcaef3, type: 3}
+  - MonsterName: Armbee
+    MonsterDescription: "\uCCB4\uB825\uC740 \uC57D\uD558\uC9C0\uB9CC \uBB34\uB9AC\uB97C
+      \uC9C0\uC5B4\uB2E4\uB2D8"
+    MonsterIcon: {fileID: 21300000, guid: 12522d79d3c1cd34baff202a5dbdf0f8, type: 3}
+  - MonsterName: Birb
+    MonsterDescription: "\uBC15\uCE58\uAE30 \uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: ca9f6184d7a035f4d9b049ecc3c000ea, type: 3}
+  - MonsterName: BlueDemon
+    MonsterDescription: "\uBE60\uB974\uACE0 \uAC15\uD55C \uADFC\uC811\uACF5\uACA9,
+      \uC0C1\uD0DC\uC774\uC0C1(\uCD9C\uD608)"
+    MonsterIcon: {fileID: 21300000, guid: 2dcaed14b5c5f9645b921cd6d53f4777, type: 3}
+  - MonsterName: Cat
+    MonsterDescription: "\uACF5\uACA9 \uD68C\uD53C, \uBE60\uB978 \uC6C0\uC9C1\uC784"
+    MonsterIcon: {fileID: 21300000, guid: 6f9431ab08480e3419e8159fe47e9dbd, type: 3}
+  - MonsterName: Cactoro
+    MonsterDescription: "\uC811\uADFC\uC2DC \uB370\uBBF8\uC9C0 \uBC0F \uB3C5 \uB370\uBBF8\uC9C0"
+    MonsterIcon: {fileID: 21300000, guid: 0592f5113245e734aaa081141bd60d6d, type: 3}
+  - MonsterName: Chicken
+    MonsterDescription: "\uBE60\uB978\uACF5\uACA9 \uBC0F \uD68C\uD53C"
+    MonsterIcon: {fileID: 21300000, guid: 2e547b93b85dca84e832e3af51fc535a, type: 3}
+  - MonsterName: Demon
+    MonsterDescription: "\uAC15\uD55C \uACF5\uACA9\uACFC \uC2A4\uD134"
+    MonsterIcon: {fileID: 21300000, guid: caf36097d04c80f4d822ee55262fd21d, type: 3}
+  - MonsterName: Dog
+    MonsterDescription: "\uBB34\uB9AC\uB97C \uC9C0\uC5B4 \uACF5\uACA9,\uBE60\uB978
+      \uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: 105184d483da22e47bc0c27887cd55d7, type: 3}
+  - MonsterName: Frog
+    MonsterDescription: "\uCDA9\uACA9\uD30C \uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: a934fe58651d42d4a84997d2fa986f01, type: 3}
+  - MonsterName: Goelling
+    MonsterDescription: "\uB290\uB9AC\uC9C0\uB9CC \uAC15\uB825\uD55C \uD55C\uBC29"
+    MonsterIcon: {fileID: 21300000, guid: 89cfcad2ed1146f45a45071a1a0d15ef, type: 3}
+  - MonsterName: GreenBlob
+    MonsterDescription: "\uB3C5\uB370\uBBF8\uC9C0"
+    MonsterIcon: {fileID: 21300000, guid: 70eedcd5c18577a4385e8c202278a00e, type: 3}
+  - MonsterName: Monkroose
+    MonsterDescription: "\uAC15\uD55C\uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: e23794e9cf882ca429eaf17d0da0bc83, type: 3}
+  - MonsterName: Mushnub
+    MonsterDescription: "\uB3C5 \uB370\uBBF8\uC9C0, \uC911\uB3C5"
+    MonsterIcon: {fileID: 21300000, guid: 04edb5450cb598048a3491c8b5df20ce, type: 3}
+  - MonsterName: Ninja
+    MonsterDescription: "\uCE58\uBA85\uD0C0 \uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: 51dc62b173426e444ad19a87a764646e, type: 3}
+  - MonsterName: PinkBlob
+    MonsterDescription: "\uAC15\uD55C \uACF5\uACA9\uACFC \uC2A4\uD134"
+    MonsterIcon: {fileID: 21300000, guid: 330f7d53b482cd4468d9734a086db6b6, type: 3}
+  - MonsterName: Tribal
+    MonsterDescription: "\uBB34\uB9AC\uB97C \uC9C0\uC5B4 \uACF5\uACA9,\uBE60\uB978
+      \uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: e4aaef674f9276f4b8f9a959e27a3ce6, type: 3}
+  - MonsterName: Yeti
+    MonsterDescription: "\uAC15\uD55C \uADFC\uC811\uACF5\uACA9, \uC0C1\uD0DC\uC774\uC0C1
+      (\uB454\uD654)"
+    MonsterIcon: {fileID: 21300000, guid: 6cc95ff174429734c9927844f7eb7573, type: 3}
+  - MonsterName: Bat
+    MonsterDescription: "\uB0A0\uC544 \uB2E4\uB2C8\uB2E4 \uACF5\uACA9 \uBC0F \uCD9C\uD608"
+    MonsterIcon: {fileID: 21300000, guid: d5581fd03bd2c844fb9d8661b1059f3f, type: 3}
+  - MonsterName: Dragon
+    MonsterDescription: "\uBD88\uC744 \uBFDC\uC5B4\uB0B4\uB294 \uACF5\uACA9, \uB192\uC740
+      \uCCB4\uB825"
+    MonsterIcon: {fileID: 21300000, guid: dcfc2b8855c0c59478d0c22b3ed4181a, type: 3}
+  - MonsterName: Skeleton
+    MonsterDescription: "\uB454\uD654,\uC791\uC740 \uC2A4\uCF08\uB808\uD1A4 \uC18C\uD658"
+    MonsterIcon: {fileID: 21300000, guid: adcc05ff472e21246acda6dee58c7a20, type: 3}
+  - MonsterName: Slime
+    MonsterDescription: "\uBAB8\uD1B5\uBC15\uCE58\uAE30"
+    MonsterIcon: {fileID: 21300000, guid: 4845161cdfdac384695f26e871baf71f, type: 3}
+  - MonsterName: Fish
+    MonsterDescription: "\uCC3D\uC744 \uB358\uC838 \uC911\uAC70\uB9AC \uAD50\uC804"
+    MonsterIcon: {fileID: 21300000, guid: b8a7aac898ab4e24aba83726c28da5ec, type: 3}
+  - MonsterName: Ghost
+    MonsterDescription: "\uB192\uC740 \uD68C\uD53C, \uC6D0\uAC70\uB9AC\uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: 3d64b35e31482124fa89fc0282263c4e, type: 3}
+  - MonsterName: Hywirl
+    MonsterDescription: "\uBE60\uB978 \uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: 06485fcc3f2fe7c4e89a782f210ca4c5, type: 3}
+  - MonsterName: Pigeon
+    MonsterDescription: "\uC6D0\uAC70\uB9AC\uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: 0381bb1cdf58cab4c89564f0a718e2e4, type: 3}
+  - MonsterName: Squidle
+    MonsterDescription: "\uC6D0\uAC70\uB9AC\uACF5\uACA9"
+    MonsterIcon: {fileID: 21300000, guid: bf832534105a07c4e86276a8ac3e9607, type: 3}
+  - MonsterName: Wizard
+    MonsterDescription: "\uC0C1\uD0DC\uC774\uC0C1"
+    MonsterIcon: {fileID: 21300000, guid: 05ec1f2aca9be584eb3f72f101822b76, type: 3}
+  - MonsterName: Orc
+    MonsterDescription: 
+    MonsterIcon: {fileID: 21300000, guid: 42e5c0aa65d19cf428f3c73612856d77, type: 3}
