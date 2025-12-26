@@ -865,6 +865,8 @@ MonoBehaviour:
     type: 3}
   mFireTrailPrefab: {fileID: 1867303470303842447, guid: a2a96030ebe1af14c8f8de9595fa12d3,
     type: 3}
+  mDizzyEffectPrefab: {fileID: 4355086449710060786, guid: 0cde79a4ae8ab8b4b80ef64a82a7f55e,
+    type: 3}
   mAttackCol: {fileID: 805070310789637412}
 --- !u!114 &2530470900646688803
 MonoBehaviour:
