@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
     //¹üÀ§ -160 ~ 200
-    [SerializeField] private float mMinZpos = -198f;
-    [SerializeField] private float mMaxZpos = -162f;
+    [SerializeField] private float mMinZpos = -190f;
+    [SerializeField] private float mMaxZpos = -176f;
     [SerializeField] private Vector3 mOffset = new Vector3(0f, 0f, -182);
     private Transform mPlayer;
 
