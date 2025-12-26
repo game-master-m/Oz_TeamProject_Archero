@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RangeEnemyMagicBall : EnemyBase
+public class RangeEnemyFireBall : EnemyBase
 {
     [Header("Projectile")]
     [SerializeField] private EnemyProjectileBase mProjectilePrefab;
@@ -16,7 +16,7 @@ public class RangeEnemyMagicBall : EnemyBase
         base.Awake();
 
         Board.SpawnOffset = mSpawnOffset;
-        Board.SmallMagicBall = mProjectilePrefab;
+        Board.SmallFireBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
         mCombatState = new RangeCombatState(this);

@@ -11,6 +11,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private IntTripleEventChannelSO mOnStageClear;             //EndUI(SuccessUI를 따로 만들지 고민)가 구독, KillCount기반 로비플레이어 레벨업 및 골드획득
     [SerializeField] private IntTripleEventChannelSO mOnShowEndUIRequest;       //EndUI가 구독, KillCount기반 로비플레이어 레벨업 및 골드획득
     [SerializeField] private VoidEventChannelSO mOnNoticeLastRoom;              //LevelUpController.cs가 구독
+    [SerializeField] private IntListEventChannelSO mOnStageProgressStart;         //StageProgress UI가 구독
+    [SerializeField] private IntEventChannelSO mOnRoomNumChange;                  //StageProgress UI가 구독
 
     [Header("이벤트 구독")]
     [SerializeField] private VoidEventChannelSO mOnPlayerDie;   //PlayerStat.cs 가 발행
@@ -45,6 +47,7 @@ public class StageManager : MonoBehaviour
 
     private int mKillCount;
 
+    private List<int> mBossRoomNumList;
     private void Awake()
     {
         mWaitOneSec = new WaitForSeconds(mOneSec);
@@ -68,17 +71,22 @@ public class StageManager : MonoBehaviour
 
     public void LevelUp()
     {
-        mOnLevelUpPlayer.Raised(mPlayer.Attack);
+        mOnLevelUpPlayer.Raised(mPlayer.Attack);    //LevelUp UI
+        mOnRoomNumChange.Raised(mCurrentRoomIndex);   //StageProgress UI
     }
 
     // 1. 스테이지 초기화 (Initializer가 호출)
-    public void SetupStage(StageDataSO data, PlayerController player, List<Transform> points, GameObject door)
+    public void SetupStage(StageDataSO data, PlayerController player, List<Transform> points, GameObject door, List<int> bossRoomNumList)
     {
 
         mStageData = data;
         mPlayer = player;
         mSpawnPoints = points;
         mDoorObject = door;
+        mBossRoomNumList = bossRoomNumList;
+
+        //보스룸 리스트와 룸 총 갯수 넘겨주기
+        mOnStageProgressStart?.Raised(data.RoomDataList.Count, mBossRoomNumList);
 
         // 변수 리셋
         if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
@@ -276,6 +284,7 @@ public class StageManager : MonoBehaviour
 
         //룸 클리어 이벤트 발송 -> 몬스터에서 떨어진 경험치 획득로직
         mOnRoomClear.Raised();
+        mOnRoomNumChange.Raised(mCurrentRoomIndex);   //StageProgress UI
 
         //다음 방으로 이동 대기 코루틴 시작
         if (mWaitNextRoomCo != null) StopCoroutine(mWaitNextRoomCo);
@@ -300,7 +309,7 @@ public class StageManager : MonoBehaviour
     private IEnumerator StartFirstRoomCo()
     {
         yield return mWaitOneSec;
-        mOnLevelUpPlayer.Raised(mPlayer.Attack);
+        LevelUp();
         Managers.Game.CanPause = false;
 
         yield return mWaitOneSec;

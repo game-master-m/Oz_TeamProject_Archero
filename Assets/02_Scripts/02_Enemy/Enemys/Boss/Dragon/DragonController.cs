@@ -66,9 +66,9 @@ public class DragonController : EnemyBase
         Managers.Pool.CreatePool(mBigFireBallPrefab, 10, Managers.Pool.transform);
         Managers.Pool.CreatePool(mFireTrailPrefab, 2, Managers.Pool.transform);
 
-        Board.SmallFireBallPrefab = mSmallFireBallPrefab;
-        Board.HomingFireBallPrefab = mHomingFireBallPrefab;
-        Board.BigFireBallPrefab = mBigFireBallPrefab;
+        Board.SmallFireBall = mSmallFireBallPrefab;
+        Board.HomingFireBall = mHomingFireBallPrefab;
+        Board.BigFireBall = mBigFireBallPrefab;
         Board.FireTrailPrefab = mFireTrailPrefab;
 
         mAttackCol.SetUpDmg(mAttackDamage);

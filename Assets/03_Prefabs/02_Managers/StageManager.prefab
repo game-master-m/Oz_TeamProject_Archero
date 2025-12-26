@@ -50,6 +50,9 @@ MonoBehaviour:
   mOnShowEndUIRequest: {fileID: 11400000, guid: ac657fa318aa4ba40b15267d95b240f0,
     type: 2}
   mOnNoticeLastRoom: {fileID: 11400000, guid: 4501eea442c30844385ce699759bf33c, type: 2}
+  mOnStageProgressStart: {fileID: 11400000, guid: d6a37556400e8734b936286fe5606b0c,
+    type: 2}
+  mOnRoomNumChange: {fileID: 11400000, guid: 250dbc88cd1d3d74a97c5705321d2de1, type: 2}
   mOnPlayerDie: {fileID: 11400000, guid: 77db8a905e33d6f459782502bdefd6d6, type: 2}
   mOnSceneChanged: {fileID: 11400000, guid: f4a4e8fe2d455754ba9006fb0f0ab2d1, type: 2}
   mSpawnRadius: 3.5

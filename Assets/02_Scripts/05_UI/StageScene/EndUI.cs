@@ -78,6 +78,8 @@ public class EndUI : MonoBehaviour
         //레벨텍스트와 프로그레스텍스트의 경험치 총량은 DataManager.cs 설계 후 적용
 
     }
+
+    //획득 한 경험치 프리팹 기준으로 다시 설정하자 =====================================================
     private int CalculateExp(int killCount, int roomIndex, int stageNumber)
     {
         int result = 0;
@@ -89,9 +91,10 @@ public class EndUI : MonoBehaviour
     private int CalculateGold(int killCount, int roomIndex, int stageNumber)
     {
         int result = 0;
-        //킬카운트와 진행도 기반 Exp 계산
+        //킬카운트와 진행도 기반 Gold 계산
         result = Mathf.RoundToInt(killCount * 10 * (roomIndex + 1) * 0.1f * stageNumber * 4);
 
         return result;
     }
+    //획득 한 경험치 프리팹 기준으로 다시 설정하자 =====================================================
 }

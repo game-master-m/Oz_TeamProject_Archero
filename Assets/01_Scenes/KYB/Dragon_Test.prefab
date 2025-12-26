@@ -855,6 +855,8 @@ MonoBehaviour:
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
   mEnemyType: 3
+  mDropItems: []
+  mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
   mSmallFireBallPrefab: {fileID: 5392403191203697857, guid: 17f7e6e81a941ca4aa6f951f81926b4c,
     type: 3}
   mHomingFireBallPrefab: {fileID: 5922272314187969800, guid: cefcd741ed2287741a86acaf1dad0e29,

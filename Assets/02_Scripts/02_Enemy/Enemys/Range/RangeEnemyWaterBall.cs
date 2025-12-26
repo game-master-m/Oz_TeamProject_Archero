@@ -10,10 +10,12 @@ public class RangeEnemyWaterBall : EnemyBase
     RangeCombatState mCombatState;
     RangeDeathState mDeathState;
 
-    public Vector3 SpawnOffset => mSpawnOffset;
     protected override void Awake()
     {
         base.Awake();
+
+        Board.SpawnOffset = mSpawnOffset;
+        Board.SmallWaterBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
         mCombatState = new RangeCombatState(this);
@@ -26,11 +28,7 @@ public class RangeEnemyWaterBall : EnemyBase
             Managers.Pool.CreatePool(mProjectilePrefab, 20, Managers.Pool.transform);
         }
     }
-    private void Start()
-    {
-        Board.SpawnOffset = mSpawnOffset;
-        Board.SmallWaterBall = mProjectilePrefab;
-    }
+
     protected override void OnEnable()
     {
         base.OnEnable();

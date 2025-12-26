@@ -15,6 +15,9 @@ public class RangeEnemyWindBall : EnemyBase
     {
         base.Awake();
 
+        Board.SpawnOffset = mSpawnOffset;
+        Board.SmallWindBall = mProjectilePrefab;
+
         mIdleState = new RangeIdleState(this);
         mCombatState = new RangeCombatState(this);
         mDeathState = new RangeDeathState(this);
@@ -26,11 +29,7 @@ public class RangeEnemyWindBall : EnemyBase
             Managers.Pool.CreatePool(mProjectilePrefab, 20, Managers.Pool.transform);
         }
     }
-    private void Start()
-    {
-        Board.SpawnOffset = mSpawnOffset;
-        Board.SmallWindBall = mProjectilePrefab;
-    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
