@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac2d02387b1c754dbd44f3179435a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mRotateSpeed: 32
+  ItemDataSO: {fileID: 11400000, guid: b47cd0253568c014ebd99649770c31a6, type: 2}
+  mRotateSpeed: 48
   mFloatingRange: 0.2
   mFloatingSpeed: 2
   mItemType: 1

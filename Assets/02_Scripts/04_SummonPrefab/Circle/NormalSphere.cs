@@ -9,6 +9,7 @@ public class NormalSphere : SphereBase
 
     private void OnEnable()
     {
+        mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
         SetOwner(mPlayer);
         SetUp(mSkillDataSO);
     }

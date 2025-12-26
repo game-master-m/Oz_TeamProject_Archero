@@ -76,7 +76,16 @@ public class EnemyBase : LivingEntity
             foreach (var drop in mDropItems)
             {
                 if (drop != null && drop.itemPrefab != null)
-                    Managers.Pool.CreatePool(drop.itemPrefab, 10, Managers.Pool.transform);
+                    Managers.Pool.CreatePool(drop.itemPrefab, 20, Managers.Pool.transform);
+            }
+        }
+
+        if (mCommonDropTable != null && mCommonDropTable.commonDrops != null)
+        {
+            foreach (var drop in mCommonDropTable.commonDrops)
+            {
+                if (drop != null && drop.itemPrefab != null)
+                    Managers.Pool.CreatePool(drop.itemPrefab, 20, Managers.Pool.transform);
             }
         }
     }
@@ -204,7 +213,7 @@ public class EnemyBase : LivingEntity
             Vector2 randomCircle = UnityEngine.Random.insideUnitSphere * 2f;
             Vector3 dropPos = transform.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
             ItemBase item = Managers.Pool.GetFromPool(drop.itemPrefab);
-            item.transform.position = transform.position + Vector3.up * 0.5f;
+            item.transform.position = dropPos + Vector3.up * 0.5f;
             item.gameObject.SetActive(true);
         }
     }

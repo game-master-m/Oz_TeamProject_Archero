@@ -24,19 +24,14 @@ public class BoltMeteorPotion : PotionBase
 
     public override void ApplyPotionEffect()
     {
-        //五砺神 持失
-        mBoltMeteor = Managers.Pool.GetFromPool(mMeteorPrefab);
-        Vector3 targetPos;
-        if (FindCloseEnemy() == null)
+        if (FindCloseEnemy() != null)
         {
-            return;
+            Vector3 targetPos = FindCloseEnemy().position;
+            //五砺神 持失
+            mBoltMeteor = Managers.Pool.GetFromPool(mMeteorPrefab);
+            mBoltMeteor.gameObject.transform.position = targetPos + mMeteorOffset;
+            mBoltMeteor.SetUp(mSkillDataSO, mPlayer);
         }
-        else
-        {
-            targetPos = FindCloseEnemy().position;
-        }
-        mBoltMeteor.gameObject.transform.position = targetPos + mMeteorOffset;
-        mBoltMeteor.SetUp(mSkillDataSO, mPlayer);
         Managers.Pool.ReturnToPool(this);
     }
 }

@@ -24,19 +24,14 @@ public class ToxicMeteorPotion : PotionBase
 
     public override void ApplyPotionEffect()
     {
-        //五砺神 持失
-        mToxicMeteor = Managers.Pool.GetFromPool(mMeteorPrefab);
-        Vector3 targetPos;
-        if (FindCloseEnemy() == null)
+        if (FindCloseEnemy() != null)
         {
-           return;
+            Vector3 targetPos = FindCloseEnemy().position;
+            //五砺神 持失
+            mToxicMeteor = Managers.Pool.GetFromPool(mMeteorPrefab);
+            mToxicMeteor.gameObject.transform.position = targetPos + mMeteorOffset;
+            mToxicMeteor.SetUp(mSkillDataSO, mPlayer);
         }
-        else 
-        {
-            targetPos = FindCloseEnemy().position;
-        }
-        mToxicMeteor.gameObject.transform.position = targetPos + mMeteorOffset;
-        mToxicMeteor.SetUp(mSkillDataSO, mPlayer);
         Managers.Pool.ReturnToPool(this);
     }
 }

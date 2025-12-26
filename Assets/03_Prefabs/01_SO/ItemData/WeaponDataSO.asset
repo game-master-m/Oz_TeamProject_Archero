@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123d1a05f9ee12d4ead28a3b5b745ec7, type: 3}
   m_Name: WeaponDataSO
   m_EditorClassIdentifier: 
-  ItemPrefab: {fileID: -8955177818930452706, guid: 6d12ae41d46350c49970aa9a0167156c,
-    type: 3}
   ItemSprite: {fileID: 0}
+  ItemType: 0
+  ItemEffect: 1
   MaxStack: 1
   CurrentStack: 1
   ItemCost: 0
-  ItemName: 
-  Description: 
+  ItemName: "\uBB34\uAE30"
+  Description: "\uACF5\uACA9\uB825\uC0C1\uC2B9"

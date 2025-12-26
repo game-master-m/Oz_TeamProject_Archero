@@ -15,4 +15,16 @@ MonoBehaviour:
   commonDrops:
   - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
       type: 3}
-    dropChance: 0.1
+    dropChance: 0.05
+  - itemPrefab: {fileID: -4353356503459523067, guid: a9e03e07cb531c042aab9b5c3ba2132e,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: 7633832424371969034, guid: 0e6129b5ec4eeaf4a8e9ca69ad4cedc3,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: -7650303364173208045, guid: cc2a596d72c79d74a882b4a1ccc6c9b3,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: -8955177818930452706, guid: 6d12ae41d46350c49970aa9a0167156c,
+      type: 3}
+    dropChance: 0.01
