@@ -27,7 +27,7 @@ public class BlackBoard
     public Vector3 SpawnOffset { get; set; }
     //ÇÁ¸®ÆÕ ÀÌÆåÆ® Á¢±Ù¿ë
     public EffectBase CurrentEffect { get; set; }
-    public FireTrail FireTrailPrefab { get; set; }
+    public EffectBase FireTrailPrefab { get; set; }
 
     //
 }

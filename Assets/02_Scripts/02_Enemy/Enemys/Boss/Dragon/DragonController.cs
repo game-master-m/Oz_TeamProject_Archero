@@ -3,10 +3,10 @@ using UnityEngine;
 public class DragonController : EnemyBase
 {
     [Header("사용스킬 및 이펙트")]
-    [SerializeField] private SmallFireBall mSmallFireBallPrefab;
-    [SerializeField] private HomingFireBall mHomingFireBallPrefab;
-    [SerializeField] private BigFireBall mBigFireBallPrefab;
-    [SerializeField] private FireTrail mFireTrailPrefab;
+    [SerializeField] private EnemyProjectileBase mSmallFireBallPrefab;
+    [SerializeField] private EnemyProjectileBase mHomingFireBallPrefab;
+    [SerializeField] private EnemyProjectileBase mBigFireBallPrefab;
+    [SerializeField] private EffectBase mFireTrailPrefab;
 
     [Header("꼬리공격용 컬라이더")]
     [SerializeField] private EnemyAttackCol mAttackCol;
@@ -43,6 +43,13 @@ public class DragonController : EnemyBase
         //스탯 초기화
         InitStats(mStatData);
 
+        Board.SmallFireBall = mSmallFireBallPrefab;
+        Board.HomingFireBall = mHomingFireBallPrefab;
+        Board.BigFireBall = mBigFireBallPrefab;
+        Board.FireTrailPrefab = mFireTrailPrefab;
+
+        mAttackCol.SetUpDmg(mAttackDamage);
+
         //정지거리를 넉넉하게 잡음
         mAgent.stoppingDistance = 1.5f;
 
@@ -65,13 +72,6 @@ public class DragonController : EnemyBase
         Managers.Pool.CreatePool(mHomingFireBallPrefab, 20, Managers.Pool.transform);
         Managers.Pool.CreatePool(mBigFireBallPrefab, 10, Managers.Pool.transform);
         Managers.Pool.CreatePool(mFireTrailPrefab, 2, Managers.Pool.transform);
-
-        Board.SmallFireBall = mSmallFireBallPrefab;
-        Board.HomingFireBall = mHomingFireBallPrefab;
-        Board.BigFireBall = mBigFireBallPrefab;
-        Board.FireTrailPrefab = mFireTrailPrefab;
-
-        mAttackCol.SetUpDmg(mAttackDamage);
     }
     protected override void Update()
     {

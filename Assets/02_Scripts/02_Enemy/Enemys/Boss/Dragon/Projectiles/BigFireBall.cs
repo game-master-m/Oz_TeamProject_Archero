@@ -4,7 +4,7 @@ public class BigFireBall : EnemyProjectileBase
 {
     [SerializeField] private float mMinSplitDelay = 1.5f; // 2초 후 자동 분열
     [SerializeField] private int mSplitCount = 12;
-    [SerializeField] private SmallFireBall mSmallFireBall;
+    [SerializeField] private EnemyProjectileBase mSmallFireBall;
     [SerializeField] private FireExplosionAir mExplosionAir;
 
     private bool bHasSplit = false;
@@ -44,7 +44,7 @@ public class BigFireBall : EnemyProjectileBase
         for (int i = 0; i < mSplitCount; i++)
         {
             // 작은 불덩이(SmallFireBall) 소환
-            SmallFireBall smallFireBallPrefab = Managers.Pool.GetFromPool(mSmallFireBall);
+            EnemyProjectileBase smallFireBallPrefab = Managers.Pool.GetFromPool(mSmallFireBall);
 
             float angle = i * angleStep + randomAngle;
             Vector3 splitDir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
