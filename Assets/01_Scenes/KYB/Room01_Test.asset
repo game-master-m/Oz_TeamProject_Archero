@@ -21,11 +21,14 @@ MonoBehaviour:
         type: 3}
       spawnPointIndex: 1
       spawnDelay: 0
+      spawnCount: 1
     - enemyPrefab: {fileID: 5439344533102759809, guid: d698155d51ca50645be83067ba8f1371,
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
+      spawnCount: 1
     - enemyPrefab: {fileID: 5929296341400581596, guid: 67232bba17e476740b5ec2a8ef719350,
         type: 3}
       spawnPointIndex: 3
       spawnDelay: 0
+      spawnCount: 1

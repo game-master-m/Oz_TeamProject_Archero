@@ -39,7 +39,7 @@ public class SummonFireTrailNode : ActionNode
     }
     private void SummonFireTrail()
     {
-        FireTrail prefab = Managers.Pool.GetFromPool(mBoard.FireTrailPrefab);
+        EffectBase prefab = Managers.Pool.GetFromPool(mBoard.FireTrailPrefab);
         mBoard.CurrentEffect = prefab;
         Vector3 spawnPos = mOwner.transform.position + mOwner.transform.TransformDirection(mSpawnOffset);
         prefab.Setup(spawnPos, Quaternion.identity);
