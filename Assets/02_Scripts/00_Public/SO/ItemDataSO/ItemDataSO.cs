@@ -5,8 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewItemDataSO", menuName = "Archero/ItemData/ItemDataSO")]
 public class ItemDataSO : ScriptableObject
 {
-    public ItemBase ItemPrefab;
     public Sprite ItemSprite;
+
+    public ItemType ItemType;
+    public ItemEffect ItemEffect;
 
     public int MaxStack = 1;
     public int CurrentStack = 1;

@@ -16,4 +16,9 @@ public class Item_Heart : ItemBase
             Managers.Pool.ReturnToPool(this);
         }
     }
+
+    public override void ReturnPool()
+    {
+        Managers.Pool.ReturnToPool(this);   
+    }
 }
