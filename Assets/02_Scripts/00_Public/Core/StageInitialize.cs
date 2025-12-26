@@ -66,6 +66,8 @@ public class StageInitialize : MonoBehaviour
         foreach (var room in mStageData.RoomDataList)
         {
             roomNum++;
+            if (room.IsBossRoom) mBossRoomList.Add(roomNum);
+
             foreach (var wave in room.WaveDataList)
             {
                 foreach (var info in wave.spawnInfoList)
@@ -85,7 +87,6 @@ public class StageInitialize : MonoBehaviour
                                 break;
                             case EEnemyType.Boss:
                                 Managers.Pool.CreatePool(prefab, 1, Managers.Pool.transform);
-                                mBossRoomList.Add(roomNum);
                                 break;
                             default:
                                 Utils.Log("EEnemyTpye 이 알맞지 않습니다");

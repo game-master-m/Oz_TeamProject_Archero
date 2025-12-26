@@ -2,7 +2,7 @@
 - Project name: Oz_TeamProject_Archero
 - Unity version: Unity 2022.3.18f1
 - Active game object:
-  - Name: FireTrail
+  - Name: Panel_LevelProgressBar
   - Tag: Untagged
-  - Layer: Default
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

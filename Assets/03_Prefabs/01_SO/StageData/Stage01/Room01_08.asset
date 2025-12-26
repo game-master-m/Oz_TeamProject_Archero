@@ -26,5 +26,5 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 7860359675874047944, guid: ace81d16b76adf3499c70d53317c8558,
         type: 3}
       spawnPointIndex: 1
-      spawnDelay: 2
+      spawnDelay: 0
       spawnCount: 3

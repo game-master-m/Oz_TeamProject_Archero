@@ -31,7 +31,7 @@ public class DragonController : EnemyBase
     public EnemyAttackCol AttackCol => mAttackCol;
     #endregion
 
-    private readonly int mMaxDizzyCount = 5;
+    private readonly int mMaxDizzyCount = 20;
     private readonly float mDizzyDuration = 2.5f;
     private readonly float mMinDizzyDmgRate = 0.02f;  //ÃÑ Ã¼·ÂÀÇ 2%
 

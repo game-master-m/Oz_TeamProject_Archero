@@ -8,9 +8,12 @@ public class ExpProgressController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI mLevelText;
     [SerializeField] private TextMeshProUGUI mGoldText;
 
+    [SerializeField] private Button mPauseButton;
+
     [SerializeField] private LevelUpController mLevelUpController;
 
     private int mCurrentGoldAmount;
+    //경험치 방식? 현재는 킬 카운트 * 룸진행도에 따라 다름
     private int mGetExpCount;
     private void Awake()
     {
@@ -23,6 +26,10 @@ public class ExpProgressController : MonoBehaviour
         mLevelUpController.onExpChange += HandleExpChange;
         mLevelUpController.onGoldChange += HandleGoldChange;
         mLevelUpController.onLevelChange += HandleLevelChange;
+
+        //버튼
+        mPauseButton.onClick.RemoveAllListeners();
+        mPauseButton.onClick.AddListener(OnClickPauseBtn);
     }
     private void OnDisable()
     {
@@ -30,8 +37,13 @@ public class ExpProgressController : MonoBehaviour
         mLevelUpController.onExpChange -= HandleExpChange;
         mLevelUpController.onGoldChange -= HandleGoldChange;
         mLevelUpController.onLevelChange -= HandleLevelChange;
-    }
 
+        mPauseButton.onClick.RemoveListener(OnClickPauseBtn);
+    }
+    private void OnClickPauseBtn()
+    {
+        Managers.Game.TogglePause();
+    }
     private void HandleExpChange(float fillAmount)
     {
         mExpFillImage.fillAmount = fillAmount;
