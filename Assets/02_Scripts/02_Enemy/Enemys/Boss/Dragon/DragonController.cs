@@ -7,6 +7,7 @@ public class DragonController : EnemyBase
     [SerializeField] private EnemyProjectileBase mHomingFireBallPrefab;
     [SerializeField] private EnemyProjectileBase mBigFireBallPrefab;
     [SerializeField] private EffectBase mFireTrailPrefab;
+    [SerializeField] private EffectBase mDizzyEffectPrefab;
 
     [Header("꼬리공격용 컬라이더")]
     [SerializeField] private EnemyAttackCol mAttackCol;
@@ -30,8 +31,8 @@ public class DragonController : EnemyBase
     public EnemyAttackCol AttackCol => mAttackCol;
     #endregion
 
-    private readonly int mMaxDizzyCount = 30;
-    private readonly float mDizzyDuration = 1.5f;
+    private readonly int mMaxDizzyCount = 5;
+    private readonly float mDizzyDuration = 2.5f;
     private readonly float mMinDizzyDmgRate = 0.02f;  //총 체력의 2%
 
 
@@ -47,6 +48,7 @@ public class DragonController : EnemyBase
         Board.HomingFireBall = mHomingFireBallPrefab;
         Board.BigFireBall = mBigFireBallPrefab;
         Board.FireTrailPrefab = mFireTrailPrefab;
+        Board.DizzyEffectPrefab = mDizzyEffectPrefab;
 
         mAttackCol.SetUpDmg(mAttackDamage);
 
@@ -72,6 +74,7 @@ public class DragonController : EnemyBase
         Managers.Pool.CreatePool(mHomingFireBallPrefab, 20, Managers.Pool.transform);
         Managers.Pool.CreatePool(mBigFireBallPrefab, 10, Managers.Pool.transform);
         Managers.Pool.CreatePool(mFireTrailPrefab, 2, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mDizzyEffectPrefab, 2, Managers.Pool.transform);
     }
     protected override void Update()
     {

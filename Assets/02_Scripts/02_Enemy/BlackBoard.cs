@@ -28,6 +28,7 @@ public class BlackBoard
     //ÇÁ¸®ÆÕ ÀÌÆåÆ® Á¢±Ù¿ë
     public EffectBase CurrentEffect { get; set; }
     public EffectBase FireTrailPrefab { get; set; }
+    public EffectBase DizzyEffectPrefab { get; set; }
 
     //
 }

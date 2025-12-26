@@ -27,6 +27,7 @@ public class DragonThirdPhaseState : DragonState
     public override void FixedUpdate() { }
     public override void Exit()
     {
+        mDragon.Board.CurrentEffect?.ExecuteEffect();
         mPhase3BT.Abort();
     }
 

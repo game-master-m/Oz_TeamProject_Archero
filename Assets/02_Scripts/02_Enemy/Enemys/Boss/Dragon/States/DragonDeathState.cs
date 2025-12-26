@@ -9,6 +9,7 @@ public class DragonDeathState : DragonState
     public override void Enter()
     {
         Utils.Log("Dragon Death State ÁøÀÔ!!");
+        Managers.Pool.ReturnToPool(mDragon);
     }
     public override void Update() { }
     public override void FixedUpdate() { }
