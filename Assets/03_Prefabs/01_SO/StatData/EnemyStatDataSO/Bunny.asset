@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bunny
   m_EditorClassIdentifier: 
   mMaxHP: 140
-  mMoveSpeed: 8
+  mMoveSpeed: 6.5
   mAttackDamage: 15
   mAttackRange: 2.5
   mHitTiming: 0.54
