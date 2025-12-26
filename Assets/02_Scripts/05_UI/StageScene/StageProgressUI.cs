@@ -55,6 +55,7 @@ public class StageProgressUI : MonoBehaviour
     }
     private void ShowProgressUI(int currentRoomIndex)
     {
+
         int currentRoomNum = currentRoomIndex + 1;
 
         int prevNum = currentRoomNum - 1;
@@ -81,23 +82,21 @@ public class StageProgressUI : MonoBehaviour
 
         foreach (var bossRoomNum in mBossRoomNumList)
         {
+            Utils.Log($"º¸½º ·ë ³Ñ¹ö : {bossRoomNum}");
             if (prevNum == bossRoomNum)
             {
                 mRoomImages[0].sprite = mBossFrame;
                 mBattleImages[0].sprite = mBossIcon;
-                break;
             }
             if (currentRoomNum == bossRoomNum)
             {
                 mRoomImages[1].sprite = mBossFrame;
                 mBattleImages[1].sprite = mBossIcon;
-                break;
             }
             if (nextRoomNum == bossRoomNum)
             {
                 mRoomImages[2].sprite = mBossFrame;
                 mBattleImages[2].sprite = mBossIcon;
-                break;
             }
         }
 
