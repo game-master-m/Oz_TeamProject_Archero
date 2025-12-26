@@ -31,6 +31,8 @@ public abstract class EnemyProjectileBase : MonoBehaviour
         mMoveSpeed = speed;
         mOwner = owner;
 
+        direction.y = 0;
+
         // [회전 로직] 발사 시 방향을 바라보게 설정
         if (direction != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(direction);

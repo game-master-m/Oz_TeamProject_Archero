@@ -43,10 +43,10 @@ public class DragonSecondPhaseState : DragonState
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
             new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
-            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
-            new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-            new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
+            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
+            new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
+            new SpreadVollyNode(mDragon,mDragon.Board,5, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
+            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
             new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
             new WaitNode(mDragon,1.0f)
         });
@@ -56,9 +56,9 @@ public class DragonSecondPhaseState : DragonState
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
             new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,3.0f,mSpawnOffset2),
-            new SpreadVollyNode(mDragon,mDragon.Board,mMaxSpreadShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-            new PredictVolleyNode(mDragon, mDragon.Board, mMaxShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
-            new SpreadVollyNode(mDragon, mDragon.Board, mMaxSpreadShot, mMoveSpeed, mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBallPrefab)),
+            new SpreadVollyNode(mDragon,mDragon.Board,mMaxSpreadShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
+            new PredictVolleyNode(mDragon, mDragon.Board, mMaxShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
+            new SpreadVollyNode(mDragon, mDragon.Board, mMaxSpreadShot, mMoveSpeed, mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
             new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
             new WaitNode(mDragon,1.0f)
         });
@@ -68,8 +68,8 @@ public class DragonSecondPhaseState : DragonState
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
             new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
-            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
-            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
+            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
+            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
             new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
             new WaitNode(mDragon,1.0f)
         });
@@ -79,9 +79,9 @@ public class DragonSecondPhaseState : DragonState
             new RotateToTargetNode(mDragon,mDragon.Board,10.0f),
             new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
-            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBallPrefab)),
+            new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
             new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
-            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBallPrefab)),
+            new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
             new WaitNode(mDragon,1.0f)
         });
 

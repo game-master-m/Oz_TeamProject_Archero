@@ -8,9 +8,11 @@ public class LevelUpUI : MonoBehaviour
     [Header("UI 할당")]
     [SerializeField] private SkillSlotUI[] mSkillSlots; // 인스펙터에서 3개 할당
     [SerializeField] private GameObject mRootPanel;   // 껐다 켰다 할 패널
+    [SerializeField] private GameObject mRootStageProgress;
 
     [Header("이벤트 구독")]
-    [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer; // StageManager가 발송
+    [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer;   // StageManager가 발송
+
 
     [Header("스킬등급 확률")]
     [SerializeField] private float mLegendChance = 0.1f;
@@ -27,6 +29,8 @@ public class LevelUpUI : MonoBehaviour
     public Dictionary<ESkillGrade, List<SkillDataSO>> SkillDic => mSkillDic;
     public SkillContainerSO SkillContainer => mSkills;
     public event Action<List<SkillDataSO>> onSelectSkill;
+
+
     private void Start()
     {
         mSkillDic.Clear();
@@ -58,6 +62,7 @@ public class LevelUpUI : MonoBehaviour
         // 1. 게임 일시정지
         Time.timeScale = 0f;
         mRootPanel.SetActive(true);
+        mRootStageProgress.SetActive(true);
 
         // 2. 랜덤 스킬 3개 뽑기 (중복 없이)
         List<SkillDataSO> randomSkills = GetRandomSkills(3, GetGradeAsChance());
@@ -83,6 +88,7 @@ public class LevelUpUI : MonoBehaviour
             }
         }
     }
+
     private ESkillGrade GetGradeAsChance()
     {
         float roll = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -135,6 +141,8 @@ public class LevelUpUI : MonoBehaviour
     private void Close()
     {
         mRootPanel.SetActive(false);
+        mRootStageProgress.SetActive(false);
+
         Time.timeScale = 1f; // 게임 시간 정상화
     }
 

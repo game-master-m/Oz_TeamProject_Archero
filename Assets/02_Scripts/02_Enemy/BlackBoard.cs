@@ -18,9 +18,9 @@ public class BlackBoard
     public float AttackCoolDown { get; set; }
 
     //프리팹 투사체 접근용
-    public SmallFireBall SmallFireBallPrefab { get; set; }
-    public HomingFireBall HomingFireBallPrefab { get; set; }
-    public BigFireBall BigFireBallPrefab { get; set; }
+    public EnemyProjectileBase SmallFireBall { get; set; }
+    public EnemyProjectileBase HomingFireBall { get; set; }
+    public EnemyProjectileBase BigFireBall { get; set; }
     public EnemyProjectileBase SmallWaterBall { get; set; }
     public EnemyProjectileBase SmallMagicBall { get; set; }
     public EnemyProjectileBase SmallWindBall { get; set; }

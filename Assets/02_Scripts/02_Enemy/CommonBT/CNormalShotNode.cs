@@ -4,7 +4,7 @@ using UnityEngine;
 public class CNormalShotNode : ActionNode
 {
     private BlackBoard mBoard;
-    private Vector3 mSpawnOffset = Vector3.zero;
+    private Vector3 mSpawnOffset = Vector3.up;
     private float mDamageMultiplier;
     private Func<EnemyProjectileBase> mProjectileFactory;
 

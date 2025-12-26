@@ -14,6 +14,8 @@ public class StageInitialize : MonoBehaviour
 
     [SerializeField] private GameObject mDoorObject;
 
+    private List<int> mBossRoomList = new List<int>();
+
     private void Start()
     {
         if (mStageData == null || mPlayer == null)
@@ -26,7 +28,7 @@ public class StageInitialize : MonoBehaviour
         CreateEnemyPools();
 
         // StageManager(싱글톤매니저)에게 현재 씬의 모든 정보를 넘겨주고 초기화를 요청합니다.
-        Managers.Stage.SetupStage(mStageData, mPlayer, mSpawnPoints, mDoorObject);
+        Managers.Stage.SetupStage(mStageData, mPlayer, mSpawnPoints, mDoorObject, mBossRoomList);
     }
 
     private void Update()
@@ -60,8 +62,10 @@ public class StageInitialize : MonoBehaviour
         // 중복 생성을 막기 위해 HashSet 사용
         HashSet<string> registeredNames = new HashSet<string>();
 
+        int roomNum = 0;
         foreach (var room in mStageData.RoomDataList)
         {
+            roomNum++;
             foreach (var wave in room.WaveDataList)
             {
                 foreach (var info in wave.spawnInfoList)
@@ -81,6 +85,7 @@ public class StageInitialize : MonoBehaviour
                                 break;
                             case EEnemyType.Boss:
                                 Managers.Pool.CreatePool(prefab, 1, Managers.Pool.transform);
+                                mBossRoomList.Add(roomNum);
                                 break;
                             default:
                                 Utils.Log("EEnemyTpye 이 알맞지 않습니다");
