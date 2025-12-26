@@ -234,7 +234,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4178d0e4aec816647a223fa91d9da296,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5380974655607406522}
+      addedObject: {fileID: -852712173808335677}
   m_SourcePrefab: {fileID: 100100000, guid: 4178d0e4aec816647a223fa91d9da296, type: 3}
 --- !u!4 &2529492038488605705 stripped
 Transform:
@@ -257,7 +257,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2905207928400813747}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.26
+  m_Radius: 0.97
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -289,7 +289,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.34
+  m_Radius: 1.1
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.89, z: 0}
@@ -330,7 +330,7 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
---- !u!114 &-5380974655607406522
+--- !u!114 &-852712173808335677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2905207928400813747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Script: {fileID: 11500000, guid: 4813019094d79314daba4abd6843f72d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 846e2cf5d3c2d1440ad739e22d1e2412, type: 2}
@@ -347,10 +347,9 @@ MonoBehaviour:
     type: 3}
   mEnemyType: 2
   mDropItems:
-  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
-      type: 3}
+  - itemPrefab: {fileID: 0}
     dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
-  mProjectilePrefab: {fileID: 891448210927078767, guid: 86ec03fa3b38cc64891e3a1b1a7d6d3a,
+  mProjectilePrefab: {fileID: -9168590644289163733, guid: 17fadd4cde227d048b3b8d1e85779374,
     type: 3}
   mSpawnOffset: {x: 0, y: 0.5, z: 2}

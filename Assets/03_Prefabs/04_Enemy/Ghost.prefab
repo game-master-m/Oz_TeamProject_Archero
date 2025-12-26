@@ -95,7 +95,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c8e610f7245cea14ebb82ed8d7c8c7bc,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -7618608721203970334}
+      addedObject: {fileID: 6603431863222015236}
   m_SourcePrefab: {fileID: 100100000, guid: c8e610f7245cea14ebb82ed8d7c8c7bc, type: 3}
 --- !u!4 &6170664509789993063 stripped
 Transform:
@@ -118,7 +118,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6839078877505266397}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2
+  m_Radius: 1.4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -150,7 +150,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.07
+  m_Radius: 1.83
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1.38, z: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
---- !u!114 &-7618608721203970334
+--- !u!114 &6603431863222015236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,19 +200,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6839078877505266397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43675e9ca7cd519458e4d403703d2650, type: 3}
+  m_Script: {fileID: 11500000, guid: d104163e0d0e1c040b97b29b264bf8ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: fe3a8cd59035e6845ba7d4142b7492f1, type: 2}
   mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
     type: 3}
   mEnemyType: 2
-  mDropItems:
-  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
-      type: 3}
-    dropChance: 0
+  mDropItems: []
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
-  mProjectilePrefab: {fileID: 891448210927078767, guid: 86ec03fa3b38cc64891e3a1b1a7d6d3a,
+  mProjectilePrefab: {fileID: 8074751471807556544, guid: 2d1a33dc7aea355428f8c3a399b56030,
     type: 3}
   mSpawnOffset: {x: 0, y: 0.5, z: 2}
 --- !u!1001 &8112721287533760865
