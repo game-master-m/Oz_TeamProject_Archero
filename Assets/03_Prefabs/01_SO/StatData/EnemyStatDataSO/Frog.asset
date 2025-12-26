@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Frog
   m_EditorClassIdentifier: 
   mMaxHP: 100
-  mMoveSpeed: 5
+  mMoveSpeed: 5.5
   mAttackDamage: 20
   mAttackRange: 2.5
   mHitTiming: 0.54
