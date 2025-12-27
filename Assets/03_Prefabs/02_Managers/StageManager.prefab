@@ -58,3 +58,5 @@ MonoBehaviour:
   mSpawnRadius: 3.5
   mSummonEffectPrefab: {fileID: 8724561738059847795, guid: 8d45be96f3e36b04c85d5f3544ffc996,
     type: 3}
+  mExpSpawner: {fileID: 116594566662767100, guid: 91c7f201bad93b04faba792f4d88bafc,
+    type: 3}

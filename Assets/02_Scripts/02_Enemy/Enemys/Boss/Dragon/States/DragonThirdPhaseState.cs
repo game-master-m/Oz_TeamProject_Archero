@@ -39,7 +39,14 @@ public class DragonThirdPhaseState : DragonState
         Node meleeCombo = new SequenceNode(new List<Node>
         {
             new ConditionNode(() => Vector3.SqrMagnitude(mDragon.transform.position - mDragon.Target.position) <= mDragon.AttackRange*mDragon.AttackRange),
-            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             new RotateToTargetNode(mDragon, mDragon.Board, 30.0f),
             new BasicAttackNode(mDragon, mDragon.Board, 0.26f, 5.0f, 2.65f), // 1페이즈 근접공격
             new SpreadVollyNode(mDragon, mDragon.Board, 8, mMoveSpeed, mFireInterval, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
@@ -52,7 +59,14 @@ public class DragonThirdPhaseState : DragonState
         Node gapCloserCombo = new SequenceNode(new List<Node>
         {
             new ConditionNode(() => (mDragon.Target.position - mDragon.transform.position).sqrMagnitude > 450.0f),
-            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             new SelectorNode(new List<Node>
             {
                 new DashAttackNode(mDragon, mDragon.Board, 0.8f, 0.6f, 20.0f, 0.32f, 3.5f),
@@ -73,7 +87,14 @@ public class DragonThirdPhaseState : DragonState
             new SequenceNode(new List<Node>{
                 new SummonFireTrailNode(mDragon, mDragon.Board, 1.0f, mSpawnOffset2),
                 new PredictVolleyNode(mDragon, mDragon.Board, 20, mMoveSpeed, mFireInterval, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
-                new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+                new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             }),
             // 패턴 2: 유도탄 + 확산탄
             new SequenceNode(new List<Node>{
@@ -91,7 +112,14 @@ public class DragonThirdPhaseState : DragonState
                 new SpreadVollyNode(mDragon, mDragon.Board, 12, mMoveSpeed, 0.05f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
                 new WaitNode(mDragon, 0.5f),
                 new SpreadVollyNode(mDragon, mDragon.Board, 12, mMoveSpeed, 0.05f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
-                new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+                new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             }),
         });
 

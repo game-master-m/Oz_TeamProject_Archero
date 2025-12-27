@@ -11,8 +11,8 @@ public class EnemyBase : LivingEntity
 {
     [Header("Enemy Base 참조")]
     [SerializeField] protected EnemyStatDataSO mStatData;
-    [SerializeField] private ExpPrefab mExpPrefab;
-    [SerializeField] private EEnemyType mEnemyType = EEnemyType.Melee;
+    //[SerializeField] protected ExpPrefab mExpPrefab;
+    [SerializeField] protected EEnemyType mEnemyType = EEnemyType.Melee;
 
     [Header("개인 드랍 아이템 리스트")]
     [SerializeField] private List<DropItemData> mDropItems;
@@ -20,10 +20,15 @@ public class EnemyBase : LivingEntity
     [Header("공통 드랍 아이템 테이블")]
     [SerializeField] private DropTableSO mCommonDropTable;
 
+    //코루틴 캐싱
+    private readonly float mZeroDotOneSec = 0.1f;
+
     protected Animator mAnim;
     protected NavMeshAgent mAgent;
     protected CapsuleCollider mCapsuleCollider;
     protected StateMachine mStateMachine;
+
+    protected int mExpDropCount = 1;
 
     protected float mAttackDamage;
     protected float mAttackRange;
@@ -70,7 +75,8 @@ public class EnemyBase : LivingEntity
         //BlackBoard 컴포넌트 주입
         Board = new BlackBoard();
 
-        Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
+        //Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
+
         if (mDropItems != null)
         {
             foreach (var drop in mDropItems)
@@ -142,7 +148,7 @@ public class EnemyBase : LivingEntity
         mRotateSpeed = data.RotateSpeed;
         mDetectRange = data.DetectRange;
         mRotationOffset = data.RotateOffset;
-
+        mExpDropCount = data.MaxExpDropCount;
         //속도는 NavMesh Agent에 직접 설정
         mAgent.speed = data.MoveSpeed;
 
@@ -172,10 +178,9 @@ public class EnemyBase : LivingEntity
         // 3. 죽음 방송~
         onEnemyDie?.Invoke(this);
 
-        // 4. 경험치 드랍
-        ExpPrefab exp = Managers.Pool.GetFromPool(mExpPrefab);
-        exp.transform.position = transform.position + Vector3.up * 0.5f;
-        exp.SetTarget(mTarget);
+        // 4. 경험치 드랍 - StatDataSO에서 갯수를 정하면, 확률에 따라 적절한 숫자의 경험치 프리팹 생성
+        //StageManager에게 경험치 드랍 요청
+        Managers.Stage.StartExpSpawn(mExpDropCount, transform, mTarget);
 
         // 5. 아이템 드랍
         DropItems();

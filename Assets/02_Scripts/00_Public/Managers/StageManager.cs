@@ -21,6 +21,7 @@ public class StageManager : MonoBehaviour
     [Header("Spawn 관련")]
     [SerializeField] private float mSpawnRadius = 3.5f;
     [SerializeField] private SummonEffect mSummonEffectPrefab;
+    [SerializeField] private ExpSpawner mExpSpawner;
 
     // 런타임 참조 변수 (Initializer에게서 받음)
     private StageDataSO mStageData;
@@ -56,6 +57,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         Managers.Pool.CreatePool(mSummonEffectPrefab, 30, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mExpSpawner, 30, Managers.Pool.transform);
     }
 
     private void OnEnable()
@@ -67,6 +69,12 @@ public class StageManager : MonoBehaviour
     {
         mOnPlayerDie.onEvent -= HandlePlayerDie;
         mOnSceneChanged.onEvent -= HandleSceneLoaded;
+    }
+
+    public void StartExpSpawn(int maxSpawnCount, Transform enemyOrigin, Transform target)
+    {
+        ExpSpawner expSpawner = Managers.Pool.GetFromPool(mExpSpawner);
+        expSpawner.SetupExpSpawn(maxSpawnCount, enemyOrigin, target);
     }
 
     public void LevelUp()
@@ -93,6 +101,9 @@ public class StageManager : MonoBehaviour
         ResetStage();
 
         GenerateMap();
+
+        mOnRoomNumChange?.Raised(mCurrentRoomIndex);
+
         //시작 시, 스킬 하나 먼저 선택
         StartCoroutine(StartFirstRoomCo());
     }
@@ -169,9 +180,14 @@ public class StageManager : MonoBehaviour
         }
 
         // 모든 웨이브 종료 -> 방 클리어
+        //경험치 로딩을 기다렸다가 
+        StartCoroutine(WaitExpLoadingAndRoomClearCo());
+    }
+    private IEnumerator WaitExpLoadingAndRoomClearCo()
+    {
+        yield return mWaitOneSec;
         RoomClear();
     }
-
     // 4. 스폰 실행
     private void SpawnWaveEnemies(WaveData wave)
     {
