@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -6,7 +7,7 @@ public class ExpPrefab : MonoBehaviour
 {
     [SerializeField] private float mMoveSpeed = 20.0f;
     [SerializeField] private int mExpAmount = 50;
-    [SerializeField] private Vector3 offset = new Vector3(0f, 1.0f, 0f);
+    [SerializeField] private Vector3 offset = new Vector3(0f, 0.5f, 0f);
     [SerializeField] private float mRotateSpeed = 20.0f;
 
     [Header("이벤트 발송")]
@@ -16,6 +17,7 @@ public class ExpPrefab : MonoBehaviour
     [SerializeField] private VoidEventChannelSO mOnRoomClear; // StageManager가 발송
 
     private Transform mTarget;
+    private Vector3 mDestination;
     private Rigidbody mRigidbody;
     private BoxCollider mBoxCollider;
 
@@ -53,9 +55,12 @@ public class ExpPrefab : MonoBehaviour
         bIsRoomClear = true;
         mBoxCollider.enabled = true;
     }
-    public void SetTarget(Transform target)
+    public void SetTargetAndDestination(Transform target, Vector3 destination)
     {
         mTarget = target;
+        mDestination = destination;
+
+        transform.DOJump(destination, 3.0f, 1, 0.2f).SetEase(Ease.OutQuad);
     }
     private void FixedUpdate()
     {
@@ -66,7 +71,6 @@ public class ExpPrefab : MonoBehaviour
         }
         //회전 애니메이션
         transform.Rotate(Vector3.up * mRotateSpeed * Time.fixedDeltaTime, Space.World);
-
     }
 
     private void OnTriggerEnter(Collider other)

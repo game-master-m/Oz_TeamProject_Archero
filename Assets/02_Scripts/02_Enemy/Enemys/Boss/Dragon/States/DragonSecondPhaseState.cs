@@ -60,7 +60,14 @@ public class DragonSecondPhaseState : DragonState
             new SpreadVollyNode(mDragon,mDragon.Board,mMaxSpreadShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
             new PredictVolleyNode(mDragon, mDragon.Board, mMaxShot, mMoveSpeed,mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
             new SpreadVollyNode(mDragon, mDragon.Board, mMaxSpreadShot, mMoveSpeed, mFireInterval ,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
-            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             new WaitNode(mDragon,1.0f)
         });
 
@@ -71,7 +78,14 @@ public class DragonSecondPhaseState : DragonState
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
             new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
             new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
-            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             new WaitNode(mDragon,1.0f)
         });
 
@@ -81,7 +95,14 @@ public class DragonSecondPhaseState : DragonState
             new WaitNode(mDragon,0.1f),
             new SummonFireTrailNode(mDragon,mDragon.Board,2.0f,mSpawnOffset2),
             new NormalShotNode(mDragon,mDragon.Board,8.0f,1.5f,1.0f,mSpawnOffset,()=>Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
-            new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+            new ConditionNode( () =>
+                {
+                    if (mDragon.Board.CurrentEffect != null)
+                    {
+                        mDragon.Board.CurrentEffect.ExecuteEffect();
+                    }
+                    return true;
+                }),
             new FanShotNode(mDragon,mDragon.Board,6,14.0f,1.0f,mSpawnOffset,() => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
             new WaitNode(mDragon,1.0f)
         });
@@ -109,7 +130,14 @@ public class DragonSecondPhaseState : DragonState
                 new SequenceNode(new List<Node>
                 {
                     new ConditionNode(() => (mDragon.Target.position - mDragon.transform.position).sqrMagnitude > 800.0f),
-                    new ConditionNode( () => {mDragon.Board.CurrentEffect.ExecuteEffect(); return true; }),
+                    new ConditionNode( () =>
+                    {
+                        if (mDragon.Board.CurrentEffect != null)
+                        {
+                            mDragon.Board.CurrentEffect.ExecuteEffect();
+                        }
+                        return true;
+                    }),
                     new DashAttackNode(mDragon, mDragon.Board, 1.3f, 1.0f, 15.0f, 0.27f, 3.5f),
                     new WaitNode(mDragon,1.5f),
                 }),

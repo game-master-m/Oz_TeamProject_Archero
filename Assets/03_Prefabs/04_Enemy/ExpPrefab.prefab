@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMoveSpeed: 25
   mExpAmount: 10
-  offset: {x: 0, y: 1, z: 0}
+  offset: {x: 0, y: 0.5, z: 0}
   mRotateSpeed: 100
   mOnGetExpRequest: {fileID: 11400000, guid: 402b6d39a81f0844cb2a78ddc0732557, type: 2}
   mOnRoomClear: {fileID: 11400000, guid: f963f027679763248b75649d9f30ae06, type: 2}
