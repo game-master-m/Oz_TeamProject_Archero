@@ -11,7 +11,6 @@ public class EnemyBase : LivingEntity
 {
     [Header("Enemy Base 참조")]
     [SerializeField] protected EnemyStatDataSO mStatData;
-    //[SerializeField] protected ExpPrefab mExpPrefab;
     [SerializeField] protected EEnemyType mEnemyType = EEnemyType.Melee;
 
     [Header("개인 드랍 아이템 리스트")]
@@ -19,9 +18,6 @@ public class EnemyBase : LivingEntity
 
     [Header("공통 드랍 아이템 테이블")]
     [SerializeField] private DropTableSO mCommonDropTable;
-
-    //코루틴 캐싱
-    private readonly float mZeroDotOneSec = 0.1f;
 
     protected Animator mAnim;
     protected NavMeshAgent mAgent;
@@ -74,8 +70,6 @@ public class EnemyBase : LivingEntity
 
         //BlackBoard 컴포넌트 주입
         Board = new BlackBoard();
-
-        //Managers.Pool.CreatePool(mExpPrefab, 60, Managers.Pool.transform);
 
         if (mDropItems != null)
         {
@@ -188,7 +182,6 @@ public class EnemyBase : LivingEntity
         // 6. StageManager에게 알리기 (필요시 이벤트나 매니저 호출)
 
         // 7. 애니메이션 재생 후 풀로 반환(각 DeathState에서 제어하자)
-        //Managers.Pool.ReturnToPool(this);
         base.Die();
     }
 
