@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemDataSO: {fileID: 11400000, guid: 1211b8b4a5095584daf82c170d00a133, type: 2}
+  CurrentStack: 1
+  ItemID: 3
   mRotateSpeed: 48
   mFloatingRange: 0.2
   mFloatingSpeed: 2
-  mItemType: 2
-  mEffect: 2
 --- !u!1 &7805862137066061712
 GameObject:
   m_ObjectHideFlags: 0

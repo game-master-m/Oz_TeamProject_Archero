@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
 
     public List<ItemBase> Items = new List<ItemBase>();
 
-    public Item_Equipment[] EquipmentSlot = new Item_Equipment[System.Enum.GetValues(typeof(ItemType)).Length];
+    public Item_Equipment[] EquipmentSlot = new Item_Equipment[System.Enum.GetValues(typeof(EItemType)).Length];
 
     private void Awake()
     {
@@ -21,7 +21,10 @@ public class PlayerInventory : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
 
+    private void Start()
+    {
         mPlayer = GameObject.FindGameObjectWithTag(Define.Tag_Player).GetComponent<PlayerAttack>();
     }
 
@@ -30,13 +33,11 @@ public class PlayerInventory : MonoBehaviour
         ItemBase exsisting = null;
 
         //인벤에 존재하는 아이템찾기
-        for (int i = 0; i < Items.Count; i++) 
+        foreach (ItemBase i in Items) 
         {
-            ItemBase inventoryItem = Items[i];
-
-            if (inventoryItem.ItemDataSO == item.ItemDataSO) 
+            if (i.ItemID == item.ItemID) 
             {
-                exsisting = (ItemBase)inventoryItem;
+                exsisting = i;
                 break;
             }
         }
@@ -65,43 +66,81 @@ public class PlayerInventory : MonoBehaviour
 
     public void ChangeItemAmount(ItemBase item, int amount) 
     {
-        item.ItemDataSO.CurrentStack += amount;
+        item.CurrentStack += amount;
 
         //갯수가 0보다 작거나 같으면 리스트에서 제거
-        if (item.ItemDataSO.CurrentStack <= 0) 
+        if (item.CurrentStack <= 0) 
         {
             RemoveItem(item); 
         }
         //최대 스택 넘으면 최대 스택으로 깎아주기
-        if (item.ItemDataSO.CurrentStack > item.ItemDataSO.MaxStack) 
+        if (item.CurrentStack > item.ItemDataSO.MaxStack) 
         {
-            item.ItemDataSO.CurrentStack = item.ItemDataSO.MaxStack;
+            item.CurrentStack = item.ItemDataSO.MaxStack;
         }
     }
 
     public void EquipItem(Item_Equipment equipment) 
     {
-        ItemType type = equipment.ItemDataSO.ItemType;
+        if (equipment == null) return;
+        EItemType type = equipment.ItemDataSO.ItemType;
+        if ((int)type > System.Enum.GetValues(typeof(EItemType)).Length) return;
+
+        if (EquipmentSlot[(int)type] != null) 
+        {
+            RemoveEquipmentEffect(EquipmentSlot[(int)type]);
+        }
         EquipmentSlot[(int)type] = equipment;
+        ApplyEquipmentEffect(equipment);
     }
 
-    public void ApplyEquipmentEffect() 
+    public void UnEquipItem(Item_Equipment equipment) 
     {
-        foreach (Item_Equipment equipment in EquipmentSlot) 
+        if (equipment == null) return;
+        EItemType type = equipment.ItemDataSO.ItemType;
+        if ((int)type > System.Enum.GetValues(typeof(EItemType)).Length) return;
+
+        if (EquipmentSlot[(int)type] == null) return;
+        RemoveEquipmentEffect(EquipmentSlot[(int)type]);
+        EquipmentSlot[(int)type] = null;
+    }
+
+    private void ApplyEquipmentEffect(Item_Equipment equipment) 
+    {
+        if (mPlayer == null) return;
+        if (equipment != null && equipment.ItemDataSO)
         {
-            if (equipment != null && equipment.ItemDataSO)
+            switch (equipment.ItemDataSO.ItemEffect)
             {
-                switch (equipment.ItemDataSO.ItemEffect) 
-                {
-                    case ItemEffect.HpIncrease:
-                        break;
-                    case ItemEffect.MoveSpeedIncrease:
-                        break;
-                    case ItemEffect.AttackIncrease:
-                        break;
-                    case ItemEffect.None:
-                        break;
-                }
+                case EItemEffect.HpIncrease:
+                    mPlayer.Stat.AddMaxHP(equipment.ItemDataSO.EffectAmount);
+                    break;
+                case EItemEffect.MoveSpeedIncrease:
+                    mPlayer.Stat.AddMoveSpeed(equipment.ItemDataSO.EffectAmount);
+                    break;
+                case EItemEffect.AttackIncrease:
+                    mPlayer.Stat.AddDamage(equipment.ItemDataSO.EffectAmount);
+                    break;
+            }
+        }
+    }
+
+    private void RemoveEquipmentEffect(Item_Equipment equipment) 
+    {
+        if (mPlayer == null) return;
+        if (equipment != null && equipment.ItemDataSO)
+        {
+            switch (equipment.ItemDataSO.ItemEffect)
+            {
+                case EItemEffect.HpIncrease:
+                    mPlayer.Stat.AddMaxHP(-equipment.ItemDataSO.EffectAmount);
+                    break;
+                case EItemEffect.MoveSpeedIncrease:
+                    mPlayer.Stat.AddMoveSpeed(-equipment.ItemDataSO.EffectAmount);
+                    break;
+                case EItemEffect.AttackIncrease:
+                    mPlayer.Stat.AddDamage(-equipment.ItemDataSO.EffectAmount);
+                    break;
             }
         }
     }

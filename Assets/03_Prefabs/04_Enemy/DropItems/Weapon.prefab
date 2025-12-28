@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemDataSO: {fileID: 11400000, guid: d078a1edb25a9f8498cc11c63bb7a8a7, type: 2}
+  CurrentStack: 1
+  ItemID: 4
   mRotateSpeed: 48
   mFloatingRange: 0.2
   mFloatingSpeed: 2
-  mItemType: 0
-  mEffect: 1
 --- !u!1001 &175140181087967365
 PrefabInstance:
   m_ObjectHideFlags: 0

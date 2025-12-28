@@ -15,8 +15,9 @@ MonoBehaviour:
   ItemSprite: {fileID: 0}
   ItemType: 0
   ItemEffect: 1
+  EffectAmount: 10
   MaxStack: 1
   CurrentStack: 1
-  ItemCost: 0
+  ItemCost: 350
   ItemName: "\uBB34\uAE30"
   Description: "\uACF5\uACA9\uB825\uC0C1\uC2B9"

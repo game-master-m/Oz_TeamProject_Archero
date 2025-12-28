@@ -1,14 +1,13 @@
 
-public enum ItemType 
+public enum EItemType 
 {
     Weapon,
     Armor,
     Shoes,
-    Helmet,
-    Etc
+    Helmet 
 }
 
-public enum ItemEffect 
+public enum EItemEffect 
 {
     HpIncrease,
     AttackIncrease,
