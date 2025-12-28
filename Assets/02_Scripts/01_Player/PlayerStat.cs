@@ -41,7 +41,6 @@ public class PlayerStat : LivingEntity
         AttackSpeed = mStat.AttackSpeed;
         RotateSpeed = mStat.RotateSpeed;
         AttackRange = mStat.AttackRange;
-        //
     }
 
     //스탯변경 로직 필요(레벨 업, 아이템 등)
