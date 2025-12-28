@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-
 public class DataManager : MonoBehaviour
 {
     [Header("Database")]
@@ -23,7 +22,7 @@ public class DataManager : MonoBehaviour
 
     //인벤토리 데이터
     private List<ItemSlot> mInventoryItemSlots = new List<ItemSlot>();  //인게임 획득 및 상점 구매/판매
-    private Dictionary<ItemType, ItemDataSO> mEquipedItemDic = new Dictionary<ItemType, ItemDataSO>();
+    private Dictionary<EItemType, ItemDataSO> mEquipedItemDic = new Dictionary<EItemType, ItemDataSO>();
 
     private int mRequiredExpToLevelUp = 500;    //처음에 500, 레벨업 할 때마다 20% 증가
     private int mCurrentLevel = 1;
@@ -208,13 +207,6 @@ public class DataManager : MonoBehaviour
     {
         ItemDataSO itemToEquip = slot.itemData;
 
-        // 1. 장착 가능한 타입인지 체크 (Etc 제외)
-        if (itemToEquip.ItemType == ItemType.Etc)
-        {
-            Utils.Log($"{itemToEquip.ItemName}은 장착할 수 없는 아이템입니다.");
-            return;
-        }
-
         // 2. 해당 부위에 이미 장착된 아이템이 있는지 확인
         if (mEquipedItemDic.ContainsKey(itemToEquip.ItemType))
         {
@@ -236,7 +228,7 @@ public class DataManager : MonoBehaviour
         // OnEquipmentChanged?.Invoke();
     }
 
-    public void UnequipItem(ItemType type)
+    public void UnequipItem(EItemType type)
     {
         if (!mEquipedItemDic.ContainsKey(type)) return;
 
@@ -274,7 +266,7 @@ public class DataManager : MonoBehaviour
     }
     #endregion
 
-    public Dictionary<ItemType, ItemDataSO> GetEquippedItems()
+    public Dictionary<EItemType, ItemDataSO> GetEquippedItems()
     {
         return mEquipedItemDic;
     }
@@ -303,7 +295,7 @@ public class ItemSlotData
 [System.Serializable]
 public class EquippedItemData
 {
-    public ItemType type;
+    public EItemType type;
     public string itemName;
 }
 #endregion
