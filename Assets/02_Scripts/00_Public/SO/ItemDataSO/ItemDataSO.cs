@@ -5,12 +5,11 @@ public class ItemDataSO : ScriptableObject
 {
     public Sprite ItemSprite;
 
-    public ItemType ItemType;
-    public ItemEffect ItemEffect;
+    public EItemType ItemType;
+    public EItemEffect ItemEffect;
     public float EffectAmount;
 
     public int MaxStack = 1;
-    public int CurrentStack = 1;
 
     public int ItemCost;
     public int SellPrice;
