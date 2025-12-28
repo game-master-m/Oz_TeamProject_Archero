@@ -73,32 +73,13 @@ public class EndUI : MonoBehaviour
         mWaveNumText.SetText(Utils.IntAppend(roomIndex + 1));
         mChapterNumText.SetText(Utils.IntAppend(stageNumber));
 
-        //일단은 획득경험치만 표기
-        mExpProgressText.SetText(Utils.IntAppend(CalculateExp(killCount, roomIndex, stageNumber)));
-        mExpNumText.SetText(Utils.IntAppend(CalculateExp(killCount, roomIndex, stageNumber)));
+        //표기해주는 경험치는 로비상 플레이어 영구 레벨업 진척도
+        int[] expProgress = Managers.Data.GetExpProgress();
+
+        mExpProgressText.SetText(Utils.IntSlashInt(expProgress[0], expProgress[1]));
+        mExpNumText.SetText(Utils.IntAppend(expProgress[2]));
+        mLevelText.SetText(Utils.IntAppend(expProgress[3]));
         mGoldText.SetText(Utils.StringAppend(mCurrentGetGoldAmountText.text));
-
-        //레벨텍스트와 프로그레스텍스트의 경험치 총량은 DataManager.cs 설계 후 적용
-
     }
-
-    //획득 한 경험치 프리팹 기준으로 다시 설정하자 =====================================================
-    private int CalculateExp(int killCount, int roomIndex, int stageNumber)
-    {
-        int result = 0;
-        //킬카운트와 진행도 기반 Exp 계산
-        result = Mathf.RoundToInt(killCount * 10 * (roomIndex + 1) * 0.1f * stageNumber);
-
-        return result;
-    }
-    private int CalculateGold(int killCount, int roomIndex, int stageNumber)
-    {
-        int result = 0;
-        //킬카운트와 진행도 기반 Gold 계산
-        result = Mathf.RoundToInt(killCount * 10 * (roomIndex + 1) * 0.1f * stageNumber * 4);
-
-        return result;
-    }
-    //획득 한 경험치 프리팹 기준으로 다시 설정하자 =====================================================
 
 }

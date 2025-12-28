@@ -1,16 +1,16 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-200)]
 public class Managers : MonoBehaviour
 {
     public static Managers Instance { get; private set; }
     [Header("매니저 프리팹")]
-    //[SerializeField] private GameObject dataManagerPrefab;
+    [SerializeField] private GameObject dataManagerPrefab;
     [SerializeField] private GameObject poolManagerPrefab;
     [SerializeField] private GameObject gameManagerPrefab;
     [SerializeField] private GameObject stageManagerPrefab;
-    //[SerializeField] private GameObject playerStatsManagerPrefab;
 
-    //public static DataManager Data { get; private set; }
+    public static DataManager Data { get; private set; }
     public static PoolManager Pool { get; private set; }
     public static GameManager Game { get; private set; }
     public static StageManager Stage { get; private set; }
@@ -27,11 +27,11 @@ public class Managers : MonoBehaviour
             return;
         }
         //매니저들 생성
-        //if (dataManagerPrefab != null)
-        //{
-        //    GameObject dataGo = Instantiate(dataManagerPrefab, transform);
-        //    Data = dataGo.GetComponent<DataManager>();
-        //}
+        if (dataManagerPrefab != null)
+        {
+            GameObject dataGo = Instantiate(dataManagerPrefab, transform);
+            Data = dataGo.GetComponent<DataManager>();
+        }
 
         if (poolManagerPrefab != null)
         {
@@ -53,10 +53,10 @@ public class Managers : MonoBehaviour
         //{
         //    GameObject statsGo = Instantiate(playerStatsManagerPrefab, transform);
         //}
-        //if (Data != null)
-        //{
-        //    Data.Init();
-        //}
+        if (Data != null)
+        {
+            Data.LoadGame();
+        }
 
     }
 

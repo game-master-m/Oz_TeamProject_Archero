@@ -52,7 +52,7 @@ public class LevelUpController : MonoBehaviour
         //여기서 비율 전달
         onExpChange?.Invoke(mCurrentExp / mRequiredExp);
         //골드는 획득한 경험치 갯수 기준 골드수급(경험치 프리팹 하나당 3?)
-        onGoldChange?.Invoke(3);
+        onGoldChange?.Invoke(Define.GetGoldAmountPerExp);
 
         if (mCurrentExp >= mRequiredExp)
         {

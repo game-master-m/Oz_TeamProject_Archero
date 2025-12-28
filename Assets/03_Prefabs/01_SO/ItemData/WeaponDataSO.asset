@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123d1a05f9ee12d4ead28a3b5b745ec7, type: 3}
   m_Name: WeaponDataSO
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 0}
+  ItemSprite: {fileID: 21300000, guid: 30f5afec9911bcf4997914c6a4802dd4, type: 2}
   ItemType: 0
   ItemEffect: 1
   EffectAmount: 10
-  MaxStack: 1
-  CurrentStack: 1
+  MaxStack: 10
   ItemCost: 350
+  SellPrice: 0
   ItemName: "\uBB34\uAE30"
   Description: "\uACF5\uACA9\uB825\uC0C1\uC2B9"

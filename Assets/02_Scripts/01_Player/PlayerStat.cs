@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStat : LivingEntity
@@ -41,10 +42,38 @@ public class PlayerStat : LivingEntity
         AttackSpeed = mStat.AttackSpeed;
         RotateSpeed = mStat.RotateSpeed;
         AttackRange = mStat.AttackRange;
+
+        if (Managers.Data != null)
+        {
+            var equippedItems = Managers.Data.GetEquippedItems();
+
+            foreach (var item in equippedItems.Values)
+            {
+                if (item != null)
+                {
+                    ApplyItemEffect(item);
+                }
+            }
+        }
     }
 
     //스탯변경 로직 필요(레벨 업, 아이템 등)
     #region 스탯변경 메서드
+    private void ApplyItemEffect(ItemDataSO item)
+    {
+        switch (item.ItemEffect)
+        {
+            case EItemEffect.HpIncrease:
+                AddMaxHP(item.EffectAmount);
+                break;
+            case EItemEffect.AttackIncrease:
+                AddDamage(item.EffectAmount);
+                break;
+            case EItemEffect.MoveSpeedIncrease:
+                AddMoveSpeed(item.EffectAmount);
+                break;
+        }
+    }
     public void AddDamage(float amount)
     {
         AttackDamage += amount;
@@ -84,7 +113,7 @@ public class PlayerStat : LivingEntity
     public void AddMaxHP(float amount)
     {
         mMaxHP += amount;
-        mCurrentHP += amount;
+        mCurrentHP += mMaxHP;
         UpdateHPRequest(mCurrentHP / MaxHP);
     }
     public void MultipleMaxHP(float amount)

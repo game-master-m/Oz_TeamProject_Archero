@@ -1,33 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class SlotUI : MonoBehaviour
 {
-    protected ItemBase mItem;
-    protected Item_Equipment mEquipment;
+    [SerializeField] protected Button mIconBtn;
+    [SerializeField] protected TextMeshProUGUI mStackText;
 
-    public void SetItemData(ItemBase item) 
+    protected ItemSlot mSlot;
+
+    private void Awake()
     {
-        mItem = item;
-        SetItemSprite();
+        mIconBtn.onClick.RemoveAllListeners();
+        mIconBtn.onClick.AddListener(OnButtonClick);
     }
-
-    public void SetItemData(Item_Equipment item)
-    {
-        mEquipment = item;
-        mItem = mEquipment;
-        SetItemSprite();
-    }
-
-    private void SetItemSprite() 
-    {
-        if (TryGetComponent(out Image image)) 
-        {
-            image.sprite = mItem.ItemDataSO.ItemSprite;
-        }
-    }
-
     public abstract void OnButtonClick();
+
+    public virtual void SetItemData(ItemSlot slot, Transform parent)
+    {
+        mSlot = slot;
+        mIconBtn.image.sprite = mSlot.itemData.ItemSprite;
+        mStackText.SetText(Utils.IntAppend(mSlot.currentStack));
+        transform.SetParent(parent);
+    }
+
+    public void ReturnToPool()
+    {
+        Managers.Pool.ReturnToPool(this);
+    }
 }

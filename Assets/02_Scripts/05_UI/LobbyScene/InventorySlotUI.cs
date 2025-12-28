@@ -6,8 +6,10 @@ public class InventorySlotUI : SlotUI
 {
     public override void OnButtonClick()
     {
-        if (PlayerInventory.Instance == null) return;
+        //하이라이트
 
-        PlayerInventory.Instance.EquipItem(mEquipment);
+        //설명 란 활성화
+
+        //장착버튼 활성화
     }
 }
