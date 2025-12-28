@@ -47,10 +47,21 @@ public static class Utils
         mBuilder.Append(right);
         return mBuilder;
     }
-    public static StringBuilder GoldIntAppend(int value)
+    public static StringBuilder ShortenIntSlashInt(int left, int right)
     {
         mBuilder.Clear();
-
+        ShortenInt(left);
+        mBuilder.Append("/");
+        ShortenInt(right);
+        return mBuilder;
+    }
+    public static StringBuilder ShortenIntAppend(int value)
+    {
+        mBuilder.Clear();
+        return ShortenInt(value);
+    }
+    public static StringBuilder ShortenInt(int value)
+    {
         if (value < 1000)
         {
             mBuilder.Append(value);
@@ -67,7 +78,6 @@ public static class Utils
         mBuilder.Append(val.ToString("F1")).Append(mSuffixes[index]);
         return mBuilder;
     }
-
     public static void Log(string message)
     {
 #if UNITY_EDITOR

@@ -52,7 +52,7 @@ public class ExpProgressController : MonoBehaviour
     private void HandleGoldChange(int getGoldAmount)
     {
         mCurrentGoldAmount += getGoldAmount;
-        mGoldText.SetText(Utils.GoldIntAppend(mCurrentGoldAmount));
+        mGoldText.SetText(Utils.ShortenIntAppend(mCurrentGoldAmount));
     }
     private void HandleLevelChange(int level)
     {

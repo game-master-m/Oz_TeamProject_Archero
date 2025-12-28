@@ -14,6 +14,11 @@ public static class Define
 
     // 체력바 UI
     public const string Critical = "Crit! ";
+
+    // 필요 경험치
+    public const int RequiredExp = 500;
+    public const float NextExpMultiplier = 2.2f;
+    public const int GetGoldAmountPerExp = 3;
 }
 
 //애니메이터
@@ -42,7 +47,7 @@ public class Layers
 //Enums
 public enum ELayerName
 {
-    Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle, Projectile, Exp, EnemyAttack
+    Default, TransparentFX, IgnoreRaycast, Enemy, Water, UI, Player, Obstacle, Projectile, Exp, EnemyAttack, Item
 }
 public enum EEnemyName { None, Slime }
 public enum ESkillGrade { None, Normal, Expert, Epic, Legend }

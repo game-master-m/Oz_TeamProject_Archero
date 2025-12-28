@@ -1,36 +1,65 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     [Header("Database")]
-    public List<ItemDataSO> itemDatabase;
+    [SerializeField] private ItemDataBaseSO mItemDataBaseSO;
 
     [Header("이벤트 구독")]
-    //골드 체인지 (ExpProgress Controller)
-    //경험치 획득 (ExpProgress에서 할거냐, EndUI에서 한방에 할거냐?)
+    [SerializeField] private IntEventChannelSO mOnGetExpRequest; // 각 경험치들이 발송
+    [SerializeField] private VoidEventChannelSO mOnSceneChanged;    //GameManager 발행
 
     [Header("이벤트 발송")]
-    //로비 Gold UI update
+    [SerializeField] private IntTripleEventChannelSO mOnLobbyStartRequest;  //TopController 구독
+    [SerializeField] private EquipedItemDataEventChannelSO mOnEquipedItemData;
+    [SerializeField] private ItemSlotsEventChannelSO mOnInvenItemSlots;
     //로비 Inventory UI update
 
     //저장 될 데이터
     private int mGold = 0;          //GoldChange event 구독해서 누적 획득, 상점 로직에서 Add or Sub
     private int mLobbyExp = 0;      //ExpChange event 구독해서 클리어패널 생성 시 누적
+    private int mRequiredExp;
     private string SavePath => Path.Combine(Application.persistentDataPath, "savegame.json");
 
     //인벤토리 데이터
     private List<ItemSlot> mInventoryItemSlots = new List<ItemSlot>();  //인게임 획득 및 상점 구매/판매
     private Dictionary<EItemType, ItemDataSO> mEquipedItemDic = new Dictionary<EItemType, ItemDataSO>();
+    private List<ItemDataSO> mItemDatabaseList = new List<ItemDataSO>();
 
-    private int mRequiredExpToLevelUp = 500;    //처음에 500, 레벨업 할 때마다 20% 증가
     private int mCurrentLevel = 1;
 
-
+    private int mGetExpAmountAtferSceneLoad = 0;
     private void Awake()
     {
-        LoadGame(); // 시작 시 자동 로드
+        InitializeEquipDictionary();
+    }
+    private void InitializeEquipDictionary()
+    {
+        mEquipedItemDic.Clear();
+        mEquipedItemDic.Add(EItemType.Weapon, null);
+        mEquipedItemDic.Add(EItemType.Armor, null);
+        mEquipedItemDic.Add(EItemType.Shoes, null);
+        mEquipedItemDic.Add(EItemType.Helmet, null);
+    }
+    private void OnEnable()
+    {
+        mOnSceneChanged.onEvent += HandleSceneChanged;
+        mOnGetExpRequest.onEvent += HandleGetExp;
+    }
+    private void OnDisable()
+    {
+        mOnSceneChanged.onEvent -= HandleSceneChanged;
+        mOnGetExpRequest.onEvent -= HandleGetExp;
+    }
+
+    //EndUI에서 갖다 씀
+    public int[] GetExpProgress()
+    {
+        int[] result = { mLobbyExp, mRequiredExp, mGetExpAmountAtferSceneLoad, mCurrentLevel };
+        return result;
     }
 
     #region Save & Load
@@ -45,6 +74,7 @@ public class DataManager : MonoBehaviour
         // 인벤토리 변환 (ItemSlot -> ItemSlotData)
         foreach (var slot in mInventoryItemSlots)
         {
+            if (slot.itemData == null) continue;
             data.inventorySlots.Add(new ItemSlotData
             {
                 itemName = slot.itemData.ItemName,
@@ -55,6 +85,7 @@ public class DataManager : MonoBehaviour
         // 장착 아이템 변환 (Dictionary -> List)
         foreach (var pair in mEquipedItemDic)
         {
+            if (pair.Value == null) continue;
             data.equippedItems.Add(new EquippedItemData
             {
                 type = pair.Key,
@@ -67,8 +98,11 @@ public class DataManager : MonoBehaviour
         Utils.Log($"저장 완료: {SavePath}");
     }
 
+    //Managers Awake()에서 Load!
     public void LoadGame()
     {
+        mItemDatabaseList = mItemDataBaseSO.ItemDatabase;
+
         if (!File.Exists(SavePath))
         {
             Utils.Log("저장 파일이 없습니다. 초기 상태로 시작합니다.");
@@ -87,7 +121,7 @@ public class DataManager : MonoBehaviour
         mInventoryItemSlots.Clear();
         foreach (var slotData in data.inventorySlots)
         {
-            ItemDataSO so = itemDatabase.Find(x => x.ItemName == slotData.itemName);
+            ItemDataSO so = mItemDatabaseList.Find(x => x.ItemName == slotData.itemName);
             if (so != null)
             {
                 mInventoryItemSlots.Add(new ItemSlot(so, slotData.currentStack));
@@ -95,15 +129,17 @@ public class DataManager : MonoBehaviour
         }
 
         // 장착 아이템 복구
-        mEquipedItemDic.Clear();
+        InitializeEquipDictionary();
         foreach (var equipData in data.equippedItems)
         {
-            ItemDataSO so = itemDatabase.Find(x => x.ItemName == equipData.itemName);
+            ItemDataSO so = mItemDatabaseList.Find(x => x.ItemName == equipData.itemName);
             if (so != null)
             {
-                mEquipedItemDic.Add(equipData.type, so);
+                mEquipedItemDic[equipData.type] = so;
             }
         }
+
+        mRequiredExp = Define.RequiredExp * Mathf.RoundToInt(Mathf.Pow(Define.NextExpMultiplier, mCurrentLevel - 1));
         Utils.Log("데이터 로드 성공");
     }
 
@@ -118,6 +154,8 @@ public class DataManager : MonoBehaviour
     //아이템 추가
     public void AddItemToInventory(ItemDataSO item, int count)
     {
+        if (item == null) return;
+
         int remainingCount = count;
 
         foreach (var slot in mInventoryItemSlots)
@@ -137,9 +175,12 @@ public class DataManager : MonoBehaviour
         }
 
         //로비 Inventory UI update
+        mOnInvenItemSlots?.Raised(mInventoryItemSlots);
     }
     public void SellItem(ItemDataSO item, int sellCount)
     {
+        if (item == null) return;
+
         // 1. 해당 아이템의 총 보유 수량 확인
         int totalOwned = GetTotalItemCount(item);
 
@@ -178,10 +219,13 @@ public class DataManager : MonoBehaviour
 
         // 4. 알림
         //로비 Inventory UI update
+        mOnInvenItemSlots?.Raised(mInventoryItemSlots);
     }
 
     public int GetTotalItemCount(ItemDataSO item)
     {
+        if (item == null) return 0;
+
         int count = 0;
         foreach (var slot in mInventoryItemSlots)
         {
@@ -205,10 +249,12 @@ public class DataManager : MonoBehaviour
     #region 아이템 장착 및 해제
     public void EquipItem(ItemSlot slot)
     {
+        if (slot == null || slot.itemData == null) return;
+
         ItemDataSO itemToEquip = slot.itemData;
 
         // 2. 해당 부위에 이미 장착된 아이템이 있는지 확인
-        if (mEquipedItemDic.ContainsKey(itemToEquip.ItemType))
+        if (mEquipedItemDic.ContainsKey(itemToEquip.ItemType) && mEquipedItemDic[itemToEquip.ItemType] != null)
         {
             // 기존 장착 해제 및 인벤토리 복구
             UnequipItem(itemToEquip.ItemType);
@@ -221,24 +267,28 @@ public class DataManager : MonoBehaviour
         // 4. 장착 딕셔너리에 추가
         mEquipedItemDic[itemToEquip.ItemType] = itemToEquip;
 
-        Utils.Log($"{itemToEquip.ItemName}을 {itemToEquip.ItemType} 슬롯에 장착했습니다.");
-
         // UI 업데이트 알림 발송 필요
-        // OnInventoryChanged?.Invoke();
-        // OnEquipmentChanged?.Invoke();
+        mOnInvenItemSlots.Raised(mInventoryItemSlots);
+        mOnEquipedItemData?.Raised(mEquipedItemDic);
+
+        Utils.Log($"{itemToEquip.ItemName}을 {itemToEquip.ItemType} 슬롯에 장착했습니다.");
     }
 
     public void UnequipItem(EItemType type)
     {
-        if (!mEquipedItemDic.ContainsKey(type)) return;
+        if (!mEquipedItemDic.ContainsKey(type) || mEquipedItemDic[type] == null) return;
 
         ItemDataSO unequippedItem = mEquipedItemDic[type];
 
         // 1. 딕셔너리에서 제거
-        mEquipedItemDic.Remove(type);
+        mEquipedItemDic[type] = null;
 
         // 2. 인벤토리에 다시 추가
         AddItemToInventory(unequippedItem, 1);
+
+        // 3. 이벤트 발송
+        mOnInvenItemSlots.Raised(mInventoryItemSlots);
+        mOnEquipedItemData?.Raised(mEquipedItemDic);
 
         Utils.Log($"{unequippedItem.ItemName} 장착을 해제했습니다.");
     }
@@ -266,10 +316,33 @@ public class DataManager : MonoBehaviour
     }
     #endregion
 
+    //PlayerStat.cs 에서 스탯초기화할 때 호출.
     public Dictionary<EItemType, ItemDataSO> GetEquippedItems()
     {
         return mEquipedItemDic;
     }
+    public List<ItemSlot> GetInventoryItems()
+    {
+        return mInventoryItemSlots;
+    }
+    #region 이벤트 핸들러
+    private void HandleSceneChanged()
+    {
+        mOnLobbyStartRequest?.Raised(mCurrentLevel, mLobbyExp, mGold);
+        mGetExpAmountAtferSceneLoad = 0;
+    }
+    private void HandleGetExp(int garbage)
+    {
+        mGold += Define.GetGoldAmountPerExp;
+        mLobbyExp++;
+        mGetExpAmountAtferSceneLoad++;
+        if (mLobbyExp >= mRequiredExp)
+        {
+            mCurrentLevel++;
+            mRequiredExp = Define.RequiredExp * Mathf.RoundToInt(Mathf.Pow(Define.NextExpMultiplier, mCurrentLevel - 1));
+        }
+    }
+    #endregion
 }
 
 #region 저장 용 Serializable 클래스

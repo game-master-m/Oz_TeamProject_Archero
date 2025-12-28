@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4894119572185291412}
   - component: {fileID: 8006010333441267046}
   - component: {fileID: 1194217343167671908}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,11 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c632cb6aa301b54da7ed73b7b00ca7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemDataSO: {fileID: 0}
+  CurrentStack: 1
+  ItemID: 0
   mRotateSpeed: 48
   mFloatingRange: 0.2
   mFloatingSpeed: 2
-  mItemType: 4
-  mEffect: 3
   mHealAmount: 100
 --- !u!135 &8006010333441267046
 SphereCollider:
