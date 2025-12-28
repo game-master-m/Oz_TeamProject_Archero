@@ -6,6 +6,9 @@ public class ItemBase : MonoBehaviour
 {
     public ItemDataSO ItemDataSO;
 
+    public float CurrentStack = 1;
+    public int ItemID;
+    
     [SerializeField] private float mRotateSpeed = 2f;
     [SerializeField] private float mFloatingRange = 0.2f;
     [SerializeField] private float mFloatingSpeed = 2f;
