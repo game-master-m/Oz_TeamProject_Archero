@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStat : LivingEntity
@@ -19,7 +18,12 @@ public class PlayerStat : LivingEntity
 
 
     private float mDieDelay = 0.5f;
+    private WaitForSeconds mWaitDieDelay;
 
+    private void Awake()
+    {
+        mWaitDieDelay = new WaitForSeconds(mDieDelay);
+    }
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -145,7 +149,7 @@ public class PlayerStat : LivingEntity
 
     private IEnumerator DelayAndDieBroadCastCO()
     {
-        yield return new WaitForSeconds(mDieDelay);
+        yield return mWaitDieDelay;
         mOnPlayerDie.Raised();
     }
 }
