@@ -345,8 +345,12 @@ public class DataManager : MonoBehaviour
         if (mLobbyExp >= mRequiredExp)
         {
             mCurrentLevel++;
-            mRequiredExp = Define.RequiredExp * Mathf.RoundToInt(Mathf.Pow(Define.NextExpMultiplier, mCurrentLevel - 1));
+            mRequiredExp = GetRequiredExp(mCurrentLevel);
         }
+    }
+    public int GetRequiredExp(int currentLevel)
+    {
+        return Mathf.RoundToInt(Define.RequiredExp * Mathf.Pow(Define.NextExpMultiplier, currentLevel - 1));
     }
     #endregion
 }

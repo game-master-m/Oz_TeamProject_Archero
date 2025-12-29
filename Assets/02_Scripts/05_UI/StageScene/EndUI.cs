@@ -76,10 +76,22 @@ public class EndUI : MonoBehaviour
         //표기해주는 경험치는 로비상 플레이어 영구 레벨업 진척도
         int[] expProgress = Managers.Data.GetExpProgress();
 
-        mExpProgressText.SetText(Utils.IntSlashInt(expProgress[0], expProgress[1]));
-        mExpNumText.SetText(Utils.IntAppend(expProgress[2]));
-        mLevelText.SetText(Utils.IntAppend(expProgress[3]));
+        int lobbyExp = expProgress[0];
+        int requiredExp = expProgress[1];
+        int currentGetExp = expProgress[2];
+        int currentLevel = expProgress[3];
+
+        int prevRequiredExp = Managers.Data.GetRequiredExp(currentLevel - 1);
+
+        mExpProgressText.SetText(Utils.IntSlashInt(lobbyExp, requiredExp));
+        mExpNumText.SetText(Utils.IntAppend(currentGetExp));
+        mLevelText.SetText(Utils.IntAppend(currentLevel));
         mGoldText.SetText(Utils.StringAppend(mCurrentGetGoldAmountText.text));
+
+        float virtualExp = (currentLevel != 1) ? lobbyExp - prevRequiredExp : lobbyExp;
+        float virtualRequiredExp = (currentLevel != 1) ? requiredExp - prevRequiredExp : requiredExp;
+
+        mFillImage.fillAmount = virtualExp / virtualRequiredExp;
     }
 
 }
