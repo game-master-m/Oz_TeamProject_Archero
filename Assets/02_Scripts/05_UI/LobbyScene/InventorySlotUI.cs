@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class InventorySlotUI : SlotUI
 {
+    //발송...
+    [SerializeField] private ItemSlotEventChannelSO mOnInvenItemSelected;   //InvenItemInfoUI가 구독
+
     public override void OnButtonClick()
     {
-        //하이라이트
-
-        //설명 란 활성화
-
-        //장착버튼 활성화
+        //아이템 인포 패널 활성화
+        mOnInvenItemSelected?.Raised(mSlot);
     }
+
 }

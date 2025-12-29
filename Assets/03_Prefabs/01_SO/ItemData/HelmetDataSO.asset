@@ -15,9 +15,9 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 67e8a0cedf0507349ad5b9cf27cc4705, type: 2}
   ItemType: 3
   ItemEffect: 0
-  EffectAmount: 20
+  EffectAmount: 10
   MaxStack: 10
   ItemCost: 200
-  SellPrice: 0
+  SellPrice: 80
   ItemName: "\uD22C\uAD6C"
-  Description: "\uCCB4\uB825\uC0C1\uC2B9"
+  Description: "\uCCB4\uB825\uC0C1\uC2B9\n+10"

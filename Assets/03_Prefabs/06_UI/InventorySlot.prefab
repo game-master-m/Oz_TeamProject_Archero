@@ -212,6 +212,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mIconBtn: {fileID: 4726780613682820297}
   mStackText: {fileID: 104107161180782180}
+  mOnInvenItemSelected: {fileID: 11400000, guid: 53373af932c9f264092ee22ee0c79b58,
+    type: 2}
 --- !u!1 &6319773891631069170
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

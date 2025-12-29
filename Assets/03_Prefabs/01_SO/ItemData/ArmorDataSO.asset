@@ -18,6 +18,6 @@ MonoBehaviour:
   EffectAmount: 20
   MaxStack: 10
   ItemCost: 250
-  SellPrice: 0
+  SellPrice: 120
   ItemName: "\uAC11\uC637"
-  Description: "\uCCB4\uB825\uC0C1\uC2B9"
+  Description: "\uCCB4\uB825\uC0C1\uC2B9\n+20"

@@ -62,9 +62,9 @@ public static class Utils
     }
     public static StringBuilder ShortenInt(int value)
     {
-        if (value < 1000)
+        if (value < 10000)
         {
-            mBuilder.Append(value);
+            mBuilder.Append(value.ToString("N0"));
             return mBuilder;
         }
         double val = value;
@@ -74,8 +74,10 @@ public static class Utils
             val /= 1000.0;
             index++;
         }
-
-        mBuilder.Append(val.ToString("F1")).Append(mSuffixes[index]);
+        if (val >= 100) mBuilder.Append(val.ToString("F0"));
+        else if (val >= 10) mBuilder.Append(val.ToString("F1"));
+        else mBuilder.Append(val.ToString("F2"));
+        mBuilder.Append(mSuffixes[index]);
         return mBuilder;
     }
     public static void Log(string message)

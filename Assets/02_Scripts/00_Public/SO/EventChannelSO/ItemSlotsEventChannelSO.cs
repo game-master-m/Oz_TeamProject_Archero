@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItemSlotsEvent", menuName = "Archero/EventChannel/ItemSlots Event Channel")]
+[CreateAssetMenu(fileName = "NewItemSlotListsEvent", menuName = "Archero/EventChannel/Item Slot List Event Channel")]
 public class ItemSlotsEventChannelSO : ScriptableObject
 {
     public event Action<List<ItemSlot>> onEvent;
