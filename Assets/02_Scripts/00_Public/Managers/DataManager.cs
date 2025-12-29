@@ -30,6 +30,10 @@ public class DataManager : MonoBehaviour
     private Dictionary<EItemType, ItemDataSO> mEquipedItemDic = new Dictionary<EItemType, ItemDataSO>();
     private List<ItemDataSO> mItemDatabaseList = new List<ItemDataSO>();
 
+    public List<ItemDataSO> ItemDatabaseList => mItemDatabaseList;
+
+    public int Gold => mGold;
+
     private int mCurrentLevel = 1;
 
     private int mGetExpAmountAtferSceneLoad = 0;
