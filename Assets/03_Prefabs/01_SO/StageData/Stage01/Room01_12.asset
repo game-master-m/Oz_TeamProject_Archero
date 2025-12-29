@@ -17,20 +17,32 @@ MonoBehaviour:
     type: 3}
   waveDataList:
   - spawnInfoList:
-    - enemyPrefab: {fileID: 5110414988822465953, guid: cae453bd112c403469fae282474ec713,
-        type: 3}
-      spawnPointIndex: 2
-      spawnDelay: 0
-      spawnCount: 5
-  - spawnInfoList:
-    - enemyPrefab: {fileID: 7860359675874047944, guid: ace81d16b76adf3499c70d53317c8558,
-        type: 3}
-      spawnPointIndex: 7
-      spawnDelay: 0
-      spawnCount: 3
-  - spawnInfoList:
-    - enemyPrefab: {fileID: 8266713770641765262, guid: 1867c595e5cc7634e96ffc482a1a44da,
+    - enemyPrefab: {fileID: 4354454135055735523, guid: 389ae63ad0c61884ab00184b76c5ff44,
         type: 3}
       spawnPointIndex: 4
       spawnDelay: 0
-      spawnCount: 3
+      spawnCount: 5
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 6839078877505266397, guid: 8bc5bad6f1a2fec4299efbc3547150f7,
+        type: 3}
+      spawnPointIndex: 6
+      spawnDelay: 0
+      spawnCount: 4
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 7713867589101204679, guid: b942fe0bd66d9ca48b8c6ba2544a27e8,
+        type: 3}
+      spawnPointIndex: 2
+      spawnDelay: 0
+      spawnCount: 4
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 2905207928400813747, guid: b50eabd7a9a11c141868bfc2710baf62,
+        type: 3}
+      spawnPointIndex: 9
+      spawnDelay: 0
+      spawnCount: 4
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 3473789561533421543, guid: 58a2af75422fe2c47a0a42e53e790eff,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+      spawnCount: 4

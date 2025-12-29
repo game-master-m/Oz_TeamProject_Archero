@@ -19,4 +19,5 @@ MonoBehaviour:
   mHitTiming: 0.26
   mRotateSpeed: 8
   mDetectRange: 40
+  mMaxExpDropCount: 6
   mRotateOffset: {x: 0, y: 0, z: 0}
