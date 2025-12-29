@@ -87,7 +87,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c4c5fb8d5a873e4487be4c07506efec,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5477022606090067765}
+      addedObject: {fileID: -2559315115145919396}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c4c5fb8d5a873e4487be4c07506efec,
         type: 3}
       insertIndex: -1
@@ -165,7 +165,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5477022606090067765
+--- !u!114 &-2559315115145919396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,18 +174,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6403187740861568171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e35bb558212384cab4ab2cd86636fc, type: 3}
+  m_Script: {fileID: 11500000, guid: fad110bb3489dab4f9b816d74bbb05f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 4f93745141be302479262fa97621fb48, type: 2}
-  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
-    type: 3}
   mEnemyType: 3
   mDropItems:
   - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
       type: 3}
     dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
+  mFireTrailPrefab: {fileID: 0}
 --- !u!114 &7846467861164885362
 MonoBehaviour:
   m_ObjectHideFlags: 0
