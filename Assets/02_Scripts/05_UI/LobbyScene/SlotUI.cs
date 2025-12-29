@@ -9,7 +9,7 @@ public abstract class SlotUI : MonoBehaviour
 
     protected ItemSlot mSlot;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         mIconBtn.onClick.RemoveAllListeners();
         mIconBtn.onClick.AddListener(OnButtonClick);

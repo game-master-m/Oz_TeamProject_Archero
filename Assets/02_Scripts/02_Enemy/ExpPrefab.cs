@@ -60,7 +60,7 @@ public class ExpPrefab : MonoBehaviour
         mTarget = target;
         mDestination = destination;
 
-        transform.DOJump(destination, 3.0f, 1, 0.2f).SetEase(Ease.OutQuad);
+        transform.DOJump(destination, 2.0f, 1, 0.2f).SetEase(Ease.OutQuad);
     }
     private void FixedUpdate()
     {

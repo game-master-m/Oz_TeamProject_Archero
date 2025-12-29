@@ -15,5 +15,6 @@ public class ItemDataSO : ScriptableObject
     public int SellPrice;
 
     public string ItemName;
+    [TextArea]
     public string Description;
 }

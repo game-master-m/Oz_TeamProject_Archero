@@ -12,7 +12,7 @@ public class TopController : MonoBehaviour
 
     [Header("이벤트 구독")]
     [SerializeField] private IntTripleEventChannelSO mOnLobbyStartRequest;    //DataManager 발송
-    //[SerializeField] private IntEventChannelSO mOnGoldChanged;                  //상점 UI?
+    [SerializeField] private IntEventChannelSO mOnGoldChanged;                //DataManager 발송
 
     private int mGoldAmount;
     private int mLevelAmount;
@@ -23,16 +23,19 @@ public class TopController : MonoBehaviour
     private void OnEnable()
     {
         mOnLobbyStartRequest.onEvent += UpdateAll;
+        mOnGoldChanged.onEvent += UpdateGoldText;
+
     }
     private void OnDisable()
     {
         mOnLobbyStartRequest.onEvent -= UpdateAll;
+        mOnGoldChanged.onEvent -= UpdateGoldText;
     }
 
     //Update 골드
     private void UpdateGoldText(int changedGoldAmount)
     {
-
+        mGoldText.SetText(Utils.ShortenIntAppend(changedGoldAmount));
     }
 
     //로비씬 전환될 때, UI 전부 업데이트
@@ -42,7 +45,7 @@ public class TopController : MonoBehaviour
         mExpAmount = expAmount;
         mGoldAmount = goldAmount;
 
-        mRequiredExpAmount = Define.RequiredExp * Mathf.RoundToInt(Mathf.Pow(Define.NextExpMultiplier, mLevelAmount - 1));
+        mRequiredExpAmount = Mathf.RoundToInt(Define.RequiredExp * Mathf.Pow(Define.NextExpMultiplier, mLevelAmount - 1));
 
         mRemainingExpAmount = mRequiredExpAmount - mExpAmount;
 

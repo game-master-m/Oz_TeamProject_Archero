@@ -13,9 +13,10 @@ public class DataManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO mOnSceneChanged;    //GameManager 발행
 
     [Header("이벤트 발송")]
-    [SerializeField] private IntTripleEventChannelSO mOnLobbyStartRequest;  //TopController 구독
-    [SerializeField] private EquipedItemDataEventChannelSO mOnEquipedItemData;
-    [SerializeField] private ItemSlotsEventChannelSO mOnInvenItemSlots;
+    [SerializeField] private IntTripleEventChannelSO mOnLobbyStartRequest;          //TopController 구독
+    [SerializeField] private IntEventChannelSO mOnGoldChanged;                      //TopController 구독
+    [SerializeField] private EquipedItemDataEventChannelSO mOnEquipedItemData;      //InventoryUI 구독
+    [SerializeField] private ItemSlotsEventChannelSO mOnInvenItemSlots;             //InventoryUI 구독
     //로비 Inventory UI update
 
     //저장 될 데이터
@@ -139,7 +140,7 @@ public class DataManager : MonoBehaviour
             }
         }
 
-        mRequiredExp = Define.RequiredExp * Mathf.RoundToInt(Mathf.Pow(Define.NextExpMultiplier, mCurrentLevel - 1));
+        mRequiredExp = Mathf.RoundToInt(Define.RequiredExp * Mathf.Pow(Define.NextExpMultiplier, mCurrentLevel - 1));
         Utils.Log("데이터 로드 성공");
     }
 
@@ -242,6 +243,7 @@ public class DataManager : MonoBehaviour
         mGold += amount;
 
         //로비 Gold UI update
+        mOnGoldChanged?.Raised(mGold);
     }
     //아이템 판매
     #endregion

@@ -49,5 +49,6 @@ MonoBehaviour:
   mOnSceneChanged: {fileID: 11400000, guid: f4a4e8fe2d455754ba9006fb0f0ab2d1, type: 2}
   mOnLobbyStartRequest: {fileID: 11400000, guid: d921d263b0ea2e54799820952ad84ec5,
     type: 2}
-  mOnEquipedItemData: {fileID: 0}
-  mOnInvenItemSlots: {fileID: 0}
+  mOnGoldChanged: {fileID: 11400000, guid: a0fc7b31adaae67488ae03e24fc2e552, type: 2}
+  mOnEquipedItemData: {fileID: 11400000, guid: 510562bf32bae5842b98555db7ed1358, type: 2}
+  mOnInvenItemSlots: {fileID: 11400000, guid: b13d4855a4b533f4b92e5c4f18c53379, type: 2}
