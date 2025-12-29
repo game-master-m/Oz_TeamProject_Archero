@@ -45,15 +45,20 @@ public class TopController : MonoBehaviour
         mExpAmount = expAmount;
         mGoldAmount = goldAmount;
 
-        mRequiredExpAmount = Mathf.RoundToInt(Define.RequiredExp * Mathf.Pow(Define.NextExpMultiplier, mLevelAmount - 1));
+        mRequiredExpAmount = Managers.Data.GetRequiredExp(mLevelAmount);
 
         mRemainingExpAmount = mRequiredExpAmount - mExpAmount;
+
+        int prevRequiredExp = Managers.Data.GetRequiredExp(mLevelAmount - 1);
+
+        float virtualExp = (mLevelAmount != 1) ? expAmount - prevRequiredExp : expAmount;
+        float virtualRequiredExp = (mLevelAmount != 1) ? mRequiredExpAmount - prevRequiredExp : mRequiredExpAmount;
 
         mGoldText.SetText(Utils.ShortenIntAppend(mGoldAmount));
         mLevelText.SetText(Utils.IntAppend(mLevelAmount));
         mRemainingExpText.SetText(Utils.ShortenIntAppend(mRemainingExpAmount));
         mExpProgressText.SetText(Utils.ShortenIntSlashInt(mExpAmount, mRequiredExpAmount));
 
-        mExpProgressFillImage.fillAmount = mExpAmount / mRequiredExpAmount;
+        mExpProgressFillImage.fillAmount = virtualExp / virtualRequiredExp;
     }
 }
