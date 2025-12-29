@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Cactoro
   m_EditorClassIdentifier: 
-  mMaxHP: 120
+  mMaxHP: 150
   mMoveSpeed: 5
   mAttackDamage: 20
   mAttackRange: 2.5
   mHitTiming: 0.54
   mRotateSpeed: 8
   mDetectRange: 40
+  mMaxExpDropCount: 1
   mRotateOffset: {x: 0, y: 0, z: 0}
