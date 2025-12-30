@@ -70,10 +70,8 @@ public class BatDashNode : ActionNode
             mTargetPos = mBoard.Target.position;
             bPosRecorded = true;
         }
-        
-        
-            mOwner.LookAtDiretion(mBoard.Target.position - mOwner.transform.position);
-        
+   
+        mOwner.LookAtDiretion(mBoard.Target.position - mOwner.transform.position);
 
         // 기모으기 완료 후 대쉬 전환
         if (mTimer >= mChargeTime)
@@ -104,7 +102,18 @@ public class BatDashNode : ActionNode
 
     private ENodeState UpdateDashing()
     {
-        // 1. 터널링 방지 판정 (이전 위치와 현재 위치 사이 스캔)
+        //1. 경계 충돌 체크
+        if (mOwner.Agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathPartial) 
+        {
+            mOwner.Agent.velocity = Vector3.zero;
+            mOwner.Agent.acceleration = 0f;
+            mOwner.Agent.isStopped = true;
+
+            ResetDashSettings();
+            return ENodeState.Failure;
+        }
+
+        // 2. 터널링 방지 판정 (이전 위치와 현재 위치 사이 스캔)
         if (!bIsHitProcessed)
         {
             if (CheckTunnelingCollision())
@@ -115,9 +124,13 @@ public class BatDashNode : ActionNode
             }
         }
 
-        // 2. 목적지 도달 체크
+        // 3. 목적지 도달 체크
         if (!mOwner.Agent.pathPending && mOwner.Agent.remainingDistance <= mOwner.Agent.stoppingDistance + 0.1f)
         {
+            mOwner.Agent.velocity = Vector3.zero;
+            mOwner.Agent.acceleration = 0f;
+            mOwner.Agent.isStopped = true;
+
             ResetDashSettings();
             return ENodeState.Failure;
         }
