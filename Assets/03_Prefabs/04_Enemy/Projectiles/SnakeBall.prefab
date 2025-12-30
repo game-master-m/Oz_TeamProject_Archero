@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2606454491506179171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3990166, y: 5.364457, z: -10.551413}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -114,7 +114,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1200816642061249569
 CapsuleCollider:
@@ -151,12 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04980fbd8f094746996fbfe30fe3696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMoveSpeed: 1
+  mMoveSpeed: 0.2
   mLifeTime: 5
   mHitBoxOffset: {x: 0, y: 0, z: 0}
   mHigBoxRadius: 1
-  mWaveWidth: 1
-  mWaveFrequency: 5
+  mWaveWidth: 2
+  mWaveFrequency: 12
 --- !u!96 &5092958902674517747
 TrailRenderer:
   serializedVersion: 3

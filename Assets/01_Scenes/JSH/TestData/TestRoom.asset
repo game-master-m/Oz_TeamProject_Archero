@@ -17,33 +17,33 @@ MonoBehaviour:
     type: 3}
   waveDataList:
   - spawnInfoList:
-    - enemyPrefab: {fileID: 2666670315950778228, guid: cd37b486aaf79c444924ce63cb11aba5,
+    - enemyPrefab: {fileID: 2666670315950778228, guid: 6c2abdcb1df88384eb328e792d0a8a59,
         type: 3}
       spawnPointIndex: 1
       spawnDelay: 0
       spawnCount: 1
-    - enemyPrefab: {fileID: 2666670315950778228, guid: cd37b486aaf79c444924ce63cb11aba5,
+    - enemyPrefab: {fileID: 2666670315950778228, guid: 6c2abdcb1df88384eb328e792d0a8a59,
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
       spawnCount: 1
-    - enemyPrefab: {fileID: 2666670315950778228, guid: cd37b486aaf79c444924ce63cb11aba5,
+    - enemyPrefab: {fileID: 2666670315950778228, guid: 6c2abdcb1df88384eb328e792d0a8a59,
         type: 3}
       spawnPointIndex: 3
       spawnDelay: 0
       spawnCount: 1
   - spawnInfoList:
-    - enemyPrefab: {fileID: 2666670315950778228, guid: cd37b486aaf79c444924ce63cb11aba5,
+    - enemyPrefab: {fileID: 2666670315950778228, guid: 6c2abdcb1df88384eb328e792d0a8a59,
         type: 3}
       spawnPointIndex: 1
       spawnDelay: 0
       spawnCount: 1
-    - enemyPrefab: {fileID: 2666670315950778228, guid: cd37b486aaf79c444924ce63cb11aba5,
+    - enemyPrefab: {fileID: 2666670315950778228, guid: 6c2abdcb1df88384eb328e792d0a8a59,
         type: 3}
       spawnPointIndex: 2
       spawnDelay: 0
       spawnCount: 1
-    - enemyPrefab: {fileID: 2666670315950778228, guid: cd37b486aaf79c444924ce63cb11aba5,
+    - enemyPrefab: {fileID: 2666670315950778228, guid: 6c2abdcb1df88384eb328e792d0a8a59,
         type: 3}
       spawnPointIndex: 3
       spawnDelay: 0
