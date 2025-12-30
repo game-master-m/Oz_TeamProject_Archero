@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangeEnemySnakeBall : EnemyBase
+public class RangeEnemySplitBall : EnemyBase
 {
     [Header("Projectile")]
     [SerializeField] private EnemyProjectileBase mProjectilePrefab;

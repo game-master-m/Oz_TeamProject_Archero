@@ -1,39 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SnakeBall : EnemyProjectileBase
 {
     [Header("웨이브 이동 세팅용")]
-    [SerializeField] private float mWaveWidth = 10.0f;
-    [SerializeField] private float mWaveFrequency = 20000.0f;
-    private float mWaveTimer = 0f;
+    [SerializeField] private float mWaveWidth = 3.0f;
+    [SerializeField] private float mWaveFrequency = 16.0f;
 
-    protected override void Awake()
+    private float localTime;
+    private float fixedY;
+    private Vector3 startPos;
+
+    public override void Setup(float damage, float speed, Vector3 direction, EnemyBase owner)
     {
-        mRigid = GetComponent<Rigidbody>();
-        mRigid.useGravity = false;
-        mRigid.isKinematic = true;
+        base.Setup(damage, speed, direction, owner);
+
+        startPos = transform.position;
+        fixedY = transform.position.y;
+        localTime = 0f;
     }
 
     protected override void Update()
     {
         base.Update();
 
-        mWaveTimer += Time.deltaTime;
+        localTime += Time.deltaTime;
 
-        Vector3 forward = transform.forward * mMoveSpeed * Time.deltaTime;
+        float forwardOffset = localTime * mMoveSpeed;
+        float sideOffset = Mathf.Sin(localTime * mWaveFrequency) * mWaveWidth;
 
-        float wave = Mathf.Sin(mWaveTimer * mWaveFrequency) * mWaveWidth;
-        Vector3 waveOffset = transform.right * wave * Time.deltaTime;
+        Vector3 forwardDir = new Vector3(transform.forward.x, 0f, transform.forward.z);
+        Vector3 sideDir = new Vector3(transform.right.x, 0f, transform.right.z);
 
-        transform.position += forward + waveOffset;
+        Vector3 target = startPos + forwardDir * forwardOffset + sideDir * sideOffset;
+        target.y = fixedY;
 
-        Vector3 moveDir = forward + waveOffset;
-        if (moveDir.sqrMagnitude > 0.01f) 
-        {
-            transform.rotation = Quaternion.LookRotation(moveDir);
-        }
+        transform.position = target;
     }
 
     protected override void MoveAndRotate()
