@@ -11,7 +11,7 @@ public class ButtonUI : MonoBehaviour
     public GameObject mRanking;
     public GameObject mSkillList;
     public GameObject mMonsterList;
-
+    public GameObject mSoundPanel;
    
     public void ImageOn()
     {
@@ -89,6 +89,14 @@ public class ButtonUI : MonoBehaviour
     {
         mShop.SetActive(false);
         mEquip.SetActive(false);
+    }
+    public void OpenSoundPanel()
+    {
+        mSoundPanel.SetActive(true);
+    }
+    public void CloseSoundPanel()
+    {
+        mSoundPanel.SetActive(false);
     }
     
    
