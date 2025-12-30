@@ -91,11 +91,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f5767f51789dab248ab316bfaa9d5797,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1303127745321634666}
+      addedObject: {fileID: 1472765123868041731}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f5767f51789dab248ab316bfaa9d5797,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1472765123868041731}
+      addedObject: {fileID: 1473987397551869823}
   m_SourcePrefab: {fileID: 100100000, guid: f5767f51789dab248ab316bfaa9d5797, type: 3}
 --- !u!4 &103427668540785455 stripped
 Transform:
@@ -175,27 +175,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1303127745321634666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 730887462043408789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e35bb558212384cab4ab2cd86636fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mStatData: {fileID: 11400000, guid: b393940a6eb003b49a472913786b6ea4, type: 2}
-  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
-    type: 3}
-  mEnemyType: 1
-  mDropItems:
-  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
-      type: 3}
-    dropChance: 0
-  mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
 --- !u!114 &1472765123868041731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +191,22 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
+--- !u!114 &1473987397551869823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730887462043408789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03eafbcbafef50347ae5e2aa995e8f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mStatData: {fileID: 11400000, guid: b393940a6eb003b49a472913786b6ea4, type: 2}
+  mEnemyType: 1
+  mDropItems: []
+  mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
 --- !u!1001 &3142328683263571295
 PrefabInstance:
   m_ObjectHideFlags: 0
