@@ -1,19 +1,27 @@
+using System.Collections;
 using UnityEngine;
 
-public class SummonEnemy : EnemyBase
+public class SummonedEnemy : EnemyBase
 {
     [Header("Projectile")]
     [SerializeField] private EnemyProjectileBase mProjectilePrefab;
     [SerializeField] private Vector3 mSpawnOffset = new Vector3(0.0f, 0.5f, 2.0f);
 
+    [Header("Summoned Enemy ¼³Á¤")]
+    [SerializeField] private float mLifeTime = 5.0f;
+
     RangeIdleState mIdleState;
     RangeCombatState mCombatState;
     RangeDeathState mDeathState;
+
+    private bool bIsLifeTimeEnd = false;
 
     public Vector3 SpawnOffset => mSpawnOffset;
     protected override void Awake()
     {
         base.Awake();
+
+        mAnim = GetComponentInChildren<Animator>();
 
         Board.SpawnOffset = mSpawnOffset;
         Board.SnakeBall = mProjectilePrefab;
@@ -35,19 +43,33 @@ public class SummonEnemy : EnemyBase
         base.OnEnable();
 
         InitStats(mStatData);
-        mAgent.enabled = true;
 
         mStateMachine.ChangeState(mIdleState);
+
+        bIsLifeTimeEnd = false;
+
+        StartCoroutine(LifeTimerCO());
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        StopAllCoroutines();
     }
 
     private void InitTransitions()
     {
-        mStateMachine.AddAnyTransition(mDeathState, () => IsDead && !mStateMachine.IsCurrentState(mDeathState));
+        mStateMachine.AddAnyTransition(mDeathState, () => bIsLifeTimeEnd || (IsDead && !mStateMachine.IsCurrentState(mDeathState)));
 
         mStateMachine.AddTransition(mIdleState, mCombatState,
             () => mTarget != null && CheckInDistance(mTarget, DetectRange));
 
         mStateMachine.AddTransition(mCombatState, mIdleState,
             () => mTarget == null || !CheckInDistance(mTarget, DetectRange));
+    }
+
+    private IEnumerator LifeTimerCO()
+    {
+        yield return new WaitForSeconds(mLifeTime);
+        bIsLifeTimeEnd = true;
     }
 }

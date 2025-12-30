@@ -42,5 +42,12 @@ public class HomingFireBall : EnemyProjectileBase
 
         // 부모의 기본적인 velocity 설정 실행
         mRigid.velocity = transform.forward * mMoveSpeed;
+
+    }
+    protected override void OnHit(LivingEntity target)
+    {
+        target.TakeDamage(mCurrentDamage * 0.6f, EDmgElement.Fire);
+        target.TakeDotDamage(mCurrentDamage * 0.06f, 5.0f, 0.5f, EDmgElement.Fire);
+        ReturnPool();
     }
 }

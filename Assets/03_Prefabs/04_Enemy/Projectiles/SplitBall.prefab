@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1179553906009273681}
   - component: {fileID: 8866539143609428996}
   - component: {fileID: 3289243567153149056}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SplitBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: 0.29651576, y: 1, z: 4.945699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2577965612207017175}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2996220285865350600
@@ -51,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4326462972650430133}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -156,3 +157,77 @@ MonoBehaviour:
     type: 3}
   mProjectileCount: 4
   mSplitDistance: 10
+--- !u!1001 &5328163804417459178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1094893282737930961}
+    m_Modifications:
+    - target: {fileID: 7653787099927154482, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_Name
+      value: Projectiles_electric
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db5486219ba247746b2df5fe8cfb8119, type: 3}
+--- !u!4 &2577965612207017175 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7653787099927154493, guid: db5486219ba247746b2df5fe8cfb8119,
+    type: 3}
+  m_PrefabInstance: {fileID: 5328163804417459178}
+  m_PrefabAsset: {fileID: 0}

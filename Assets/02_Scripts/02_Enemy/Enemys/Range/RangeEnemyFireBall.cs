@@ -14,6 +14,8 @@ public class RangeEnemyFireBall : EnemyBase
     protected override void Awake()
     {
         base.Awake();
+        InitStats(mStatData);
+
 
         Board.SpawnOffset = mSpawnOffset;
         Board.SmallFireBall = mProjectilePrefab;
@@ -34,7 +36,6 @@ public class RangeEnemyFireBall : EnemyBase
     {
         base.OnEnable();
 
-        InitStats(mStatData);
         mAgent.enabled = true;
 
         mStateMachine.ChangeState(mIdleState);

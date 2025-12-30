@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EffectBase : MonoBehaviour
@@ -17,16 +18,35 @@ public abstract class EffectBase : MonoBehaviour
         foreach (ParticleSystem p in mParticles)
         {
             var main = p.main;
-            main.startSizeMultiplier = mSizeMultiplier;
+            if (main.startSize3D)
+            {
+                main.startSizeXMultiplier *= mSizeMultiplier;
+                main.startSizeYMultiplier *= mSizeMultiplier;
+                main.startSizeZMultiplier *= mSizeMultiplier;
+            }
+            else
+            {
+                main.startSizeMultiplier *= mSizeMultiplier;
+            }
+
             main.simulationSpeed = mPlayBackSpeed;
         }
     }
-    public virtual void SetSize(float sizeMultiplier)
+    public virtual void SetSizeMultiplier(float sizeMultiplier)
     {
         foreach (ParticleSystem p in mParticles)
         {
             var main = p.main;
-            main.startSizeMultiplier = sizeMultiplier;
+            if (main.startSize3D)
+            {
+                main.startSizeXMultiplier *= mSizeMultiplier;
+                main.startSizeYMultiplier *= mSizeMultiplier;
+                main.startSizeZMultiplier *= mSizeMultiplier;
+            }
+            else
+            {
+                main.startSizeMultiplier *= mSizeMultiplier;
+            }
         }
     }
     public virtual void SetSpeed(float playBackSpeed)
@@ -41,14 +61,16 @@ public abstract class EffectBase : MonoBehaviour
     {
         transform.position = spawnPos;
         transform.rotation = rotation;
-
+        Play();
         mTimer = 0.0f;
     }
+    public virtual void Setup(Vector3 spawnPos, Quaternion rotation, float damage) { }
     public virtual void Play()
     {
         gameObject.SetActive(true);
         foreach (ParticleSystem p in mParticles)
         {
+            p.Clear();
             p.Play();
         }
     }

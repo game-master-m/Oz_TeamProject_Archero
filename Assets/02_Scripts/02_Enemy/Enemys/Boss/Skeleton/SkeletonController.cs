@@ -6,6 +6,7 @@ public class SkeletonController : EnemyBase
 {
     [Header("사용스킬 및 이펙트")]
     [SerializeField] private EffectBase mDizzyEffectPrefab;
+    [SerializeField] private EffectBase mStoneRainningPrefab;
     [SerializeField] private EnemyBase mSummonPrefab;
 
     [Header("공격용 컬라이더")]
@@ -51,6 +52,9 @@ public class SkeletonController : EnemyBase
         //이펙트 프리팹
         Board.DizzyEffectPrefab = mDizzyEffectPrefab;
         Board.SummonPrefab = mSummonPrefab;
+        Board.CurrentEffect = mStoneRainningPrefab;
+
+        MakePools();
 
         //정지거리를 넉넉하게 잡음
         mAgent.stoppingDistance = 1.0f;
@@ -70,11 +74,11 @@ public class SkeletonController : EnemyBase
 
         mWaitRecoverInterval = new WaitForSeconds(mHPRecoverInterval);
 
-        Managers.Pool.CreatePool(mSummonPrefab, 5, Managers.Pool.transform);
     }
-    private void Start()
+    private void MakePools()
     {
-
+        Managers.Pool.CreatePool(mSummonPrefab, 5, Managers.Pool.transform);
+        Managers.Pool.CreatePool(mStoneRainningPrefab, 20, Managers.Pool.transform);
     }
     protected override void Update()
     {

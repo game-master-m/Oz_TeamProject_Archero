@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1200816642061249569}
   - component: {fileID: 2924561107341601612}
   - component: {fileID: 5092958902674517747}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SnakeBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

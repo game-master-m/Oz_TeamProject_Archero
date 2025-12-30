@@ -16,7 +16,7 @@ MonoBehaviour:
   chapterID: 1
   roomDataList:
   - {fileID: 11400000, guid: d3fc2b5811466a24b939a7d9ae231fb0, type: 2}
-  - {fileID: 11400000, guid: d3fc2b5811466a24b939a7d9ae231fb0, type: 2}
+  - {fileID: 11400000, guid: 0a3fe18582770574899f8f784cbddf07, type: 2}
   - {fileID: 11400000, guid: d3fc2b5811466a24b939a7d9ae231fb0, type: 2}
   - {fileID: 11400000, guid: d3fc2b5811466a24b939a7d9ae231fb0, type: 2}
   - {fileID: 11400000, guid: d3fc2b5811466a24b939a7d9ae231fb0, type: 2}

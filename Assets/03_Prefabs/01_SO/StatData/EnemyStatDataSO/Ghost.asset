@@ -16,7 +16,7 @@ MonoBehaviour:
   mMoveSpeed: 5
   mAttackDamage: 25
   mAttackRange: 20
-  mHitTiming: 0.26
+  mHitTiming: 0.27
   mRotateSpeed: 8
   mDetectRange: 40
   mMaxExpDropCount: 2
