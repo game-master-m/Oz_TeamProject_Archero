@@ -11,17 +11,16 @@ public class SkeletonDeathState : SkeletonState
 
     public override void Enter()
     {
-        Utils.Log("스켈레톤 데쓰 스테이트 엔터");
+        //무적
+        mSkeleton.IsInvinciblitiy = true;
+
         mSkeleton.Anim.CrossFade(AnimHash.death, 0.1f);
         if (mSkeleton.ResurrectionCount > 0)
         {
-            Utils.Log("스켈레톤 데쓰 스테이트 엔터 - 살아나기");
-            mSkeleton.ResurrectionCount--;
             IsDeathEnd = false;
         }
         else
         {
-            Utils.Log("스켈레톤 데쓰 스테이트 엔터 - 그냥죽기");
             mSkeleton.StopAllCoroutines();
             Managers.Pool.ReturnToPool(mSkeleton);
         }
@@ -34,6 +33,8 @@ public class SkeletonDeathState : SkeletonState
             mElapsedTimeBase += Time.fixedDeltaTime;
             if (mElapsedTimeBase > mDeathTime)
             {
+
+                mSkeleton.ResurrectionCount--;
                 mSkeleton.IsHPEnd = false;
                 IsDeathEnd = true;
                 mElapsedTimeBase = 0.0f;
@@ -43,6 +44,9 @@ public class SkeletonDeathState : SkeletonState
     }
     public override void Exit()
     {
+        //무적
+        //mSkeleton.IsInvinciblitiy = false;
+
         IsDeathEnd = false;
     }
 

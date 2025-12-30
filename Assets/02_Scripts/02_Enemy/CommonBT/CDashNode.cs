@@ -92,7 +92,7 @@ public class CDashNode : ActionNode
         mOwner.Agent.acceleration = 500f;   //가속도 확 늘림
         mOwner.Agent.speed = mOriginalSpeed * mMoveSpeedMultiplier; // 속도 확 빠르게
 
-        mOwner.Agent.stoppingDistance = 0.1f;
+        mOwner.Agent.stoppingDistance = 0.5f;
         mOwner.Agent.isStopped = false;
         mOwner.Agent.SetDestination(mTargetPos);
 
@@ -156,6 +156,11 @@ public class CDashNode : ActionNode
         mTimer = 0f;
         bPosRecorded = false;
         mCurrentState = EDashState.Charging;
+
+        if (mOwner.Agent.enabled == true)
+        {
+            mOwner.Agent.velocity = Vector3.zero;
+        }
     }
 
     public override void Abort()

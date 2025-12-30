@@ -11,16 +11,18 @@ public class CAttackNode : ActionNode
     private bool bHitProcessed = false;
     private float mAttackEndTime = 0f;
 
+    private float mAnimSpeed = 1.0f;
     private readonly Collider[] mHitResults = new Collider[1];
 
     //DrawLine ¿ë
     private Vector3 mDebugHitCenter;
     private float mDebugDisplayTimer = 0f;
-    public CAttackNode(EnemyBase owner, float hitTiming, float offset, float radius) : base(owner)
+    public CAttackNode(EnemyBase owner, float hitTiming, float offset, float radius, float animSpeed = 1.0f) : base(owner)
     {
-        mHitTiming = hitTiming;
         mOffset = offset;
         mRadius = radius;
+        mAnimSpeed = animSpeed;
+        mHitTiming = hitTiming;
     }
 
     public override ENodeState Evaluate()
@@ -71,6 +73,7 @@ public class CAttackNode : ActionNode
         bIsAttacking = true;
         bHitProcessed = false;
         mAttackEndTime = 0f;
+        mOwner.Anim.speed = mAnimSpeed;
         mOwner.Anim.Play(AnimHash.attack);
         mOwner.Agent.velocity = Vector3.zero;
         mOwner.Agent.isStopped = true;
@@ -78,6 +81,7 @@ public class CAttackNode : ActionNode
 
     private void ResetAttack()
     {
+        mOwner.Anim.speed = 1.0f;
         bIsAttacking = false;
         bHitProcessed = false;
     }

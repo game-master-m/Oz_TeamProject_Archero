@@ -22,13 +22,13 @@ public static class BT_Builder
     }
 
     //NormalAttack
-    public static SequenceNode GetNormalAttackBT(EnemyBase enemy, BlackBoard board, float rotateSpeed, float hitTiming, float hitBoxOffsetForward, float hitBoxRadius, float waitTime)
+    public static SequenceNode GetNormalAttackBT(EnemyBase enemy, BlackBoard board, float rotateSpeed, float hitTiming, float hitBoxOffsetForward, float hitBoxRadius, float waitTime, float animSpeed = 1.0f)
     {
         SequenceNode normalAttack = new SequenceNode(new List<Node>
         {
             new ConditionNode(() => (enemy.transform.position - board.Target.position).sqrMagnitude <= enemy.AttackRange*enemy.AttackRange),
             new RotateToTargetNode(enemy,board,rotateSpeed),
-            new CAttackNode(enemy, hitTiming, hitBoxOffsetForward, hitBoxRadius),
+            new CAttackNode(enemy, hitTiming, hitBoxOffsetForward, hitBoxRadius,animSpeed),
             new CWaitNode(enemy, waitTime, false),
         });
         return normalAttack;
@@ -48,11 +48,11 @@ public static class BT_Builder
     }
 
     //Chase And Attack
-    public static SelectorNode GetChaseAndAttackBT(EnemyBase enemy, BlackBoard board, float rotateSpeed, float hitTiming, float hitBoxOffsetForward, float hitBoxRadius, float waitTime)
+    public static SelectorNode GetChaseAndAttackBT(EnemyBase enemy, BlackBoard board, float rotateSpeed, float hitTiming, float hitBoxOffsetForward, float hitBoxRadius, float waitTime, float animSpeed = 1.0f)
     {
         SelectorNode select = new SelectorNode(new List<Node>
         {
-            GetNormalAttackBT(enemy,board,rotateSpeed,hitTiming,hitBoxOffsetForward,hitBoxRadius,waitTime),
+            GetNormalAttackBT(enemy,board,rotateSpeed,hitTiming,hitBoxOffsetForward,hitBoxRadius,waitTime,animSpeed),
             new SequenceNode(new List<Node>()
             {
                 new CWaitNode(enemy,0.5f,true),
