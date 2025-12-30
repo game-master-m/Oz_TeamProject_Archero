@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public Transform CurrentClosestEnemy { get; private set; } = null;
     public Coroutine CheckEnemyInRangeCo { get; set; }
     public Coroutine RotateToTargetCo { get; set; }
+
+    public GameObject EnemyMarker;
     #endregion
     private void Awake()
     {
@@ -78,6 +80,9 @@ public class PlayerController : MonoBehaviour
         //상태전환 조건들
         InitTransitions();
 
+        //적 마커
+        EnemyMarker = Instantiate(EnemyMarker);
+        EnemyMarker.SetActive(false);
     }
     void Start()
     {
@@ -91,6 +96,7 @@ public class PlayerController : MonoBehaviour
         Inputs();
         Movements(mMoveDir);
         mStateMachine.Update();
+        MoveEnemyMarker(GetClosestEnemyInRange());
     }
     private void FixedUpdate()
     {
@@ -179,6 +185,18 @@ public class PlayerController : MonoBehaviour
             }
         }
         return closestEnemy;
+    }
+
+    private void MoveEnemyMarker(Transform target) 
+    {
+        if (target == null) 
+        { 
+            EnemyMarker.SetActive(false);
+            return;
+        }
+
+        EnemyMarker.SetActive(true);
+        EnemyMarker.transform.position = target.position;
     }
 
     #region CoRoutines
