@@ -192,4 +192,9 @@ public abstract class FairyBase : MonoBehaviour
             yield return mWaitAttack;
         }
     }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }
