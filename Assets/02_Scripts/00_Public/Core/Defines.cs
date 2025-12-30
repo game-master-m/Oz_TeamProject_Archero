@@ -33,6 +33,7 @@ public class AnimHash
     public static readonly int attackDown = Animator.StringToHash("AttackDown");
     public static readonly int hit = Animator.StringToHash("Hit");
     public static readonly int death = Animator.StringToHash("Death");
+    public static readonly int spawn = Animator.StringToHash("Spawn");
 }
 
 //·¹ÀÌ¾î

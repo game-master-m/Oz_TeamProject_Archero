@@ -5019,7 +5019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc4390de55c7dd4da6e5af32c6b30c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mStat: {fileID: 11400000, guid: 07c252fa336c8754b92cdec852f1d4b5, type: 2}
+  mStat: {fileID: 11400000, guid: f15ed56252fae2547b73241479bed6a8, type: 2}
   mOnPlayerDie: {fileID: 11400000, guid: 77db8a905e33d6f459782502bdefd6d6, type: 2}
 --- !u!114 &725790706
 MonoBehaviour:
@@ -15219,6 +15219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fe667fa569ea343881a20d819e0053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataManagerPrefab: {fileID: 0}
   poolManagerPrefab: {fileID: 396614933676470475, guid: fcbb204c930e0f148a4aa3627fc12572,
     type: 3}
   gameManagerPrefab: {fileID: 6798939758725418860, guid: a63248f2a1390844cb33730783d51ebe,
