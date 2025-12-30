@@ -3781,7 +3781,7 @@ PrefabInstance:
     - target: {fileID: 2259268359442540368, guid: 643acaaaea1984c4499542501f51aa94,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6029360001286480743, guid: 643acaaaea1984c4499542501f51aa94,
         type: 3}
@@ -4714,6 +4714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fe667fa569ea343881a20d819e0053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataManagerPrefab: {fileID: 0}
   poolManagerPrefab: {fileID: 396614933676470475, guid: fcbb204c930e0f148a4aa3627fc12572,
     type: 3}
   gameManagerPrefab: {fileID: 6798939758725418860, guid: a63248f2a1390844cb33730783d51ebe,
@@ -12617,6 +12618,7 @@ MonoBehaviour:
   mExpFillImage: {fileID: 976953454}
   mLevelText: {fileID: 1597833050}
   mGoldText: {fileID: 1672193997}
+  mPauseButton: {fileID: 0}
   mLevelUpController: {fileID: 1334294544}
 --- !u!114 &1636103113
 MonoBehaviour:
@@ -15954,6 +15956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3eed97e5e80d04984e63297aa8a473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyMarker: {fileID: 0}
 --- !u!114 &2059170012
 MonoBehaviour:
   m_ObjectHideFlags: 0

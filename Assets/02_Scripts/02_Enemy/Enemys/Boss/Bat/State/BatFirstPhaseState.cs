@@ -10,6 +10,9 @@ public class BatFirstPhaseState : BatState
     private float mLastDistance;
     private bool bIsDashConditionMet = false;
 
+    private int mDashFailCount;
+    private readonly int mMaxDashCount = 3;
+
     //BasicAttack BT
     private readonly float mMinDashDist = 8.0f;
     private readonly float mMinDashCheckTime = 2.0f;
@@ -81,60 +84,40 @@ public class BatFirstPhaseState : BatState
     private void BuildBT()
     {
         // 1. 대쉬 공격 시퀀스
-        // [조건] -> [대쉬 수행] * 3 -> [성공 시 1초 대기]
-        // DashAttackNode가 '피격 성공' 시 Success를 반환하면 WaitNode가 실행됨
-        // '피격 실패' 시 Failure를 반환하면 Sequence가 즉시 종료되어 WaitNode를 건너뜀
-
+        // [조건] -> [대쉬 수행] -> [성공 시 종료]
+        // DashAttackNode가 '피격 성공' 시 Success를 반환하면 대쉬종료
+        // '피격 실패' 시 Failure를 반환하면 잠깐 기다렸다가 연속 대쉬
         SequenceNode dashSequence = new SequenceNode(new List<Node>
         {
             new ConditionNode(() => bIsDashConditionMet),
 
             new SelectorNode(new List<Node>
             {
-                //대쉬 1번째 성공 시
-                new SequenceNode(new List<Node>
-                {
-                    new BatDashNode(mBat, mBat.Board, mChargeTime, mTargetFixTime, mMoveSpeedMultiplier, mAnimSpeedRate, mColliderRadius),
+                //대쉬 성공시
+               new SequenceNode(new List<Node>
+               {
+                    new BatDashNode(mBat, mBat.Board, mChargeTime, mTargetFixTime,mMoveSpeedMultiplier, mAnimSpeedRate,mColliderRadius),
                     new ConditionNode(() => { ResetPatternTimer(); return true; })
-                }),
-                //대쉬 1번째 실패 시
-                new SequenceNode(new List<Node>
-                {
-                    new CWaitNode(mBat, 0.2f),
-                    new SelectorNode(new List<Node>
-                    {
-                        //대쉬 2번쨰 성공 시
-                        new SequenceNode(new List<Node>
-                        {
-                            new BatDashNode(mBat, mBat.Board, mChargeTime, mTargetFixTime, mMoveSpeedMultiplier, mAnimSpeedRate, mColliderRadius),
-                            new ConditionNode(() => { ResetPatternTimer(); return true; })
-                        }),
-                     
-                        //대쉬 2번째 실패 시
-                        new SequenceNode(new List<Node>
-                        {
-                            new CWaitNode(mBat, 0.2f),
-                            new SelectorNode(new List<Node>
-                            {
-                                //대쉬 3번째 성공 시
-                                new SequenceNode(new List<Node>
-                                {
-                                    new BatDashNode(mBat, mBat.Board, mChargeTime, mTargetFixTime, mMoveSpeedMultiplier, mAnimSpeedRate, mColliderRadius),
-                                    new ConditionNode(() => { ResetPatternTimer(); return true; })
-                                }),
-                                //대쉬 3번째 실패 시
-                                new SequenceNode(new List<Node>
-                                {
-                                     new CWaitNode(mBat, 1.0f),
-                                     
-                                }),
-                            })
-                        }),
-                    })
-                }),
+               }),
+               //대쉬 실패시
+               new SequenceNode(new List<Node>
+               {
+                   new CWaitNode(mBat, 0.2f),
+                   new ConditionNode(() => 
+                   {
+                       mDashFailCount++;
+                       if(mDashFailCount >= mMaxDashCount)
+                       {
+                           ResetPatternTimer();
+                           mDashFailCount = 0;
+                           return false;
+                       }
+                       return true;
+                   }),
+                   new BatDashNode(mBat, mBat.Board, mChargeTime, mTargetFixTime,mMoveSpeedMultiplier, mAnimSpeedRate,mColliderRadius),
+                   new ConditionNode(() => { ResetPatternTimer(); return true; })
+               }),
             }),
-
-            new ConditionNode(() => { ResetPatternTimer(); return true; })
         });
 
         // 2. 근접 공격 시퀀스 (사거리 이내일 때)
