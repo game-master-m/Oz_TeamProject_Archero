@@ -19,16 +19,6 @@ MonoBehaviour:
   - spawnInfoList:
     - enemyPrefab: {fileID: 5192991506644605980, guid: eda0c7e1d9939ad43951ef853d90b342,
         type: 3}
-      spawnPointIndex: 1
-      spawnDelay: 0
-      spawnCount: 1
-    - enemyPrefab: {fileID: 6403187740861568171, guid: 865a015069c5fa24d8449d38bddf00e6,
-        type: 3}
-      spawnPointIndex: 2
-      spawnDelay: 0
-      spawnCount: 1
-    - enemyPrefab: {fileID: 5929296341400581596, guid: 67232bba17e476740b5ec2a8ef719350,
-        type: 3}
       spawnPointIndex: 3
       spawnDelay: 0
       spawnCount: 1

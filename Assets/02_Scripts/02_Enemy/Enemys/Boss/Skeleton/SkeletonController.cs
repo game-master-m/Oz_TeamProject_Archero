@@ -6,6 +6,7 @@ public class SkeletonController : EnemyBase
 {
     [Header("사용스킬 및 이펙트")]
     [SerializeField] private EffectBase mDizzyEffectPrefab;
+    [SerializeField] private EnemyBase mSummonPrefab;
 
     [Header("공격용 컬라이더")]
 
@@ -24,15 +25,17 @@ public class SkeletonController : EnemyBase
     private readonly int mMaxDizzyCount = 20;
     private readonly float mDizzyDuration = 2.5f;
     private readonly float mMinDizzyDmgRate = 0.02f;  //총 체력의 2%
-    private readonly float mHPRecoverDuration = 1.0f;
+    private readonly float mHPRecoverDuration = 2.9f;
     private readonly float mHPRecoverInterval = 0.05f;
     private WaitForSeconds mWaitRecoverInterval;
+
     #region 프로퍼티
     public bool IsDizzy { get; set; } = false;
     public int DizzyCount { get; set; }
     public float DizzyDuration => mDizzyDuration;
     public int ResurrectionCount { get; set; } = 1;
     public bool IsHPEnd { get; set; } = false;
+    public bool IsInvinciblitiy { get; set; } = false;
     #endregion
 
 
@@ -47,6 +50,7 @@ public class SkeletonController : EnemyBase
 
         //이펙트 프리팹
         Board.DizzyEffectPrefab = mDizzyEffectPrefab;
+        Board.SummonPrefab = mSummonPrefab;
 
         //정지거리를 넉넉하게 잡음
         mAgent.stoppingDistance = 1.0f;
@@ -65,6 +69,8 @@ public class SkeletonController : EnemyBase
         InitTransitions();
 
         mWaitRecoverInterval = new WaitForSeconds(mHPRecoverInterval);
+
+        Managers.Pool.CreatePool(mSummonPrefab, 5, Managers.Pool.transform);
     }
     private void Start()
     {
@@ -123,7 +129,7 @@ public class SkeletonController : EnemyBase
     #region 이벤트 핸들러
     private void HandleHPChange(float hpPercent)
     {
-        if (Board.HPPercent - hpPercent > mMinDizzyDmgRate && !mStateMachine.IsCurrentState(mDizzyState))
+        if (Board.HPPercent - hpPercent > mMinDizzyDmgRate && !mStateMachine.IsCurrentState(mDizzyState) && !IsInvinciblitiy)
         {
             DizzyCount++;
             if (DizzyCount >= mMaxDizzyCount)
@@ -140,7 +146,7 @@ public class SkeletonController : EnemyBase
     {
         //Any
         mStateMachine.AddAnyTransition(mDeathState, () => IsHPEnd && !mStateMachine.IsCurrentState(mDeathState));
-        mStateMachine.AddAnyTransition(mDizzyState, () => IsDizzy && !mStateMachine.IsCurrentState(mDizzyState));
+        mStateMachine.AddAnyTransition(mDizzyState, () => IsDizzy && !mStateMachine.IsCurrentState(mDizzyState) && !mStateMachine.IsCurrentState(mDeathState));
 
         //Dizzy State
         mStateMachine.AddTransition(mDizzyState, mIdleState, () => !IsDizzy);
@@ -166,30 +172,41 @@ public class SkeletonController : EnemyBase
     private void AddHp(float amount)
     {
         mCurrentHP += amount;
+        if (mCurrentHP > mMaxHP) mCurrentHP = mMaxHP;
         UpdateHPRequest(mCurrentHP / mMaxHP);
     }
     #endregion
 
+    #region 오버라이드
     public override void Die()
     {
         if (ResurrectionCount > 0)
         {
-            Utils.Log("살아나기 카운트 0 보다 큼");
             IsHPEnd = true;
         }
         else
         {
+            IsHPEnd = true;
             base.Die();
         }
 
     }
+    public override void TakeDamage(float amount)
+    {
+        if (!IsInvinciblitiy)
+        {
+            base.TakeDamage(amount);
+        }
+    }
+    #endregion
 
     #region 코루틴
     public IEnumerator RecoverHPCO()
     {
-        while (mCurrentHP >= mMaxHP)
+        while (mCurrentHP < mMaxHP)
         {
             AddHp(mMaxHP / (mHPRecoverDuration / mHPRecoverInterval));
+            Utils.Log($"{mCurrentHP}");
             yield return mWaitRecoverInterval;
         }
     }

@@ -66,6 +66,10 @@ public class CMoveToNextPosNode : ActionNode
     {
         mTimer = 0.0f;
         bIsFirstFrame = true;
-        mAgent.isStopped = true;
+        if (mAgent.enabled == true)
+        {
+            mAgent.velocity = Vector3.zero;
+            mAgent.isStopped = true;
+        }
     }
 }

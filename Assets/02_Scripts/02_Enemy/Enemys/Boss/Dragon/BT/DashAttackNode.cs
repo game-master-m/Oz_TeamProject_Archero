@@ -138,7 +138,6 @@ public class DashAttackNode : ActionNode
                 if (mHitResults[0].collider.TryGetComponent<IDamageable>(out var target))
                 {
                     target.TakeDamage(mOwner.AttackDamage);
-                    Utils.Log("대쉬 공격 적중!");
                     return true;
                 }
             }

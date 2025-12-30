@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class SkeletonDizzyState : SkeletonState
 {
-    private readonly Vector3 spawnOffset = new Vector3(0.0f, 4.0f, 1.2f);
+    private readonly Vector3 spawnOffset = new Vector3(0.0f, 5.5f, 0.0f);
     private EffectBase mDizzyEffect;
     public SkeletonDizzyState(SkeletonController skeleton, IState parent = null) : base(skeleton, parent) { }
 
     public override void Enter()
     {
-        mSkeleton.Agent.velocity = Vector3.zero;
-        mSkeleton.Agent.isStopped = true;
+        if (mSkeleton.Agent.enabled == true)
+        {
+            mSkeleton.Agent.velocity = Vector3.zero;
+            mSkeleton.Agent.isStopped = true;
+        }
 
         Vector3 worldSpawnPos = mSkeleton.transform.TransformPoint(spawnOffset);
 
@@ -32,8 +35,11 @@ public class SkeletonDizzyState : SkeletonState
     }
     public override void Exit()
     {
-        mSkeleton.Agent.isStopped = false;
+        if (mSkeleton.Agent.enabled == true) mSkeleton.Agent.isStopped = false;
+
         mSkeleton.DizzyCount = 0;
+        mSkeleton.IsDizzy = false;
+
         if (mDizzyEffect != null)
         {
             mDizzyEffect.ExecuteEffect();

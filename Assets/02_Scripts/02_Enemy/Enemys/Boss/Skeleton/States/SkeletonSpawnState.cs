@@ -15,6 +15,9 @@ public class SkeletonSpawnState : SkeletonState
 
     public override void Enter()
     {
+        //公利
+        mSkeleton.IsInvinciblitiy = true;
+
         mSkeleton.Anim.speed = mSpawnSpeedMultiplier;
         mSkeleton.Anim.CrossFade(AnimHash.spawn, 0.1f);
         mElapsedTimeBase = 0.0f;
@@ -26,13 +29,16 @@ public class SkeletonSpawnState : SkeletonState
         mElapsedTimeBase += Time.fixedDeltaTime;
         if (mElapsedTimeBase > mSpawnTime / mSpawnSpeedMultiplier)
         {
-            IsSpawned = true;
             mElapsedTimeBase = 0.0f;
+            IsSpawned = true;
         }
     }
     public override void Exit()
     {
         mSkeleton.Anim.speed = 1.0f;
         IsSpawned = false;
+
+        //公利
+        mSkeleton.IsInvinciblitiy = false;
     }
 }

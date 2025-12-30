@@ -56,6 +56,9 @@ public enum EDmgElement { Normal, Fire, Lightning, Poison }
 public enum EHealthType { None, Player, Enemy, Boss }
 public enum EEnemyType { None, Melee, Range, Boss }
 public enum ENodeState { Running, Success, Failure }
-public enum EProjectileName { SmallFireBall, SmallWindBall, SmallWaterBall, SmallMagicBall }
+public enum EProjectileName
+{
+    SmallFireBall, SmallWindBall, SmallWaterBall, SmallMagicBall, SnakeBall, SplitBall, HomingFireBall
+}
 
 

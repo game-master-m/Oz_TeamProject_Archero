@@ -70,7 +70,7 @@ public class DragonThirdPhaseState : DragonState
             new SelectorNode(new List<Node>
             {
                 new DashAttackNode(mDragon, mDragon.Board, 0.8f, 0.6f, 20.0f, 0.32f, 3.5f),
-                new ConditionNode(()=>true)
+                new ConditionNode(() => true)
             }),
             new SpinAttackNode(mDragon, mDragon.AttackCol),
             new RotateToTargetNode(mDragon, mDragon.Board, 12.0f),

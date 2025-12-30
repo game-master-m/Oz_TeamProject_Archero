@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangeEnemySplitBall : EnemyBase
+public class SummonEnemy : EnemyBase
 {
     [Header("Projectile")]
     [SerializeField] private EnemyProjectileBase mProjectilePrefab;
@@ -16,10 +16,10 @@ public class RangeEnemySplitBall : EnemyBase
         base.Awake();
 
         Board.SpawnOffset = mSpawnOffset;
-        Board.SplitBall = mProjectilePrefab;
+        Board.SnakeBall = mProjectilePrefab;
 
         mIdleState = new RangeIdleState(this);
-        mCombatState = new RangeCombatState(this, EProjectileName.SplitBall);
+        mCombatState = new RangeCombatState(this, EProjectileName.SnakeBall);
         mDeathState = new RangeDeathState(this);
 
         InitTransitions();

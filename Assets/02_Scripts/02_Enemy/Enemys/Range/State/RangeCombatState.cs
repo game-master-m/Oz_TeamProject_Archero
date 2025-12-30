@@ -23,6 +23,15 @@ public class RangeCombatState : EnemyState
             case EProjectileName.SmallMagicBall:
                 node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallMagicBall));
                 break;
+            case EProjectileName.SnakeBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SnakeBall));
+                break;
+            case EProjectileName.SplitBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SplitBall));
+                break;
+            case EProjectileName.HomingFireBall:
+                node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.HomingFireBall));
+                break;
             default:
                 node = BT_Builder.GetChaseAndShotBT(mEnemy, mEnemy.Board, 20.0f, mEnemy.AttackSpeed, mWaitAfterShotAnimation, mProjectileSpeed, mEnemy.Board.SpawnOffset, () => Managers.Pool.GetFromPool(mEnemy.Board.SmallFireBall));
                 break;

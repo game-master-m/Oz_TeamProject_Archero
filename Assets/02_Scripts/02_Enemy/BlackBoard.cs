@@ -24,11 +24,14 @@ public class BlackBoard
     public EnemyProjectileBase SmallWaterBall { get; set; }
     public EnemyProjectileBase SmallMagicBall { get; set; }
     public EnemyProjectileBase SmallWindBall { get; set; }
+    public EnemyProjectileBase SnakeBall { get; set; }
+    public EnemyProjectileBase SplitBall { get; set; }
     public Vector3 SpawnOffset { get; set; }
     //ÇÁ¸®ÆÕ ÀÌÆåÆ® Á¢±Ù¿ë
     public EffectBase CurrentEffect { get; set; }
     public EffectBase FireTrailPrefab { get; set; }
     public EffectBase DizzyEffectPrefab { get; set; }
 
-    //
+    //¼Å¸Õ
+    public EnemyBase SummonPrefab { get; set; }
 }

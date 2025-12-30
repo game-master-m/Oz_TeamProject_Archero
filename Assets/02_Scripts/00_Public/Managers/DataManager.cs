@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
