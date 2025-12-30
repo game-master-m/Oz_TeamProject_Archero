@@ -80,15 +80,15 @@ public abstract class LivingEntity : MonoBehaviour, IDamageable
 
     IEnumerator DotDamageCo(float damage, float duration, float damageTick, EDmgElement element)
     {
-        WaitForSeconds waitDamageTick = new WaitForSeconds(damageTick);
+        WaitForSeconds waitDamageTick = Utils.GetWaitForSeconds(damageTick);
         float timer = 0f;
 
         while (timer < duration)
         {
+            yield return waitDamageTick;
             TakeDamage(damage, element);
             if (bIsDead) break;
-            yield return waitDamageTick;
-            timer += Time.deltaTime;
+            timer += damageTick;
         }
 
         mDotDamageCo = null;

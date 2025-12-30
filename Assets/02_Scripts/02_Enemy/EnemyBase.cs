@@ -19,6 +19,10 @@ public class EnemyBase : LivingEntity
     [Header("공통 드랍 아이템 테이블")]
     [SerializeField] private DropTableSO mCommonDropTable;
 
+    [Header("원거리 에너미 설정")]
+    [SerializeField] private float mProjectileSpeed = 15.0f;
+    [SerializeField] private float mShotAndWaitTime = 1.0f;
+
     protected Animator mAnim;
     protected NavMeshAgent mAgent;
     protected CapsuleCollider mCapsuleCollider;
@@ -50,6 +54,10 @@ public class EnemyBase : LivingEntity
 
     //플레이어 추적용 타겟
     protected Transform mTarget;
+
+    //원거리 프로젝타일 설정
+    public float ProjectileSpeed => mProjectileSpeed;
+    public float ShotAndWaitTime => mShotAndWaitTime;
 
     public event Action<EnemyBase> onEnemyDie;
     public Animator Anim => mAnim;

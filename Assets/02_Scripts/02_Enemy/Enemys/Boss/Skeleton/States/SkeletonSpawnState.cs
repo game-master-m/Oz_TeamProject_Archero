@@ -15,6 +15,11 @@ public class SkeletonSpawnState : SkeletonState
 
     public override void Enter()
     {
+        if (mSkeleton.Agent.enabled)
+        {
+            mSkeleton.Agent.velocity = Vector3.zero;
+            mSkeleton.Agent.isStopped = true;
+        }
         //公利
         mSkeleton.IsInvinciblitiy = true;
 
@@ -40,5 +45,10 @@ public class SkeletonSpawnState : SkeletonState
 
         //公利
         mSkeleton.IsInvinciblitiy = false;
+
+        if (mSkeleton.Agent.enabled)
+        {
+            mSkeleton.Agent.isStopped = false;
+        }
     }
 }

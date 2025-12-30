@@ -14,9 +14,11 @@ public class RangeEnemyWindBall : EnemyBase
     protected override void Awake()
     {
         base.Awake();
+        InitStats(mStatData);
 
         Board.SpawnOffset = mSpawnOffset;
         Board.SmallWindBall = mProjectilePrefab;
+
 
         mIdleState = new RangeIdleState(this);
         mCombatState = new RangeCombatState(this, EProjectileName.SmallWindBall);
@@ -34,7 +36,6 @@ public class RangeEnemyWindBall : EnemyBase
     {
         base.OnEnable();
 
-        InitStats(mStatData);
         mAgent.enabled = true;
 
         mStateMachine.ChangeState(mIdleState);

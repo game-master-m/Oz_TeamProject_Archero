@@ -77,14 +77,14 @@ public abstract class EnemyProjectileBase : MonoBehaviour
 
         if (hitCount > 0)
         {
-            if (mHitResults[0].TryGetComponent<IDamageable>(out var target))
+            if (mHitResults[0].TryGetComponent<LivingEntity>(out var target))
             {
                 OnHit(target);
             }
         }
     }
 
-    protected virtual void OnHit(IDamageable target)
+    protected virtual void OnHit(LivingEntity target)
     {
         target.TakeDamage(mCurrentDamage);
         ReturnPool();
@@ -94,7 +94,6 @@ public abstract class EnemyProjectileBase : MonoBehaviour
     {
         bIsActive = false;
         mRigid.velocity = Vector3.zero;
-        // 실제 프로젝트의 풀 매니저 방식에 맞춰 호출
-        gameObject.SetActive(false);
+        Managers.Pool.ReturnToPool(this);
     }
 }

@@ -37,10 +37,13 @@ public class RotateToTargetNode : ActionNode
             return ENodeState.Success;
         }
 
+        Quaternion lookRot = Quaternion.LookRotation(targetDir);
+        Quaternion targetRotation = lookRot * mOwner.CorrectionQtrn;
+
         mOwner.LookAtDiretion(targetDir, mRotateSpeed);
 
         // 정면과의 각도 차이가 임계값 이내면 성공
-        float angle = Vector3.Angle(mOwner.transform.forward, targetDir);
+        float angle = Quaternion.Angle(mOwner.transform.rotation, targetRotation);
         if (angle <= mAngleThreshold)
         {
             bIsFirstFrame = true;

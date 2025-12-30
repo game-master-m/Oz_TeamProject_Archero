@@ -8,6 +8,9 @@ public class RangeCombatState : EnemyState
 
     public RangeCombatState(EnemyBase enemy, EProjectileName ball, IState parent = null) : base(enemy, parent)
     {
+        mWaitAfterShotAnimation = mEnemy.ShotAndWaitTime;
+        mProjectileSpeed = mEnemy.ProjectileSpeed;
+
         SelectorNode node;
         switch (ball)
         {

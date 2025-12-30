@@ -13,6 +13,7 @@ public class RangeEnemyWaterBall : EnemyBase
     protected override void Awake()
     {
         base.Awake();
+        InitStats(mStatData);
 
         Board.SpawnOffset = mSpawnOffset;
         Board.SmallWaterBall = mProjectilePrefab;
@@ -33,7 +34,6 @@ public class RangeEnemyWaterBall : EnemyBase
     {
         base.OnEnable();
 
-        InitStats(mStatData);
         mAgent.enabled = true;
 
         mStateMachine.ChangeState(mIdleState);

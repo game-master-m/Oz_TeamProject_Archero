@@ -50,6 +50,8 @@ public class DragonController : EnemyBase
         Board.FireTrailPrefab = mFireTrailPrefab;
         Board.DizzyEffectPrefab = mDizzyEffectPrefab;
 
+        MakePools();
+
         mAttackCol.SetUpDmg(mAttackDamage);
 
         //정지거리를 넉넉하게 잡음
@@ -68,7 +70,7 @@ public class DragonController : EnemyBase
         //상태 전이조건
         InitTransitions();
     }
-    private void Start()
+    private void MakePools()
     {
         Managers.Pool.CreatePool(mSmallFireBallPrefab, 40, Managers.Pool.transform);
         Managers.Pool.CreatePool(mHomingFireBallPrefab, 20, Managers.Pool.transform);

@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public static class Utils
 {
     private static StringBuilder mBuilder = new StringBuilder(64);
     private static readonly string[] mSuffixes = { "", "k", "m", "B", "T" };
+
+    private static Dictionary<float, WaitForSeconds> mWaitCache = new Dictionary<float, WaitForSeconds>();
     public static StringBuilder DamageAppend(int value)
     {
         mBuilder.Clear();
@@ -79,6 +82,16 @@ public static class Utils
         else mBuilder.Append(val.ToString("F2"));
         mBuilder.Append(mSuffixes[index]);
         return mBuilder;
+    }
+
+    public static WaitForSeconds GetWaitForSeconds(float waitTime)
+    {
+        if (!mWaitCache.TryGetValue(waitTime, out var wait))
+        {
+            wait = new WaitForSeconds(waitTime);
+            mWaitCache.Add(waitTime, wait);
+        }
+        return wait;
     }
     public static void Log(string message)
     {

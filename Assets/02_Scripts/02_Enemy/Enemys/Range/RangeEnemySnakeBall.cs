@@ -14,6 +14,7 @@ public class RangeEnemySnakeBall : EnemyBase
     protected override void Awake()
     {
         base.Awake();
+        InitStats(mStatData);
 
         Board.SpawnOffset = mSpawnOffset;
         Board.SmallFireBall = mProjectilePrefab;
@@ -34,7 +35,6 @@ public class RangeEnemySnakeBall : EnemyBase
     {
         base.OnEnable();
 
-        InitStats(mStatData);
         mAgent.enabled = true;
 
         mStateMachine.ChangeState(mIdleState);

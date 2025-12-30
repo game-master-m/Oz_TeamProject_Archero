@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9220498427331657770}
   - component: {fileID: 8201517094737706304}
   - component: {fileID: 5392403191203697857}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SmallFireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 233316840290935871}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.96, z: -11.74}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -117,7 +117,7 @@ PrefabInstance:
     - target: {fileID: 4477386985593874631, guid: 69f5e935af9debf41a8ef47c741b6fce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4477386985593874631, guid: 69f5e935af9debf41a8ef47c741b6fce,
         type: 3}

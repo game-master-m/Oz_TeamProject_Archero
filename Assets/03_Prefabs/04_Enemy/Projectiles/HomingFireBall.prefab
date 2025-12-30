@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 615439658662819129}
   - component: {fileID: 1623066509225612245}
   - component: {fileID: 5922272314187969800}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HomingFireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   mHitBoxOffset: {x: 0, y: 0, z: -0.5}
   mHigBoxRadius: 0.5
   mHomingTurnSpeed: 2.5
+  mHomingRange: 15
 --- !u!1001 &6481860940103606960
 PrefabInstance:
   m_ObjectHideFlags: 0

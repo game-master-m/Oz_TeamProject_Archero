@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9220498427331657770}
   - component: {fileID: 8201517094737706304}
   - component: {fileID: 891448210927078767}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SmallWaterBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

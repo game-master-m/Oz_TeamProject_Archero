@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7578252430660168939}
   - component: {fileID: 3038420122977242469}
   - component: {fileID: 6849689849667787166}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BigFireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,6 +105,7 @@ MonoBehaviour:
   mSplitCount: 12
   mSmallFireBall: {fileID: 5392403191203697857, guid: 32f091b57abb33e4593c6213d22f7af3,
     type: 3}
+  mExplosionAir: {fileID: 0}
 --- !u!1001 &4063820597642625707
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 7882212277839946840}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.52, y: 0, z: -10.46}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -112,6 +112,66 @@ PrefabInstance:
       value: Area_generic_red_outbreak
       objectReference: {fileID: 0}
     - target: {fileID: 2834388740682797903, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2834388740682797903, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240133060070, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240133060070, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240565775204, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240565775204, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376953, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376953, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376953, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376953, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376953, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376959, guid: 90ffece102c8e004fad57d44ee14f340,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166371240598376959, guid: 90ffece102c8e004fad57d44ee14f340,
         type: 3}
       propertyPath: scalingMode
       value: 1
