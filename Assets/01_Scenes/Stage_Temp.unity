@@ -5033,6 +5033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3eed97e5e80d04984e63297aa8a473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyMarker: {fileID: 8265036016748459605, guid: efdd8a64c4a8ab44b98cc2c020c2ebc7,
+    type: 3}
 --- !u!143 &725790707
 CharacterController:
   m_ObjectHideFlags: 0
