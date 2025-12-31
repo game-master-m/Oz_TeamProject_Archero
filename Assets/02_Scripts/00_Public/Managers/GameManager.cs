@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("이벤트 발행")]
     [SerializeField] private VoidEventChannelSO mOnGamePause;        //PauseUI 구독
     [SerializeField] private VoidEventChannelSO mOnGameResume;       //PuaseUI 구독
-    [SerializeField] private VoidEventChannelSO mOnSceneChanged;     //StageManager,DataManager 구독
+    [SerializeField] private VoidEventChannelSO mOnSceneChanged;     //StageManager,DataManager,PauseUI 구독
 
     private bool bIsPause = false;
     private bool bIsGameOver = false;

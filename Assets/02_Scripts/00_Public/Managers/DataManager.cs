@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
     //저장 될 데이터
     private int mGold = 0;          //GoldChange event 구독해서 누적 획득, 상점 로직에서 Add or Sub
     private int mLobbyExp = 0;      //ExpChange event 구독해서 클리어패널 생성 시 누적
+    private int mCurrentLevel = 1;
     private int mRequiredExp;
     private string SavePath => Path.Combine(Application.persistentDataPath, "savegame.json");
 
@@ -29,13 +30,16 @@ public class DataManager : MonoBehaviour
     private Dictionary<EItemType, ItemDataSO> mEquipedItemDic = new Dictionary<EItemType, ItemDataSO>();
     private List<ItemDataSO> mItemDatabaseList = new List<ItemDataSO>();
 
-    public List<ItemDataSO> ItemDatabaseList => mItemDatabaseList;
+    private int mGetExpAmountAtferSceneLoad = 0;
 
+    private int[] mBestStageNumber = { 1, 1, 1, 1 };
+    private int[] mBestRoomNumber = { 1, 1, 1, 1 };
+
+    public List<ItemDataSO> ItemDatabaseList => mItemDatabaseList;
     public int Gold => mGold;
 
-    private int mCurrentLevel = 1;
 
-    private int mGetExpAmountAtferSceneLoad = 0;
+    #region LifeCycle
     private void Awake()
     {
         InitializeEquipDictionary();
@@ -58,13 +62,59 @@ public class DataManager : MonoBehaviour
         mOnSceneChanged.onEvent -= HandleSceneChanged;
         mOnGetExpRequest.onEvent -= HandleGetExp;
     }
+    #endregion
 
+    #region 외부호출 메서드
     //EndUI에서 갖다 씀
     public int[] GetExpProgress()
     {
         int[] result = { mLobbyExp, mRequiredExp, mGetExpAmountAtferSceneLoad, mCurrentLevel };
         return result;
     }
+    //PlayerStat.cs 에서 스탯초기화할 때 호출.
+    public Dictionary<EItemType, ItemDataSO> GetEquippedItems()
+    {
+        return mEquipedItemDic;
+    }
+    public List<ItemSlot> GetInventoryItems()
+    {
+        return mInventoryItemSlots;
+    }
+
+    //EndUI가 호출
+    public void SetBestScore(int roomNumber, int stageNumber)
+    {
+        SetBestRoomNumber(roomNumber);
+        SetBestStageNumber(stageNumber);
+    }
+    private void SetBestRoomNumber(int roomNumber)
+    {
+
+        for (int i = 0; i < mBestRoomNumber.Length; i++)
+        {
+            if (roomNumber > mBestRoomNumber[i])
+            {
+                mBestRoomNumber[i] = roomNumber;
+                return;
+            }
+        }
+    }
+    private void SetBestStageNumber(int stageNumber)
+    {
+        for (int i = 0; i < mBestStageNumber.Length; i++)
+        {
+            if (stageNumber > mBestStageNumber[i])
+            {
+                mBestStageNumber[i] = stageNumber;
+                return;
+            }
+        }
+    }
+
+    //로비의 베스트 스코어 UI가 호출
+    public int[] GetBestRoomNumbers() => mBestRoomNumber;
+    public int[] GetBestStageNumbers() => mBestStageNumber;
+    #endregion
 
     #region Save & Load
     [ContextMenu("Save Game")] // 에디터에서 테스트 가능하도록
@@ -74,6 +124,8 @@ public class DataManager : MonoBehaviour
         data.gold = mGold;
         data.lobbyExp = mLobbyExp;
         data.currentLevel = mCurrentLevel;
+        data.bestRoomNumber = mBestRoomNumber;
+        data.bestStageNumber = mBestStageNumber;
 
         // 인벤토리 변환 (ItemSlot -> ItemSlotData)
         foreach (var slot in mInventoryItemSlots)
@@ -120,6 +172,11 @@ public class DataManager : MonoBehaviour
         mGold = data.gold;
         mLobbyExp = data.lobbyExp;
         mCurrentLevel = data.currentLevel;
+
+        mBestRoomNumber = (data.bestRoomNumber != null && data.bestRoomNumber.Length == 4) ?
+            data.bestRoomNumber : new int[] { 1, 1, 1, 1 };
+        mBestStageNumber = (data.bestStageNumber != null && data.bestStageNumber.Length == 4) ?
+            data.bestStageNumber : new int[] { 1, 1, 1, 1 };
 
         // 인벤토리 복구
         mInventoryItemSlots.Clear();
@@ -321,15 +378,6 @@ public class DataManager : MonoBehaviour
     }
     #endregion
 
-    //PlayerStat.cs 에서 스탯초기화할 때 호출.
-    public Dictionary<EItemType, ItemDataSO> GetEquippedItems()
-    {
-        return mEquipedItemDic;
-    }
-    public List<ItemSlot> GetInventoryItems()
-    {
-        return mInventoryItemSlots;
-    }
     #region 이벤트 핸들러
     private void HandleSceneChanged()
     {
@@ -361,6 +409,8 @@ public class SaveData
     public int gold;
     public int lobbyExp;
     public int currentLevel;
+    public int[] bestRoomNumber = { 1, 1, 1, 1 };
+    public int[] bestStageNumber = { 1, 1, 1, 1 };
 
     // 리스트는 직렬화 가능하지만, SO는 ID(string)로 저장해야 함
     public List<ItemSlotData> inventorySlots = new List<ItemSlotData>();
