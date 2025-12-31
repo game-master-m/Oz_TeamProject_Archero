@@ -6,7 +6,7 @@ public class BatDashNode : ActionNode
     private EDashState mCurrentState;
 
     private BlackBoard mBoard;
-    private Vector3 mTargetPos;
+    protected Vector3 mTargetPos;
     private Vector3 mLastPosition;
     private float mTimer;
     private float mOriginalSpeed;
@@ -83,7 +83,7 @@ public class BatDashNode : ActionNode
         return ENodeState.Running;
     }
 
-    private void PrepareDash()
+    protected virtual void PrepareDash()
     {
         mOriginalSpeed = mOwner.Agent.speed;
         mOriginAcceleration = mOwner.Agent.acceleration;

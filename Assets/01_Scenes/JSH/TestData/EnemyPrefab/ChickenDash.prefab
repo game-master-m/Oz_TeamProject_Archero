@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4001772231420762891}
   - component: {fileID: 5076383302059488105}
   - component: {fileID: 6356933216250906139}
-  - component: {fileID: 3916462667749580306}
+  - component: {fileID: -5011979010590067514}
   m_Layer: 3
   m_Name: ChickenDash
   m_TagString: Untagged
@@ -197,7 +197,7 @@ MonoBehaviour:
     type: 3}
   mSpawnOffset: {x: -0.5, y: 4.5, z: 0}
   mRandomSpread: {x: 0.5, y: 0.3}
---- !u!114 &3916462667749580306
+--- !u!114 &-5011979010590067514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1395728290813243068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03eafbcbafef50347ae5e2aa995e8f1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 36698e11c8e1fc24599e3e3c23b4019d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 76feb5cdaaaca7c4caea6ee80b0cfba5, type: 2}
