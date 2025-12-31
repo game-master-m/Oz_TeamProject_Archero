@@ -41,7 +41,7 @@ public class LaserCircle : SphereBase
 
     public override void ApplyDamage(EnemyBase target, float damage)
     {
-        float sphereDamage = damage * 1.25f;
+        float sphereDamage = damage * 0.8f;
 
         Utils.Log($"구체데미지{sphereDamage}");
         target.TakeDamage(sphereDamage);

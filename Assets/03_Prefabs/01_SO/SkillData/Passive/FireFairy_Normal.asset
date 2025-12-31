@@ -21,6 +21,6 @@ MonoBehaviour:
     type: 3}
   ElementNumber: 1
   SeatNumber: 0
-  EffectTime: 3
-  DamageTick: 0.2
+  EffectTime: 15
+  DamageTick: 1
   DamageDuplicater: 0.2
