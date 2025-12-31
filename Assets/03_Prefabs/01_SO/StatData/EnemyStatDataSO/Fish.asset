@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mMaxHP: 150
   mMoveSpeed: 5
-  mAttackDamage: 25
+  mAttackDamage: 28
   mAttackRange: 15
   mHitTiming: 0.45
   mRotateSpeed: 8
