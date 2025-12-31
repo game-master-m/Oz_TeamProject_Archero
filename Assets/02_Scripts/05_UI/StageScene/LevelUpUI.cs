@@ -28,7 +28,7 @@ public class LevelUpUI : MonoBehaviour
 
     public Dictionary<ESkillGrade, List<SkillDataSO>> SkillDic => mSkillDic;
     public SkillContainerSO SkillContainer => mSkills;
-    public event Action<List<SkillDataSO>> onSelectSkill;
+    public event Action<SkillDataSO> onSelectSkill;
 
 
     private void Start()
@@ -79,12 +79,7 @@ public class LevelUpUI : MonoBehaviour
             if (i < randomSkills.Count)
             {
                 mSkillSlots[i].gameObject.SetActive(true);
-                // 중요: OnSkillSelected 함수를 콜백으로 넘겨줌
                 mSkillSlots[i].Setup(randomSkills[i], OnSkillSelected);
-            }
-            else
-            {
-                //mSkillSlots[i].gameObject.SetActive(false);
             }
         }
     }
@@ -104,7 +99,7 @@ public class LevelUpUI : MonoBehaviour
         if (mTargetPlayer != null)
         {
             mTargetPlayer.AddSkill(selectedSkill);
-
+            onSelectSkill?.Invoke(selectedSkill);
             //스택킹 스킬이 아니면 목록에서 제거(앞으로 안 보여줌)
             if (!selectedSkill.isStacking)
             {
