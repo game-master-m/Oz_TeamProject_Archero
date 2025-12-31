@@ -4907,7 +4907,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 99f0f167ec6ba7d42a09bfc1b1cce891, type: 3}
+  m_audioClip: {fileID: 8300000, guid: baefdc094aff0fe4882863bbdc374428, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -10122,7 +10122,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8ab07f0cec868164b8b4250f80fd238f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 00899197ec044084b8027e323b1389a4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -17505,7 +17505,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dea9d7d2bb9c89f449f413330b1631c4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ed78517a73e00ae41a8adca21218f6e7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -19389,15 +19389,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mBgmSound: {fileID: 485722880}
   mSfxSound: {fileID: 937821864}
-  mPlayerAttackSound: {fileID: 8300000, guid: 3e443aad141157b47b5b3751f3c4b64b, type: 3}
-  mPlayerHitSound: {fileID: 0}
-  mMonsterDieSound: {fileID: 0}
-  mCoinSound: {fileID: 0}
-  mBtnSound: {fileID: 8300000, guid: 8ab07f0cec868164b8b4250f80fd238f, type: 3}
   mLobbySceneName: Lobby_JJH
-  mLobbybgm: {fileID: 8300000, guid: 99f0f167ec6ba7d42a09bfc1b1cce891, type: 3}
+  mLobbybgm: {fileID: 8300000, guid: baefdc094aff0fe4882863bbdc374428, type: 3}
   mStageSceneName: Stage_Temp
-  mStagebgm: {fileID: 8300000, guid: dea9d7d2bb9c89f449f413330b1631c4, type: 3}
+  mStagebgm: {fileID: 8300000, guid: ed78517a73e00ae41a8adca21218f6e7, type: 3}
+  mPlayerAttackSound: {fileID: 8300000, guid: ab83264ab1e3773469b6deb47e15e64b, type: 3}
+  mPlayerHitSound: {fileID: 8300000, guid: ac5bb1d4e50890d46b310d2de2805eca, type: 3}
+  mMonsterDieSound: {fileID: 8300000, guid: 7ee1a4ea8f7ab3b48ab0f525bf64da56, type: 3}
+  mGetCoinSound: {fileID: 8300000, guid: ed7a9634608558b47acfc6e468d580c5, type: 3}
+  mBtnSound: {fileID: 8300000, guid: 00899197ec044084b8027e323b1389a4, type: 3}
+  mGameOverSound: {fileID: 8300000, guid: daa75fa29754e034e8ae75b55ba1e8cb, type: 3}
+  mGameClearSound: {fileID: 8300000, guid: 5cccd50f5ef7a2b4187673893183ef35, type: 3}
+  mSellItemSound: {fileID: 8300000, guid: 41f9bdde67a478f4d81cfa0b0bcdb1d4, type: 3}
+  mEquipSound: {fileID: 8300000, guid: 684946de99a44d247b4f6a82479cc050, type: 3}
+  mLevelUpSound: {fileID: 8300000, guid: aa12493c0bbdf4e43a618c0a7012f2a6, type: 3}
+  mMonsterHitSound: {fileID: 8300000, guid: edca15e0105883f4d81a0b0f723a27e2, type: 3}
+  mSlotRotationSound: {fileID: 8300000, guid: 2c2147fd2b4be054e8f6ce5429a99c57, type: 3}
+  mSlotSeletSound: {fileID: 8300000, guid: fcc6ff18186b7114c91b7e227d695a08, type: 3}
 --- !u!1 &1946883040
 GameObject:
   m_ObjectHideFlags: 0
