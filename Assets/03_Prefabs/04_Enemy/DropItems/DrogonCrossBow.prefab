@@ -217,7 +217,7 @@ MonoBehaviour:
   ItemDataSO: {fileID: 11400000, guid: 6788991ec50508d43a725b9d07f1345d, type: 2}
   CurrentStack: 1
   ItemID: 0
-  mRotateSpeed: 2
+  mRotateSpeed: 48
   mFloatingRange: 0.2
   mFloatingSpeed: 2
 --- !u!135 &2583019900830088808
