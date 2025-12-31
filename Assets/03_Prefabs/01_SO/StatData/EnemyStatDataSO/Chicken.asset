@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Chicken
   m_EditorClassIdentifier: 
   mMaxHP: 130
-  mMoveSpeed: 6
+  mMoveSpeed: 7
   mAttackDamage: 15
   mAttackRange: 2.5
   mHitTiming: 0.59
   mRotateSpeed: 8
   mDetectRange: 40
+  mMaxExpDropCount: 1
   mRotateOffset: {x: 0, y: 0, z: 0}
