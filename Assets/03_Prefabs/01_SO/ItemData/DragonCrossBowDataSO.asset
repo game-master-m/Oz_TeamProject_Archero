@@ -17,7 +17,7 @@ MonoBehaviour:
   ItemEffect: 1
   EffectAmount: 30
   MaxStack: 10
-  ItemCost: 999
-  SellPrice: 360
+  ItemCost: 9999
+  SellPrice: 4545
   ItemName: "\uC11D\uAD81"
   Description: "\uACF5\uACA9\uB825\uC0C1\uC2B9\n+30"
