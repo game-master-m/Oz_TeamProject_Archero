@@ -25,7 +25,7 @@ MonoBehaviour:
   ElementNumber: 0
   EffectTime: 9999
   DamageTick: 1
-  DamageDuplicater: 0.5
+  DamageDuplicater: 0.1
   DamageRange: 2
   MeteorSpeed: 20
   PotionSpawnDelay: 5

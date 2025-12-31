@@ -22,5 +22,5 @@ MonoBehaviour:
   ElementNumber: 1
   SeatNumber: 1
   MaxChainCount: 8
-  DamageDuplicater: 0.3
+  DamageDuplicater: 0.2
   ChainRange: 10

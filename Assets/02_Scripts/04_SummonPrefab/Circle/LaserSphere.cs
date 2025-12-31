@@ -16,6 +16,7 @@ public class LaserSphere : Sphere
     private float mLaserDelay;
 
     private bool mIsAttack = false;
+    private WaitForSeconds mWaitLaserTick = new WaitForSeconds(0.25f);
 
     private void Update()
     {
@@ -69,7 +70,7 @@ public class LaserSphere : Sphere
                     enemy.TakeDamage(laserDamage);
                 }
             }
-            yield return null;
+            yield return mWaitLaserTick;
         }
         mLaserEffect.gameObject.SetActive(false);
         Managers.Pool.ReturnToPool(mLaserEffect);
