@@ -57,7 +57,7 @@ public class LaserSphere : Sphere
     private IEnumerator LaserAttackCo()
     {
         float startTime = Time.time;
-        float laserDamage = mPlayer.Stat.AttackDamage;
+        float laserDamage = mPlayer.Stat.AttackDamage * 0.4f;
 
         while (Time.time - startTime < mLaserDuration)
         {
