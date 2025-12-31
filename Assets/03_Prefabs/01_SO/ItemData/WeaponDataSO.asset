@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123d1a05f9ee12d4ead28a3b5b745ec7, type: 3}
   m_Name: WeaponDataSO
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 21300000, guid: 30f5afec9911bcf4997914c6a4802dd4, type: 2}
+  ItemSprite: {fileID: 21300000, guid: a30df84be023570479162bc3c54c4826, type: 2}
   ItemType: 0
   ItemEffect: 1
   EffectAmount: 10
