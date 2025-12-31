@@ -18,17 +18,17 @@ public class SoundManager : MonoBehaviour
     public AudioClip mPlayerAttackSound;
     public AudioClip mPlayerHitSound;
     public AudioClip mMonsterDieSound;
-    public AudioClip mCoinSound;
-    public AudioClip mBtnSound;
-    //스킬이펙트
-    //슬롯머신돌아가는소리
-    //아이템장착
-    //아이템 팔때
-    //죽을때
-    //클리어할때
-
-
-   
+    public AudioClip mGetCoinSound;
+    public AudioClip mBtnSound;    
+    public AudioClip mGameOverSound;
+    public AudioClip mGameClearSound;
+    public AudioClip mSellItemSound;
+    public AudioClip mEquipSound;
+    public AudioClip mLevelUpSound;
+    public AudioClip mMonsterHitSound;
+    public AudioClip mSlotRotationSound;
+    public AudioClip mSlotSeletSound;
+    
     
     private void Awake()
     {
@@ -74,12 +74,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    //이게 효과음 재생하는 함수
+    //효과음 재생 메서드
     //오디오 클립 변수를 입력하세요
     //SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mPlayerAttackSound);
     public void PlaySfxSound(AudioClip clip)
     {        
         mSfxSound.PlayOneShot(clip);
+    }
+    //효과음 끌때
+    public void StopSfxSound()
+    {
+        mSfxSound.Stop();
     }
 
 
