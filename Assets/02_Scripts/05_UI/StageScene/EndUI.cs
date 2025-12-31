@@ -54,7 +54,7 @@ public class EndUI : MonoBehaviour
     {
         ShowEndUI(killCount, roomIndex, stageNumber);
 
-        //클리어 시 는 효과음과 애니메이션을 다르게
+        //클리어 효과음
 
 
     }
@@ -62,12 +62,13 @@ public class EndUI : MonoBehaviour
     {
         ShowEndUI(killCount, roomIndex, stageNumber);
 
-        //죽어서 나오는 EndUI, 효과음, 애니메이션 다르게
+        //죽어서 나오는 EndUI 효과음
 
     }
 
     private void ShowEndUI(int killCount, int roomIndex, int stageNumber)
     {
+        Managers.Data.SetBestScore(roomIndex + 1, stageNumber);
         mRootPannel.SetActive(true);
 
         mWaveNumText.SetText(Utils.IntAppend(roomIndex + 1));
