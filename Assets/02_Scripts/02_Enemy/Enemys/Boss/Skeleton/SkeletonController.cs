@@ -195,11 +195,11 @@ public class SkeletonController : EnemyBase
         }
 
     }
-    public override void TakeDamage(float amount)
+    public override void TakeDamage(float amount, EDmgElement element, bool isCritical = false)
     {
         if (!IsInvinciblitiy)
         {
-            base.TakeDamage(amount);
+            base.TakeDamage(amount, element);
         }
     }
     #endregion
