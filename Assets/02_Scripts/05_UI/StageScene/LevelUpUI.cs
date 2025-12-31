@@ -9,6 +9,7 @@ public class LevelUpUI : MonoBehaviour
     [SerializeField] private SkillSlotUI[] mSkillSlots; // 인스펙터에서 3개 할당
     [SerializeField] private GameObject mRootPanel;   // 껐다 켰다 할 패널
     [SerializeField] private GameObject mRootStageProgress;
+    [SerializeField] private GameObject mAlwaysRoomImage;
 
     [Header("이벤트 구독")]
     [SerializeField] private PlayerAttackEventChannelSO mOnLevelUpPlayer;   // StageManager가 발송
@@ -63,6 +64,7 @@ public class LevelUpUI : MonoBehaviour
         Time.timeScale = 0f;
         mRootPanel.SetActive(true);
         mRootStageProgress.SetActive(true);
+        mAlwaysRoomImage.SetActive(false);
 
         // 2. 랜덤 스킬 3개 뽑기 (중복 없이)
         List<SkillDataSO> randomSkills = GetRandomSkills(3, GetGradeAsChance());
@@ -137,7 +139,7 @@ public class LevelUpUI : MonoBehaviour
     {
         mRootPanel.SetActive(false);
         mRootStageProgress.SetActive(false);
-
+        mAlwaysRoomImage.SetActive(true);
         Time.timeScale = 1f; // 게임 시간 정상화
     }
 

@@ -15,6 +15,10 @@ public class StageProgressUI : MonoBehaviour
     [SerializeField] private Image[] mRoomImages;
     [SerializeField] private Image[] mBattleImages;
 
+    [SerializeField] private Image mAlwaysRoomImage;
+    [SerializeField] private Image mAlwaysBattleImage;
+    [SerializeField] private TextMeshProUGUI mAlwaysRoomNumText;
+
     [SerializeField] private Image mDotImage;
     [SerializeField] private Image mLeftArrowImage;
     [SerializeField] private Image mRightArrowImage;
@@ -62,6 +66,7 @@ public class StageProgressUI : MonoBehaviour
 
         mPrevRoomNumText.SetText(Utils.IntAppend(prevNum));
         mCurrentRoomNumText.SetText(Utils.IntAppend(currentRoomNum));
+        mAlwaysRoomNumText.SetText(Utils.IntAppend(currentRoomNum));
         mNextRoomNumText.SetText(Utils.IntAppend(nextRoomNum));
 
         if (nextRoomNum >= mBossRoomNumList[mBossRoomIndex] && nextRoomNum < mBossRoomNumList[mBossRoomNumList.Count - 1])
@@ -76,6 +81,10 @@ public class StageProgressUI : MonoBehaviour
             mRoomImages[j].sprite = mBattleFrame;
             mBattleImages[j].sprite = mBattleIcon;
         }
+
+        mAlwaysBattleImage.sprite = mBattleIcon;
+        mAlwaysRoomImage.sprite = mBattleFrame;
+
         mRoomImages[3].sprite = mBossFrame;
         mBattleImages[3].sprite = mBossIcon;
 
@@ -90,6 +99,8 @@ public class StageProgressUI : MonoBehaviour
             {
                 mRoomImages[1].sprite = mBossFrame;
                 mBattleImages[1].sprite = mBossIcon;
+                mAlwaysRoomImage.sprite = mBossFrame;
+                mAlwaysBattleImage.sprite = mBossIcon;
             }
             if (nextRoomNum == bossRoomNum)
             {
