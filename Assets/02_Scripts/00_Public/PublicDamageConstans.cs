@@ -14,7 +14,7 @@ public static class PublicDamageConstans
     //독 데미지 > IDamageable 의 TakeDotDamage에 사용
     public const float VenomEffectTime = 9999f;                  //독 데미지 지속시간 > 실제로는 대상이 죽을때까지
     public const float VenomDamageTick = 1.0f;                   //데미지 부여 주기
-    public const float VenomDamageDuplicater = 0.5f;             //배율
+    public const float VenomDamageDuplicater = 0.1f;             //배율
 
     //번개 데미지 > IDamageble 의 TakeDamage에 사용
     public const float LightningDamageDuplicater = 0.3f;         //배율

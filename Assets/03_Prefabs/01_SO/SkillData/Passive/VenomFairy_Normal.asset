@@ -23,4 +23,4 @@ MonoBehaviour:
   SeatNumber: -1
   EffectTime: 9999
   DamageTick: 1
-  DamageDuplicater: 0.5
+  DamageDuplicater: 0.1
