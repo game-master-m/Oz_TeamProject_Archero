@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     {
         foreach (var strategy in mPassiveStrategies)
         {
-            strategy.OnUnequip(this);
+            strategy?.OnUnequip(this);
         }
     }
     private void Update()
@@ -69,7 +69,7 @@ public class PlayerAttack : MonoBehaviour
             projectile.transform.position = transform.position + mProjectileOffeset;
             projectile.Setup(mArrowStrategies, mStat.AttackDamage, mStat.AttackRange, firstTarget);
 
-                        
+
 
         }
         return projectile;
