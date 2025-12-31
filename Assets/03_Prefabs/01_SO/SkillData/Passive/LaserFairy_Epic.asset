@@ -22,6 +22,6 @@ MonoBehaviour:
   ElementNumber: 4
   SeatNumber: -2
   LaserDuration: 0.4
-  LaserDamageTick: 0.1
-  LaserRange: 50
+  LaserDamageTick: 0.25
+  LaserRange: 30
   LaserDamageDuplicater: 0.5

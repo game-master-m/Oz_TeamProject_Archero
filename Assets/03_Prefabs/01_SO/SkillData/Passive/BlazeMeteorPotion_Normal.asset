@@ -24,7 +24,7 @@ MonoBehaviour:
   MeteorOffset: {x: 0, y: 10, z: 0}
   ElementNumber: 0
   EffectTime: 3
-  DamageTick: 0.2
+  DamageTick: 1
   DamageDuplicater: 0.2
   DamageRange: 2
   MeteorSpeed: 20
