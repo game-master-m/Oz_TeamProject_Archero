@@ -150,6 +150,8 @@ public abstract class FairyBase : MonoBehaviour
         mAllFaries.Remove(this);
         if (mCoroutineHost == this)
         {
+            //람다식 > f를 찾는데 f는 null이 아니고 하이어라키 창에서 활성화 상태여야함
+            FairyBase newHost = mAllFaries.Find(f => f != null && f.gameObject.activeInHierarchy);
             if (mAllFaries.Count > 0)
             {
                 mCoroutineHost = mAllFaries[0];
@@ -157,6 +159,7 @@ public abstract class FairyBase : MonoBehaviour
             }
             else
             {
+                StopAllCoroutines();
                 mCoroutineHost = null;
                 mAttackCoroutine = null;
             }
