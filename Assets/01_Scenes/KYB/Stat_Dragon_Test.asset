@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483121a9ef112b242a0beeb7032a8392, type: 3}
   m_Name: Stat_Dragon_Test
   m_EditorClassIdentifier: 
-  mMaxHP: 2500
+  mMaxHP: 7300
   mMoveSpeed: 4
   mAttackDamage: 120
   mAttackRange: 5

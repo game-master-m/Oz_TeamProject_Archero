@@ -286,7 +286,7 @@ CapsuleCollider:
   m_Radius: 1.43
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 2.06, z: 0}
+  m_Center: {x: 0, y: 2.06, z: -0.81}
 --- !u!95 &7827473005461819740
 Animator:
   serializedVersion: 5
@@ -321,14 +321,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mStatData: {fileID: 11400000, guid: 219c2425a6e22fc4887f18d7989e1b34, type: 2}
-  mExpPrefab: {fileID: 6689105999603206007, guid: 5be5fcc7674e7de4dbe9f8bb6fd4dbcb,
-    type: 3}
   mEnemyType: 1
   mDropItems:
   - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
       type: 3}
     dropChance: 0
   mCommonDropTable: {fileID: 11400000, guid: 8fde49899fc8ddb41b0c111641a5b8f4, type: 2}
+  mProjectileSpeed: 15
+  mShotAndWaitTime: 1
 --- !u!114 &5798452872230347166
 MonoBehaviour:
   m_ObjectHideFlags: 0
