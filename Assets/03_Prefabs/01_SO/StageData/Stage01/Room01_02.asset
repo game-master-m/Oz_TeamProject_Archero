@@ -39,7 +39,12 @@ MonoBehaviour:
         type: 3}
       spawnPointIndex: 6
       spawnDelay: 0
-      spawnCount: 4
+      spawnCount: 2
+    - enemyPrefab: {fileID: 6685972718334028151, guid: 19e4b26fe7b51824e9b933cc3024de73,
+        type: 3}
+      spawnPointIndex: 4
+      spawnDelay: 0
+      spawnCount: 2
   - spawnInfoList:
     - enemyPrefab: {fileID: 7860359675874047944, guid: ace81d16b76adf3499c70d53317c8558,
         type: 3}

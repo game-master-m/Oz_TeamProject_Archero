@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bat
   m_EditorClassIdentifier: 
   mMaxHP: 3000
-  mMoveSpeed: 2.5
+  mMoveSpeed: 3.5
   mAttackDamage: 80
   mAttackRange: 2.5
   mHitTiming: 0.45
