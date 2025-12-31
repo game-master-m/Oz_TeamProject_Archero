@@ -15,10 +15,10 @@ MonoBehaviour:
   stageName: Temp
   chapterID: 1
   roomDataList:
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
-  - {fileID: 11400000, guid: 60d8a4245b21f3a47985f50d1cd29d71, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}
+  - {fileID: 11400000, guid: 31d855307accb784790d1489c5b4144e, type: 2}

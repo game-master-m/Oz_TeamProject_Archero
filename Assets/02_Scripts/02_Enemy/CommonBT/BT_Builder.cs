@@ -62,6 +62,33 @@ public static class BT_Builder
         return select;
     }
 
+    public static SelectorNode ModifiedChaseAndAttackBT(EnemyBase enemy, BlackBoard board, float rotateSpeed, float hitTiming, float hitBoxOffsetForward, float hitBoxRadius, float waitTime) 
+    {
+        SelectorNode select = new SelectorNode(new List<Node>
+        {
+             GetNormalAttackBT(enemy,board,rotateSpeed,hitTiming,hitBoxOffsetForward,hitBoxRadius,waitTime),
+             new SequenceNode(new List<Node>
+             {
+                 new CMoveToNextPosNode(enemy,board),
+                 new SelectorNode(new List<Node>
+                 {
+                     new SequenceNode(new List<Node>
+                     {
+                         new ConditionNode(() => (enemy.transform.position - board.Target.position).sqrMagnitude <= 8*8),
+                         GetPatrolBT(enemy, board, 3, 0.2f, 1)
+                     }),
+
+                      new SequenceNode(new List<Node>
+                     {
+                         new ConditionNode(() => (enemy.transform.position - board.Target.position).sqrMagnitude > 8*8),
+                         new CMoveToTargetNode(enemy, board)
+                     })
+                 })
+             })
+        });
+        return select;
+    }
+
     //Chase And Shot
     public static SelectorNode GetChaseAndShotBT(EnemyBase enemy, BlackBoard board, float rotateSpeed, float shotTiming, float waitTime, float projectileSpeed, Vector3 offset, Func<EnemyProjectileBase> factory)
     {
