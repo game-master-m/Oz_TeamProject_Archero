@@ -70,6 +70,8 @@ public class EquipItemInfoUI : MonoBehaviour
         Managers.Data.UnequipItem(mItemData.ItemType);
         mOnEquipedItemData?.Raised(Managers.Data.GetEquippedItems());
         mRoot_EquipItemInfo.gameObject.SetActive(false);
+
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mEquipSound);
     }
 
     private void OnClickCloseBtn()

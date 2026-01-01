@@ -35,7 +35,7 @@ public class EquipmentSlotUI : SlotUI
     }
     public override void OnButtonClick()
     {
-        Utils.Log("버튼 클릭!");
+        base.OnButtonClick();
         mOnEquipItemSelected?.Raised(mItemData);
     }
 }

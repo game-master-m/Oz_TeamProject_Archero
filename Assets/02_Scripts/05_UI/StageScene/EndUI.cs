@@ -55,7 +55,7 @@ public class EndUI : MonoBehaviour
         ShowEndUI(killCount, roomIndex, stageNumber);
 
         //클리어 효과음
-
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mGameClearSound);
 
     }
     private void HandleShowEndUIRequest(int killCount, int roomIndex, int stageNumber)
@@ -63,7 +63,7 @@ public class EndUI : MonoBehaviour
         ShowEndUI(killCount, roomIndex, stageNumber);
 
         //죽어서 나오는 EndUI 효과음
-
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mGameOverSound);
     }
 
     private void ShowEndUI(int killCount, int roomIndex, int stageNumber)

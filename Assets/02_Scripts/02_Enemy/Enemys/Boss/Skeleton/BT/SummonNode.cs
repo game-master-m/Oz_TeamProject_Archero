@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 public class SummonNode : ActionNode
 {
-    private EnemyBase mOwner;
     private EnemyBase mSummonPrefab;
     private float mSummonPosForward;
 

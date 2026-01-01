@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemBase : MonoBehaviour
@@ -8,7 +6,7 @@ public class ItemBase : MonoBehaviour
 
     public float CurrentStack = 1;
     public int ItemID;
-    
+
     [SerializeField] private float mRotateSpeed = 2f;
     [SerializeField] private float mFloatingRange = 0.2f;
     [SerializeField] private float mFloatingSpeed = 2f;
@@ -32,7 +30,7 @@ public class ItemBase : MonoBehaviour
 
         mLifeTime += Time.deltaTime;
 
-        if (mLifeTime >= 20) 
+        if (mLifeTime >= 20)
         {
             ReturnPool();
         }

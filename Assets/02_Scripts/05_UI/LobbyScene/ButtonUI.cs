@@ -12,10 +12,10 @@ public class ButtonUI : MonoBehaviour
     public GameObject mSkillList;
     public GameObject mMonsterList;
     public GameObject mSoundPanel;
-   
+
     public void ImageOn()
     {
-        foreach(var img in mButton)
+        foreach (var img in mButton)
         {
             if (img != null)
             {
@@ -30,7 +30,7 @@ public class ButtonUI : MonoBehaviour
     public void ShowName()
     {
         mTeamName.SetActive(!mTeamName.activeSelf);
-
+        SoundManager.Instance.BtnSound();
     }
     public void ShowShop()
     {
@@ -39,6 +39,7 @@ public class ButtonUI : MonoBehaviour
             mEquip.SetActive(false);
         }
         mShop.SetActive(!mShop.activeSelf);
+        SoundManager.Instance.BtnSound();
     }
     public void ShowEquip()
     {
@@ -47,6 +48,7 @@ public class ButtonUI : MonoBehaviour
             mShop.SetActive(false);
         }
         mEquip.SetActive(!mEquip.activeSelf);
+        SoundManager.Instance.BtnSound();
     }
     public void ShowOption()
     {
@@ -54,6 +56,8 @@ public class ButtonUI : MonoBehaviour
         mEquip.SetActive(false);
 
         mOption.SetActive(true);
+
+        SoundManager.Instance.BtnSound();
     }
     public void CloseOption()
     {
@@ -63,15 +67,16 @@ public class ButtonUI : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        Utils.Log("게임종료");
     }
     public void ShowRanking()
     {
         mRanking.SetActive(true);
+        SoundManager.Instance.BtnSound();
     }
     public void ShowSkillList()
     {
         mSkillList.SetActive(true);
+        SoundManager.Instance.BtnSound();
     }
     public void CloseSkillList()
     {
@@ -80,6 +85,7 @@ public class ButtonUI : MonoBehaviour
     public void ShowMonsterList()
     {
         mMonsterList.SetActive(true);
+        SoundManager.Instance.BtnSound();
     }
     public void CloseMonsterList()
     {
@@ -89,15 +95,20 @@ public class ButtonUI : MonoBehaviour
     {
         mShop.SetActive(false);
         mEquip.SetActive(false);
+        SoundManager.Instance.BtnSound();
     }
     public void OpenSoundPanel()
     {
         mSoundPanel.SetActive(true);
+        SoundManager.Instance.BtnSound();
     }
     public void CloseSoundPanel()
     {
         mSoundPanel.SetActive(false);
     }
-    
-   
+
+    public void PlayBtnSound()
+    {
+        SoundManager.Instance.BtnSound();
+    }
 }

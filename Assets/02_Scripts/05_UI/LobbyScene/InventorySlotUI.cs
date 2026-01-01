@@ -9,6 +9,7 @@ public class InventorySlotUI : SlotUI
 
     public override void OnButtonClick()
     {
+        base.OnButtonClick();
         //아이템 인포 패널 활성화
         mOnInvenItemSelected?.Raised(mSlot);
     }

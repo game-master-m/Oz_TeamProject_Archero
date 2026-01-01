@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SkillListManager : MonoBehaviour
@@ -10,15 +9,15 @@ public class SkillListManager : MonoBehaviour
     private void Start()
     {
         gameObject.SetActive(false);
-        foreach(SkillDataSO data in mSkillDataList.AllSkills)
+        foreach (SkillDataSO data in mSkillDataList.AllSkills)
         {
             GameObject go = Instantiate(mSlotPrefab, mBox);
             go.GetComponent<SkillSlot>().Setup(data);
         }
-        
-        SkillSlot[] slots=GetComponentsInChildren<SkillSlot>();
 
-        for(int i = 0; i < slots.Length; i++)
+        SkillSlot[] slots = GetComponentsInChildren<SkillSlot>();
+
+        for (int i = 0; i < slots.Length; i++)
         {
             if (i < mSkillDataList.AllSkills.Count)
             {

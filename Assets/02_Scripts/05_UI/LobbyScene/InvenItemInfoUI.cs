@@ -89,11 +89,13 @@ public class InvenItemInfoUI : MonoBehaviour
     private void OnClickEquipBtn()
     {
         Managers.Data.EquipItem(mSlot);
+
         mRoot_InvenItemInfo.gameObject.SetActive(false);
     }
     private void OnClickSellBtn()
     {
         Managers.Data.SellItem(mSlot.itemData, mItemCount);
+
         mRoot_InvenItemInfo.gameObject.SetActive(false);
     }
     private void OnClickAddBtn()

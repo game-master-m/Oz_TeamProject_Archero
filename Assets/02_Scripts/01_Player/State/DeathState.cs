@@ -8,8 +8,8 @@ public class DeathState : PlayerState
     public override void Enter()
     {
         Utils.Log("플레이어 다이!!!~~!!");
-        Time.timeScale = 0.5f;
         mPlayer.CharacterController.enabled = false;
+        Time.timeScale = 0.5f;
     }
     public override void Update()
     {

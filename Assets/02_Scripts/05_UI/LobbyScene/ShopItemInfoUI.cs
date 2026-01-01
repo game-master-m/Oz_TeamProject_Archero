@@ -75,6 +75,8 @@ public class ShopItemInfoUI : MonoBehaviour
         Managers.Data.AddGold(-mItemBuyPrice);
 
         mRoot_ShopItemInfo.gameObject.SetActive(false);
+
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mSellItemSound);
     }
 
     private void OnClickCloseBtn()

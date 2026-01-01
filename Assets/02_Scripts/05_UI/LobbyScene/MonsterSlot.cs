@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +5,13 @@ public class MonsterSlot : MonoBehaviour
 {
     public Image iconImage;
     private MonsterData monsterData;
-    private Button button;
+    [SerializeField] private Button mButton;
+
+    private void Awake()
+    {
+        mButton.onClick.RemoveListener(PlayBtnSound);
+        mButton.onClick.AddListener(PlayBtnSound);
+    }
 
     public void Setup(MonsterData data)
     {
@@ -17,5 +21,9 @@ public class MonsterSlot : MonoBehaviour
     public void ShowSlot()
     {
         SkillText.Instance.ShowMonsterList(monsterData);
+    }
+    private void PlayBtnSound()
+    {
+        SoundManager.Instance.BtnSound();
     }
 }

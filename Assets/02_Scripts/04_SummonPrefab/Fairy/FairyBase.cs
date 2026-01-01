@@ -39,7 +39,6 @@ public abstract class FairyBase : MonoBehaviour
 
     //플레이어 스텟 참조
     private static float mAttackDamage;
-    private static float mFairyDamageDuplicater = 1.0f;
 
     //코루틴용
     private static WaitForSeconds mWaitAttack;
@@ -67,7 +66,7 @@ public abstract class FairyBase : MonoBehaviour
 
     private void Update()
     {
-        if (mTargetTransform != null) 
+        if (mTargetTransform != null)
         {
             transform.LookAt(mTargetTransform.position, Vector3.up);
         }
@@ -110,7 +109,7 @@ public abstract class FairyBase : MonoBehaviour
         }
 
         mTargetTransform = closestEnemy;
-        if (closestEnemy != null) 
+        if (closestEnemy != null)
         {
             transform.LookAt(closestEnemy.position + mTargetOffset, Vector3.up);
         }

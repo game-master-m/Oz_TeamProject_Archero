@@ -127,6 +127,8 @@ public class SkillAnimation : MonoBehaviour
 
         //각 슬랏들 다 실행
         ProcessGradeSpin(index);
+
+
     }
 
     private void HandleReelEnd()
@@ -162,6 +164,9 @@ public class SkillAnimation : MonoBehaviour
 
     private void ProcessGradeSpin(int index)
     {
+        //슬롯머신 돌아가는 사운드 시작
+        SoundManager.Instance.PlaySfxUnique(SoundManager.Instance.mSlotRotationSound);
+
         ChangeGradeImages(mCurrentGrade);
 
         if (mCurrentGrade == mFinalSkill.skillGrade)
@@ -169,8 +174,11 @@ public class SkillAnimation : MonoBehaviour
             float finalDuration = mCurrentGradeSpinDuration + (index * mFinalDelay);
             mCurrentDelayedCall = DOVirtual.DelayedCall(finalDuration, () =>
             {
+
                 mSlotEffect.StopSpin(mFinalSkill.icon, () =>
                 {
+                    SoundManager.Instance.StopSfxSound();
+                    SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mSlotSeletSound);
                     ExpandUI(index);
                 });
             }).SetUpdate(true);
@@ -179,8 +187,11 @@ public class SkillAnimation : MonoBehaviour
         {
             mCurrentDelayedCall = DOVirtual.DelayedCall(mCurrentGradeSpinDuration, () =>
             {
+                //슬롯머신 사운드 끄고
+                SoundManager.Instance.StopSfxSound();
                 UpgradeFlashFI(() =>
                 {
+
                     //등급이 올라감
                     mCurrentGrade++;
 
@@ -244,6 +255,22 @@ public class SkillAnimation : MonoBehaviour
 
     private void UpgradeFlashFI(System.Action onComplete)
     {
+        //스킬등급 교체 번쩍임 효과 사운드 시작
+        switch (mCurrentGrade)
+        {
+            case ESkillGrade.Normal:
+                SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mUpgradeFlashSound_Normal);
+                break;
+            case ESkillGrade.Expert:
+                SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mUpgradeFlashSound_Expert);
+                break;
+            case ESkillGrade.Epic:
+                SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mUpgradeFlashSound_Epic);
+                break;
+            default:
+                break;
+        }
+
         for (int i = 0; i < mLightGradeChangeImages.Length; i++)
         {
             mLightGradeChangeImages[i].color = new Color(1.0f, 1.0f, 1.0f, 0.0f);

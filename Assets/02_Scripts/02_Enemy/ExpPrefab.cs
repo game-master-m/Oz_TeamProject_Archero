@@ -78,6 +78,7 @@ public class ExpPrefab : MonoBehaviour
         //프로젝트 셋팅의 레이어 충돌 매트릭스에서 Player와만 충돌하도록 설정했으므로 태그 체크 불필요
         //if (!other.CompareTag(Define.Tag_Player)) return;
         mOnGetExpRequest.Raised(mExpAmount);
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mGetExpSound);
         Managers.Pool.ReturnToPool(this);
     }
 
