@@ -164,7 +164,11 @@ public class EnemyBase : LivingEntity
         mTarget = target;
         Board.Target = target;
     }
-
+    public override void TakeDamage(float amount, EDmgElement element, bool isCritical = false)
+    {
+        base.TakeDamage(amount, element, isCritical);
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mMonsterHitSound);
+    }
     public override void Die()
     {
         // 1. 움직임 멈춤
@@ -190,6 +194,10 @@ public class EnemyBase : LivingEntity
         // 6. StageManager에게 알리기 (필요시 이벤트나 매니저 호출)
 
         // 7. 애니메이션 재생 후 풀로 반환(각 DeathState에서 제어하자)
+
+        // 8. 에너미 죽음 사운드
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mMonsterDieSound);
+
         base.Die();
     }
 

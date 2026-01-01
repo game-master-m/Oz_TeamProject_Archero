@@ -14,7 +14,10 @@ public abstract class SlotUI : MonoBehaviour
         mIconBtn.onClick.RemoveAllListeners();
         mIconBtn.onClick.AddListener(OnButtonClick);
     }
-    public abstract void OnButtonClick();
+    public virtual void OnButtonClick()
+    {
+        SoundManager.Instance.BtnSound();
+    }
 
     public virtual void SetItemData(ItemSlot slot, Transform parent)
     {

@@ -1,20 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class SkillSlot : MonoBehaviour
 {
     public Image mIconImage;
     private SkillDataSO mSkillDataSO;
-    private Button mButton;
+    [SerializeField] private Button mButton;
 
     private void Awake()
     {
-        mButton = GetComponent<Button>();
-        if (mButton != null)
-        {
-            mButton.onClick.AddListener(ShowSlot);
-        }
+        mButton.onClick.RemoveAllListeners();
+        mButton.onClick.AddListener(ShowSlot);
+        mButton.onClick.AddListener(PlayBtnSound);
     }
     public void Setup(SkillDataSO dataSO)
     {
@@ -23,7 +20,7 @@ public class SkillSlot : MonoBehaviour
 
         if (mIconImage != null && dataSO != null)
         {
-            mIconImage.sprite=dataSO.icon;
+            mIconImage.sprite = dataSO.icon;
         }
 
     }
@@ -35,5 +32,9 @@ public class SkillSlot : MonoBehaviour
         }
         //SkillText.Instance.Show(mSkillDataSO);
     }
-   
+    public void PlayBtnSound()
+    {
+        SoundManager.Instance.BtnSound();
+
+    }
 }

@@ -17,7 +17,7 @@ public class PlayerStat : LivingEntity
     public float AttackRange { get; private set; }
 
 
-    private float mDieDelay = 0.5f;
+    private readonly float mDieDelay = 0.4f;
     private WaitForSeconds mWaitDieDelay;
 
     private void Awake()
@@ -78,6 +78,7 @@ public class PlayerStat : LivingEntity
                 break;
         }
     }
+
     public void AddDamage(float amount)
     {
         AttackDamage += amount;
@@ -138,6 +139,11 @@ public class PlayerStat : LivingEntity
     }
     #endregion
 
+    public override void TakeDamage(float amount, EDmgElement element, bool isCritical = false)
+    {
+        base.TakeDamage(amount, element, isCritical);
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mPlayerHitSound);
+    }
     public override void Die()
     {
         base.Die();

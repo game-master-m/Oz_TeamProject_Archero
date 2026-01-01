@@ -32,7 +32,6 @@ public class StageManager : MonoBehaviour
     // 상태 변수
     private int mCurrentRoomIndex = 0;
     private int mAliveEnemyCount = 0;
-    private bool bIsBattleActive = false;
     private StageMap mCurrentMapInstance;
 
     // 천사슬라임 여부
@@ -122,7 +121,6 @@ public class StageManager : MonoBehaviour
         // [맵 교체 로직 시작] ==============================================
         GenerateMap();
 
-        bIsBattleActive = true;
 
         //문 사용 시 추가할 내용들 ------------------------------------------------
         //if (mDoorObject != null) mDoorObject.SetActive(true); // 문 닫기
@@ -286,7 +284,6 @@ public class StageManager : MonoBehaviour
     private void RoomClear()
     {
         Utils.Log($"Room {mCurrentRoomIndex} Clear!");
-        bIsBattleActive = false;
 
         if (mDoorObject != null) mDoorObject.SetActive(false); // 문 열기
 
@@ -336,7 +333,7 @@ public class StageManager : MonoBehaviour
     private void HandlePlayerDie()
     {
         //플레이어 죽음 관련 처리들
-
+        Time.timeScale = 0.0f;
         //1. 죽음발송(현재까지의 킬 카운트, 현재 룸 번호(-1), 현재 스테이지 넘버)
         mOnShowEndUIRequest.Raised(mKillCount, mCurrentRoomIndex, mStageData.ChapterID);
     }
@@ -351,6 +348,5 @@ public class StageManager : MonoBehaviour
         mCurrentRoomIndex = 0;
         mAliveEnemyCount = 0;
         mKillCount = 0;
-        bIsBattleActive = false;
     }
 }

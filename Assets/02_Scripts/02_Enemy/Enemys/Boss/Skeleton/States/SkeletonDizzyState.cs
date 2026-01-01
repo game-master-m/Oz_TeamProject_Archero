@@ -15,7 +15,10 @@ public class SkeletonDizzyState : SkeletonState
             mSkeleton.Agent.velocity = Vector3.zero;
             mSkeleton.Agent.isStopped = true;
         }
-
+        if (mSkeleton.Board.DizzyEffectPrefab != null)
+        {
+            mSkeleton.Board.DizzyEffectPrefab.ExecuteEffect();
+        }
         Vector3 worldSpawnPos = mSkeleton.transform.TransformPoint(spawnOffset);
 
         mDizzyEffect = Managers.Pool.GetFromPool(mSkeleton.Board.DizzyEffectPrefab);

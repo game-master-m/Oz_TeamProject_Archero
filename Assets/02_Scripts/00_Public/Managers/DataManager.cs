@@ -281,6 +281,9 @@ public class DataManager : MonoBehaviour
         // 4. 알림
         //로비 Inventory UI update
         mOnInvenItemSlots?.Raised(mInventoryItemSlots);
+
+        // 5. 사운드 재생
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mGetCoinSound);
     }
 
     public int GetTotalItemCount(ItemDataSO item)
@@ -329,11 +332,12 @@ public class DataManager : MonoBehaviour
         // 4. 장착 딕셔너리에 추가
         mEquipedItemDic[itemToEquip.ItemType] = itemToEquip;
 
-        // UI 업데이트 알림 발송 필요
+        // 5. UI 업데이트 알림 발송 필요
         mOnInvenItemSlots.Raised(mInventoryItemSlots);
         mOnEquipedItemData?.Raised(mEquipedItemDic);
 
-        Utils.Log($"{itemToEquip.ItemName}을 {itemToEquip.ItemType} 슬롯에 장착했습니다.");
+        // 6. 사운드 재생
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mEquipSound);
     }
 
     public void UnequipItem(EItemType type)

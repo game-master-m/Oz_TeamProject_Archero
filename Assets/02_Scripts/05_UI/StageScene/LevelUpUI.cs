@@ -106,27 +106,8 @@ public class LevelUpUI : MonoBehaviour
             if (!selectedSkill.isStacking)
             {
                 ESkillGrade grade = selectedSkill.skillGrade;
-                if (mSkillDic.TryGetValue(grade, out List<SkillDataSO> skillList))
-                {
-                    bool isRemoved = skillList.Remove(selectedSkill);
-                    if (isRemoved)
-                    {
-                        Utils.Log($"[SkillSystem] {selectedSkill.skillName}이 리스트에서 제거되었습니다.");
-                    }
-                    else
-                    {
-                        Utils.Log($"[SkillSystem] {selectedSkill.skillName} 삭제 실패! 리스트에 존재하지 않음.");
-                    }
-                }
-                else
-                {
-                    Utils.Log("스태킹 스킬이 아니지만, mSkillDic의 grade키값에 해당하는 리스트가 없습니다.");
-                }
             }
-            else
-            {
-                Utils.Log("스태킹 스킬!!");
-            }
+
             Utils.Log($"Skill Added: {selectedSkill.skillName}");
         }
 

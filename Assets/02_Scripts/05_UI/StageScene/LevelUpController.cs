@@ -59,6 +59,8 @@ public class LevelUpController : MonoBehaviour
             mCurrentExp = 0;
             mRequiredExp *= mExpMultiplier; // 필요 경험치 증가
             mCurrentLev++;
+            //레벨업 사운드
+            SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mLevelUpSound);
 
             //여기서 전투씬 레벨 전달
             onLevelChange?.Invoke(mCurrentLev);
