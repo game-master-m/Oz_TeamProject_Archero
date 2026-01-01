@@ -141,6 +141,11 @@ public class StageProgressUI : MonoBehaviour
             mRoomImages[2].gameObject.SetActive(true);
             mRightArrowImage.enabled = true;
         }
+        if (currentRoomNum > mTotalRoomCount)
+        {
+            mAlwaysBattleImage.gameObject.SetActive(false);
+            mAlwaysRoomImage.gameObject.SetActive(false);
+        }
 
     }
 

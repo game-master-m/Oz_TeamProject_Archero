@@ -18,7 +18,7 @@ public class ShopSlotUI : SlotUI
 
         mStackText.SetText("");
         mIconBtn.image.sprite = data.ItemSprite;
-        transform.SetParent(parent);
+        transform.SetParent(parent, false);
     }
     public override void OnButtonClick()
     {

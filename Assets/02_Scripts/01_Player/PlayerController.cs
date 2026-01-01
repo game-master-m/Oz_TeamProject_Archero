@@ -118,10 +118,6 @@ public class PlayerController : MonoBehaviour
 
         //attack
         mStateMachine.AddTransition(mThrowState, mStopState, () => !IsFindEnemy || Attack.IsAutoTurret);
-        //move2
-        //mStateMachine.AddTransition(mMoveState, mThrowState, () => mCurrentSpeedSqr < 0.01f);
-
-
     }
     #endregion
 
@@ -187,10 +183,10 @@ public class PlayerController : MonoBehaviour
         return closestEnemy;
     }
 
-    private void MoveEnemyMarker(Transform target) 
+    private void MoveEnemyMarker(Transform target)
     {
-        if (target == null) 
-        { 
+        if (target == null)
+        {
             EnemyMarker.SetActive(false);
             return;
         }

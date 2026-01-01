@@ -86,7 +86,7 @@ public class InventoryUI : MonoBehaviour
         // 1. 기존에 활성화된 슬롯들을 모두 Pool로 반납
         foreach (var slot in mActiveInvenSlots)
         {
-            slot.transform.SetParent(Managers.Pool.transform);
+            slot.transform.SetParent(Managers.Pool.transform, false);
             slot.ReturnToPool();
         }
         mActiveInvenSlots.Clear();

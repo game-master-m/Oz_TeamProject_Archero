@@ -24,11 +24,12 @@ public abstract class SlotUI : MonoBehaviour
         mSlot = slot;
         mIconBtn.image.sprite = mSlot.itemData.ItemSprite;
         mStackText.SetText(Utils.IntAppend(mSlot.currentStack));
-        transform.SetParent(parent);
+        transform.SetParent(parent, false);
     }
 
     public void ReturnToPool()
     {
+        transform.SetParent(Managers.Pool.transform, false);
         Managers.Pool.ReturnToPool(this);
     }
 }
