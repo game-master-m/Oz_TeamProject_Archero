@@ -33,9 +33,6 @@ public class DragonThirdPhaseState : DragonState
 
     private void BuildBT()
     {
-        // ---------------------------------------------------------
-        // A. 근접 대응 콤보 (Melee -> Point Blank Spread)
-        // ---------------------------------------------------------
         Node meleeCombo = new SequenceNode(new List<Node>
         {
             new ConditionNode(() => Vector3.SqrMagnitude(mDragon.transform.position - mDragon.Target.position) <= mDragon.AttackRange*mDragon.AttackRange),
@@ -53,9 +50,6 @@ public class DragonThirdPhaseState : DragonState
             new WaitNode(mDragon, 0.5f)
         }, true);
 
-        // ---------------------------------------------------------
-        // B. 원거리 추격 콤보 (Dash -> Fan Shot)
-        // ---------------------------------------------------------
         Node gapCloserCombo = new SequenceNode(new List<Node>
         {
             new ConditionNode(() => (mDragon.Target.position - mDragon.transform.position).sqrMagnitude > 450.0f),
@@ -78,12 +72,8 @@ public class DragonThirdPhaseState : DragonState
             new WaitNode(mDragon, 0.8f)
         }, true);
 
-        // ---------------------------------------------------------
-        // C. 지옥의 탄막 패턴 (Phase 2 패턴의 강화 및 혼합)
-        // ---------------------------------------------------------
         Node hellPattern = new RandomSelectorNode(new List<Node>
         {
-            // 패턴 1: 화염의 길 예측 샷
             new SequenceNode(new List<Node>{
                 new SummonFireTrailNode(mDragon, mDragon.Board, 1.0f, mSpawnOffset2),
                 new PredictVolleyNode(mDragon, mDragon.Board, 20, mMoveSpeed, mFireInterval, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
@@ -96,17 +86,14 @@ public class DragonThirdPhaseState : DragonState
                     return true;
                 }),
             }),
-            // 패턴 2: 유도탄 + 확산탄
             new SequenceNode(new List<Node>{
                 new FanShotNode(mDragon, mDragon.Board, 5, 12.0f, 0.5f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
                 new SpreadVollyNode(mDragon, mDragon.Board, 12, mMoveSpeed, 0.05f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.SmallFireBall)),
             }),
-            // 패턴 3: 빅 파이어볼 연사
             new SequenceNode(new List<Node>{
                 new NormalShotNode(mDragon, mDragon.Board, 10.0f, 1.0f, 1.0f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
                 new NormalShotNode(mDragon, mDragon.Board, 10.0f, 1.0f, 1.0f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.BigFireBall)),
             }),
-            //
             new SequenceNode(new List<Node>{
                 new SummonFireTrailNode(mDragon, mDragon.Board, 1.0f, mSpawnOffset2),
                 new SpreadVollyNode(mDragon, mDragon.Board, 12, mMoveSpeed, 0.05f, mSpawnOffset, () => Managers.Pool.GetFromPool(mDragon.Board.HomingFireBall)),
@@ -123,19 +110,13 @@ public class DragonThirdPhaseState : DragonState
             }),
         });
 
-        // ---------------------------------------------------------
-        // D. 메인 사이클 (Selector 기반 우선순위 결정)
-        // ---------------------------------------------------------
         mPhase3BT = new RepeaterNode(
             new SelectorNode(new List<Node>
             {
-                // 1순위: 너무 멀면 대쉬로 붙어서 공격
                 gapCloserCombo,
-                
-                // 2순위: 너무 가까우면 근접 공격 후 탄막
+
                 meleeCombo,
 
-                // 3순위: 상시 패턴 및 이동
                 new SequenceNode(new List<Node>
                 {
                     new RotateToTargetNode(mDragon, mDragon.Board, 15.0f),

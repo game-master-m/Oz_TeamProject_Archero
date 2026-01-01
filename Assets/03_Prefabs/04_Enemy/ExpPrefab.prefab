@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ea68d7fe137d4798c32e0089b78fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMoveSpeed: 25
+  mMoveSpeed: 30
   mExpAmount: 10
   offset: {x: 0, y: 0.5, z: 0}
   mRotateSpeed: 100
