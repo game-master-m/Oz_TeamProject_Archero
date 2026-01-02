@@ -68,7 +68,8 @@ public class PlayerAttack : MonoBehaviour
         {
             projectile.transform.position = transform.position + mProjectileOffeset;
             projectile.Setup(mArrowStrategies, mStat.AttackDamage, mStat.AttackRange, firstTarget);
-            SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mPlayerAttackSound);
+
+            //SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mPlayerAttackSound);
         }
         return projectile;
     }
