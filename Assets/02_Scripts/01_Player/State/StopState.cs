@@ -23,6 +23,11 @@ public class StopState : PlayerState
                 mPlayer.CheckEnemyInRangeCo = mPlayer.StartCoroutine(mPlayer.CheckEnemyInAttackRange());
             }
         }
+        //else
+        //{
+        //    mPlayer.StopCoroutine(mPlayer.CheckEnemyInRangeCo);
+        //    mPlayer.CheckEnemyInRangeCo = null;
+        //}
     }
     public override void Update() { }
     public override void FixedUpdate() { }

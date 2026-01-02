@@ -85,6 +85,8 @@ public class Projectile : MonoBehaviour
             return;
         }
 
+        SoundManager.Instance.PlaySfxSound(SoundManager.Instance.mPlayerAttackSound);
+
         //각각 전략들의 초기화 로직
         foreach (var strategy in mStrategies)
         {
