@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ad4fe2fe85cff44d8f540355776f22b, type: 3}
+  m_Name: MoveSpeed_UP_Normal
+  m_EditorClassIdentifier: 
+  skillName: "\uBC14\uB78C\uC758 \uC228\uACB0"
+  description: "\uD50C\uB808\uC774\uC5B4\n\uC774\uB3D9\uC18D\uB3C4 +10%"
+  icon: {fileID: 21300000, guid: ad865aa320d119642b29479e2b1ace8f, type: 2}
+  skillGrade: 1
+  isStacking: 1
+  mMoveSpeedMultiplier: 1.1

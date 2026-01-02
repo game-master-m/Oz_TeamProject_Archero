@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb6ce60a4152ae6418497e83817be3cc, type: 3}
+  m_Name: RearArrow_Normal
+  m_EditorClassIdentifier: 
+  skillName: "\uD6C4\uBC29 \uD654\uC0B4"
+  description: "\uD6C4\uBC29 \uD654\uC0B4 +1"
+  icon: {fileID: 21300000, guid: 159f1852c8fa94f43abf1baed0dbb78c, type: 2}
+  skillGrade: 1
+  isStacking: 0

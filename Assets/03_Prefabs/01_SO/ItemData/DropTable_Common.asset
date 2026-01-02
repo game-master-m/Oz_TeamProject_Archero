@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9fb4dd6cc8144d4ca3d1663f5de22cc, type: 3}
+  m_Name: DropTable_Common
+  m_EditorClassIdentifier: 
+  commonDrops:
+  - itemPrefab: {fileID: 4894119572185291412, guid: 7f16cca208b4e56459ca2d4252f807ac,
+      type: 3}
+    dropChance: 0.05
+  - itemPrefab: {fileID: -4353356503459523067, guid: a9e03e07cb531c042aab9b5c3ba2132e,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: 7633832424371969034, guid: 0e6129b5ec4eeaf4a8e9ca69ad4cedc3,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: -7650303364173208045, guid: cc2a596d72c79d74a882b4a1ccc6c9b3,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: -8955177818930452706, guid: 6d12ae41d46350c49970aa9a0167156c,
+      type: 3}
+    dropChance: 0.01
+  - itemPrefab: {fileID: 2440946845273121827, guid: c55f9ba493d5b2545800b15ba424920e,
+      type: 3}
+    dropChance: 0.005
+  - itemPrefab: {fileID: -5676699353080961786, guid: f0d8404bb1fa49246a0962a6c9324083,
+      type: 3}
+    dropChance: 0.001

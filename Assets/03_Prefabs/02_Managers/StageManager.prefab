@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5166930337996527343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1043583758089095655}
+  - component: {fileID: 8785818998469755304}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1043583758089095655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166930337996527343}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8785818998469755304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166930337996527343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10d2af67ec90d04d9e59ee9dcd7aabd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mOnRoomClear: {fileID: 11400000, guid: f963f027679763248b75649d9f30ae06, type: 2}
+  mOnLevelUpPlayer: {fileID: 11400000, guid: 2c06f072d672f824a99527fa99ada666, type: 2}
+  mOnStageClear: {fileID: 11400000, guid: 00a83b1d54b6e30478e9ddcc21576c57, type: 2}
+  mOnShowEndUIRequest: {fileID: 11400000, guid: ac657fa318aa4ba40b15267d95b240f0,
+    type: 2}
+  mOnNoticeLastRoom: {fileID: 11400000, guid: 4501eea442c30844385ce699759bf33c, type: 2}
+  mOnStageProgressStart: {fileID: 11400000, guid: d6a37556400e8734b936286fe5606b0c,
+    type: 2}
+  mOnRoomNumChange: {fileID: 11400000, guid: 250dbc88cd1d3d74a97c5705321d2de1, type: 2}
+  mOnPlayerDie: {fileID: 11400000, guid: 77db8a905e33d6f459782502bdefd6d6, type: 2}
+  mOnSceneChanged: {fileID: 11400000, guid: f4a4e8fe2d455754ba9006fb0f0ab2d1, type: 2}
+  mSpawnRadius: 3.5
+  mSummonEffectPrefab: {fileID: 8724561738059847795, guid: 8d45be96f3e36b04c85d5f3544ffc996,
+    type: 3}
+  mExpSpawner: {fileID: 116594566662767100, guid: 91c7f201bad93b04faba792f4d88bafc,
+    type: 3}

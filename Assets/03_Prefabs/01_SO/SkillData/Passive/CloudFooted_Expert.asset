@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fe50f4deb824d4c9782c15dfaadca5, type: 3}
+  m_Name: CloudFooted_Expert
+  m_EditorClassIdentifier: 
+  skillName: "\uBC14\uB78C \uC9C8\uC8FC"
+  description: "3\uCD08\uB9C8\uB2E4\n\uBC14\uB78C \uACF5\uACA9"
+  icon: {fileID: 21300000, guid: 1542b32ffcf502541b50af520aff3e42, type: 2}
+  skillGrade: 2
+  isStacking: 0
+  EffectPrefab: {fileID: -3402068849359981943, guid: 1b1542835364a3949bd9e56531910bda,
+    type: 3}
+  EffectDuration: 1.5
+  DamageCount: 1
+  DamageTick: 0.1
+  DamageDuplicater: 0.5
+  DamageDelay: 3
+  KnockBackRadius: 2
+  KnockBackForce: 2

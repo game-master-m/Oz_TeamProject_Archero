@@ -1,13 +1,13 @@
 
 public abstract class PlayerState : IState
 {
-    protected readonly PlayerController player;
-    protected float elapsedTimeBase = 0f;
+    protected readonly PlayerController mPlayer;
+    protected float mElapsedTimeBase = 0f;
     public IState Parent { get; }
 
     public PlayerState(PlayerController player, IState parent = null)
     {
-        this.player = player;
+        this.mPlayer = player;
         Parent = parent;
     }
 

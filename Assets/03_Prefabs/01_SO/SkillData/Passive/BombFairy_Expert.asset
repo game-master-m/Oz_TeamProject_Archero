@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 837b4037a5b43de4899dcd3e28f5f21f, type: 3}
+  m_Name: BombFairy_Expert
+  m_EditorClassIdentifier: 
+  skillName: "\uD3ED\uD0C4\uC815\uB839"
+  description: "\uD3ED\uD0C4\uC815\uB839\uC744\n\uC18C\uD658\uD569\uB2C8\uB2E4"
+  icon: {fileID: 21300000, guid: ccf8210c2903b204fbf0577be623f6ce, type: 2}
+  skillGrade: 2
+  isStacking: 0
+  BombFairyPrefab: {fileID: 105101342948433968, guid: 162083a3d7e821b4ea65d90f50390f23,
+    type: 3}
+  ElementNumber: 4
+  SeatNumber: 2
+  BombCount: 5
+  BombThrowTick: 0.25
+  DamageDuplicater: 0.4
+  BombRange: 1
+  BombHeights: 3

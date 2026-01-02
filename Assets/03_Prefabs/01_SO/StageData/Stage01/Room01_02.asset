@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf69ff5fde247cc4789be46188e0fdea, type: 3}
+  m_Name: Room01_02
+  m_EditorClassIdentifier: 
+  bIsBoosRoom: 0
+  mapPrefab: {fileID: 2259268359442540368, guid: 643acaaaea1984c4499542501f51aa94,
+    type: 3}
+  waveDataList:
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 8509940458467284330, guid: d656f2e9819f390409bb0790f196d34a,
+        type: 3}
+      spawnPointIndex: 3
+      spawnDelay: 0
+      spawnCount: 4
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 7369603945038555379, guid: 9770b71f09402ee409b703a200574b4f,
+        type: 3}
+      spawnPointIndex: 9
+      spawnDelay: 0
+      spawnCount: 3
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 6984438234807079179, guid: ebfc61dfd791bbb4a8757f0d407e476c,
+        type: 3}
+      spawnPointIndex: 1
+      spawnDelay: 0
+      spawnCount: 3
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 6685972718334028151, guid: 19e4b26fe7b51824e9b933cc3024de73,
+        type: 3}
+      spawnPointIndex: 6
+      spawnDelay: 0
+      spawnCount: 2
+    - enemyPrefab: {fileID: 6685972718334028151, guid: 19e4b26fe7b51824e9b933cc3024de73,
+        type: 3}
+      spawnPointIndex: 4
+      spawnDelay: 0
+      spawnCount: 2
+  - spawnInfoList:
+    - enemyPrefab: {fileID: 7860359675874047944, guid: ace81d16b76adf3499c70d53317c8558,
+        type: 3}
+      spawnPointIndex: 7
+      spawnDelay: 0
+      spawnCount: 4

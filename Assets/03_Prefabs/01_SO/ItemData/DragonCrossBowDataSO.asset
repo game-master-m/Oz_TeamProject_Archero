@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 123d1a05f9ee12d4ead28a3b5b745ec7, type: 3}
+  m_Name: DragonCrossBowDataSO
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 519bc150c50054d48916f99eade1a3e4, type: 2}
+  ItemType: 0
+  ItemEffect: 1
+  EffectAmount: 30
+  MaxStack: 10
+  ItemCost: 9999
+  SellPrice: 4545
+  ItemName: "\uC11D\uAD81"
+  Description: "\uACF5\uACA9\uB825\uC0C1\uC2B9\n+30"

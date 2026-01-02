@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cba166fa5b7c84190bb45d7c9cf6dd, type: 3}
+  m_Name: Stage01
+  m_EditorClassIdentifier: 
+  stageName: Temp
+  chapterID: 1
+  roomDataList:
+  - {fileID: 11400000, guid: 17e196d606f7d484ba70835720ea065f, type: 2}
+  - {fileID: 11400000, guid: 1a1f3fc2a0d7d8445b56a6d98d053b6e, type: 2}
+  - {fileID: 11400000, guid: d4bb41f8aa686e64d86fc48c50fc5073, type: 2}
+  - {fileID: 11400000, guid: c455a84813793e54c81a2bd824c1d455, type: 2}
+  - {fileID: 11400000, guid: fc34212cc5a8e3f4f9a0a272f40dde27, type: 2}
+  - {fileID: 11400000, guid: 254e2e572a2085643a2f1e0e6c29a54f, type: 2}
+  - {fileID: 11400000, guid: 0acb318b5f63e14439914156041cb1e3, type: 2}
+  - {fileID: 11400000, guid: 541e7a9c9697c3b4399742adfead20f8, type: 2}
+  - {fileID: 11400000, guid: 86aa3912358859f4ca9218509f4944ab, type: 2}
+  - {fileID: 11400000, guid: 2bf420d07d92012418ca44fcedc3f9b3, type: 2}
+  - {fileID: 11400000, guid: c120b85b881831042873147639c8e82c, type: 2}
+  - {fileID: 11400000, guid: 8f62947aa0b67a64bbc5d26e12f3ebd9, type: 2}
+  - {fileID: 11400000, guid: 2097372817865d44bb3162cd81860c81, type: 2}
+  - {fileID: 11400000, guid: 3f9d135f8a3cec742913ac276ba27fda, type: 2}
+  - {fileID: 11400000, guid: 4bdffc0bfaab77341a8fc4f0f9320a7b, type: 2}
+  - {fileID: 11400000, guid: b593e58c4dcf1f44cab47d397257a042, type: 2}
+  - {fileID: 11400000, guid: 2d3b80bbc76afcf47873618647f9a852, type: 2}
+  - {fileID: 11400000, guid: b6c9923019901ac4d9979a712d899033, type: 2}
+  - {fileID: 11400000, guid: 8346874f59b39b742aa70f03b612543b, type: 2}
+  - {fileID: 11400000, guid: 9d1cc37338bdeae468e570ac3198b890, type: 2}

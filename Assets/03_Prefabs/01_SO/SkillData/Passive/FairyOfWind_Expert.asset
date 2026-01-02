@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b38f0a1eef195ea45bc5742ad92e5d56, type: 3}
+  m_Name: FairyOfWind_Expert
+  m_EditorClassIdentifier: 
+  skillName: "\uBC14\uB78C\uC758 \uC694\uC815"
+  description: "\uD50C\uB808\uC774\uC5B4\n\uACF5\uACA9\uC18D\uB3C4 +10%\n\uC774\uB3D9\uC18D\uB3C4
+    +10%"
+  icon: {fileID: 21300000, guid: 45f2948b05e0a9d40aa709dd07ab0090, type: 2}
+  skillGrade: 2
+  isStacking: 1
+  mMoveSpeedMultiplier: 1.1
+  mAttackSpeedMultiplier: 1.1

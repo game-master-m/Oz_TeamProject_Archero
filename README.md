@@ -104,19 +104,22 @@ Assets/
 │   │   │   ├── Defines.cs      # [Const] 태그, 레이어, 씬 이름, Enum 상수 정의
 │   │   │   ├── LivingEntity.cs # [Base] HP를 가지는 모든 생명체의 최상위 부모 클래스
 │   │   │   ├── ObjectPool.cs   # [Logic] 제네릭 기반 오브젝트 풀링 알고리즘
+│   │   │   ├── StageInitialize.cs  # 각 Stage 초기화 및 Create Pool
+│   │   │   ├── StageMap.cs     # 각 룸에 해당하는 바탕맵을 풀링하기 위한 스크립트
 │   │   │   ├── StateMachine.cs # [Logic] HFSM 상태 머신 베이스 클래스
 │   │   │   └── Utils.cs        # [Tool] 디버그 로그 및 헬퍼 함수 모음
 │   │   │
 │   │   ├── Managers/           # [Singleton] 게임 전반을 관리하는 매니저들
 │   │   │   ├── GameManager.cs  # 게임 상태(전투, 일시정지, 종료) 관리
 │   │   │   ├── PoolManager.cs  # ObjectPool을 실제로 생성하고 관리하는 매니저
-│   │   │   ├── StageManager.cs  # 방 입장, 웨이브 스폰, 문 개방 로직 담당
+│   │   │   ├── StageManager.cs # 방 입장, 웨이브 스폰, 문 개방 로직 담당
 │   │   │   └── Managers.cs     # 다른 매니저들에 접근하기 위한 진입점 (EntryPoint)
 │   │   │
 │   │   ├── SO/                 # [ScriptableObject] 데이터 클래스 정의 (설계도)
 │   │   │   ├── EventChannelSO/ # 옵저버 패턴용 이벤트 채널 정의
 │   │   │   ├── SkillDataSO/    # 스킬 속성 정의 및 전략 객체 생성(Factory) 로직
 │   │   │   ├── StatDataSO/     # 캐릭터/적의 기본 능력치 데이터 정의
+│   │   │   ├── StageDataSO/    # Stage, Room data
 │   │   │   ├── LevelDataSO/    # 레벨별 요구 경험치 테이블 정의
 │   │   │   └── ItemDataSO/     # 아이템 드랍 및 속성 정의
 │   │   │
@@ -124,26 +127,31 @@ Assets/
 │   │
 │   ├── 01_Player/              # 플레이어 관련 로직
 │   │   ├── PlayerController.cs # 입력 처리(Input System) 및 이동(CharacterController)
+│   │   ├── PlayerAttack.cs     # 공격 처리(Active(멈춤), Passive)
 │   │   ├── PlayerStat.cs       # StatDataSO를 참조하여 런타임 능력치 관리
-│   │   ├── PlayerLevel.cs      # LevelDataSO를 참조하여 경험치 및 레벨업 관리
+│   │   ├── (X)PlayerLevel.cs   # LevelDataSO를 참조하여 경험치 및 레벨업 관리 => 각 Stage에 있는 LevelUpController에 이관
 │   │   └── State/              # 플레이어 상태 클래스 (Idle, Move, StopState)
 │   │
 │   ├── 02_Enemy/               # 적 AI 관련 로직
 │   │   ├── EnemyBase.cs        # NavMeshAgent 기반 적 공통 로직 (LivingEntity 상속)
+│   │   ├── EnemyState.cs       # 각 Enemy 상태 클래스 부모
+│   │   ├── ExpPrefab.cs        # Enemy가 죽을 때 생성하는 경험치 프리팹
 │   │   ├── Enemys/             # 개별 몬스터 구현 (근거리, 원거리, 보스)
 │   │   └── State/              # 적 FSM 상태 클래스
 │   │
 │   ├── 03_Skill/               # [Strategy Pattern] 스킬 시스템 코어
 │   │   ├── Active/             # 능동 스킬 (투사체 등)
-│   │   │   ├── Projectile.cs           # 전략을 수행하는 투사체 컨텍스트
-│   │   │   └── Strategies/             # 실제 구현체 (Ricochet, Multishot, Fire...)
+│   │   │   ├── Projectile.cs   # 전략을 수행하는 투사체 컨텍스트
+│   │   │   └── Strategies/     # 실제 구현체 (Ricochet, MultiShot, Basic, SplitShot 등)
 │   │   │
 │   │   └── Passive/            # 패시브 스킬 (버프, 소환 등)
-│   │       └── Strategies/             # 실제 구현체 (StatBoost, RotatingShield...)
+│   │       └── Strategies/     # 실제 구현체 (StatBoost, RotatingShield, AutoTurret 등)
+│   │   
+│   ├── 04_SummonPrefab/        # 각 소환체 구현 Scripts
 │   │
-│   └── 04_UI/                  # UI 스크립트
+│   └── 05_UI/                  # UI 스크립트
 │       ├── LobbyScene/         # 로비 전용 UI
-│       └── StageScene/         # 인게임 HUD, Pause, 결과창 UI
+│       └── StageScene/         # LevelUpController, 인게임 HUD, Pause, 결과창 UI, LevelUp UI 등
 │
 ├── 03_Prefabs/                 # 인게임에서 생성되는 실제 오브젝트 및 데이터 에셋
 │   ├── 01_SO/                  # [Data] ScriptableObject 실제 데이터 파일 (.asset)
@@ -152,19 +160,22 @@ Assets/
 │   │   ├── StatData/           # 스탯 테이블
 │   │   │   ├── Player/         # PlayerStatData.asset (기본 스탯)
 │   │   │   └── Enemy/          # EnemyStatData.asset (몬스터별 스탯)
+│   │   ├── StageData/          # StageDataSO.asset, RoomDataSO.asset
 │   │   └── LevelData/          # LevelTable.asset (경험치 테이블)
 │   │
 │   ├── 02_Managers/            # DDOL 매니저 프리팹
 │   │   ├── GameManager.prefab
+│   │   ├── StageManager.prefab
 │   │   └── PoolManager.prefab
 │   │
 │   ├── 03_Player/              # 플레이어 관련 프리팹
+│   │   └── SummonPrefabs/      # 스킬에의해 생성되는 소환수 프리팹
 │   │
 │   ├── 04_Enemy/               # 적 관련 프리팹
 │   │
 │   ├── 05_Skill/               # 스킬 관련 오브젝트 프리팹
-│   │   ├── Projectiles/        # 화살, 마법구 등 투사체
-│   │   └── Effects/            # 피격 이펙트, 폭발 이펙트 등
+│   │   ├── Active/             # 화살, 마법구 등 투사체
+│   │   └── Passive/            # 피격 이펙트, 폭발 이펙트 등
 │   │
 │   ├── 06_UI/                  # UI 프리팹(아래 예시)
 │   │   ├── HUD_Canvas.prefab   # 조이스틱, HP바, 경험치바
@@ -215,15 +226,21 @@ Assets/
 
 ### 🔹 Naming & Syntax (명명 규칙)
 
-1. **Private 멤버 변수**: `m` + `PascalCase` (대문자로 시작)
+1. **Private(Protected) 멤버 변수**: `m` + `PascalCase` (대문자로 시작)
   - ✅ `private float mCurrentHp;`
   - ❌ `private float currentHp;`/`private float _currentHp;`
-
+  - `bool`은 예외 **4.**을 따름
 2. **Interface**: 이름 앞에 `I` 접두사 필수
   - ✅ `IProjectileStrategy`, `IDamageable`
 
 3. **Enum**: 이름 앞에 `E` 접두사 필수
   - ✅ `EEnemyState`, `ESkillType`
+
+4. **private bool**: `b` + `PascalCase` (대문자로 시작)
+  - ✅ `bIsGround`, `bCanMove`
+
+5. **Property** : 전부 `PascalCase` (대문자로 시작)
+  - ✅ `public bool IsGround => bIsGround`
 
 ### 🔹 Safety & Optimization (안전성 및 최적화)
 
@@ -296,6 +313,6 @@ feat/이니셜 : 핵심 변경 사항 요약
 
 ---
 
-# 👨‍💻 Contributors (Oz_Team24)
+# 👨‍💻 Contributors (Team_52Hours)
 **Role:** Unity Client Developer  
-**Engine:** Unity 2022.3 LTS
+**Engine:** Unity 2022.3.18f1

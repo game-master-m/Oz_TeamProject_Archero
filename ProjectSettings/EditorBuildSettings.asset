@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/01_Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
@@ -13,5 +13,11 @@ EditorBuildSettings:
     guid: 68011e81d2f381843aa82c31011004de
   - enabled: 1
     path: Assets/01_Scenes/Stage_Temp.unity
-    guid: 0b3f17f011387654ca410f54735f2f02
+    guid: 27c2a7eb6f3212c4c913460459332e2d
+  - enabled: 0
+    path: Assets/01_Scenes/JJH/Lobby_JJH.unity
+    guid: 36be9442c0a6b4f4eac77ce8d7238ff7
+  - enabled: 0
+    path: Assets/01_Scenes/JJH/Stage_Temp.unity
+    guid: 2cdc4b4131fa96441ac7c3e568041209
   m_configObjects: {}

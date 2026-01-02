@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc079c4c6e704046b5ffa352be6e1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onGamePause: {fileID: 11400000, guid: 0d7d28268687d8c4888fb3f3f7eb2355, type: 2}
-  onGameResume: {fileID: 11400000, guid: c09c4aeaf124e844bbdcf20f6dd6e32f, type: 2}
+  mOnGamePause: {fileID: 11400000, guid: 0d7d28268687d8c4888fb3f3f7eb2355, type: 2}
+  mOnGameResume: {fileID: 11400000, guid: c09c4aeaf124e844bbdcf20f6dd6e32f, type: 2}
+  mOnSceneChanged: {fileID: 11400000, guid: f4a4e8fe2d455754ba9006fb0f0ab2d1, type: 2}
